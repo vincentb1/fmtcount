@@ -317,7 +317,7 @@ zehntes%
 \fi
 }
 %    \end{macrocode}
-% This appends the results to |#2| for number |#2| (in range 0 to
+% This appends the results to |\#2| for number |\#2| (in range 0 to
 % 100.)
 % null and eins are dealt with separately in
 % |\@@numberstringgerman|.
@@ -368,14 +368,14 @@ zehntes%
 \@strctr=#1\relax \divide\@strctr by 1000\relax
 \ifnum\@strctr>1\relax
 %    \end{macrocode}
-% #1 is >= 2000, \@strctr now contains the number of thousands
+% \#1 is $\geq 2000$, \cs{@strctr} now contains the number of thousands
 %    \begin{macrocode}
 \@@numberunderhundredgerman{\@strctr}{#2}%
   \let\@@fc@numstr#2\relax
   \edef#2{\@@fc@numstr tausend}%
 \else
 %    \end{macrocode}
-% #1 lies in range [1000,1999]
+% \#1 lies in range [1000,1999]
 %    \begin{macrocode}
   \ifnum\@strctr=1\relax
     \let\@@fc@numstr#2\relax
@@ -398,7 +398,7 @@ zehntes%
 %    \begin{macrocode}
      \ifnum#1>1000\relax
 %    \end{macrocode}
-% if original number > 1000, use einhundert
+% if original number $> 1000$, use einhundert
 %    \begin{macrocode}
         \let\@@fc@numstr#2\relax
         \edef#2{\@@fc@numstr einhundert}%
@@ -468,7 +468,7 @@ zehntes%
 \@strctr=#1\relax \divide\@strctr by 1000\relax
 \ifnum\@strctr>1\relax
 %    \end{macrocode}
-% #1 is >= 2000, \@strctr now contains the number of thousands
+% \#1 is $\geq 2000$, \cs{@strctr} now contains the number of thousands
 %    \begin{macrocode}
 \@@numberunderhundredgerman{\@strctr}{#2}%
   \let\@@fc@numstr#2\relax
@@ -483,7 +483,7 @@ zehntes%
   \fi
 \else
 %    \end{macrocode}
-% #1 lies in range [1000,1999]
+% \#1 lies in range [1000,1999]
 %    \begin{macrocode}
   \ifnum\@strctr=1\relax
     \ifnum#1=1000\relax
