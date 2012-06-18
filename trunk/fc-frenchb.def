@@ -1,0 +1,24 @@
+% \subsubsection{fc-frenchb.def}
+%    \begin{macrocode}
+\ProvidesFCLanguage{frenchb}[2012/06/18]
+\FCloadlang{french}
+%    \end{macrocode}
+% Set |frenchb| to be equivalent to |french|.
+%    \begin{macrocode}
+\let\@ordinalMfrenchb=\@ordinalMfrench
+\let\@ordinalFfrenchb=\@ordinalFfrench
+\let\@ordinalNfrenchb=\@ordinalNfrench
+\let\@numberstringMfrenchb=\@numberstringMfrench
+\let\@numberstringFfrenchb=\@numberstringFfrench
+\let\@numberstringNfrenchb=\@numberstringNfrench
+\let\@NumberstringMfrenchb=\@NumberstringMfrench
+\let\@NumberstringFfrenchb=\@NumberstringFfrench
+\let\@NumberstringNfrenchb=\@NumberstringNfrench
+\let\@ordinalstringMfrenchb=\@ordinalstringMfrench
+\let\@ordinalstringFfrenchb=\@ordinalstringFfrench
+\let\@ordinalstringNfrenchb=\@ordinalstringNfrench
+\let\@OrdinalstringMfrenchb=\@OrdinalstringMfrench
+\let\@OrdinalstringFfrenchb=\@OrdinalstringFfrench
+\let\@OrdinalstringNfrenchb=\@OrdinalstringNfrench
+%    \end{macrocode}
+
