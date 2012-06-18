@@ -1,11 +1,11 @@
 % \subsubsection{fc-USenglish.def}
 % US English definitions
 %    \begin{macrocode}
-\ProvidesFile{fc-USenglish}[2007/06/14]
+\ProvidesFCLanguage{USenglish}[2012/06/18]
 %    \end{macrocode}
-% Check that fc-english.def has been loaded
+% Loaded fc-english.def if not already loaded
 %    \begin{macrocode}
-\@ifundefined{@ordinalMenglish}{\input{fc-english.def}}{}
+\FCloadlang{english}
 %    \end{macrocode}
 % These are all just synonyms for the commands provided by
 % fc-english.def. (This needs fixing as there are some differences

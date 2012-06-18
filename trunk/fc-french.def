@@ -40,7 +40,7 @@
 %%   Right bracket \]     Circumflex    \^     Underscore    \_
 %%   Grave accent  \`     Left brace    \{     Vertical bar  \|
 %%   Right brace   \}     Tilde         \~}
-\ProvidesFile{fc-french.def}[2007/05/26]
+\ProvidesFCLanguage{french}[2012/06/18]
 \RequirePackage{fcprefix}
 
 % bignumber were developped based reference: http://www.alain.be/boece/noms_de_nombre.html

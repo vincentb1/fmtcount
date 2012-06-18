@@ -38,27 +38,78 @@
 \providecommand*{\padzeroes}[1][17]{\c@padzeroesN=#1}
 %    \end{macrocode}
 %\end{macro}
+%
+%\begin{macro}{\FCloadlang}
+%changes{2.0}{2012-06-18}{new}
+%\begin{definition}
+%\cs{FCloadlang}\marg{language}
+%\end{definition}
+% Load \styfmt{fmtcount} language file,
+% \texttt{fc-}\meta{language}\texttt{.def}, unless already loaded.
+%    \begin{macrocode}
+\newcommand*{\FCloadlang}[1]{%
+  \@FC@iflangloaded{#1}{}%
+  {%
+    \input{fc-#1.def}%
+  }%
+}
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\@FC@iflangloaded}
+%changes{2.0}{2012-06-18}{new}
+%\begin{definition}
+%\cs{@FC@iflangloaded}\marg{language}\marg{true}\marg{false}
+%\end{definition}
+%If fmtcount language definition file \texttt{fc-}\meta{language}\texttt{.def} has
+%been loaded, do \meta{true} otherwise do \meta{false}
+%    \begin{macrocode}
+\newcommand{\@FC@iflangloaded}[3]{%
+  \@ifundefined{ver@fc-#1.def}{#3}{#2}%
+}
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\ProvidesFCLanguage}
+%changes{2.0}{2012-06-18}{new}
+% Declare fmtcount language definition file. Adapted from
+% \ics{ProvidesFile}.
+%    \begin{macrocode}
+\newcommand*{\ProvidesFCLanguage}[1]{%
+  \ProvidesFile{fc-#1.def}%
+}
+%    \end{macrocode}
+%\end{macro}
+%
+%\begin{macro}{\@fc@loadifbabelldf}
+%\begin{definition}
+%\cs{@fc@loadigbabelldf}\marg{language}
+%\end{definition}
+%Loads fmtcount language file,
+%\texttt{fc-}\meta{language}\texttt{.def}, 
+% if babel language definition file
+% \meta{language}\texttt{.ldf} has been loaded.
+%    \begin{macrocode}
+\newcommand*{\@fc@loadifbabelldf}[1]{%
+  \@ifundefined{ver@#1.ldf}{}{\FCloadlang{#1}}%
+}
+%    \end{macrocode}
+%\end{macro}
+%
 % Load appropriate language definition files:
 %\changes{1.1}{14 June 2007}{added check for UKenglish,
 % british and USenglish babel settings}
 %\changes{2.0}{2012-06-18}{changed check for \cs{l@}\meta{language} 
 % to check for \cs{date}\meta{language}}
 %    \begin{macrocode}
-\@ifundefined{dateenglish}{}{\input{fc-english.def}}
-\@ifundefined{dateUKenglish}{}{\input{fc-UKenglish.def}}
-\@ifundefined{datebritish}{}{\input{fc-british.def}}
-\@ifundefined{dateUSenglish}{}{\input{fc-USenglish.def}}
-\@ifundefined{datespanish}{}{\input{fc-spanish.def}}
-\@ifundefined{dateportuges}{}{\input{fc-portuges.def}}
-\@ifundefined{datefrench}{}{\input{fc-french.def}}
-\@ifundefined{dategerman}
- {%
-   \@ifundefined{datengerman}{}{\input{fc-german.def}}%
- }
- {%
-    \input{fc-german.def}%
- }
-\@ifundefined{dateitalian}{}{\input{fc-italian.def}}
+\@fc@loadifbabelldf{english}
+\@fc@loadifbabelldf{UKenglish}
+\@fc@loadifbabelldf{british}
+\@fc@loadifbabelldf{USenglish}
+\@fc@loadifbabelldf{spanish}
+\@fc@loadifbabelldf{portuges}
+\@fc@loadifbabelldf{french}
+\@fc@loadifbabelldf{german}%
+\@fc@loadifbabelldf{ngerman}%
+\@fc@loadifbabelldf{italian}
 %    \end{macrocode}
 %\begin{macro}{\fmtcount@french}
 % Define keys for use with |\fmtcountsetoptions|.
@@ -1375,7 +1426,7 @@
 % sets the macros to use English.
 %    \begin{macrocode}
 \def\@setdef@ultfmtcount{%
-  \@ifundefined{@ordinalMenglish}{\input{fc-english.def}}{}%
+  \@ifundefined{@ordinalMenglish}{\FCloadlang{english}}{}%
   \def\@ordinalstringM{\@ordinalstringMenglish}%
   \let\@ordinalstringF=\@ordinalstringMenglish
   \let\@ordinalstringN=\@ordinalstringMenglish
@@ -1638,11 +1689,7 @@
 {%
   \@ifpackageloaded{ngerman}%
   {%
-    \@ifundefined{@numberstringMgerman}%
-    {%
-      \input{fc-german.def}%
-    }%
-    {}%
+    \FCloadlang{ngerman}%
     \@set@mulitling@fmtcount
   }%
   {%

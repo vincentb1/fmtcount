@@ -1,7 +1,7 @@
 % \subsubsection{fc-english.def}
 % English definitions
 %    \begin{macrocode}
-\ProvidesFile{fc-english}[2007/05/26]
+\ProvidesFCLanguage{english}[2012/06/18]
 %    \end{macrocode}
 % Define macro that converts a number or count register (first 
 % argument) to an ordinal, and stores the result in the 

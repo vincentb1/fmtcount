@@ -1,0 +1,25 @@
+% \subsubsection{fc-ngerman.def}
+%    \begin{macrocode}
+\ProvidesFCLanguage{ngerman}[2012/06/18]
+\FCloadlang{german}
+%    \end{macrocode}
+% Set |ngerman| to be equivalent to |german|. Is it okay to do
+% this? (I don't know the difference between the two.)
+%    \begin{macrocode}
+\let\@ordinalMngerman=\@ordinalMgerman
+\let\@ordinalFngerman=\@ordinalFgerman
+\let\@ordinalNngerman=\@ordinalNgerman
+\let\@numberstringMngerman=\@numberstringMgerman
+\let\@numberstringFngerman=\@numberstringFgerman
+\let\@numberstringNngerman=\@numberstringNgerman
+\let\@NumberstringMngerman=\@NumberstringMgerman
+\let\@NumberstringFngerman=\@NumberstringFgerman
+\let\@NumberstringNngerman=\@NumberstringNgerman
+\let\@ordinalstringMngerman=\@ordinalstringMgerman
+\let\@ordinalstringFngerman=\@ordinalstringFgerman
+\let\@ordinalstringNngerman=\@ordinalstringNgerman
+\let\@OrdinalstringMngerman=\@OrdinalstringMgerman
+\let\@OrdinalstringFngerman=\@OrdinalstringFgerman
+\let\@OrdinalstringNngerman=\@OrdinalstringNgerman
+%    \end{macrocode}
+

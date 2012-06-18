@@ -2,7 +2,7 @@
 % Italian support is now handled by interfacing to Enrico Gregorio's
 % itnumpar package.
 %    \begin{macrocode}
-\ProvidesFile{fc-italian.def}[2009/10/05]
+\ProvidesFCLanguage{italian}[2012/06/18]
 
 \RequirePackage{itnumpar}
 
