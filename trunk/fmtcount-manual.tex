@@ -1,0 +1,490 @@
+\documentclass{nlctdoc}
+
+\usepackage{color}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{cmap}
+\usepackage[colorlinks,
+            bookmarks,
+            bookmarksopen,
+            pdfauthor={Nicola L.C. Talbot},
+            pdftitle={fmtcount.sty: Displaying the Values of LaTeX Counters},
+            pdfkeywords={LaTeX,counter}]{hyperref}
+
+\CheckSum{9371}
+
+\doxitem{Option}{option}{options}
+
+\begin{document}
+\RecordChanges
+
+ \title{fmtcount.sty: Displaying the Values of 
+\LaTeX\ Counters}
+ \author{Nicola L.C. Talbot\\
+ \url{http://theoval.cmp.uea.ac.uk/~nlct/}}
+ \date{%%DATE%% (version %%VERSION%%)\relax
+}
+ \maketitle
+ \tableofcontents
+ \section{Introduction}
+
+The \styfmt{fmtcount} package provides commands to display
+the values of \LaTeX\ counters in a variety of formats. It also
+provides equivalent commands for actual numbers rather than 
+counter names. Limited multilingual support is available. 
+Currently, there is only support for English, French (including
+Belgian and Swiss variations), Spanish, Portuguese, German and 
+Italian.
+
+\section{Available Commands}
+
+The commands can be divided into two categories: those that
+take the name of a counter as the argument, and those
+that take a number as the argument.
+
+\begin{definition}[\DescribeMacro{\ordinal}]
+\cs{ordinal}\marg{counter}\oarg{gender}
+\end{definition}
+This will print the value of a \LaTeX\ counter \meta{counter} as an 
+ordinal, where the macro
+\begin{definition}[\DescribeMacro{\fmtord}]
+\cs{fmtord}\marg{text}
+\end{definition}
+is used to format the st, nd, rd, th bit.  By default the ordinal is
+formatted as a superscript, if the package option \pkgopt{level} is
+used, it is level with the text.  For example, if the current section
+is 3, then \verb"\ordinal{section}" will produce the output:
+3\textsuperscript{rd}. Note that the optional argument \meta{gender} 
+occurs \emph{at the end}. This argument may only take one of
+the following values: \texttt{m} (masculine), \texttt{f}
+(feminine) or \texttt{n} (neuter.) If \meta{gender} is omitted, 
+or if the given gender has no meaning in the current language, 
+\texttt{m} is assumed.
+
+\textbf{Notes:} 
+\begin{enumerate}
+\item the \cls{memoir} class also defines a command called
+\cs{ordinal} which takes a number as an argument instead of a
+counter. In order to overcome this incompatiblity, if you want
+to use the \styfmt{fmtcount} package with the \cls{memoir} class 
+you should use
+\begin{definition}[\DescribeMacro{\FCordinal}]
+\cs{FCordinal}
+\end{definition}
+to access \styfmt{fmtcount}'s version of \cs{ordinal}, and use
+\cs{ordinal} to use \cls{memoir}'s version of that command.
+
+\item As with all commands which have an optional argument as the
+last argument, if the optional argument is omitted, any spaces
+following the final argument will be ignored. Whereas, if the
+optional argument is present, any spaces following the optional
+argument won't be ignored. so \verb"\ordinal{section} !"
+will produce: 3\textsuperscript{rd}! whereas
+ \verb"\ordinal{section}[m] !" will produce:
+3\textsuperscript{rd} !
+\end{enumerate}
+
+\begin{definition}[\DescribeMacro{\ordinalnum}]
+\cs{ordinalnum}\marg{n}\oarg{gender}
+\end{definition}
+This is like \cs{ordinal} but takes an actual number rather than a 
+counter as the argument. For example: \verb"\ordinalnum{3}" will
+produce: 3\textsuperscript{rd}.
+
+\begin{definition}[\DescribeMacro{\numberstring}]
+\cs{numberstring}\marg{counter}\oarg{gender}
+\end{definition}
+This will print the value of \meta{counter} as text.  E.g.\
+\verb"\numberstring{section}" will produce: three. The optional
+argument is the same as that for \cs{ordinal}.
+
+\begin{definition}[\DescribeMacro{\Numberstring}]
+\cs{Numberstring}\marg{counter}\oarg{gender}
+\end{definition}
+This does the same as \cs{numberstring}, but with initial letters in
+uppercase.  For example, \verb"\Numberstring{section}" will produce:
+Three.
+
+\begin{definition}[\DescribeMacro{\NUMBERstring}]
+\cs{NUMBERstring}\marg{counter}\oarg{gender}
+\end{definition}
+This does the same as \cs{numberstring}, but converts the string to
+upper case. Note that
+\verb"\MakeUppercase{\NUMBERstring{"\meta{counter}\verb'}}' doesn't
+work, due to the way that \cs{MakeUppercase} expands its
+argument\footnote{See all the various postings to
+\texttt{comp.text.tex} about \cs{MakeUppercase}}.
+
+\begin{definition}[\DescribeMacro{\numberstringnum}]
+\cs{numberstringnum}\marg{n}\oarg{gender}
+\end{definition}
+\begin{definition}[\DescribeMacro{\Numberstringnum}]
+\cs{Numberstringnum}\marg{n}\oarg{gender}
+\end{definition}
+\begin{definition}[\DescribeMacro{\NUMBERstringnum}]
+\cs{NUMBERstringnum}\marg{n}\oarg{gender}
+\end{definition}
+Theses macros  work like 
+\cs{numberstring}, \cs{Numberstring} and \cs{NUMBERstring}, 
+respectively, but take an actual number
+rather than a counter as the argument. For example:
+\verb'\Numberstringnum{105}' will produce: One Hundred and Five.
+
+\begin{definition}[\DescribeMacro{\ordinalstring}]
+\cs{ordinalstring}\marg{counter}\oarg{gender}
+\end{definition}
+This will print the value of \meta{counter} as a textual ordinal.
+E.g.\ \verb"\ordinalstring{section}" will produce: third. The
+optional argument is the same as that for \cs{ordinal}.
+
+\begin{definition}[\DescribeMacro{\Ordinalstring}]
+\cs{Ordinalstring}\marg{counter}\oarg{gender}
+\end{definition}
+This does the same as \cs{ordinalstring}, but with initial letters in
+uppercase.  For example, \verb"\Ordinalstring{section}" will produce:
+Third.
+
+\begin{definition}[\DescribeMacro{\ORDINALstring}]
+\cs{ORDINALstring}\marg{counter}\oarg{gender}
+\end{definition}
+This does the same as \cs{ordinalstring}, but with all words in upper
+case (see previous note about \cs{MakeUppercase}).
+
+\begin{definition}[\DescribeMacro{\ordinalstringnum}]
+\cs{ordinalstringnum}\marg{n}\oarg{gender}
+\end{definition}
+\begin{definition}[\DescribeMacro{\Ordinalstringnum}]
+\cs{Ordinalstringnum}\marg{n}\oarg{gender}
+\end{definition}
+\begin{definition}[\DescribeMacro{\ORDINALstringnum}]
+\cs{ORDINALstringnum}\marg{n}\oarg{gender}
+\end{definition}
+These macros work like \cs{ordinalstring}, \cs{Ordinalstring} and
+\cs{ORDINALstring}, respectively, but take an actual number rather
+than a counter as the argument. For example,
+\verb"\ordinalstringnum{3}" will produce: third.
+
+\changes{v.1.09}{21 Apr 2007}{store facility added}
+As from version 1.09, textual representations can be stored for
+later use. This overcomes the problems encountered when you
+attempt to use one of the above commands in \cs{edef}.
+
+Each of the following commands takes a label as the first argument,
+the other arguments are as the analogous commands above. These
+commands do not display anything, but store the textual 
+representation. This can later be retrieved using
+
+\begin{definition}[\DescribeMacro{\FMCuse}]
+\cs{FMCuse}\marg{label}
+\end{definition}
+
+\begin{important}
+Note: with \cs{storeordinal} and \cs{storeordinalnum}, the 
+only bit that doesn't get expanded is \cs{fmtord}. So, for 
+example, \verb"\storeordinalnum{mylabel}{3}" will be stored as
+\verb"3\relax \fmtord{rd}".
+\end{important}
+
+\begin{definition}[\DescribeMacro{\storeordinal}]
+\cs{storeordinal}\marg{label}\marg{counter}\oarg{gender}
+\end{definition}
+
+\begin{definition}[\DescribeMacro{\storeordinalstring}]
+\cs{storeordinalstring}\marg{label}\marg{counter}\oarg{gender}
+\end{definition}
+
+\begin{definition}[\DescribeMacro{\storeOrdinalstring}]
+\cs{storeOrdinalstring}\marg{label}\marg{counter}\oarg{gender}
+\end{definition}
+
+
+\begin{definition}[\DescribeMacro{\storeORDINALstring}]
+\cs{storeORDINALstring}\marg{label}\marg{counter}\oarg{gender}
+\end{definition}
+
+\begin{definition}[\DescribeMacro{\storenumberstring}]
+\cs{storenumberstring}\marg{label}\marg{counter}\oarg{gender}
+\end{definition}
+
+\begin{definition}[\DescribeMacro{\storeNumberstring}]
+\cs{storeNumberstring}\marg{label}\marg{counter}\oarg{gender}
+\end{definition}
+
+\begin{definition}[\DescribeMacro{\storeNUMBERstring}]
+\cs{storeNUMBERstring}\marg{label}\marg{counter}\oarg{gender}
+\end{definition}
+
+\begin{definition}[\DescribeMacro{\storeordinalnum}]
+\cs{storeordinalnum}\marg{label}\marg{number}\oarg{gender}
+\end{definition}
+
+\begin{definition}[\DescribeMacro{\storeordinalstringnum}]
+\cs{storeordinalstring}\marg{label}\marg{number}\oarg{gender}
+\end{definition}
+
+\begin{definition}[\DescribeMacro{\storeOrdinalstringnum}]
+\cs{storeOrdinalstringnum}\marg{label}\marg{number}\oarg{gender}
+\end{definition}
+
+\begin{definition}[\DescribeMacro{\storeORDINALstringnum}]
+\cs{storeORDINALstringnum}\marg{label}\marg{number}\oarg{gender}
+\end{definition}
+
+\begin{definition}[\DescribeMacro{\storenumberstringnum}]
+\cs{storenumberstring}\marg{label}\marg{number}\oarg{gender}
+\end{definition}
+
+\begin{definition}[\DescribeMacro{\storeNumberstringnum}]
+\cs{storeNumberstring}\marg{label}\marg{number}\oarg{gender}
+\end{definition}
+
+\begin{definition}[\DescribeMacro{\storeNUMBERstringnum}]
+\cs{storeNUMBERstring}\marg{label}\marg{number}\oarg{gender}
+\end{definition}
+
+\begin{definition}[\DescribeMacro{\binary}]
+\cs{binary}\marg{counter}
+\end{definition}
+This will print the value of \meta{counter} as a binary number.
+E.g.\ \verb"\binary{section}" will produce: 11. The declaration
+\begin{definition}[\DescribeMacro{\padzeroes}]
+\cs{padzeroes}\oarg{n}
+\end{definition}
+will ensure numbers are written to \meta{n} digits, padding with
+zeroes if necessary. E.g.\ \verb"\padzeroes[8]\binary{section}" will
+produce: 00000011. The default value for \meta{n} is 17.
+
+\begin{definition}[\DescribeMacro{\binarynum}]
+\cs{binary}\marg{n}
+\end{definition}
+This is like \cs{binary} but takes an actual number rather than a
+counter as the argument. For example: \verb"\binarynum{5}" will
+produce: 101.
+
+\begin{definition}[\DescribeMacro{\octal}]
+\cs{octal}\marg{counter}
+\end{definition}
+This will print the value of \meta{counter} as an octal number.  For
+example, if you have a counter called, say \texttt{mycounter}, and
+you set the value to 125, then \verb"\octal{mycounter}" will produce:
+177.  Again, the number will be padded with zeroes if necessary,
+depending on whether \cs{padzeroes} has been used.
+
+\begin{definition}[\DescribeMacro{\octalnum}]
+\cs{octalnum}\marg{n}
+\end{definition}
+This is like \cs{octal} but takes an actual number rather than a
+counter as the argument. For example: \verb"\octalnum{125}" will
+produce: 177.
+
+\begin{definition}[\DescribeMacro{\hexadecimal}]
+\cs{hexadecimal}\marg{counter}
+\end{definition}
+This will print the value of \meta{counter} as a hexadecimal number.
+Going back to the counter used in the previous example,
+\verb"\hexadecimal{mycounter}" will produce: 7d. Again, the number
+will be padded with zeroes if necessary, depending on whether
+\cs{padzeroes} has been used.
+
+\begin{definition}[\DescribeMacro{\Hexadecimal}]
+\cs{Hexadecimal}\marg{counter}
+\end{definition}
+This does the same thing, but uses uppercase characters, e.g.\
+\verb"\Hexadecimal{mycounter}" will produce: 7D.
+
+\begin{definition}[\DescribeMacro{\hexadecimalnum}]
+\cs{hexadecimalnum}\marg{n}
+\end{definition}
+
+\begin{definition}[\DescribeMacro{\Hexadecimalnum}]
+\cs{Hexadecimalnum}\marg{n}
+\end{definition}
+These are like \cs{hexadecimal} and \cs{Hexadecimal}
+but take an actual number rather than a counter as the
+argument. For example: \verb"\hexadecimalnum{125}" will
+produce: 7d, and \verb"\Hexadecimalnum{125}" will 
+produce: 7D.
+
+\begin{definition}[\DescribeMacro{\decimal}]
+\cs{decimal}\marg{counter}
+\end{definition}
+This is similar to \cs{arabic} but the number can be padded with
+zeroes depending on whether \cs{padzeroes} has been used.  For
+example: \verb"\padzeroes[8]\decimal{section}" will produce:
+00000005.
+
+\begin{definition}[\DescribeMacro{\decimalnum}]
+\cs{decimalnum}\marg{n}
+\end{definition}
+This is like \cs{decimal} but takes an actual number rather than a
+counter as the argument. For example:
+\verb"\padzeroes[8]\decimalnum{5}" will produce: 00000005.
+
+\begin{definition}[\DescribeMacro{\aaalph}]
+\cs{aaalph}\marg{counter}
+\end{definition}
+This will print the value of \meta{counter} as: a b \ldots\ z aa bb
+\ldots\ zz etc.  For example, \verb"\aaalpha{mycounter}" will
+produce: uuuuu if \texttt{mycounter} is set to 125.
+
+\begin{definition}[\DescribeMacro{\AAAlph}]
+\cs{AAAlph}\marg{counter}
+\end{definition}
+This does the same thing, but uses uppercase characters, e.g.\
+\verb"\AAAlph{mycounter}" will produce: UUUUU.
+
+\begin{definition}[\DescribeMacro{\aaalphnum}]
+\cs{aaalphnum}\marg{n}
+\end{definition}
+
+\begin{definition}[\DescribeMacro{\AAAlphnum}]
+\cs{AAAlphnum}\marg{n}
+\end{definition}
+These macros are like \cs{aaalph} and \cs{AAAlph}
+but take an actual number rather than a counter as the
+argument. For example: \verb"\aaalphnum{125}" will
+produce: uuuuu, and \verb"\AAAlphnum{125}" will 
+produce: UUUUU.
+
+\begin{definition}[\DescribeMacro{\abalph}]
+\cs{abalph}\marg{counter}
+\end{definition}
+This will print the value of \meta{counter} as: a b \ldots\ z aa ab
+\ldots\ az etc.  For example, \verb"\abalpha{mycounter}" will
+produce: du if \texttt{mycounter} is set to 125.
+
+\begin{definition}[\DescribeMacro{\ABAlph}]
+\cs{ABAlph}\marg{counter}
+\end{definition}
+This does the same thing, but uses uppercase characters, e.g.\
+\verb"\ABAlph{mycounter}" will produce: DU.
+
+\begin{definition}[\DescribeMacro{\abalphnum}]
+\cs{abalphnum}\marg{n}
+\end{definition}
+
+\begin{definition}[\DescribeMacro{\ABAlphnum}]
+\cs{ABAlphnum}\marg{n}
+\end{definition}
+These macros are like \cs{abalph} and \cs{ABAlph}
+but take an actual number rather than a counter as the
+argument. For example: \verb"\abalphnum{125}" will
+produce: du, and \verb"\ABAlphnum{125}" will 
+produce: DU.
+
+\section{Package Options}
+
+The following options can be passed to this package:
+
+\begin{tabular}{ll}
+ \pkgopt{raise}    & make ordinal st,nd,rd,th appear as superscript\\
+ \pkgopt{level}    & make ordinal st,nd,rd,th appear level with rest of 
+text
+\end{tabular}
+
+\noindent These can also be set using the command:
+
+\begin{definition}[\DescribeMacro{\fmtcountsetoptions}]
+\cs{fmtcountsetoptions}\verb"{fmtord="\meta{type}\verb'}'
+\end{definition}
+where \meta{type} is either \texttt{level} or 
+\texttt{raise}.
+
+\section{Multilingual Support}
+
+Version 1.02 of the \sty{fmtcount} package now has
+limited multilingual support.  The following languages are
+implemented: English, Spanish, Portuguese, French, French (Swiss)
+and French (Belgian). German support was added in version 
+1.1.\footnote{Thanks to K. H. Fricke for supplying the information.}
+Italian support was added in version 1.31.\footnote{Thanks to
+Edoardo Pasca for supplying the information.}
+
+The package checks to see if the command \cs{l@}\meta{language} is
+defined\footnote{this will be true if you have loaded \sty{babel}},
+and will load the code for those languages.  The commands
+\cs{ordinal}, \cs{ordinalstring} and \cs{numberstring} (and their
+variants) will then be formatted in the currently selected language.
+
+If the French language is selected, the French (France) version
+will be used by default (e.g.\ soxiante-dix for 70).  To
+select the Swiss or Belgian variants (e.g.\ septente for 70) use:
+\verb"\fmtcountsetoptions{french="\meta{dialect}\verb'}'
+where \meta{dialect} is either \texttt{swiss} or \texttt{belgian}.
+You can also use this command to change the action of 
+\cs{ordinal}.
+\verb"\fmtcountsetoptions{abbrv=true}" to produce ordinals
+of the form 2\textsuperscript{e} or
+\verb"\fmtcountsetoptions{abbrv=false}" to produce ordinals
+of the form 2\textsuperscript{eme} (default).
+
+The \texttt{french} and \texttt{abbrv} settings only have an
+effect if the French language has been defined.
+
+The male gender for all languages is used by default, however the
+feminine or neuter forms can be obtained by passing \texttt{f} or
+\texttt{n} as an optional argument to \cs{ordinal},
+\cs{ordinalnum} etc.  For example:
+\verb"\numberstring{section}[f]". Note that the optional argument
+comes \emph{after} the compulsory argument.  If a gender is
+not defined in a given language, the masculine version will
+be used instead.
+
+Let me know if you find any spelling mistakes (has been known
+to happen in English, let alone other languages with which I'm not so
+familiar.) If you want to add support for another language,
+you will need to let me know how to form the numbers and ordinals 
+from~0 to~99999 in that language for each gender.
+
+\section{Configuration File \texttt{fmtcount.cfg}}
+
+You can save your preferred default settings to a file called
+\texttt{fmtcount.cfg}, and place it on the \TeX\ path.  These
+settings will then be loaded by the \sty{fmtcount}
+package.
+
+Note that if you are using the \sty{datetime} package,
+the \texttt{datetime.cfg} configuration file will override
+the \texttt{fmtcount.cfg} configuration file.
+For example, if \texttt{datetime.cfg} has the line:
+\begin{verbatim}
+\renewcommand{\fmtord}[1]{\textsuperscript{\underline{#1}}}
+\end{verbatim}
+and if \texttt{fmtcount.cfg} has the line:
+\begin{verbatim}
+\fmtcountsetoptions{fmtord=level}
+\end{verbatim}
+then the former definition of \cs{fmtord} will take
+precedence.
+
+\section{LaTeX2HTML style}
+
+The \LaTeX2HTML\ style file \texttt{fmtcount.perl} is provided.
+The following limitations apply:
+
+\begin{itemize}
+\item \cs{padzeroes} only has an effect in the preamble.
+
+\item The configuration file 
+\texttt{fmtcount.cfg} is currently ignored. (This is because
+I can't work out the correct code to do this.  If you
+know how to do this, please let me know.)  You can however
+do:
+\begin{verbatim}
+\usepackage{fmtcount}
+\html{\input{fmtcount.cfg}}
+\end{verbatim}
+This, I agree, is an unpleasant cludge.
+
+\end{itemize}
+
+\section{Acknowledgements}
+
+I would like to thank all the people who have provided translations.
+
+\section{Troubleshooting}
+
+There is a FAQ available at: 
+\url{http://theoval.cmp.uea.ac.uk/~nlct/latex/packages/faq/}.
+
+\end{document}

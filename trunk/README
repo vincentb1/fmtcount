@@ -1,0 +1,52 @@
+LaTeX Package : fmtcount v 1.31
+
+Last Modified : 2 October 2009
+
+Author        : Nicola Talbot
+
+Files         : fmtcount.dtx   - documented source file
+                fmtcount.ins   - installation script
+		fmtcount.perl  - latex2html style file
+		fc-samp.tex    - sample files
+		fc-lang.tex    /
+
+The package fmtcount.sty provides commands 
+that display the value of a LaTeX counter in a variety 
+of formats (ordinal, text, hexadecimal, decimal, 
+octal, binary etc).  This package was originally provided
+with the datetime package, but is now distributed separately.
+
+See the documentation for more details.
+
+To extract the code from the documented source file do:
+
+latex fmtcount.ins
+
+This will create the files: fmtcount.sty (the LaTeX package), 
+and fc-*.def (the language definition files used by 
+fmtcount.sty).
+
+Move the .sty and .def files to somewhere LaTeX will find it 
+(e.g. texmf/tex/latex/fmtcount/) and remember to update the TeX 
+database. 
+
+Copy the fmtcount.perl file to somewhere where LaTeX2HTML will 
+find it (e.g. latex2html/styles/).
+
+To extract the documentation do:
+
+latex fmtcount.dtx
+makeindex -s gglo.ist -t fmtcount.glg -o fmtcount.gls fmtcount.glo
+latex fmtcount.dtx
+latex fmtcount.dtx
+
+Place the resulting file (fmtcount.dvi) into the documentation
+directory (e.g. texmf/doc/latex/fmtcount/).
+
+Read the file CHANGES for version changes.
+
+This material is subject to the LaTeX Project Public License.
+See http://www.ctan.org/tex-archive/help/Catalogue/licenses.lppl.html for
+the details of that license.
+
+http://theoval.cmp.uea.ac.uk/~nlct/

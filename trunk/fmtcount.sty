@@ -1,0 +1,1661 @@
+%\subsection{fmtcount.sty}
+% This section deals with the code for |fmtcount.sty|
+%    \begin{macrocode}
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{fmtcount}[2012/06/18 v2.0]
+\RequirePackage{ifthen}
+\RequirePackage{keyval}
+%    \end{macrocode}
+% \changes{1.3}{2007/7/19}{no
+%longer using xspace package}
+%\changes{1.31}{2009/10/02}{amsgen now loaded (\cs{new@ifnextchar}
+% needed)}
+% Need to use \cs{new@ifnextchar} instead of \cs{@ifnextchar} in
+% commands that have a final optional argument (such as \cs{gls})
+% so require \sty{amsgen}.
+%    \begin{macrocode}
+\RequirePackage{amsgen}
+%    \end{macrocode}
+% These commands need to be defined before the
+% configuration file is loaded.
+%
+% Define the macro to format the |st|, |nd|, |rd| or |th| of an 
+% ordinal.
+%\begin{macro}{\fmtord}
+%    \begin{macrocode}
+\providecommand*{\fmtord}[1]{\textsuperscript{#1}}
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\padzeroes}
+%\begin{definition}
+%\cs{padzeroes}\oarg{n}
+%\end{definition}
+% Specifies how many digits should be displayed for commands such as
+% \cs{decimal} and \cs{binary}.
+%    \begin{macrocode}
+\newcount\c@padzeroesN
+\c@padzeroesN=1\relax
+\providecommand*{\padzeroes}[1][17]{\c@padzeroesN=#1}
+%    \end{macrocode}
+%\end{macro}
+% Load appropriate language definition files:
+%\changes{1.1}{14 June 2007}{added check for UKenglish,
+% british and USenglish babel settings}
+%\changes{2.0}{2012-06-18}{changed check for \cs{l@}\meta{language} 
+% to check for \cs{date}\meta{language}}
+%    \begin{macrocode}
+\@ifundefined{dateenglish}{}{\input{fc-english.def}}
+\@ifundefined{dateUKenglish}{}{\input{fc-UKenglish.def}}
+\@ifundefined{datebritish}{}{\input{fc-british.def}}
+\@ifundefined{dateUSenglish}{}{\input{fc-USenglish.def}}
+\@ifundefined{datespanish}{}{\input{fc-spanish.def}}
+\@ifundefined{dateportuges}{}{\input{fc-portuges.def}}
+\@ifundefined{datefrench}{}{\input{fc-french.def}}
+\@ifundefined{dategerman}
+ {%
+   \@ifundefined{datengerman}{}{\input{fc-german.def}}%
+ }
+ {%
+    \input{fc-german.def}%
+ }
+\@ifundefined{dateitalian}{}{\input{fc-italian.def}}
+%    \end{macrocode}
+%\begin{macro}{\fmtcount@french}
+% Define keys for use with |\fmtcountsetoptions|.
+% Key to switch French dialects (Does babel store
+%this kind of information?)
+%    \begin{macrocode}
+\def\fmtcount@french{france}
+%    \end{macrocode}
+%\end{macro}
+%\begin{option}{french}
+%    \begin{macrocode}
+\define@key{fmtcount}{french}[france]{%
+  \@ifundefined{datefrench}%
+  {%
+    \PackageError{fmtcount}%
+    {Language `french' not defined}%
+    {You need to load babel before loading fmtcount}%
+  }%
+  {%
+    \setkeys{fcfrench}{#1}%
+  }%
+}
+%    \end{macrocode}
+%\end{option}
+%\begin{option}{fmtord}
+% Key to determine how to display the ordinal
+%    \begin{macrocode}
+\define@key{fmtcount}{fmtord}{%
+  \ifthenelse{\equal{#1}{level}
+           \or\equal{#1}{raise}
+           \or\equal{#1}{user}}%
+  {%
+    \def\fmtcount@fmtord{#1}%
+  }%
+  {%
+    \PackageError{fmtcount}%
+    {Invalid value `#1' to fmtord key}%
+    {Option `fmtord' can only take the values `level', `raise'
+     or `user'}%
+  }%
+}
+%    \end{macrocode}
+%\end{option}
+%\begin{macro}{\iffmtord@abbrv}
+% Key to determine whether the ordinal should be abbreviated
+% (language dependent, currently only affects French ordinals.)
+%    \begin{macrocode}
+\newif\iffmtord@abbrv
+\fmtord@abbrvfalse
+\define@key{fmtcount}{abbrv}[true]{%
+  \ifthenelse{\equal{#1}{true}\or\equal{#1}{false}}%
+  {%
+    \csname fmtord@abbrv#1\endcsname
+  }%
+  {%
+    \PackageError{fmtcount}%
+    {Invalid value `#1' to fmtord key}%
+    {Option `fmtord' can only take the values `true' or
+     `false'}%
+  }%
+}
+%    \end{macrocode}
+%\end{macro}
+%\begin{option}{prefix}
+%\changes{2.0}{2012-06-18}{new}
+%    \begin{macrocode}
+\define@key{fmtcount}{prefix}[scale=long]{%
+  \RequirePackage{fmtprefix}%
+  \fmtprefixsetoption{#1}%
+}
+%    \end{macrocode}
+%\end{option}
+%\begin{macro}{\fmtcountsetoptions}
+% Define command to set options.
+%    \begin{macrocode}
+\newcommand*{\fmtcountsetoptions}[1]{%
+  \def\fmtcount@fmtord{}%
+  \setkeys{fmtcount}{#1}%
+  \@ifundefined{datefrench}{}%
+  {%
+    \edef\@ordinalstringMfrench{\noexpand
+      \csname @ordinalstringMfrench\fmtcount@french\noexpand\endcsname}%
+    \edef\@ordinalstringFfrench{\noexpand
+      \csname @ordinalstringFfrench\fmtcount@french\noexpand\endcsname}%
+    \edef\@OrdinalstringMfrench{\noexpand
+      \csname @OrdinalstringMfrench\fmtcount@french\noexpand\endcsname}%
+    \edef\@OrdinalstringFfrench{\noexpand
+      \csname @OrdinalstringFfrench\fmtcount@french\noexpand\endcsname}%
+    \edef\@numberstringMfrench{\noexpand
+      \csname @numberstringMfrench\fmtcount@french\noexpand\endcsname}%
+    \edef\@numberstringFfrench{\noexpand
+      \csname @numberstringFfrench\fmtcount@french\noexpand\endcsname}%
+    \edef\@NumberstringMfrench{\noexpand
+      \csname @NumberstringMfrench\fmtcount@french\noexpand\endcsname}%
+    \edef\@NumberstringFfrench{\noexpand
+      \csname @NumberstringFfrench\fmtcount@french\noexpand\endcsname}%
+  }%
+  \ifthenelse{\equal{\fmtcount@fmtord}{level}}%
+  {%
+    \renewcommand{\fmtord}[1]{##1}%
+  }%
+  {%
+    \ifthenelse{\equal{\fmtcount@fmtord}{raise}}%
+    {%
+      \renewcommand{\fmtord}[1]{\textsuperscript{##1}}%
+    }%
+    {%
+    }%
+  }
+}
+%    \end{macrocode}
+%\end{macro}
+% Load confguration file if it exists.  This needs to be done
+% before the package options, to allow the user to override
+% the settings in the configuration file.
+%\changes{2.0}{2012-06-18}{Now no message if fmtcount.cfg not found}
+%    \begin{macrocode}
+\InputIfFileExists{fmtcount.cfg}%
+{%
+  \PackageInfo{fmtcount}{Using configuration file fmtcount.cfg}%
+}%
+{%
+}
+%    \end{macrocode}
+%\begin{option}{level}
+%    \begin{macrocode}
+\DeclareOption{level}{\def\fmtcount@fmtord{level}%
+  \def\fmtord#1{#1}}
+%    \end{macrocode}
+%\end{option}
+%\begin{option}{raise}
+%    \begin{macrocode}
+\DeclareOption{raise}{\def\fmtcount@fmtord{raise}%
+  \def\fmtord#1{\textsuperscript{#1}}}
+%    \end{macrocode}
+%\end{option}
+% Process package options
+%    \begin{macrocode}
+\ProcessOptions
+%    \end{macrocode}
+%\begin{macro}{\@modulo}
+%\begin{definition}
+%\cs{@modulo}\marg{count reg}\marg{n}
+%\end{definition}
+% Sets the count register to be its value modulo \meta{n}. 
+% This is used for the
+% date, time, ordinal and numberstring commands. (The
+% \styfmt{fmtcount} package was originally part of the 
+% \sty{datetime} package.)
+%    \begin{macrocode}
+\newcount\@DT@modctr
+\def\@modulo#1#2{%
+  \@DT@modctr=#1\relax
+  \divide \@DT@modctr by #2\relax
+  \multiply \@DT@modctr by #2\relax
+  \advance #1 by -\@DT@modctr
+}
+%    \end{macrocode}
+%\end{macro}
+% The following registers are needed by |\@ordinal| etc
+%    \begin{macrocode}
+\newcount\@ordinalctr
+\newcount\@orgargctr
+\newcount\@strctr
+\newcount\@tmpstrctr
+%    \end{macrocode}
+%Define commands that display numbers in different bases.
+% Define counters and conditionals needed.
+%    \begin{macrocode}
+\newif\if@DT@padzeroes
+\newcount\@DT@loopN
+\newcount\@DT@X
+%    \end{macrocode}
+%\begin{macro}{\binarynum}
+% Converts a decimal number to binary, and display.
+%    \begin{macrocode}
+\newcommand*{\@binary}[1]{%
+  \@DT@padzeroestrue
+  \@DT@loopN=17\relax
+  \@strctr=\@DT@loopN
+  \whiledo{\@strctr<\c@padzeroesN}{0\advance\@strctr by 1}%
+  \@strctr=65536\relax
+  \@DT@X=#1\relax
+  \loop
+    \@DT@modctr=\@DT@X
+    \divide\@DT@modctr by \@strctr
+    \ifthenelse{\boolean{@DT@padzeroes}
+       \and \(\@DT@modctr=0\)
+       \and \(\@DT@loopN>\c@padzeroesN\)}%
+    {}%
+    {\the\@DT@modctr}%
+    \ifnum\@DT@modctr=0\else\@DT@padzeroesfalse\fi
+    \multiply\@DT@modctr by \@strctr
+    \advance\@DT@X by -\@DT@modctr
+    \divide\@strctr by 2\relax
+    \advance\@DT@loopN by -1\relax
+  \ifnum\@strctr>1
+  \repeat
+  \the\@DT@X
+}
+
+\let\binarynum=\@binary
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\octalnum}
+% Converts a decimal number to octal, and displays.
+%    \begin{macrocode}
+\newcommand*{\@octal}[1]{%
+  \ifnum#1>32768
+    \PackageError{fmtcount}%
+    {Value of counter too large for \protect\@octal}
+    {Maximum value 32768}
+  \else
+  \@DT@padzeroestrue
+  \@DT@loopN=6\relax
+  \@strctr=\@DT@loopN
+  \whiledo{\@strctr<\c@padzeroesN}{0\advance\@strctr by 1}%
+  \@strctr=32768\relax
+  \@DT@X=#1\relax
+  \loop
+    \@DT@modctr=\@DT@X
+    \divide\@DT@modctr by \@strctr
+    \ifthenelse{\boolean{@DT@padzeroes}
+       \and \(\@DT@modctr=0\)
+       \and \(\@DT@loopN>\c@padzeroesN\)}%
+    {}{\the\@DT@modctr}%
+    \ifnum\@DT@modctr=0\else\@DT@padzeroesfalse\fi
+    \multiply\@DT@modctr by \@strctr
+    \advance\@DT@X by -\@DT@modctr
+    \divide\@strctr by 8\relax
+    \advance\@DT@loopN by -1\relax
+  \ifnum\@strctr>1
+  \repeat
+  \the\@DT@X
+  \fi
+}
+\let\octalnum=\@octal
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\@@hexadecimalnum}
+% Converts number from 0 to 15 into lowercase hexadecimal notation.
+%    \begin{macrocode}
+\newcommand*{\@@hexadecimal}[1]{%
+  \ifcase#10\or1\or2\or3\or4\or5\or
+  6\or7\or8\or9\or a\or b\or c\or d\or e\or f\fi
+}
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\hexadecimalnum}
+% Converts a decimal number to a lowercase hexadecimal number, 
+% and displays it.
+%    \begin{macrocode}
+\newcommand*{\@hexadecimal}[1]{%
+  \@DT@padzeroestrue
+  \@DT@loopN=5\relax
+  \@strctr=\@DT@loopN
+  \whiledo{\@strctr<\c@padzeroesN}{0\advance\@strctr by 1}%
+  \@strctr=65536\relax
+  \@DT@X=#1\relax
+  \loop
+    \@DT@modctr=\@DT@X
+    \divide\@DT@modctr by \@strctr
+    \ifthenelse{\boolean{@DT@padzeroes}
+      \and \(\@DT@modctr=0\)
+      \and \(\@DT@loopN>\c@padzeroesN\)}
+    {}{\@@hexadecimal\@DT@modctr}%
+    \ifnum\@DT@modctr=0\else\@DT@padzeroesfalse\fi
+    \multiply\@DT@modctr by \@strctr
+    \advance\@DT@X by -\@DT@modctr
+    \divide\@strctr by 16\relax
+    \advance\@DT@loopN by -1\relax
+  \ifnum\@strctr>1
+  \repeat
+  \@@hexadecimal\@DT@X
+}
+\let\hexadecimalnum=\@hexadecimal
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\@@Hexadecimalnum}
+% Converts number from 0 to 15 into uppercase hexadecimal notation.
+%    \begin{macrocode}
+\newcommand*{\@@Hexadecimal}[1]{%
+  \ifcase#10\or1\or2\or3\or4\or5\or6\or
+  7\or8\or9\or A\or B\or C\or D\or E\or F\fi
+}
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\Hexadecimalnum}
+% Uppercase hexadecimal
+%    \begin{macrocode}
+\newcommand*{\@Hexadecimal}[1]{%
+  \@DT@padzeroestrue
+  \@DT@loopN=5\relax
+  \@strctr=\@DT@loopN
+  \whiledo{\@strctr<\c@padzeroesN}{0\advance\@strctr by 1}%
+  \@strctr=65536\relax
+  \@DT@X=#1\relax
+  \loop
+    \@DT@modctr=\@DT@X
+    \divide\@DT@modctr by \@strctr
+    \ifthenelse{\boolean{@DT@padzeroes}
+      \and \(\@DT@modctr=0\)
+      \and \(\@DT@loopN>\c@padzeroesN\)}%
+    {}{\@@Hexadecimal\@DT@modctr}%
+    \ifnum\@DT@modctr=0\else\@DT@padzeroesfalse\fi
+    \multiply\@DT@modctr by \@strctr
+    \advance\@DT@X by -\@DT@modctr
+    \divide\@strctr by 16\relax
+    \advance\@DT@loopN by -1\relax
+  \ifnum\@strctr>1
+  \repeat
+  \@@Hexadecimal\@DT@X
+}
+
+\let\Hexadecimalnum=\@Hexadecimal
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\aaalphnum}
+% Lowercase alphabetical representation (a \ldots\ z aa \ldots\ zz)
+%    \begin{macrocode}
+\newcommand*{\@aaalph}[1]{%
+  \@DT@loopN=#1\relax
+  \advance\@DT@loopN by -1\relax
+  \divide\@DT@loopN by 26\relax
+  \@DT@modctr=\@DT@loopN
+  \multiply\@DT@modctr by 26\relax
+  \@DT@X=#1\relax
+  \advance\@DT@X by -1\relax
+  \advance\@DT@X by -\@DT@modctr
+  \advance\@DT@loopN by 1\relax
+  \advance\@DT@X by 1\relax
+  \loop
+    \@alph\@DT@X
+    \advance\@DT@loopN by -1\relax
+  \ifnum\@DT@loopN>0
+  \repeat
+}
+
+\let\aaalphnum=\@aaalph
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\AAAlphnum}
+% Uppercase alphabetical representation (a \ldots\ z aa \ldots\ zz)
+%    \begin{macrocode}
+\newcommand*{\@AAAlph}[1]{%
+  \@DT@loopN=#1\relax
+  \advance\@DT@loopN by -1\relax
+  \divide\@DT@loopN by 26\relax
+  \@DT@modctr=\@DT@loopN
+  \multiply\@DT@modctr by 26\relax
+  \@DT@X=#1\relax
+  \advance\@DT@X by -1\relax
+  \advance\@DT@X by -\@DT@modctr
+  \advance\@DT@loopN by 1\relax
+  \advance\@DT@X by 1\relax
+  \loop
+    \@Alph\@DT@X
+    \advance\@DT@loopN by -1\relax
+  \ifnum\@DT@loopN>0
+  \repeat
+}
+
+\let\AAAlphnum=\@AAAlph
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\abalphnum}
+% Lowercase alphabetical representation
+%    \begin{macrocode}
+\newcommand*{\@abalph}[1]{%
+  \ifnum#1>17576\relax
+    \PackageError{fmtcount}%
+    {Value of counter too large for \protect\@abalph}%
+    {Maximum value 17576}%
+  \else
+    \@DT@padzeroestrue
+    \@strctr=17576\relax
+    \@DT@X=#1\relax
+    \advance\@DT@X by -1\relax
+    \loop
+      \@DT@modctr=\@DT@X
+      \divide\@DT@modctr by \@strctr
+      \ifthenelse{\boolean{@DT@padzeroes}
+        \and \(\@DT@modctr=1\)}%
+      {}{\@alph\@DT@modctr}%
+      \ifnum\@DT@modctr=1\else\@DT@padzeroesfalse\fi
+      \multiply\@DT@modctr by \@strctr
+      \advance\@DT@X by -\@DT@modctr
+      \divide\@strctr by 26\relax
+    \ifnum\@strctr>1
+    \repeat
+    \advance\@DT@X by 1\relax
+    \@alph\@DT@X
+  \fi
+}
+
+\let\abalphnum=\@abalph
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\ABAlphnum}
+% Uppercase alphabetical representation
+%    \begin{macrocode}
+\newcommand*{\@ABAlph}[1]{%
+  \ifnum#1>17576\relax
+    \PackageError{fmtcount}%
+   {Value of counter too large for \protect\@ABAlph}%
+   {Maximum value 17576}%
+  \else
+    \@DT@padzeroestrue
+    \@strctr=17576\relax
+    \@DT@X=#1\relax
+    \advance\@DT@X by -1\relax
+    \loop
+      \@DT@modctr=\@DT@X
+      \divide\@DT@modctr by \@strctr
+      \ifthenelse{\boolean{@DT@padzeroes}\and
+      \(\@DT@modctr=1\)}{}{\@Alph\@DT@modctr}%
+      \ifnum\@DT@modctr=1\else\@DT@padzeroesfalse\fi
+      \multiply\@DT@modctr by \@strctr
+      \advance\@DT@X by -\@DT@modctr
+      \divide\@strctr by 26\relax
+    \ifnum\@strctr>1
+    \repeat
+    \advance\@DT@X by 1\relax
+    \@Alph\@DT@X
+  \fi
+}
+
+\let\ABAlphnum=\@ABAlph
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\@fmtc@count}
+% Recursive command to count number of characters in argument.
+% \cs{@strctr} should be set to zero before calling it.
+%    \begin{macrocode}
+\def\@fmtc@count#1#2\relax{%
+  \if\relax#1
+  \else
+    \advance\@strctr by 1\relax
+    \@fmtc@count#2\relax
+  \fi
+}
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\@decimal}
+%\changes{1.31}{2009/10/02}{fixed unwanted space.}
+% Format number as a decimal, possibly padded with zeroes in front.
+%    \begin{macrocode}
+\newcommand{\@decimal}[1]{%
+  \@strctr=0\relax
+  \expandafter\@fmtc@count\number#1\relax
+  \@DT@loopN=\c@padzeroesN
+  \advance\@DT@loopN by -\@strctr
+  \ifnum\@DT@loopN>0\relax
+    \@strctr=0\relax
+    \whiledo{\@strctr < \@DT@loopN}{0\advance\@strctr by 1\relax}%
+  \fi
+  \number#1\relax
+}
+
+\let\decimalnum=\@decimal
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\FCordinal}
+%\begin{definition}
+%\cs{FCordinal}\marg{number}
+%\end{definition}
+% This is a bit cumbersome.  Previously \cs{@ordinal}
+% was defined in a similar way to \cs{abalph} etc.
+% This ensured that the actual value of the counter was
+% written in the new label stuff in the .aux file. However
+% adding in an optional argument to determine the gender
+% for multilingual compatibility messed things up somewhat.
+% This was the only work around I could get to keep the
+% the cross-referencing stuff working, which is why
+% the optional argument comes \emph{after} the compulsory
+% argument, instead of the usual manner of placing it before.
+% Note however, that putting the optional argument means that
+% any spaces will be ignored after the command if the optional
+% argument is omitted.
+% Version 1.04 changed \cs{ordinal} to \cs{FCordinal}
+% to prevent it clashing with the memoir class. 
+%    \begin{macrocode}
+\newcommand{\FCordinal}[1]{%
+  \expandafter\protect\expandafter\ordinalnum{%
+    \expandafter\the\csname c@#1\endcsname}%
+}
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\ordinal}
+% If \cs{ordinal} isn't defined make \cs{ordinal} a synonym
+% for \cs{FCordinal} to maintain compatibility with previous
+% versions.
+%    \begin{macrocode}
+\@ifundefined{ordinal}
+ {\let\ordinal\FCordinal}%
+ {%
+   \PackageWarning{fmtcount}%
+   {\string\ordinal \space already defined use 
+    \string\FCordinal \space instead.}
+ }
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\ordinalnum}
+% Display ordinal where value is given as a number or 
+% count register instead of a counter:
+%\changes{1.31}{2009/10/02}{replaced \cs{@ifnextchar} with
+%\cs{new@ifnextchar}}
+%    \begin{macrocode}
+\newcommand*{\ordinalnum}[1]{%
+  \new@ifnextchar[%
+  {\@ordinalnum{#1}}%
+  {\@ordinalnum{#1}[m]}%
+}
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\@ordinalnum}
+% Display ordinal according to gender (neuter added in v1.1,
+% \cs{xspace} added in v1.2, and removed in v1.3\footnote{I
+%couldn't get it to work consistently both with and without the
+%optional argument}):
+%    \begin{macrocode}
+\def\@ordinalnum#1[#2]{%
+  {%
+    \ifthenelse{\equal{#2}{f}}%
+    {%
+      \protect\@ordinalF{#1}{\@fc@ordstr}%
+    }%
+    {%
+      \ifthenelse{\equal{#2}{n}}%
+      {%
+        \protect\@ordinalN{#1}{\@fc@ordstr}%
+      }%
+      {%
+        \ifthenelse{\equal{#2}{m}}%
+        {}%
+        {%
+          \PackageError{fmtcount}%
+           {Invalid gender option `#2'}%
+           {Available options are m, f or n}%
+        }%
+        \protect\@ordinalM{#1}{\@fc@ordstr}%
+      }%
+    }%
+    \@fc@ordstr
+  }%
+}
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\storeordinal}
+% Store the ordinal (first argument
+% is identifying name, second argument is a counter.)
+%    \begin{macrocode}
+\newcommand*{\storeordinal}[2]{%
+  \expandafter\protect\expandafter\storeordinalnum{#1}{%
+    \expandafter\the\csname c@#2\endcsname}%
+}
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\storeordinalnum}
+% Store ordinal (first argument
+% is identifying name, second argument is a number or
+% count register.)
+%    \begin{macrocode}
+\newcommand*{\storeordinalnum}[2]{%
+  \@ifnextchar[%
+  {\@storeordinalnum{#1}{#2}}%
+  {\@storeordinalnum{#1}{#2}[m]}%
+}
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\@storeordinalnum}
+% Store ordinal according to gender:
+%    \begin{macrocode}
+\def\@storeordinalnum#1#2[#3]{%
+  \ifthenelse{\equal{#3}{f}}%
+  {%
+    \protect\@ordinalF{#2}{\@fc@ord}
+  }%
+  {%
+    \ifthenelse{\equal{#3}{n}}%
+    {%
+      \protect\@ordinalN{#2}{\@fc@ord}%
+    }%
+    {%
+      \ifthenelse{\equal{#3}{m}}%
+      {}%
+      {%
+        \PackageError{fmtcount}%
+        {Invalid gender option `#3'}%
+        {Available options are m or f}%
+      }%
+      \protect\@ordinalM{#2}{\@fc@ord}%
+    }%
+  }%
+  \expandafter\let\csname @fcs@#1\endcsname\@fc@ord
+}
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\FMCuse}
+% Get stored information:
+%    \begin{macrocode}
+\newcommand*{\FMCuse}[1]{\csname @fcs@#1\endcsname}
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\ordinalstring}
+% Display ordinal as a string (argument is a counter)
+%    \begin{macrocode}
+\newcommand*{\ordinalstring}[1]{%
+  \expandafter\protect\expandafter\ordinalstringnum{%
+    \expandafter\the\csname c@#1\endcsname}%
+}
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\ordinalstringnum}
+% Display ordinal as a string (argument is a count register or
+% number.)
+%\changes{1.31}{2009/10/02}{replaced \cs{@ifnextchar} with
+%\cs{new@ifnextchar}}
+%\changes{1.33}{2009/10/15}{Made robust}
+%    \begin{macrocode}
+\newcommand{\ordinalstringnum}[1]{%
+  \new@ifnextchar[%
+  {\@ordinal@string{#1}}%
+  {\@ordinal@string{#1}[m]}%
+}
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\@ordinal@string}
+% Display ordinal as a string according to gender.
+%    \begin{macrocode}
+\def\@ordinal@string#1[#2]{%
+  {%
+    \ifthenelse{\equal{#2}{f}}%
+    {%
+      \protect\@ordinalstringF{#1}{\@fc@ordstr}%
+    }%
+    {%
+      \ifthenelse{\equal{#2}{n}}%
+      {%
+        \protect\@ordinalstringN{#1}{\@fc@ordstr}%
+      }%
+      {%
+        \ifthenelse{\equal{#2}{m}}%
+        {}%
+        {%
+          \PackageError{fmtcount}%
+          {Invalid gender option `#2' to \string\ordinalstring}%
+          {Available options are m, f or f}%
+        }%
+        \protect\@ordinalstringM{#1}{\@fc@ordstr}%
+      }%
+    }%
+    \@fc@ordstr
+  }%
+}
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\storeordinalstring}
+% Store textual representation of number. First argument is 
+% identifying name, second argument is the counter set to the 
+% required number.
+%    \begin{macrocode}
+\newcommand*{\storeordinalstring}[2]{%
+  \expandafter\protect\expandafter\storeordinalstringnum{#1}{%
+    \expandafter\the\csname c@#2\endcsname}%
+}
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\storeordinalstringnum}
+% Store textual representation of number. First argument is 
+% identifying name, second argument is a count register or number.
+%    \begin{macrocode}
+\newcommand*{\storeordinalstringnum}[2]{%
+  \@ifnextchar[%
+  {\@store@ordinal@string{#1}{#2}}%
+  {\@store@ordinal@string{#1}{#2}[m]}%
+}
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\@store@ordinal@string}
+% Store textual representation of number according to gender.
+%    \begin{macrocode}
+\def\@store@ordinal@string#1#2[#3]{%
+  \ifthenelse{\equal{#3}{f}}%
+  {%
+    \protect\@ordinalstringF{#2}{\@fc@ordstr}%
+  }%
+  {%
+    \ifthenelse{\equal{#3}{n}}%
+    {%
+      \protect\@ordinalstringN{#2}{\@fc@ordstr}%
+    }%
+    {%
+      \ifthenelse{\equal{#3}{m}}%
+      {}%
+      {%
+        \PackageError{fmtcount}%
+        {Invalid gender option `#3' to \string\ordinalstring}%
+        {Available options are m, f or n}%
+      }%
+      \protect\@ordinalstringM{#2}{\@fc@ordstr}%
+    }%
+  }%
+  \expandafter\let\csname @fcs@#1\endcsname\@fc@ordstr
+}
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\Ordinalstring}
+% Display ordinal as a string with initial letters in upper case
+% (argument is a counter)
+%    \begin{macrocode}
+\newcommand*{\Ordinalstring}[1]{%
+  \expandafter\protect\expandafter\Ordinalstringnum{%
+    \expandafter\the\csname c@#1\endcsname}%
+}
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\Ordinalstringnum}
+% Display ordinal as a string with initial letters in upper case
+% (argument is a number or count register)
+%\changes{1.31}{2009/10/02}{replaced \cs{@ifnextchar} with
+%\cs{new@ifnextchar}}
+%    \begin{macrocode}
+\newcommand*{\Ordinalstringnum}[1]{%
+  \new@ifnextchar[%
+  {\@Ordinal@string{#1}}%
+  {\@Ordinal@string{#1}[m]}%
+}
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\@Ordinal@string}
+% Display ordinal as a string with initial letters in upper case
+% according to gender
+%    \begin{macrocode}
+\def\@Ordinal@string#1[#2]{%
+  {%
+    \ifthenelse{\equal{#2}{f}}%
+    {%
+      \protect\@OrdinalstringF{#1}{\@fc@ordstr}%
+    }%
+    {%
+      \ifthenelse{\equal{#2}{n}}%
+      {%
+        \protect\@OrdinalstringN{#1}{\@fc@ordstr}%
+      }%
+      {%
+        \ifthenelse{\equal{#2}{m}}%
+        {}%
+        {%
+          \PackageError{fmtcount}%
+          {Invalid gender option `#2'}%
+          {Available options are m, f or n}%
+        }%
+        \protect\@OrdinalstringM{#1}{\@fc@ordstr}%
+      }%
+    }%
+    \@fc@ordstr
+  }%
+}
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\storeOrdinalstring}
+% Store textual representation of number, with initial letters in 
+% upper case. First argument is identifying name, second argument 
+% is the counter set to the 
+% required number.
+%    \begin{macrocode}
+\newcommand*{\storeOrdinalstring}[2]{%
+  \expandafter\protect\expandafter\storeOrdinalstringnum{#1}{%
+    \expandafter\the\csname c@#2\endcsname}%
+}
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\storeOrdinalstringnum}
+% Store textual representation of number, with initial letters in 
+% upper case. First argument is identifying name, second argument 
+% is a count register or number.
+%    \begin{macrocode}
+\newcommand*{\storeOrdinalstringnum}[2]{%
+  \@ifnextchar[%
+  {\@store@Ordinal@string{#1}{#2}}%
+  {\@store@Ordinal@string{#1}{#2}[m]}%
+}
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\@store@Ordinal@string}
+% Store textual representation of number according to gender, 
+% with initial letters in upper case.
+%    \begin{macrocode}
+\def\@store@Ordinal@string#1#2[#3]{%
+  \ifthenelse{\equal{#3}{f}}%
+  {%
+    \protect\@OrdinalstringF{#2}{\@fc@ordstr}%
+  }%
+  {%
+    \ifthenelse{\equal{#3}{n}}%
+    {%
+      \protect\@OrdinalstringN{#2}{\@fc@ordstr}%
+    }%
+    {%
+      \ifthenelse{\equal{#3}{m}}%
+      {}%
+      {%
+        \PackageError{fmtcount}%
+        {Invalid gender option `#3'}%
+        {Available options are m or f}%
+      }%
+      \protect\@OrdinalstringM{#2}{\@fc@ordstr}%
+    }%
+  }%
+  \expandafter\let\csname @fcs@#1\endcsname\@fc@ordstr
+}
+%    \end{macrocode}
+%\end{macro}
+%
+%\begin{macro}{\storeORDINALstring}
+% Store upper case textual representation of ordinal. The first 
+% argument is identifying name, the second argument is a counter.
+%    \begin{macrocode}
+\newcommand*{\storeORDINALstring}[2]{%
+  \expandafter\protect\expandafter\storeORDINALstringnum{#1}{%
+    \expandafter\the\csname c@#2\endcsname}%
+}
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\storeORDINALstringnum}
+% As above, but the second argument is a count register or a
+% number.
+%    \begin{macrocode}
+\newcommand*{\storeORDINALstringnum}[2]{%
+  \@ifnextchar[%
+  {\@store@ORDINAL@string{#1}{#2}}%
+  {\@store@ORDINAL@string{#1}{#2}[m]}%
+}
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\@store@ORDINAL@string}
+% Gender is specified as an optional argument at the end.
+%    \begin{macrocode}
+\def\@store@ORDINAL@string#1#2[#3]{%
+  \ifthenelse{\equal{#3}{f}}%
+  {%
+    \protect\@ordinalstringF{#2}{\@fc@ordstr}%
+  }%
+  {%
+    \ifthenelse{\equal{#3}{n}}%
+    {%
+      \protect\@ordinalstringN{#2}{\@fc@ordstr}%
+    }%
+    {%
+      \ifthenelse{\equal{#3}{m}}%
+      {}%
+      {%
+        \PackageError{fmtcount}%
+        {Invalid gender option `#3'}%
+        {Available options are m or f}%
+      }%
+      \protect\@ordinalstringM{#2}{\@fc@ordstr}%
+    }%
+  }%
+  \expandafter\edef\csname @fcs@#1\endcsname{%
+    \noexpand\MakeUppercase{\@fc@ordstr}%
+  }%
+}
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\ORDINALstring}
+% Display upper case textual representation of an ordinal. The
+% argument must be a counter.
+%    \begin{macrocode}
+\newcommand*{\ORDINALstring}[1]{%
+  \expandafter\protect\expandafter\ORDINALstringnum{%
+    \expandafter\the\csname c@#1\endcsname
+  }%
+}
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\ORDINALstringnum}
+% As above, but the argument is a count register or a number.
+%\changes{1.31}{2009/10/02}{replaced \cs{@ifnextchar} with
+%\cs{new@ifnextchar}}
+%    \begin{macrocode}
+\newcommand*{\ORDINALstringnum}[1]{%
+  \new@ifnextchar[%
+  {\@ORDINAL@string{#1}}%
+  {\@ORDINAL@string{#1}[m]}%
+}
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\@ORDINAL@string}
+% Gender is specified as an optional argument at the end.
+%    \begin{macrocode}
+\def\@ORDINAL@string#1[#2]{%
+  {%
+    \ifthenelse{\equal{#2}{f}}%
+    {%
+      \protect\@ordinalstringF{#1}{\@fc@ordstr}%
+    }%
+    {%
+      \ifthenelse{\equal{#2}{n}}%
+      {%
+        \protect\@ordinalstringN{#1}{\@fc@ordstr}%
+      }%
+      {%
+        \ifthenelse{\equal{#2}{m}}%
+        {}%
+        {%
+          \PackageError{fmtcount}%
+          {Invalid gender option `#2'}%
+          {Available options are m, f or n}%
+        }%
+        \protect\@ordinalstringM{#1}{\@fc@ordstr}%
+      }%
+    }%
+    \MakeUppercase{\@fc@ordstr}%
+  }%
+}
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\storenumberstring}
+% Convert number to textual respresentation, and store. First 
+% argument is the identifying name, second argument is a counter 
+% containing the number.
+%    \begin{macrocode}
+\newcommand*{\storenumberstring}[2]{%
+  \expandafter\protect\expandafter\storenumberstringnum{#1}{%
+    \expandafter\the\csname c@#2\endcsname}%
+}
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\storenumberstringnum}
+% As above, but second argument is a number or count register.
+%    \begin{macrocode}
+\newcommand{\storenumberstringnum}[2]{%
+  \@ifnextchar[%
+  {\@store@number@string{#1}{#2}}%
+  {\@store@number@string{#1}{#2}[m]}%
+}
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\@store@number@string}
+% Gender is given as optional argument, \emph{at the end}.
+%    \begin{macrocode}
+\def\@store@number@string#1#2[#3]{%
+  \ifthenelse{\equal{#3}{f}}%
+  {%
+    \protect\@numberstringF{#2}{\@fc@numstr}%
+  }%
+  {%
+    \ifthenelse{\equal{#3}{n}}%
+    {%
+      \protect\@numberstringN{#2}{\@fc@numstr}%
+    }%
+    {%
+      \ifthenelse{\equal{#3}{m}}%
+      {}%
+      {%
+        \PackageError{fmtcount}
+        {Invalid gender option `#3'}%
+        {Available options are m, f or n}%
+      }%
+      \protect\@numberstringM{#2}{\@fc@numstr}%
+    }%
+  }%
+  \expandafter\let\csname @fcs@#1\endcsname\@fc@numstr
+}
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\numberstring}
+% Display textual representation of a number. The argument
+% must be a counter.
+%    \begin{macrocode}
+\newcommand*{\numberstring}[1]{%
+  \expandafter\protect\expandafter\numberstringnum{%
+    \expandafter\the\csname c@#1\endcsname}%
+}
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\numberstringnum}
+% As above, but the argument is a count register or a number.
+%\changes{1.31}{2009/10/02}{replaced \cs{@ifnextchar} with
+%\cs{new@ifnextchar}}
+%    \begin{macrocode}
+\newcommand*{\numberstringnum}[1]{%
+  \new@ifnextchar[%
+  {\@number@string{#1}}%
+  {\@number@string{#1}[m]}%
+}
+%    \end{macrocode}
+%\end{macro}
+%
+%\begin{macro}{\@number@string}
+% Gender is specified as an optional argument \emph{at the end}.
+%    \begin{macrocode}
+\def\@number@string#1[#2]{%
+  {%
+    \ifthenelse{\equal{#2}{f}}%
+    {%
+      \protect\@numberstringF{#1}{\@fc@numstr}%
+    }%
+    {%
+      \ifthenelse{\equal{#2}{n}}%
+      {%
+         \protect\@numberstringN{#1}{\@fc@numstr}%
+      }%
+      {%
+        \ifthenelse{\equal{#2}{m}}%
+        {}%
+        {%
+          \PackageError{fmtcount}%
+          {Invalid gender option `#2'}%
+          {Available options are m, f or n}%
+        }%
+        \protect\@numberstringM{#1}{\@fc@numstr}%
+      }%
+    }%
+    \@fc@numstr
+  }%
+}
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\storeNumberstring}
+% Store textual representation of number. First argument is 
+% identifying name, second argument is a counter.
+%    \begin{macrocode}
+\newcommand*{\storeNumberstring}[2]{%
+  \expandafter\protect\expandafter\storeNumberstringnum{#1}{%
+    \expandafter\the\csname c@#2\endcsname}%
+}
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\storeNumberstringnum}
+% As above, but second argument is a count register or number.
+%    \begin{macrocode}
+\newcommand{\storeNumberstringnum}[2]{%
+  \@ifnextchar[%
+  {\@store@Number@string{#1}{#2}}%
+  {\@store@Number@string{#1}{#2}[m]}%
+}
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\@store@Number@string}
+% Gender is specified as an optional argument \emph{at the end}:
+%    \begin{macrocode}
+\def\@store@Number@string#1#2[#3]{%
+  \ifthenelse{\equal{#3}{f}}%
+  {%
+    \protect\@NumberstringF{#2}{\@fc@numstr}%
+  }%
+  {%
+    \ifthenelse{\equal{#3}{n}}%
+    {%
+      \protect\@NumberstringN{#2}{\@fc@numstr}%
+    }%
+    {%
+      \ifthenelse{\equal{#3}{m}}%
+      {}%
+      {%
+        \PackageError{fmtcount}%
+        {Invalid gender option `#3'}%
+        {Available options are m, f or n}%
+      }%
+      \protect\@NumberstringM{#2}{\@fc@numstr}%
+    }%
+  }%
+  \expandafter\let\csname @fcs@#1\endcsname\@fc@numstr
+}
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\Numberstring}
+% Display textual representation of number. The argument must be
+% a counter. 
+%    \begin{macrocode}
+\newcommand*{\Numberstring}[1]{%
+  \expandafter\protect\expandafter\Numberstringnum{%
+    \expandafter\the\csname c@#1\endcsname}%
+}
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\Numberstringnum}
+% As above, but the argument is a count register or number.
+%\changes{1.31}{2009/10/02}{replaced \cs{@ifnextchar} with
+%\cs{new@ifnextchar}}
+%    \begin{macrocode}
+\newcommand*{\Numberstringnum}[1]{%
+  \new@ifnextchar[%
+  {\@Number@string{#1}}%
+  {\@Number@string{#1}[m]}%
+}
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\@Number@string}
+% Gender is specified as an optional argument at the end.
+%    \begin{macrocode}
+\def\@Number@string#1[#2]{%
+  {%
+    \ifthenelse{\equal{#2}{f}}%
+    {%
+      \protect\@NumberstringF{#1}{\@fc@numstr}%
+    }%
+    {%
+      \ifthenelse{\equal{#2}{n}}%
+      {%
+        \protect\@NumberstringN{#1}{\@fc@numstr}%
+      }%
+      {%
+        \ifthenelse{\equal{#2}{m}}%
+        {}%
+        {%
+          \PackageError{fmtcount}%
+          {Invalid gender option `#2'}%
+          {Available options are m, f or n}%
+        }%
+        \protect\@NumberstringM{#1}{\@fc@numstr}%
+      }%
+    }%
+    \@fc@numstr
+  }%
+}
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\storeNUMBERstring}
+% Store upper case textual representation of number. The first 
+% argument is identifying name, the second argument is a counter.
+%    \begin{macrocode}
+\newcommand{\storeNUMBERstring}[2]{%
+  \expandafter\protect\expandafter\storeNUMBERstringnum{#1}{%
+    \expandafter\the\csname c@#2\endcsname}%
+}
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\storeNUMBERstringnum}
+% As above, but the second argument is a count register or a
+% number.
+%    \begin{macrocode}
+\newcommand{\storeNUMBERstringnum}[2]{%
+  \@ifnextchar[%
+  {\@store@NUMBER@string{#1}{#2}}%
+  {\@store@NUMBER@string{#1}{#2}[m]}%
+}
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\@store@NUMBER@string}
+% Gender is specified as an optional argument at the end.
+%    \begin{macrocode}
+\def\@store@NUMBER@string#1#2[#3]{%
+  \ifthenelse{\equal{#3}{f}}%
+  {%
+    \protect\@numberstringF{#2}{\@fc@numstr}%
+  }%
+  {%
+    \ifthenelse{\equal{#3}{n}}%
+    {%
+      \protect\@numberstringN{#2}{\@fc@numstr}%
+    }%
+    {%
+      \ifthenelse{\equal{#3}{m}}%
+      {}%
+      {%
+        \PackageError{fmtcount}%
+        {Invalid gender option `#3'}%
+        {Available options are m or f}%
+      }%
+      \protect\@numberstringM{#2}{\@fc@numstr}%
+    }%
+  }%
+  \expandafter\edef\csname @fcs@#1\endcsname{%
+    \noexpand\MakeUppercase{\@fc@numstr}%
+  }%
+}
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\NUMBERstring}
+% Display upper case textual representation of a number. The
+% argument must be a counter.
+%    \begin{macrocode}
+\newcommand*{\NUMBERstring}[1]{%
+  \expandafter\protect\expandafter\NUMBERstringnum{%
+    \expandafter\the\csname c@#1\endcsname}%
+}
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\NUMBERstringnum}
+% As above, but the argument is a count register or a number.
+%\changes{1.31}{2009/10/02}{replaced \cs{@ifnextchar} with
+%\cs{new@ifnextchar}}
+%    \begin{macrocode}
+\newcommand*{\NUMBERstringnum}[1]{%
+  \new@ifnextchar[%
+  {\@NUMBER@string{#1}}%
+  {\@NUMBER@string{#1}[m]}%
+}
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\@NUMBER@string}
+% Gender is specified as an optional argument at the end.
+%    \begin{macrocode}
+\def\@NUMBER@string#1[#2]{%
+  {%
+    \ifthenelse{\equal{#2}{f}}%
+    {%
+      \protect\@numberstringF{#1}{\@fc@numstr}%
+    }%
+    {%
+      \ifthenelse{\equal{#2}{n}}%
+      {%
+         \protect\@numberstringN{#1}{\@fc@numstr}%
+      }%
+      {%
+        \ifthenelse{\equal{#2}{m}}%
+        {}%
+        {%
+          \PackageError{fmtcount}%
+          {Invalid gender option `#2'}%
+          {Available options are m, f or n}%
+        }%
+        \protect\@numberstringM{#1}{\@fc@numstr}%
+      }%
+    }%
+    \MakeUppercase{\@fc@numstr}%
+  }%
+}
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\binary}
+% Number representations in other bases. Binary:
+%    \begin{macrocode}
+\providecommand*{\binary}[1]{%
+  \expandafter\protect\expandafter\@binary{%
+    \expandafter\the\csname c@#1\endcsname}%
+}
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\aaalph}
+% Like \ics{alph}, but goes beyond 26.
+% (a \ldots\ z aa \ldots zz \ldots)
+%    \begin{macrocode}
+\providecommand*{\aaalph}[1]{%
+  \expandafter\protect\expandafter\@aaalph{%
+    \expandafter\the\csname c@#1\endcsname}%
+}
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\AAAlph}
+% As before, but upper case.
+%    \begin{macrocode}
+\providecommand*{\AAAlph}[1]{%
+  \expandafter\protect\expandafter\@AAAlph{%
+    \expandafter\the\csname c@#1\endcsname}%
+}
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\abalph}
+% Like \ics{alph}, but goes beyond 26. 
+% (a \ldots\ z ab \ldots az \ldots)
+%    \begin{macrocode}
+\providecommand*{\abalph}[1]{%
+  \expandafter\protect\expandafter\@abalph{%
+    \expandafter\the\csname c@#1\endcsname}%
+}
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\ABAlph}
+% As above, but upper case.
+%    \begin{macrocode}
+\providecommand*{\ABAlph}[1]{%
+  \expandafter\protect\expandafter\@ABAlph{%
+    \expandafter\the\csname c@#1\endcsname}%
+}
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\hexadecimal}
+% Hexadecimal:
+%    \begin{macrocode}
+\providecommand*{\hexadecimal}[1]{%
+  \expandafter\protect\expandafter\@hexadecimal{%
+    \expandafter\the\csname c@#1\endcsname}%
+}
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\Hexadecimal}
+% As above, but in upper case.
+%    \begin{macrocode}
+\providecommand*{\Hexadecimal}[1]{%
+  \expandafter\protect\expandafter\@Hexadecimal{%
+    \expandafter\the\csname c@#1\endcsname}%
+}
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\octal}
+% Octal:
+%    \begin{macrocode}
+\providecommand*{\octal}[1]{%
+  \expandafter\protect\expandafter\@octal{%
+    \expandafter\the\csname c@#1\endcsname}%
+}
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\decimal}
+% Decimal:
+%    \begin{macrocode}
+\providecommand*{\decimal}[1]{%
+  \expandafter\protect\expandafter\@decimal{%
+    \expandafter\the\csname c@#1\endcsname}%
+}
+%    \end{macrocode}
+%\end{macro}
+%
+%\subsection{Multilinguage Definitions}
+%\begin{macro}{\@setdef@ultfmtcount}
+% If multilingual support is provided, make \verb"\@numberstring" 
+% etc use the correct language (if defined).
+% Otherwise use English definitions. "\@setdef@ultfmtcount"
+% sets the macros to use English.
+%    \begin{macrocode}
+\def\@setdef@ultfmtcount{%
+  \@ifundefined{@ordinalMenglish}{\input{fc-english.def}}{}%
+  \def\@ordinalstringM{\@ordinalstringMenglish}%
+  \let\@ordinalstringF=\@ordinalstringMenglish
+  \let\@ordinalstringN=\@ordinalstringMenglish
+  \def\@OrdinalstringM{\@OrdinalstringMenglish}%
+  \let\@OrdinalstringF=\@OrdinalstringMenglish
+  \let\@OrdinalstringN=\@OrdinalstringMenglish
+  \def\@numberstringM{\@numberstringMenglish}%
+  \let\@numberstringF=\@numberstringMenglish
+  \let\@numberstringN=\@numberstringMenglish
+  \def\@NumberstringM{\@NumberstringMenglish}%
+  \let\@NumberstringF=\@NumberstringMenglish
+  \let\@NumberstringN=\@NumberstringMenglish
+  \def\@ordinalM{\@ordinalMenglish}%
+  \let\@ordinalF=\@ordinalM
+  \let\@ordinalN=\@ordinalM
+}
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\@set@mulitling@fmtcount}
+% This defines the number and ordinal string macros to use 
+% \cs{languagename}:
+%\changes{2.0}{2012-06-18}{changed errors to warnings for
+%unsupported languages}
+%    \begin{macrocode}
+\def\@set@mulitling@fmtcount{%
+%    \end{macrocode}
+% The masculine version of \cs{numberstring}:
+%    \begin{macrocode}
+  \def\@numberstringM{%
+    \@ifundefined{@numberstringM\languagename}%
+    {%
+      \PackageWarning{fmtcount}%
+      {No support for \string\numberstring\space for
+       language '\languagename'}%
+      \@numberstringMenglish
+    }%
+    {%
+      \csname @numberstringM\languagename\endcsname
+    }%
+  }%
+%    \end{macrocode}
+% The feminine version of \cs{numberstring}:
+%    \begin{macrocode}
+  \def\@numberstringF{%
+    \@ifundefined{@numberstringF\languagename}%
+    {%
+      \PackageWarning{fmtcount}%
+      {No support for \string\numberstring\space for
+       language '\languagename'}%
+      \@numberstringMenglish
+    }%
+    {%
+      \csname @numberstringF\languagename\endcsname
+    }%
+  }%
+%    \end{macrocode}
+% The neuter version of \cs{numberstring}:
+%    \begin{macrocode}
+  \def\@numberstringN{%
+    \@ifundefined{@numberstringN\languagename}%
+    {%
+      \PackageWarning{fmtcount}%
+      {No support for \string\numberstring\space for
+       language '\languagename'}%
+      \@numberstringMenglish
+    }%
+    {%
+      \csname @numberstringN\languagename\endcsname
+    }%
+  }%
+%    \end{macrocode}
+% The masculine version of \cs{Numberstring}:
+%    \begin{macrocode}
+  \def\@NumberstringM{%
+    \@ifundefined{@NumberstringM\languagename}%
+    {%
+      \PackageWarning{fmtcount}%
+      {No support for \string\Numberstring\space
+       for language '\languagename'}%
+      \@NumberstringMenglish
+    }%
+    {%
+      \csname @NumberstringM\languagename\endcsname
+    }%
+  }%
+%    \end{macrocode}
+% The feminine version of \cs{Numberstring}:
+%    \begin{macrocode}
+  \def\@NumberstringF{%
+    \@ifundefined{@NumberstringF\languagename}%
+    {%
+      \PackageWarning{fmtcount}%
+      {No support for \string\Numberstring\space
+       for language '\languagename'}%
+      \@NumberstringMenglish
+    }%
+    {%
+      \csname @NumberstringF\languagename\endcsname
+    }%
+  }%
+%    \end{macrocode}
+% The neuter version of \cs{Numberstring}:
+%    \begin{macrocode}
+  \def\@NumberstringN{%
+    \@ifundefined{@NumberstringN\languagename}%
+    {%
+      \PackageWarning{fmtcount}%
+      {No support for \string\Numberstring\space
+       for language '\languagename'}%
+      \@NumberstringMenglish
+    }%
+    {%
+      \csname @NumberstringN\languagename\endcsname
+    }%
+  }%
+%    \end{macrocode}
+% The masculine version of \cs{ordinal}:
+%    \begin{macrocode}
+  \def\@ordinalM{%
+    \@ifundefined{@ordinalM\languagename}%
+    {%
+      \PackageWarning{fmtcount}%
+      {No support for \string\ordinal\space
+       for language '\languagename'}%
+      \@ordinalMenglish
+    }%
+    {%
+      \csname @ordinalM\languagename\endcsname
+    }%
+  }%
+%    \end{macrocode}
+% The feminine version of \cs{ordinal}:
+%    \begin{macrocode}
+  \def\@ordinalF{%
+    \@ifundefined{@ordinalF\languagename}%
+    {%
+      \PackageWarning{fmtcount}%
+      {No support for \string\ordinal\space
+       for language '\languagename'}%
+      \@ordinalMenglish
+    }%
+    {%
+      \csname @ordinalF\languagename\endcsname
+    }%
+  }%
+%    \end{macrocode}
+% The neuter version of \cs{ordinal}:
+%    \begin{macrocode}
+  \def\@ordinalN{%
+    \@ifundefined{@ordinalN\languagename}%
+    {%
+      \PackageWarning{fmtcount}%
+      {No support for \string\ordinal\space 
+       for language '\languagename'}%
+      \@ordinalMenglish
+    }%
+    {%
+      \csname @ordinalN\languagename\endcsname
+    }%
+  }%
+%    \end{macrocode}
+% The masculine version of \cs{ordinalstring}:
+%    \begin{macrocode}
+  \def\@ordinalstringM{%
+    \@ifundefined{@ordinalstringM\languagename}%
+    {%
+      \PackageWarning{fmtcount}%
+      {No support for \string\ordinalstring\space
+      for language '\languagename'}%
+      \@ordinalstringMenglish
+    }%
+    {%
+      \csname @ordinalstringM\languagename\endcsname
+    }%
+  }%
+%    \end{macrocode}
+% The feminine version of \cs{ordinalstring}:
+%    \begin{macrocode}
+  \def\@ordinalstringF{%
+    \@ifundefined{@ordinalstringF\languagename}%
+    {%
+      \PackageWarning{fmtcount}%
+      {No support for \string\ordinalstring\space 
+       for language '\languagename'}%
+      \@ordinalstringMenglish
+    }%
+    {%
+      \csname @ordinalstringF\languagename\endcsname
+    }%
+  }%
+%    \end{macrocode}
+% The neuter version of \cs{ordinalstring}:
+%    \begin{macrocode}
+  \def\@ordinalstringN{%
+    \@ifundefined{@ordinalstringN\languagename}%
+    {%
+      \PackageWarning{fmtcount}%
+      {No support for \string\ordinalstring\space
+       for language '\languagename'}%
+      \@ordinalstringMenglish
+    }%
+    {%
+      \csname @ordinalstringN\languagename\endcsname 
+    }%
+  }%
+%    \end{macrocode}
+% The masculine version of \cs{Ordinalstring}:
+%    \begin{macrocode}
+  \def\@OrdinalstringM{%
+    \@ifundefined{@OrdinalstringM\languagename}%
+    {%
+      \PackageWarning{fmtcount}%
+      {No support for \string\Ordinalstring\space
+       for language '\languagename'}%
+      \@OrdinalstringMenglish
+    }%
+    {%
+      \csname @OrdinalstringM\languagename\endcsname
+    }%
+  }%
+%    \end{macrocode}
+% The feminine version of \cs{Ordinalstring}:
+%    \begin{macrocode}
+  \def\@OrdinalstringF{%
+    \@ifundefined{@OrdinalstringF\languagename}%
+    {%
+      \PackageWarning{fmtcount}%
+      {No support for \string\Ordinalstring\space
+       for language '\languagename'}%
+      \@OrdinalstringMenglish
+    }%
+    {%
+      \csname @OrdinalstringF\languagename\endcsname
+    }%
+  }%
+%    \end{macrocode}
+% The neuter version of \cs{Ordinalstring}:
+%    \begin{macrocode}
+  \def\@OrdinalstringN{%
+    \@ifundefined{@OrdinalstringN\languagename}%
+    {%
+      \PackageWarning{fmtcount}%
+      {No support for \string\Ordinalstring\space
+       for language '\languagename'}%
+      \@OrdinalstringMenglish
+    }%
+    {%
+      \csname @OrdinalstringN\languagename\endcsname
+    }%
+  }%
+}
+%    \end{macrocode}
+%\end{macro}
+% Check to see if babel or ngerman packages have been loaded.
+%    \begin{macrocode}
+\@ifpackageloaded{babel}%
+{%
+  \@set@mulitling@fmtcount
+}%
+{%
+  \@ifpackageloaded{ngerman}%
+  {%
+    \@ifundefined{@numberstringMgerman}%
+    {%
+      \input{fc-german.def}%
+    }%
+    {}%
+    \@set@mulitling@fmtcount
+  }%
+  {%
+    \@setdef@ultfmtcount
+  }%
+}
+%    \end{macrocode}
+% Backwards compatibility:
+%    \begin{macrocode}
+\let\@ordinal=\@ordinalM
+\let\@ordinalstring=\@ordinalstringM
+\let\@Ordinalstring=\@OrdinalstringM
+\let\@numberstring=\@numberstringM
+\let\@Numberstring=\@NumberstringM
+%    \end{macrocode}
+

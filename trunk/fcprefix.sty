@@ -1,0 +1,462 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{fcprefix}
+\RequirePackage{ifthen}
+\RequirePackage{keyval}
+\RequirePackage{fcnumparser}
+
+% ===========================================================================================================
+% Option `use duode and unde' is to select whether 18 and suchlikes (x8, x9) writes like duodevicies, or like
+% octodecies For French it should be `below 20'
+% Possible values are `below 20' and `never' 
+% -----------------------------------------------------------------------------------------------------------
+\define@key{fcprefix}{use duode and unde}[below20]{%
+  \ifthenelse{\equal{#1}{below20}}{%
+    \def\fc@duodeandunde{2}%
+  }{%
+    \ifthenelse{\equal{#1}{never}}{%
+      \def\fc@duodeandunde{0}%
+    }{%
+      \PackageError{fcprefix}{Unexpected option}{%
+        Option `use duode and unde' expects `below 20' or `never' }%
+    }%
+  }%
+}
+
+\def\fc@duodeandunde{2}% default is `below 20' like in French
+
+% ===========================================================================================================
+% Option `numeral u in duo', this can be `yes' or `no' and is used to select whether 12 and suchlikes write
+% like dodecxxx or duodecxxx for numerals.
+% -----------------------------------------------------------------------------------------------------------
+\define@key{fcprefix}{numeral u in duo}[false]{%
+  \ifthenelse{\equal{#1}{no}}{%
+    \let\fc@u@in@duo\@empty
+  }{%
+    \ifthenelse{\equal{#1}{yes}}{%
+      \def\fc@u@in@duo{u}%
+    }{%
+      \PackageError{fcprefix}{Unexpected option}{%
+        Option `numeral u in duo' expects `yes' or `no' }%
+    }%
+  }%
+}
+
+% ===========================================================================================================
+% Option `e accute', this can be `yes' or `no' and is used to select whether letter `e' has an accute accents
+% when it pronouce [e] in French.
+% -----------------------------------------------------------------------------------------------------------
+\define@key{fcprefix}{e accute}[false]{%
+  \ifthenelse{\equal{#1}{no}}{%
+    \let\fc@prefix@eaccute\@firstofone
+  }{%
+    \ifthenelse{\equal{#1}{yes}}{%
+      \let\fc@prefix@eaccute\'%
+    }{%
+      \PackageError{fcprefix}{Unexpected option}{%
+        Option `numeral u in duo' expects `yes' or `no' }%
+    }%
+  }%
+}
+
+\let\fc@prefix@eaccute\'% default is to set accute accent like in French
+
+% ===========================================================================================================
+% Option `power of millia' tells how millia is raise to power n. It expects value
+% - `recurse': for which millia squared is noted as milliamillia
+% - `arabic' : for which millia squared is noted as millia^2
+% - `prefix' : for which millia squared is noted as bismillia
+% -----------------------------------------------------------------------------------------------------------
+\define@key{fcprefix}{powerofmillia}[prefix]{%
+  \ifthenelse{\equal{#1}{prefix}}{%
+       \let\fc@power@of@millia@init\@gobbletwo
+       \let\fc@power@of@millia\fc@@prefix@millia
+  }{%
+    \ifthenelse{\equal{#1}{arabic}}{%
+       \let\fc@power@of@millia@init\@gobbletwo
+       \let\fc@power@of@millia\fc@@arabic@millia
+    }{%
+      \ifthenelse{\equal{#1}{recurse}}{%
+        \let\fc@power@of@millia@init\fc@@recurse@millia@init
+        \let\fc@power@of@millia\fc@@recurse@millia
+      }{%
+        \PackageError{fcprefix}{Unexpected option}{%
+          Option `power of millia' expects `recurse', `arabic', or `prefix' }%
+      }%
+    }%
+  }%
+}
+
+% Arg #1 = output macro
+% Arg #2 = counter with current weight
+\def\fc@@recurse@millia#1#2{%
+  \let\@tempp#1%
+  \edef#1{millia\@tempp}%
+}
+
+% Arg #1 = output macro
+% Arg #2 = counter with current weight
+\def\fc@@recurse@millia@init#1#2{%
+  {%
+    % save input arguments into locals
+    \edef\@tempb{\the#2}%
+    \count0=0 %
+    \let\@tempa\@empty
+    \loop
+       \ifnum\count0<\@tempb
+         \advance\count0 by 1 %
+         \expandafter\def
+           \expandafter\@tempa\expandafter{\@tempa millia}%
+    \repeat
+    \def\@tempb##1{\def\@tempa{\def#1{##1}}}%
+    \expanftater\@tempb\expanftater{\@tempa}%
+    \expandafter
+  }\@tempa
+}
+
+% Arg #1 = output macro
+% Arg #2 = counter with current weight
+\def\fc@@arabic@millia#1#2{%
+  \ifnnum#2=0 %
+    \let#1\@empty
+  \else
+    \edef#1{millia\^\the#2}%
+  \fi
+}
+
+% Arg #1 = output macro
+% Arg #2 = counter with current weight
+\def\fc@@prefix@millia#1#2{%
+  \fc@@latin@numeral@pefix{#2}{#1}%
+}
+
+% default value is prefix
+\let\fc@power@of@millia@init\@gobbletwo
+\let\fc@power@of@millia\fc@@prefix@millia
+
+% ===========================================================================================================
+% Compute a cardinal prefix for n-illion, like 1 => m, 2 => bi, 3 => tri
+% The algorithm to derive this prefix is that of Russ Rowlett
+% I founds its documentation on Alain Lassine's site: http://www.alain.be/Boece/grands_nombres.html
+% -----------------------------------------------------------------------------------------------------------
+
+\@ifundefined{fc@@latin@cardinal@pefix}{}{%
+  \PackageError{fmtcount}{Duplicate definition}{Redefinition of macro `fc@@latin@cardinal@pefix'}}
+
+% #1 = input number
+% #2 = outut macro name into which to place the 
+\def\fc@@latin@cardinal@pefix#1#2{%
+  {%
+    % put input arguments into local
+    \edef\@tempa{\number#1}%
+    % -------------------------------------------------------------------------------------------------------
+    \expandafter\fc@number@parser\expandafter{\@tempa}%
+    \count2=0 %
+    % \@tempt will hold the optional final t, \@tempu is used to initialize \@tempt
+    % to `t' when the firt non-zero 3digit group is met, which is the job made by \@tempi
+    \let\@tempt\@empty
+    \def\@tempu{t}%
+    % \@tempm will hold the millia^n/3
+    \let\@tempm\@empty
+    % Loop
+    \def\@templ{%
+      \ifnum\count2>\fc@max@weight
+        \let\next\relax
+      \else
+        % Loop body
+        \fc@read@unit{\count3}{\count2}%
+        \advance\count2 by 1 %
+        \fc@read@unit{\count4}{\count2}%
+        \advance\count2 by 1 %
+        \fc@read@unit{\count5}{\count2}%
+        \advance\count2 by 1 %
+        % if the 3digits are not all zero, then set \@tempt to `t' for the first time this event is met.
+        \edef\@tempn{%
+          \ifnum\count3=0\else 1\fi
+          \ifnum\count4=0\else 1\fi
+          \ifnum\count5=0\else 1\fi
+        }%
+        \ifx\@tempn\@empty\else
+          \let\@tempt\@tempu
+          \let\@tempu\@empty
+        \fi
+        % Now process the current group of 3 digits
+        \let\@tempp\@tempa
+        \edef\@tempa{%
+          % hundreds
+          \ifcase\count5 %
+          \or cen%
+          \or ducen%
+          \or trecen%
+          \or quadringen%
+          \or quingen%
+          \or sescen%
+          \or septigen%
+          \or octingen%
+          \or nongen%
+          \fi
+          \ifnum\count4=0 %
+            % x0(0..9)
+            \ifnum\count2=3 %
+              % Absolute weight zero
+              \ifcase\count3 \@tempt
+              \or m%
+              \or b%
+              \or tr% 
+              \or quadr%
+              \or quin\@tempt
+              \or sex\@tempt
+              \or sep\@tempt
+              \or oc\@tempt
+              \or non%
+              \fi
+            \else
+              % weight 3*n, with n>0, i.e. this is followed by a millia^n
+              \ifcase\count3 %
+              \or \ifnum\count2>\fc@max@weight\else un\fi
+              \or d\fc@u@in@duo o%
+              \or tre%
+              \or quattuor%
+              \or quin%
+              \or sex%
+              \or septen%
+              \or octo%
+              \or novem%
+              \fi
+            \fi
+          \else
+             % x(10..99)
+             \ifcase\count3 %
+             \or un%
+             \or d\fc@u@in@duo o%
+             \or tre%
+             \or quattuor%
+             \or quin%
+             \or sex%
+             \or septen%
+             \or octo%
+             \or novem%
+             \fi
+             \ifcase\count4 %
+             \or dec%
+             \or vigin\@tempt
+             \or trigin\@tempt
+             \or quadragin\@tempt
+             \or quinquagin\@tempt
+             \or sexagin\@tempt
+             \or septuagin\@tempt
+             \or octogin\@tempt
+             \or nonagin\@tempt
+             \fi
+          \fi
+          % Insert the millia^(n/3) only if one of \count3 \count4 \count5 is non zero
+          \@tempm
+          % add up previous version of \@tempa
+          \@tempp
+        }%
+        % concatenate millia to \@tempm
+        \fc@power@of@millia\@tempm{\count2}%
+      \fi
+      \next
+    }%
+    \let\@tempa\@empty
+    \let\next\@templ
+    \@templ
+    % propagate expansion of \@tempa into #2 after closing bracket
+    \def\@tempb##1{\def\@tempa{\def#2{##1}}}%
+    \expandafter\@tempb\expandafter{\@tempa}%
+    \expandafter
+  }\@tempa
+}
+
+% ===========================================================================================================
+% Compute a numeral prefix like sémel, bis, ter, quater, etc...  I found the algorithm to derive this prefix
+% on Alain Lassine's site: http://www.alain.be/Boece/nombres_gargantuesques.html
+% -----------------------------------------------------------------------------------------------------------
+\@ifundefined{fc@@latin@numeral@pefix}{}{%
+  \PackageError{fmtcount}{Duplicate definition}{Redefinition of macro `fc@@latin@numeral@pefix'}}
+
+% #1 = input number
+% #2 = outut macro name into which to place the 
+\def\fc@@latin@numeral@pefix#1#2{%
+  {%
+    \edef\@tempa{\number#1}%
+    \def\fc@unit@weight{0}%
+    \expandafter\fc@number@parser\expandafter{\@tempa}%
+    \count2=0 %
+    % \@tempm will hold the millies^n/3
+    \let\@tempm\@empty
+    % Loop
+    \def\@templ{%
+      \ifnum\count2>\fc@max@weight
+        \let\next\relax
+      \else
+        % Loop body
+        \fc@read@unit{\count3}{\count2}%
+        \advance\count2 by 1 %
+        \fc@read@unit{\count4}{\count2}%
+        \advance\count2 by 1 %
+        \fc@read@unit{\count5}{\count2}%
+        \advance\count2 by 1 %
+        % Check the use of duodevicies instead of octodecies
+        \let\@tempn\@secondoftwo
+        \ifnum\count3>7 %
+          \ifnum\count4<\fc@duodeandunde
+            \ifnum\count4>0 %
+               \let\@tempn\@firstoftwo
+             \fi
+          \fi
+        \fi
+        \@tempn
+        {% use duodevicies for eighteen
+          \advance\count4 by 1 %
+          \let\@temps\@secondoftwo
+        }{%  do not use duodevicies for eighteen
+          \let\@temps\@firstoftwo
+        }%
+        \let\@tempp\@tempa
+        \edef\@tempa{%
+          % hundreds
+          \ifcase\count5 %
+          \expandafter\@gobble
+          \or c%
+          \or duc%
+          \or trec%
+          \or quadring%
+          \or quing%
+          \or sesc%
+          \or septing%
+          \or octing%
+          \or nong%
+          \fi
+          {enties}%
+          \ifnum\count4=0 %
+            % x0(0..9)
+            \ifcase\count3 %
+            \or
+              \ifnum\count2=3 %
+                s\fc@prefix@eaccute emel%
+              \else
+                \ifnum\count2>\fc@max@weight\else un\fi
+              \fi
+            \or bis%
+            \or ter% 
+            \or quater%
+            \or quinquies%
+            \or sexies%
+            \or septies%
+            \or octies%
+            \or novies%
+            \fi
+          \else
+             % x(10..99)
+             \ifcase\count3 %
+             \or un%
+             \or d\fc@u@in@duo o%
+             \or ter%
+             \or quater%
+             \or quin%
+             \or sex%
+             \or septen%
+             \or \@temps{octo}{duod\fc@prefix@eaccute e}% x8 = two before next (x+1)0
+             \or \@temps{novem}{und\fc@prefix@eaccute e}% x9 = one before next (x+1)0
+             \fi
+             \ifcase\count4 %
+             % can't get here
+             \or d\fc@prefix@eaccute ec%
+             \or vic%
+             \or tric%
+             \or quadrag%
+             \or quinquag%
+             \or sexag%
+             \or septuag%
+             \or octog%
+             \or nonag%
+             \fi
+             ies%
+          \fi
+          % Insert the millies^(n/3) only if one of \count3 \count4 \count5 is non zero
+          \@tempm
+          % add up previous version of \@tempa
+          \@tempp
+        }%
+        % concatenate millies to \@tempm
+        \let\@tempp\@tempp
+        \edef\@tempm{millies\@tempp}%
+      \fi
+      \next
+    }%
+    \let\@tempa\@empty
+    \let\next\@templ
+    \@templ
+    % propagate expansion of \@tempa into #2 after closing bracket
+    \def\@tempb##1{\def\@tempa{\def#2{##1}}}%
+    \expandafter\@tempb\expandafter{\@tempa}%
+    \expandafter
+  }\@tempa
+}
+
+% ===========================================================================================================
+% Stuff for calling macros
+% -----------------------------------------------------------------------------------------------------------
+\def\fc@call@opt@arg@second#1#2{%
+  \def\@tempb{%
+    \ifx[\@tempa
+      \def\@tempc[####1]{%
+            {#1{####1}{#2}}%
+          }%
+    \else
+      \def\@tempc{{#1{}{#2}}}%
+    \fi
+    \@tempc
+  }%
+  \futurelet\@tempa
+  \@tempb
+}
+
+\def\fc@call@opt@arg@first#1{%
+  \def\@tempb{%
+    \ifx[\@tempa
+      \def\@tempc[####1]####2{{#1{####1}{####2}}}%
+    \else
+      \def\@tempc####1{{#1{}{####1}}}%
+    \fi
+    \@tempc
+  }%
+  \futurelet\@tempa
+  \@tempb
+}
+
+\let\fc@call\fc@call@opt@arg@first
+
+
+% ===========================================================================================================
+% User API
+% -----------------------------------------------------------------------------------------------------------
+
+% Arg #1 = options
+% Arg #2 = input number
+\newcommand*{\@latinnumeralstringnum}[2]{%
+  \setkeys{fcprefix}{#1}%
+  \fc@@latin@numeral@pefix{#2}\@tempa
+  \@tempa
+}
+
+% Arg #1 = options
+% Arg #2 = input counter
+\newcommand*{\@latinnumeralstring}[2]{%
+  \setkeys{fcprefix}{#1}%
+  \message{Coucou!! `#2'}%
+  \expandafter\let\expandafter
+     \@tempa\expandafter\csname c@#2\endcsname
+  \expandafter\fc@@latin@numeral@pefix\expandafter{\the\@tempa}\@tempa
+  \@tempa
+}
+
+
+\newcommand*{\latinnumeralstring}{%
+  \fc@call{\@latinnumeralstring}%
+}
+
+\newcommand*{\latinnumeralstringnum}{%
+  \fc@call{\@latinnumeralstringnum}%
+}

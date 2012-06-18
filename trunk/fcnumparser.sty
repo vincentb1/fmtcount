@@ -1,0 +1,330 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{fcnumparser}
+
+\def\fc@counter@parser#1{%
+  \expandafter\fc@number@parser\expandafter{\the#1.}%
+}
+
+
+\newcount\fc@digit@counter
+
+\def\fc@end@{\fc@end}
+
+% get integer and fractional part. Separator may be . or , whichever first.
+% integer part goes to \fc@integer@part
+% fractional part goes to \fc@fractional@part
+% -----------------------------------------------------------------------------------------------------------
+\def\fc@number@analysis#1\fc@nil{%
+  \fc@point@splitter#1.\fc@end\fc@nil
+  \ifx\@tempa\fc@end@
+    \fc@comma@splitter#1,\fc@end\fc@nil
+    \ifx\@tempa\fc@end@
+       \def\fc@fractional@part{}%
+    \else
+       \expandafter\fc@comma@drop@end\@tempa
+    \fi
+  \else
+       \expandafter\fc@point@drop@end\@tempa
+  \fi
+}
+\def\fc@comma@splitter#1,#2\fc@nil{%
+  \def\fc@integer@part{#1}%
+  \def\@tempa{#2}%
+}
+\def\fc@point@splitter#1.#2\fc@nil{%
+  \def\fc@integer@part{#1}%
+  \def\@tempa{#2}%
+}
+\def\fc@comma@drop@end#1,\fc@end{%
+  \def\fc@fractional@part{#1}%
+}
+\def\fc@point@drop@end#1.\fc@end{%
+  \def\fc@fractional@part{#1}%
+}
+
+\def\fc@number@parser#1{%
+  % first remove all the spaces in #1, and place the result into \@tempa
+  % ---------------------------------------------------------------------------------------------------------
+  \let\@tempa\@empty
+  \def\@tempb##1##2\fc@nil{%
+    \def\@tempc{##1}%
+    \ifx\@tempc\space
+    \else
+      \expandafter\def\expandafter\@tempa\expandafter{\@tempa ##1}%
+    \fi
+    \def\@tempc{##2}%
+    \ifx\@tempc\@empty
+      \expandafter\@gobble
+    \else
+      \expandafter\@tempb
+    \fi
+    ##2\fc@nil
+  }%
+  \@tempb#1\fc@nil
+  % get the sign into \fc@sign and the unsigned number part into \fc@number
+  % ---------------------------------------------------------------------------------------------------------
+  \def\@tempb##1##2\fc@nil{\def\fc@sign{##1}\def\fc@number{##2}}%
+  \expandafter\@tempb\@tempa\fc@nil
+  \expandafter\if\fc@sign+%
+    \def\fc@sign@case{1}%
+  \else
+    \expandafter\if\fc@sign-%
+      \def\fc@sign@case{2}%
+    \else
+      \def\fc@sign{}%
+      \def\fc@sign@case{0}%
+      \let\fc@number\@tempa
+    \fi
+  \fi
+  \ifx\fc@number\@empty
+    \PackageError{fcnumparser}{Invalid number}{Number must contain at least one non blank
+      character after sign}%
+  \fi
+  % Split \fc@number into \fc@integer@part and \fc@fractional@part
+  % --------------------------------------------------------------------------------------------------------
+  \expandafter\fc@number@analysis\fc@number\fc@nil
+  % Split \fc@integer@part into a sequence of \fc@digit<n> with n from \fc@unit@weight to 
+  % \fc@max@weight
+  % --------------------------------------------------------------------------------------------------------
+  \expandafter\fc@digit@counter\fc@unit@weight
+  \expandafter\fc@parse@integer@digits\fc@integer@part\fc@end\fc@nil
+  % first we compute the weight of the most significant digit
+  % after \fc@parse@integer@digits, \fc@digit@counter is equal to \fc@unit@weight -mw -1
+  % and we want to set  \fc@max@weight to \fc@unit@weight +mw
+  % so we do \fc@max@weight <- (-\fc@digit@counter) +  2*\fc@unit@weight -1
+  \fc@digit@counter -\fc@digit@counter
+  \advance\fc@digit@counter by \fc@unit@weight
+  \advance\fc@digit@counter by \fc@unit@weight
+  \advance\fc@digit@counter by -1 %
+  \edef\fc@max@weight{\the\fc@digit@counter}%
+  % now we loop for i =  \fc@unit@weight to \fc@max@weight in order to copy all
+  % the digits from i + offset to i
+  % First we compute offset into \@tempi
+  {%
+    \count0 \fc@unit@weight\relax
+    \count1 \fc@max@weight\relax
+    \advance\count0 by -\count1 %
+    \advance\count0 by -1 %
+    \def\@tempa##1{\def\@tempb{\def\@tempi{##1}}}%
+    \expandafter\@tempa\expandafter{\the\count0}%
+    \expandafter
+  }\@tempb
+  % now we loop
+  \expandafter\fc@digit@counter\fc@unit@weight
+  \def\@templ{%
+     \ifnum\fc@digit@counter>\fc@max@weight
+        \let\next\relax
+     \else
+        % loop body
+        {%
+          \count0 \@tempi
+          \advance\count0 by \fc@digit@counter
+          \expandafter\def\expandafter\@tempd\expandafter{\csname fc@digit@\the\count0\endcsname}%
+          \expandafter\def\expandafter\@tempe\expandafter{\csname fc@digit@\the\fc@digit@counter\endcsname}%
+          \def\@tempa####1####2{\def\@tempb{\let####1####2}}%
+          \expandafter\expandafter\expandafter\@tempa\expandafter\@tempe\@tempd
+          \expandafter
+        }\@tempb
+        \advance\fc@digit@counter by 1 %
+     \fi
+     \next
+  }%
+  \let\next\@templ
+  \@templ
+  % Split \fc@fractional@part into a sequence of \fc@digit<n> with n from \fc@unit@weight-1 to 
+  % \fc@min@weight by step of -1
+  % --------------------------------------------------------------------------------------------------------
+  \expandafter\fc@digit@counter\fc@unit@weight
+  \expandafter\fc@parse@integer@digits\fc@fractional@part\fc@end\fc@nil
+  \edef\fc@min@weight{\the\fc@digit@counter}%
+}
+
+\@ifundefined{fc@finished}{}{%
+  \PackageError{fcnumparser}{Duplicate definition}{Redefinition of macro `fc@finished'}}
+\def\fc@finished#1\fc@nil{}
+
+\@ifundefined{fc@parse@integer@digits}{}{%
+  \PackageError{fcnumparser}{Duplicate definition}{Redefinition of macro `fc@parse@integer@digits'}}
+\def\fc@parse@integer@digits#1#2\fc@nil{%
+  \def\@tempa{#1}%
+  \ifx\@tempa\fc@end@
+  \let\next\fc@finished
+  \else
+  \let\next\fc@parse@integer@digits
+  \advance\fc@digit@counter by -1
+  \expandafter\def\csname fc@digit@\the\fc@digit@counter\endcsname{#1}%
+  \fi
+  \next#2\fc@nil
+}
+
+
+\newcommand*{\fc@unit@weight}{0}
+
+\@ifundefined{fc@read@unit}{}{%
+  \PackageError{fcnumparser}{Duplicate definition}{Redefinition of macro `fc@read@unit'}}
+% arg #1 = output counter: into which the read value is placed
+% arg #2 = input number: unit weight at which reach the value is to be read
+\def\fc@read@unit#1#2{%
+  \ifnum#2>\fc@max@weight
+     #1=0\relax
+  \else
+     \ifnum#2<\fc@min@weight
+        #1=0\relax
+     \else
+         {%
+           \edef\@tempa{\number#2}%
+           \count0=\@tempa
+           \edef\@tempa{\csname fc@digit@\the\count0\endcsname}%
+           \def\@tempb##1{\def\@tempa{#1=##1\relax}}%
+           \expandafter\@tempb\expandafter{\@tempa}%
+           \expandafter
+         }\@tempa
+     \fi
+  \fi
+}
+
+\@ifundefined{fc@read@hundred}{}{%
+  \PackageError{fcnumparser}{Duplicate definition}{Redefinition of macro `fc@read@hundred'}}
+% arg #1 = output counter: into which the read value is placed
+% arg #2 = input number: unit weight at which reach the value is to be read
+\def\fc@read@hundred#1#2{%
+  {%
+    \fc@read@unit{\count0}{#2}%
+    \def\@tempa##1{\fc@read@unit{\count1}{##1}}%
+    \count2=#2%
+    \advance\count2 by 1 %
+    \expandafter\@tempa{\the\count2}%
+    \multiply\count1 by 10 %
+    \advance\count1 by \count0 %
+    \def\@tempa##1{\def\@tempb{#1=##1\relax}}
+    \expandafter\@tempa\expandafter{\the\count1}%
+    \expandafter
+  }\@tempb
+}
+
+
+\@ifundefined{fc@read@thousand}{}{%
+  \PackageError{fcnumparser}{Duplicate definition}{Redefinition of macro `fc@read@thousand'}}
+% arg #1 = output counter: into which the read value is placed
+% arg #2 = input number: unit weight at which reach the value is to be read
+\def\fc@read@thousand#1#2{%
+  {%
+    \fc@read@unit{\count0}{#2}%
+    \def\@tempa##1{\fc@read@hundred{\count1}{##1}}%
+    \count2=#2%
+    \advance\count2 by 1 %
+    \expandafter\@tempa{\the\count2}%
+    \multiply\count1 by 10 %
+    \advance\count1 by \count0 %
+    \def\@tempa##1{\def\@tempb{#1=##1\relax}}
+    \expandafter\@tempa\expandafter{\the\count1}%
+    \expandafter
+  }\@tempb
+}
+
+% Note: one myriad is ten thousand
+\@ifundefined{fc@read@myriad}{}{%
+  \PackageError{fcnumparser}{Duplicate definition}{Redefinition of macro `fc@read@myriad'}}
+% arg #1 = output counter: into which the read value is placed
+% arg #2 = input number: unit weight at which reach the value is to be read
+\def\fc@read@myriad#1#2{%
+  {%
+    \fc@read@hundred{\count0}{#2}%
+    \def\@tempa##1{\fc@read@hundred{\count1}{##1}}%
+    \count2=#2
+    \advance\count2 by 2
+    \expandafter\@tempa{\the\count2}%
+    \multiply\count1 by 100 %
+    \advance\count1 by \count0 %
+    \def\@tempa##1{\def\@tempb{#1=##1\relax}}%
+    \expandafter\@tempa\expandafter{\the\count1}%
+    \expandafter
+  }\@tempb
+}
+
+
+
+\@ifundefined{fc@check@nonzeros}{}{%
+  \PackageError{fcnumparser}{Duplicate definition}{Redefinition of macro `fc@check@nonzeros'}}
+% Check wehther some part of the parsed value contains some non-zero digit
+% arg #1 = input number: minimum unit unit weight at which start to search the non-zeros
+% arg #2 = input number: maximum unit weight at which end to seach the non-zeros
+% arg #3 = output macro: let n be the number represented by digits the weight of which span from #1 to #2,
+%                        then #3 is set to the number min(n,9).
+\def\fc@check@nonzeros#1#2#3{%
+  {%
+    % first save inputs into local macros used by \fc@@check@nonzeros@inner as input
+    % arguments
+    \edef\@@tempa{\number#1}%
+    \edef\@tempb{\number#2}%
+    \count0=\@@tempa
+    \count1=\@tempb\relax
+    % then do the job
+   \fc@@check@nonzeros@inner
+   % now propagate output after closing brace
+   \def\@tempd##1{\def\@tempa{\def#3{##1}}}%
+   \expandafter\@tempd\expandafter{\@tempc}%
+   \expandafter
+  }\@tempa
+}
+
+% Check wehther some part of the parsed value contains some non-zero digit
+% At the call of this macro we expect that
+% \@tempa input/output macro: 
+%     - input: minimum unit unit weight at which start to search the non-zeros
+%     - output: macro may have been redefined
+% \@tempb input/output macro: 
+%     - input: maximum unit weight at which end to seach the non-zeros
+%     - output: macro may have been redefined
+% \@tempc ouput macro: 0 if all-zeros, 1 if at least one zero is found
+% \count0 output counter: wieght+1 of the first found non zero starting from minimum weight
+\def\fc@@check@nonzeros@inner{%
+   \ifnum\count0<\fc@min@weight
+      \count0=\fc@min@weight\relax
+   \fi
+   \ifnum\count1>\fc@max@weight\relax
+      \count1=\fc@max@weight
+   \fi
+   \count2\count0 %
+   \advance\count2 by 1 %
+   \ifnum\count0>\count1 %
+     \PackageError{fcnumparser}{Unexpected arguments}{Number in argument 2 of macro `fc@check@nonzeros' must 
+       be at least equal to number in argument 1}%
+   \else
+     \fc@@check@nonzeros@inner@loopbody
+     \ifnum\@tempc>0 %
+       \ifnum\@tempc<9 %
+         \ifnum\count0>\count1 %
+         \else
+           \let\@tempd\@tempc
+           \fc@@check@nonzeros@inner@loopbody
+           \ifnum\@tempc=0 %
+             \let\@tempc\@tempd
+           \else
+             \def\@tempc{9}%
+           \fi
+         \fi
+       \fi
+     \fi
+   \fi
+}
+
+\def\fc@@check@nonzeros@inner@loopbody{%
+   % \@tempc <-  digit of weight \count0
+   \expandafter\let\expandafter\@tempc\csname fc@digit@\the\count0\endcsname
+   \advance\count0 by 1 %
+   \ifnum\@tempc=0 %
+      \ifnum\count0>\count1 %
+        \let\next\relax
+      \else
+        \let\next\fc@@check@nonzeros@inner@loopbody
+      \fi
+   \else
+      \ifnum\count0>\count2 %
+        \def\@tempc{9}%
+      \fi
+      \let\next\relax
+   \fi
+   \next
+}
+
