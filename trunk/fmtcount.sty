@@ -104,6 +104,7 @@
 \@fc@loadifbabelldf{UKenglish}
 \@fc@loadifbabelldf{british}
 \@fc@loadifbabelldf{USenglish}
+\@fc@loadifbabelldf{american}
 \@fc@loadifbabelldf{spanish}
 \@fc@loadifbabelldf{portuges}
 \@fc@loadifbabelldf{french}
@@ -546,7 +547,7 @@
 % \cs{@strctr} should be set to zero before calling it.
 %    \begin{macrocode}
 \def\@fmtc@count#1#2\relax{%
-  \if\relax#1
+  \if\relax#1%
   \else
     \advance\@strctr by 1\relax
     \@fmtc@count#2\relax

@@ -1,0 +1,112 @@
+
+
+####     Number          Ordinal (3 genders)
+  0      null            nullter /nullte /nulltes
+  1      eins            erster  /erste  /erstes
+  2      zwei            zweiter /zweite /zweites
+  3      drei            dritter /dritte /drittes
+  4      vier            vierter /vierte /viertes
+  5      fünf            fünter  /fünfte /fünte
+  6      sechs           sechster/sechste/sechstes
+  7      sieben          siebter /siebte /siebtes
+  8      acht            achter  /achte  /achtes
+  9      neun            neunter /neunte /neuntes
+ 
+ 10      zehn            zehnter /zehnte /zehntes
+ 11      elf             elfter  /elfte  /elftes
+ 12      zwölf           zwölfter/zwölfte/zwölftes
+ 13      dreizehn        dreizehnter/dreizehnte/dreizehntes
+ 14      vierzehn        vierzehnter/vierzehnte/dreizehntes
+ 15      fünfzehn        fünfzehnter/fünfzehnte/fünfzehntes
+ 16      sechzehn        sechzehnter/sechzehnte/sechzehntes [watch out for dropped "s"]
+ 17      siebzehn        siebzehnter/siebzehnte/siebzehntes [watch out for dropped "en"]
+ 18      achtzehn        achtzehnter/achtzehnte/achtzehntes
+ 19      neunzehn        neunzehnter/neunzehnte/neuhnzehntes
+
+ 20      zwanzig         zwanzigster/zwanzigste/zwanzigtes
+ 21      einundzwanzig   einundzwanzigster/einundzwanzigste/einundzwanzigstes
+ etc: construction: number+UND+tennumber
+
+ 20      zwanzig         zwanzigster/zwanzigste/zwanzigstes
+ 30      dreißig         dreißigster/dreißigste/dreißigstes
+ 40      vierzig         vierzigster/vierzigste/vierzigstes
+ 50      fünfzig         fünfzigster/fünfzigste/fünfzigstes 
+ 60      sechzig         sechzigster/sechzigste/sechzigstes [watch out for dropped "s"] 
+ 70      siebzig         siebzigster/siebzigste/siebzigstes [watch out for dropped "en"]
+ 80      achtzig         achtzigster/achtzigste/achtzigstes
+ 90      neunzig         neunzigster/neunzigste/neunzigstes
+ and here is a test:
+ 99      neunundneunzig
+
+ 100     [ein]hundert (very often the "ein" is dropped)
+ 101     hunderteins or einhunderteins
+ 111     hundertelf  or einhundertelf
+ 155     hundertfünfundfünfzig or einhundertfünfundfünfzig
+ 190     hundertneunzig or einhundertneunzig
+ etc: construction: hundrednumber[+number][+UND]+tennernumber] (if number = zero, then drop it)
+
+ 100     [ein]hundert    hundertster/hundertste/hunderstes
+ 200     zweihundert     zweihunderster/zweihundertste/zweihundertstes
+ 300     dreihundert     dreihundertster/dreihunderste/dreihundertstes
+ 400     vierhundert     vierhundertster/vierhundertste/vierhundertstes
+ 500     fünfhundert     fünfhundertster/fünfhundertste/fünfhunderstes
+ 600     sechshundert    sechshundertster/sechshundertste/sechshundertstes [watch out: DON'T drop the "s"]
+ 700     siebenhundert   siebenhundertster/siebenhundertste/siebenhundertstes [DON'T drop the "en"]
+ 800     achthundert     achthundertster/achthundertste/achthundertstes
+ 900     neunhundert     neunhundertster/neunhundertste/neunhundertstes
+ and here are two tests:
+ 333     dreihundertdreiunddreißig
+ 999     neunhundertneunundneunzig
+
+ 1000    [ein]tausend  (very often the "ein" is dropped)
+ 1001    tausendeins     
+ 1010    tausendzehn
+ 1100    tausendeinhundert [DON'T drop the "ein" at the hunderdnumber]
+ 1110    tausendeinhundertzehn
+ 1111    tausdeneinhundertelf
+ 1234    tausendzweihundertvierunddreißig
+ etc: construction: thousandnumber[+hundrednumber][+number][+UND]+tennernumber]
+
+ 1000    [ein]tausend    tausendster/tausendste/tausendstes
+ 2000    zweitausend     zweitausendster/zweitausendste/zweitausendstes
+ 3000    dreitausend     dreitausendster/dreitausendste/dreitausendstes
+ 4000    viertausend     viertausendster/viertausendste/viertausendstes
+ 5000    fünftausend     fünftausendster/fünftausendste/fünftausendstes
+ 6000    sechstausend    sechstausendster/sechstausendste/sechstausendstes
+ 7000    siebentausend   siebentausendster/siebentausendste/siebentausendstes
+ 8000    achttausend     achttausendster/achttausendste/achttausendstes
+ 9000    neuntausend     neuntausendster/neuntausendste/neuntausendstes
+ and here is the standard test:
+ 9999    neuntausendneunhundertneunundneunzig
+
+ 10'000  zehntausend     
+ 11'000  elftausend
+ etc
+ 19'000  neunzehntausend
+ 20'000  zwanzigtausend
+ 21'000  einundzwanzigtausend
+ etc
+ 99'000  neundundneunzigtausend
+ etc: construction: [number][+UND][+tennernumber]+TAUSEND[+hundrednumber][+number][+UND][+tennernumber]
+ and here is the standard test:
+ 99'999  neunundneunzigtausendneunhundertneunundneunzig
+
+ The UND appears only if there is numberUNDtennernumber; if either is absent, so is UND.
+
+ The gender can be made clear in two grammatical constructions
+       erster Mann or der erste Mann     (meaning the first man)
+       zweite Frau or die zweite Frau    (meaning the second woman}
+       drittes Kind or das dritte Kind   (meaning the third child)
+       This however does not work with ein/eine/ein (meaning "a" rather than "the")
+       Genders for day and month are "male": der Tag, der Monat
+                   for year it is "neutral": das Jahr
+
+ Final example: todays date
+     vierundzwanzigster Tag des vierten Monats April im Jahr zweitausendsieben
+     twentyfourth       day of the fourth month Aprin in the year twothousandseven.
+                                    
+
+        
+ 
+
+ 

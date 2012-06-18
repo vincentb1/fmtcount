@@ -206,7 +206,7 @@
 \fi}
 \let\@ordinalNfrench\@ordinalMfrench
 \newcommand*{\@@unitstringfrench}[1]{%
-\ifcase#1 %
+\ifcase#1%
 z\'ero%
 \or un%
 \or deux%
@@ -240,7 +240,7 @@ une%
 \fi
 }
 \newcommand*{\@@teenstringfrench}[1]{%
-\ifcase#1 %
+\ifcase#1%
 dix%
 \or onze%
 \or douze%
@@ -292,7 +292,7 @@ s%
 \ifnum#1>0\@unitstring{#1}\fi
 }
 \newcommand*{\@@Unitstringfrench}[1]{%
-\ifcase#1 %
+\ifcase#1%
 Z\'ero%
 \or Un%
 \or Deux%
@@ -313,7 +313,7 @@ Z\'ero%
 \fi
 }
 \newcommand*{\@@Tenstringfrench}[1]{%
-\ifcase#1 %
+\ifcase#1%
 \or Dix%
 \or Vingt%
 \or Trente%
@@ -327,7 +327,7 @@ Z\'ero%
 \fi
 }
 \newcommand*{\@@Teenstringfrench}[1]{%
-\ifcase#1 %
+\ifcase#1%
 Dix%
 \or Onze%
 \or Douze%
@@ -745,7 +745,7 @@ Dix%
 \let\@OrdinalstringFfrench=\@OrdinalstringFfrenchfrance
 \let\@OrdinalstringNfrench\@OrdinalstringMfrench
 \newcommand*{\@@unitthstringfrench}[1]{%
-\ifcase#1 %
+\ifcase#1%
     z\'ero%
 \or uni\`eme%
 \or deuxi\`eme%
@@ -759,7 +759,7 @@ Dix%
 \fi
 }
 \newcommand*{\@@tenthstringfrench}[1]{%
-\ifcase#1 %
+\ifcase#1%
 \or dixi\`eme%
 \or vingti\`eme%
 \or trenti\`eme%
@@ -772,7 +772,7 @@ Dix%
 \fi
 }
 \newcommand*{\@@teenthstringfrench}[1]{%
-\ifcase#1 %
+\ifcase#1%
 dixi\`eme%
 \or onzi\`eme%
 \or douzi\`eme%
@@ -786,7 +786,7 @@ dixi\`eme%
 \fi
 }
 \newcommand*{\@@seventiethsfrenchswiss}[1]{%
-\ifcase#1 %
+\ifcase#1%
   \@tenthstring{7}%
 \or
   \@tenstring{7} \@andname\ \@unitthstring{1}%
@@ -795,7 +795,7 @@ dixi\`eme%
 \fi
 }
 \newcommand*{\@@eightiethsfrenchswiss}[1]{%
-\ifcase#1 %
+\ifcase#1%
 \@tenthstring{8}%
 \or
 \@tenstring{8} \@andname\ \@unitthstring{1}%
@@ -803,7 +803,7 @@ dixi\`eme%
 \@tenstring{8}-\@unitthstring{#1}%
 \fi}
 \newcommand*{\@@ninetiethsfrenchswiss}[1]{%
-\ifcase#1 %
+\ifcase#1%
 \@tenthstring{9}%
 \or
 \@tenstring{9} \@andname\ \@unitthstring{1}%
@@ -832,7 +832,7 @@ dixi\`eme%
 \@unitstring{4}-\@tenstring{2}-\@teenthstring{#1}%
 }
 \newcommand*{\@@Unitthstringfrench}[1]{%
-\ifcase#1 %
+\ifcase#1%
     Z\'ero%
 \or Uni\`eme%
 \or Deuxi\`eme%
@@ -846,7 +846,7 @@ dixi\`eme%
 \fi
 }
 \newcommand*{\@@Tenthstringfrench}[1]{%
-\ifcase#1 %
+\ifcase#1%
 \or Dixi\`eme%
 \or Vingti\`eme%
 \or Trenti\`eme%
@@ -859,7 +859,7 @@ dixi\`eme%
 \fi
 }
 \newcommand*{\@@Teenthstringfrench}[1]{%
-\ifcase#1 %
+\ifcase#1%
 Dixi\`eme%
 \or Onzi\`eme%
 \or Douzi\`eme%
