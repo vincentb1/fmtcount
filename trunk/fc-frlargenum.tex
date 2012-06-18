@@ -1,0 +1,17 @@
+\documentclass{minimal}
+\usepackage[french]{babel}
+\usepackage{fmtcount}
+\usepackage[T1]{fontenc}
+\begin{document}
+
+\fmtcountsetoptions{french={scale=long}}
+\numberstringnum{1000000000000000000000000000000000000000}
+
+\fmtcountsetoptions{french={scale=short}}
+\numberstringnum{1000000000000000000000000000000000000000}
+
+
+\fmtcountsetoptions{french={scale=recursive}}
+\numberstringnum{1000000000000000000000000000000000000000}
+
+\end{document}

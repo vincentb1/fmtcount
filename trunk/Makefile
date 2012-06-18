@@ -5,7 +5,7 @@ STYFILES=fmtcount.sty fcnumparser.sty fcprefix.sty \
 
 NLCTDOC=$(HOME)/tex/latex/nlctdoc/nlctdoc.cls
 
-test	: fc-samp.pdf
+test	: fc-samp.pdf fc-frlargenum.pdf
 
 fc-lang.pdf	: fc-lang.tex $(STYFILES)
 		pdflatex fc-lang
@@ -13,6 +13,9 @@ fc-lang.pdf	: fc-lang.tex $(STYFILES)
 fc-samp.pdf	: fc-samp.tex $(STYFILES)
 		pdflatex fc-samp
 		pdflatex fc-samp
+
+fc-frlargenum.pdf	: fc-frlargenum.tex $(STYFILES)
+		pdflatex fc-frlargenum
 
 dist	: README CHANGES fmtcount-manual.tex \
 	  fmtcount.perl $(STYFILES) \
