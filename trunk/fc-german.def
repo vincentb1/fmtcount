@@ -1,50 +1,32 @@
-%%
-%% This is file `fc-german.def',
-%% generated with the docstrip utility.
-%%
-%% The original source files were:
-%%
-%% fmtcount.dtx  (with options: `fc-german.def,package')
-%% 
-%%  fmtcount.dtx
-%%  Copyright 2009 Nicola Talbot
-%% 
-%%  This work may be distributed and/or modified under the
-%%  conditions of the LaTeX Project Public License, either version 1.3
-%%  of this license of (at your option) any later version.
-%%  The latest version of this license is in
-%%    http://www.latex-project.org/lppl.txt
-%%  and version 1.3 or later is part of all distributions of LaTeX
-%%  version 2005/12/01 or later.
-%% 
-%%  This work has the LPPL maintenance status `maintained'.
-%% 
-%%  The Current Maintainer of this work is Nicola Talbot.
-%% 
-%%  This work consists of the files fmtcount.dtx and fmtcount.ins and the derived files fmtcount.sty, fc-british.def, fc-english.def, fc-french.def, fc-german.def, fc-italian.def, fc-portuges.def, fc-spanish.def, fc-UKenglish.def, fc-USenglish.def, fmtcount.perl, fc-lang.tex, fc-samp.tex.
-%% 
-%% \CharacterTable
-%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
-%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
-%%   Digits        \0\1\2\3\4\5\6\7\8\9
-%%   Exclamation   \!     Double quote  \"     Hash (number) \#
-%%   Dollar        \$     Percent       \%     Ampersand     \&
-%%   Acute accent  \'     Left paren    \(     Right paren   \)
-%%   Asterisk      \*     Plus          \+     Comma         \,
-%%   Minus         \-     Point         \.     Solidus       \/
-%%   Colon         \:     Semicolon     \;     Less than     \<
-%%   Equals        \=     Greater than  \>     Question mark \?
-%%   Commercial at \@     Left bracket  \[     Backslash     \\
-%%   Right bracket \]     Circumflex    \^     Underscore    \_
-%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
-%%   Right brace   \}     Tilde         \~}
+% \subsubsection{fc-german.def}
+% German definitions (thank you to K. H. Fricke for supplying
+% this information)
+%    \begin{macrocode}
 \ProvidesFile{fc-german.def}[2007/06/14]
+%    \end{macrocode}
+% Define macro that converts a number or count register (first
+% argument) to an ordinal, and stores the result in the
+% second argument, which must be a control sequence.
+% Masculine:
+%    \begin{macrocode}
 \newcommand{\@ordinalMgerman}[2]{%
 \edef#2{\number#1\relax.}}
+%    \end{macrocode}
+% Feminine:
+%    \begin{macrocode}
 \newcommand{\@ordinalFgerman}[2]{%
 \edef#2{\number#1\relax.}}
+%    \end{macrocode}
+% Neuter:
+%    \begin{macrocode}
 \newcommand{\@ordinalNgerman}[2]{%
 \edef#2{\number#1\relax.}}
+%    \end{macrocode}
+% Convert a number to text. The easiest way to do this is to
+% break it up into units, tens and teens.
+% Units (argument must be a number from 0 to 9, 1 on its own (eins)
+% is dealt with separately):
+%    \begin{macrocode}
 \newcommand{\@@unitstringgerman}[1]{%
 \ifcase#1%
 null%
@@ -59,6 +41,9 @@ null%
 \or neun%
 \fi
 }
+%    \end{macrocode}
+% Tens (argument must go from 1 to 10):
+%    \begin{macrocode}
 \newcommand{\@@tenstringgerman}[1]{%
 \ifcase#1%
 \or zehn%
@@ -73,8 +58,16 @@ null%
 \or einhundert%
 \fi
 }
+%    \end{macrocode}
+% |\einhundert| is set to |einhundert| by default, user can
+% redefine this command to just |hundert| if required, similarly
+% for |\eintausend|.
+%    \begin{macrocode}
 \providecommand*{\einhundert}{einhundert}
 \providecommand*{\eintausend}{eintausend}
+%    \end{macrocode}
+% Teens:
+%    \begin{macrocode}
 \newcommand{\@@teenstringgerman}[1]{%
 \ifcase#1%
 zehn%
@@ -89,18 +82,34 @@ zehn%
 \or neunzehn%
 \fi
 }
+%    \end{macrocode}
+% The results are stored in the second argument, but doesn't 
+% display anything.
+%    \begin{macrocode}
 \DeclareRobustCommand{\@numberstringMgerman}[2]{%
 \let\@unitstring=\@@unitstringgerman
 \let\@teenstring=\@@teenstringgerman
 \let\@tenstring=\@@tenstringgerman
 \@@numberstringgerman{#1}{#2}}
+%    \end{macrocode}
+% Feminine and neuter forms:
+%    \begin{macrocode}
 \let\@numberstringFgerman=\@numberstringMgerman
 \let\@numberstringNgerman=\@numberstringMgerman
+%    \end{macrocode}
+% As above, but initial letters in upper case:
+%    \begin{macrocode}
 \DeclareRobustCommand{\@NumberstringMgerman}[2]{%
 \@numberstringMgerman{#1}{\@@num@str}%
 \edef#2{\noexpand\MakeUppercase\@@num@str}}
+%    \end{macrocode}
+% Feminine and neuter form:
+%    \begin{macrocode}
 \let\@NumberstringFgerman=\@NumberstringMgerman
 \let\@NumberstringNgerman=\@NumberstringMgerman
+%    \end{macrocode}
+% As above, but for ordinals.
+%    \begin{macrocode}
 \DeclareRobustCommand{\@ordinalstringMgerman}[2]{%
 \let\@unitthstring=\@@unitthstringMgerman
 \let\@teenthstring=\@@teenthstringMgerman
@@ -111,6 +120,9 @@ zehn%
 \def\@thousandth{tausendster}%
 \def\@hundredth{hundertster}%
 \@@ordinalstringgerman{#1}{#2}}
+%    \end{macrocode}
+% Feminine form:
+%    \begin{macrocode}
 \DeclareRobustCommand{\@ordinalstringFgerman}[2]{%
 \let\@unitthstring=\@@unitthstringFgerman
 \let\@teenthstring=\@@teenthstringFgerman
@@ -121,6 +133,9 @@ zehn%
 \def\@thousandth{tausendste}%
 \def\@hundredth{hundertste}%
 \@@ordinalstringgerman{#1}{#2}}
+%    \end{macrocode}
+% Neuter form:
+%    \begin{macrocode}
 \DeclareRobustCommand{\@ordinalstringNgerman}[2]{%
 \let\@unitthstring=\@@unitthstringNgerman
 \let\@teenthstring=\@@teenthstringNgerman
@@ -131,15 +146,29 @@ zehn%
 \def\@thousandth{tausendstes}%
 \def\@hundredth{hunderstes}%
 \@@ordinalstringgerman{#1}{#2}}
+%    \end{macrocode}
+% As above, but with initial letters in upper case.
+%    \begin{macrocode}
 \DeclareRobustCommand{\@OrdinalstringMgerman}[2]{%
 \@ordinalstringMgerman{#1}{\@@num@str}%
 \edef#2{\protect\MakeUppercase\@@num@str}}
+%    \end{macrocode}
+% Feminine form:
+%    \begin{macrocode}
 \DeclareRobustCommand{\@OrdinalstringFgerman}[2]{%
 \@ordinalstringFgerman{#1}{\@@num@str}%
 \edef#2{\protect\MakeUppercase\@@num@str}}
+%    \end{macrocode}
+% Neuter form:
+%    \begin{macrocode}
 \DeclareRobustCommand{\@OrdinalstringNgerman}[2]{%
 \@ordinalstringNgerman{#1}{\@@num@str}%
 \edef#2{\protect\MakeUppercase\@@num@str}}
+%    \end{macrocode}
+% Code for converting numbers into textual ordinals. As before,
+% it is easier to split it into units, tens and teens.
+% Units:
+%    \begin{macrocode}
 \newcommand{\@@unitthstringMgerman}[1]{%
 \ifcase#1%
 nullter%
@@ -154,6 +183,9 @@ nullter%
 \or neunter%
 \fi
 }
+%    \end{macrocode}
+% Tens:
+%    \begin{macrocode}
 \newcommand{\@@tenthstringMgerman}[1]{%
 \ifcase#1%
 \or zehnter%
@@ -167,6 +199,9 @@ nullter%
 \or neunzigster%
 \fi
 }
+%    \end{macrocode}
+% Teens:
+%    \begin{macrocode}
 \newcommand{\@@teenthstringMgerman}[1]{%
 \ifcase#1%
 zehnter%
@@ -181,6 +216,9 @@ zehnter%
 \or neunzehnter%
 \fi
 }
+%    \end{macrocode}
+% Units (feminine):
+%    \begin{macrocode}
 \newcommand{\@@unitthstringFgerman}[1]{%
 \ifcase#1%
 nullte%
@@ -195,6 +233,9 @@ nullte%
 \or neunte%
 \fi
 }
+%    \end{macrocode}
+% Tens (feminine):
+%    \begin{macrocode}
 \newcommand{\@@tenthstringFgerman}[1]{%
 \ifcase#1%
 \or zehnte%
@@ -208,6 +249,9 @@ nullte%
 \or neunzigste%
 \fi
 }
+%    \end{macrocode}
+% Teens (feminine)
+%    \begin{macrocode}
 \newcommand{\@@teenthstringFgerman}[1]{%
 \ifcase#1%
 zehnte%
@@ -222,6 +266,9 @@ zehnte%
 \or neunzehnte%
 \fi
 }
+%    \end{macrocode}
+% Units (neuter):
+%    \begin{macrocode}
 \newcommand{\@@unitthstringNgerman}[1]{%
 \ifcase#1%
 nulltes%
@@ -236,6 +283,9 @@ nulltes%
 \or neuntes%
 \fi
 }
+%    \end{macrocode}
+% Tens (neuter):
+%    \begin{macrocode}
 \newcommand{\@@tenthstringNgerman}[1]{%
 \ifcase#1%
 \or zehntes%
@@ -249,6 +299,9 @@ nulltes%
 \or neunzigstes%
 \fi
 }
+%    \end{macrocode}
+% Teens (neuter)
+%    \begin{macrocode}
 \newcommand{\@@teenthstringNgerman}[1]{%
 \ifcase#1%
 zehntes%
@@ -263,6 +316,12 @@ zehntes%
 \or neunzehntes%
 \fi
 }
+%    \end{macrocode}
+% This appends the results to |#2| for number |#2| (in range 0 to
+% 100.)
+% null and eins are dealt with separately in
+% |\@@numberstringgerman|.
+%    \begin{macrocode}
 \newcommand{\@@numberunderhundredgerman}[2]{%
 \ifnum#1<10\relax
   \ifnum#1>0\relax
@@ -288,6 +347,11 @@ zehntes%
   \fi
 \fi
 }
+%    \end{macrocode}
+% This stores the results in the second argument 
+% (which must be a control
+% sequence), but it doesn't display anything.
+%    \begin{macrocode}
 \newcommand{\@@numberstringgerman}[2]{%
 \ifnum#1>99999\relax
   \PackageError{fmtcount}{Out of range}%
@@ -303,10 +367,16 @@ zehntes%
 \def#2{}%
 \@strctr=#1\relax \divide\@strctr by 1000\relax
 \ifnum\@strctr>1\relax
+%    \end{macrocode}
+% #1 is >= 2000, \@strctr now contains the number of thousands
+%    \begin{macrocode}
 \@@numberunderhundredgerman{\@strctr}{#2}%
   \let\@@fc@numstr#2\relax
   \edef#2{\@@fc@numstr tausend}%
 \else
+%    \end{macrocode}
+% #1 lies in range [1000,1999]
+%    \begin{macrocode}
   \ifnum\@strctr=1\relax
     \let\@@fc@numstr#2\relax
     \edef#2{\@@fc@numstr\eintausend}%
@@ -316,14 +386,26 @@ zehntes%
 \@modulo{\@strctr}{1000}%
 \divide\@strctr by 100\relax
 \ifnum\@strctr>1\relax
+%    \end{macrocode}
+% now dealing with number in range [200,999]
+%    \begin{macrocode}
   \let\@@fc@numstr#2\relax
   \edef#2{\@@fc@numstr\@unitstring{\@strctr}hundert}%
 \else
    \ifnum\@strctr=1\relax
+%    \end{macrocode}
+% dealing with number in range [100,199]
+%    \begin{macrocode}
      \ifnum#1>1000\relax
+%    \end{macrocode}
+% if original number > 1000, use einhundert
+%    \begin{macrocode}
         \let\@@fc@numstr#2\relax
         \edef#2{\@@fc@numstr einhundert}%
      \else
+%    \end{macrocode}
+% otherwise use \einhundert
+%    \begin{macrocode}
         \let\@@fc@numstr#2\relax
         \edef#2{\@@fc@numstr\einhundert}%
       \fi
@@ -342,6 +424,9 @@ zehntes%
   \fi
 \fi
 }
+%    \end{macrocode}
+% As above, but for ordinals
+%    \begin{macrocode}
 \newcommand{\@@numberunderhundredthgerman}[2]{%
 \ifnum#1<10\relax
  \let\@@fc@numstr#2\relax
@@ -365,6 +450,8 @@ zehntes%
   \fi
 \fi
 }
+%    \end{macrocode}
+%    \begin{macrocode}
 \newcommand{\@@ordinalstringgerman}[2]{%
 \ifnum#1>99999\relax
   \PackageError{fmtcount}{Out of range}%
@@ -380,9 +467,14 @@ zehntes%
 \def#2{}%
 \@strctr=#1\relax \divide\@strctr by 1000\relax
 \ifnum\@strctr>1\relax
+%    \end{macrocode}
+% #1 is >= 2000, \@strctr now contains the number of thousands
+%    \begin{macrocode}
 \@@numberunderhundredgerman{\@strctr}{#2}%
   \let\@@fc@numstr#2\relax
-  % is that it, or is there more?
+%    \end{macrocode}
+% is that it, or is there more?
+%    \begin{macrocode}
   \@tmpstrctr=#1\relax \@modulo{\@tmpstrctr}{1000}%
   \ifnum\@tmpstrctr=0\relax
     \edef#2{\@@fc@numstr\@thousandth}%
@@ -390,6 +482,9 @@ zehntes%
     \edef#2{\@@fc@numstr tausend}%
   \fi
 \else
+%    \end{macrocode}
+% #1 lies in range [1000,1999]
+%    \begin{macrocode}
   \ifnum\@strctr=1\relax
     \ifnum#1=1000\relax
       \let\@@fc@numstr#2\relax
@@ -404,8 +499,13 @@ zehntes%
 \@modulo{\@strctr}{1000}%
 \divide\@strctr by 100\relax
 \ifnum\@strctr>1\relax
+%    \end{macrocode}
+% now dealing with number in range [200,999]
+%    \begin{macrocode}
   \let\@@fc@numstr#2\relax
-  % is that it, or is there more?
+%    \end{macrocode}
+% is that it, or is there more?
+%    \begin{macrocode}
   \@tmpstrctr=#1\relax \@modulo{\@tmpstrctr}{100}%
   \ifnum\@tmpstrctr=0\relax
      \ifnum\@strctr=1\relax
@@ -418,6 +518,10 @@ zehntes%
   \fi
 \else
    \ifnum\@strctr=1\relax
+%    \end{macrocode}
+% dealing with number in range [100,199]
+% is that it, or is there more?
+%    \begin{macrocode}
      \@tmpstrctr=#1\relax \@modulo{\@tmpstrctr}{100}%
      \ifnum\@tmpstrctr=0\relax
         \let\@@fc@numstr#2\relax
@@ -439,6 +543,10 @@ zehntes%
 \@@numberunderhundredthgerman{\@strctr}{#2}%
 }%
 }
+%    \end{macrocode}
+% Set |ngerman| to be equivalent to |german|. Is it okay to do
+% this? (I don't know the difference between the two.)
+%    \begin{macrocode}
 \let\@ordinalMngerman=\@ordinalMgerman
 \let\@ordinalFngerman=\@ordinalFgerman
 \let\@ordinalNngerman=\@ordinalNgerman
@@ -454,6 +562,5 @@ zehntes%
 \let\@OrdinalstringMngerman=\@OrdinalstringMgerman
 \let\@OrdinalstringFngerman=\@OrdinalstringFgerman
 \let\@OrdinalstringNngerman=\@OrdinalstringNgerman
-\endinput
-%%
-%% End of file `fc-german.def'.
+%    \end{macrocode}
+

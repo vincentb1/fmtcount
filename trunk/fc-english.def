@@ -1,44 +1,12 @@
-%%
-%% This is file `fc-english.def',
-%% generated with the docstrip utility.
-%%
-%% The original source files were:
-%%
-%% fmtcount.dtx  (with options: `fc-english.def,package')
-%% 
-%%  fmtcount.dtx
-%%  Copyright 2009 Nicola Talbot
-%% 
-%%  This work may be distributed and/or modified under the
-%%  conditions of the LaTeX Project Public License, either version 1.3
-%%  of this license of (at your option) any later version.
-%%  The latest version of this license is in
-%%    http://www.latex-project.org/lppl.txt
-%%  and version 1.3 or later is part of all distributions of LaTeX
-%%  version 2005/12/01 or later.
-%% 
-%%  This work has the LPPL maintenance status `maintained'.
-%% 
-%%  The Current Maintainer of this work is Nicola Talbot.
-%% 
-%%  This work consists of the files fmtcount.dtx and fmtcount.ins and the derived files fmtcount.sty, fc-british.def, fc-english.def, fc-french.def, fc-german.def, fc-italian.def, fc-portuges.def, fc-spanish.def, fc-UKenglish.def, fc-USenglish.def, fmtcount.perl, fc-lang.tex, fc-samp.tex.
-%% 
-%% \CharacterTable
-%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
-%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
-%%   Digits        \0\1\2\3\4\5\6\7\8\9
-%%   Exclamation   \!     Double quote  \"     Hash (number) \#
-%%   Dollar        \$     Percent       \%     Ampersand     \&
-%%   Acute accent  \'     Left paren    \(     Right paren   \)
-%%   Asterisk      \*     Plus          \+     Comma         \,
-%%   Minus         \-     Point         \.     Solidus       \/
-%%   Colon         \:     Semicolon     \;     Less than     \<
-%%   Equals        \=     Greater than  \>     Question mark \?
-%%   Commercial at \@     Left bracket  \[     Backslash     \\
-%%   Right bracket \]     Circumflex    \^     Underscore    \_
-%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
-%%   Right brace   \}     Tilde         \~}
+% \subsubsection{fc-english.def}
+% English definitions
+%    \begin{macrocode}
 \ProvidesFile{fc-english}[2007/05/26]
+%    \end{macrocode}
+% Define macro that converts a number or count register (first 
+% argument) to an ordinal, and stores the result in the 
+% second argument, which should be a control sequence.
+%    \begin{macrocode}
 \newcommand*{\@ordinalMenglish}[2]{%
 \def\@fc@ord{}%
 \@orgargctr=#1\relax
@@ -67,8 +35,18 @@
 \fi
 \edef#2{\number#1\relax\noexpand\fmtord{\@fc@ord}}%
 }
+%    \end{macrocode}
+% There is no gender difference in English, so make feminine and
+% neuter the same as the masculine.
+%    \begin{macrocode}
 \let\@ordinalFenglish=\@ordinalMenglish
 \let\@ordinalNenglish=\@ordinalMenglish
+%    \end{macrocode}
+% Define the macro that prints the value of a \TeX\ count register
+% as text. To make it easier, break it up into units, teens and
+% tens. First, the units: the argument should be between 0 and 9
+% inclusive.
+%    \begin{macrocode}
 \newcommand*{\@@unitstringenglish}[1]{%
 \ifcase#1\relax
 zero%
@@ -83,6 +61,10 @@ zero%
 \or nine%
 \fi
 }
+%    \end{macrocode}
+% Next the tens, again the argument should be between 0 and 9
+% inclusive.
+%    \begin{macrocode}
 \newcommand*{\@@tenstringenglish}[1]{%
 \ifcase#1\relax
 \or ten%
@@ -96,6 +78,10 @@ zero%
 \or ninety%
 \fi
 }
+%    \end{macrocode}
+% Finally the teens, again the argument should be between 0 and 9
+% inclusive.
+%    \begin{macrocode}
 \newcommand*{\@@teenstringenglish}[1]{%
 \ifcase#1\relax
 ten%
@@ -110,6 +96,9 @@ ten%
 \or nineteen%
 \fi
 }
+%    \end{macrocode}
+% As above, but with the initial letter in uppercase. The units:
+%    \begin{macrocode}
 \newcommand*{\@@Unitstringenglish}[1]{%
 \ifcase#1\relax
 Zero%
@@ -124,6 +113,9 @@ Zero%
 \or Nine%
 \fi
 }
+%    \end{macrocode}
+% The tens:
+%    \begin{macrocode}
 \newcommand*{\@@Tenstringenglish}[1]{%
 \ifcase#1\relax
 \or Ten%
@@ -137,6 +129,9 @@ Zero%
 \or Ninety%
 \fi
 }
+%    \end{macrocode}
+% The teens:
+%    \begin{macrocode}
 \newcommand*{\@@Teenstringenglish}[1]{%
 \ifcase#1\relax
 Ten%
@@ -151,6 +146,13 @@ Ten%
 \or Nineteen%
 \fi
 }
+%    \end{macrocode}
+% This has changed in version 1.09, so that it now stores
+% the result in the second argument, but doesn't display anything.
+% Since it only affects internal macros, it shouldn't affect
+% documents created with older versions. (These internal macros are
+% not meant for use in documents.)
+%    \begin{macrocode}
 \newcommand*{\@@numberstringenglish}[2]{%
 \ifnum#1>99999
 \PackageError{fmtcount}{Out of range}%
@@ -235,6 +237,10 @@ this number}%
   \fi
 \fi
 }
+%    \end{macrocode}
+% All lower case version, the second argument must be a 
+% control sequence.
+%    \begin{macrocode}
 \DeclareRobustCommand{\@numberstringMenglish}[2]{%
 \let\@unitstring=\@@unitstringenglish
 \let\@teenstring=\@@teenstringenglish
@@ -243,8 +249,18 @@ this number}%
 \def\@andname{and}%
 \@@numberstringenglish{#1}{#2}%
 }
+%    \end{macrocode}
+% There is no gender in English, so make feminine and neuter the
+% same
+% as the masculine.
+%    \begin{macrocode}
 \let\@numberstringFenglish=\@numberstringMenglish
 \let\@numberstringNenglish=\@numberstringMenglish
+%    \end{macrocode}
+% This version makes the first letter of each word an uppercase
+% character (except ``and''). The second argument must be a control 
+% sequence.
+%    \begin{macrocode}
 \newcommand*{\@NumberstringMenglish}[2]{%
 \let\@unitstring=\@@Unitstringenglish
 \let\@teenstring=\@@Teenstringenglish
@@ -252,8 +268,17 @@ this number}%
 \def\@hundred{Hundred}\def\@thousand{Thousand}%
 \def\@andname{and}%
 \@@numberstringenglish{#1}{#2}}
+%    \end{macrocode}
+% There is no gender in English, so make feminine and neuter the
+% same
+% as the masculine.
+%    \begin{macrocode}
 \let\@NumberstringFenglish=\@NumberstringMenglish
 \let\@NumberstringNenglish=\@NumberstringMenglish
+%    \end{macrocode}
+% Define a macro that produces an ordinal as a string. Again, break
+% it up into units, teens and tens. First the units:
+%    \begin{macrocode}
 \newcommand*{\@@unitthstringenglish}[1]{%
 \ifcase#1\relax
 zeroth%
@@ -268,6 +293,9 @@ zeroth%
 \or ninth%
 \fi
 }
+%    \end{macrocode}
+% Next the tens:
+%    \begin{macrocode}
 \newcommand*{\@@tenthstringenglish}[1]{%
 \ifcase#1\relax
 \or tenth%
@@ -281,6 +309,9 @@ zeroth%
 \or ninetieth%
 \fi
 }
+%   \end{macrocode}
+% The teens:
+%   \begin{macrocode}
 \newcommand*{\@@teenthstringenglish}[1]{%
 \ifcase#1\relax
 tenth%
@@ -295,6 +326,9 @@ tenth%
 \or nineteenth%
 \fi
 }
+%   \end{macrocode}
+% As before, but with the first letter in upper case. The units:
+%   \begin{macrocode}
 \newcommand*{\@@Unitthstringenglish}[1]{%
 \ifcase#1\relax
 Zeroth%
@@ -309,6 +343,9 @@ Zeroth%
 \or Ninth%
 \fi
 }
+%    \end{macrocode}
+% The tens:
+%    \begin{macrocode}
 \newcommand*{\@@Tenthstringenglish}[1]{%
 \ifcase#1\relax
 \or Tenth%
@@ -322,6 +359,9 @@ Zeroth%
 \or Ninetieth%
 \fi
 }
+%    \end{macrocode}
+% The teens:
+%    \begin{macrocode}
 \newcommand*{\@@Teenthstringenglish}[1]{%
 \ifcase#1\relax
 Tenth%
@@ -336,6 +376,12 @@ Tenth%
 \or Nineteenth%
 \fi
 }
+%    \end{macrocode}
+% Again, as from version 1.09, this has been changed to take two
+% arguments, where the second argument is a control sequence.
+% The resulting text is stored in the control sequence, and nothing
+% is displayed.
+%    \begin{macrocode}
 \newcommand*{\@@ordinalstringenglish}[2]{%
 \@strctr=#1\relax
 \ifnum#1>99999
@@ -352,6 +398,9 @@ this number}%
 \fi
 \@strctr=#1\relax \divide\@strctr by 1000\relax
 \ifnum\@strctr>9\relax
+%    \end{macrocode}
+% #1 is greater or equal to 10000
+%    \begin{macrocode}
   \divide\@strctr by 10
   \ifnum\@strctr>1\relax
     \let\@@fc@ordstr#2\relax
@@ -447,6 +496,10 @@ this number}%
   \fi
 \fi
 }
+%    \end{macrocode}
+% All lower case version. Again, the second argument must be a
+% control sequence in which the resulting text is stored.
+%    \begin{macrocode}
 \DeclareRobustCommand{\@ordinalstringMenglish}[2]{%
 \let\@unitthstring=\@@unitthstringenglish
 \let\@teenthstring=\@@teenthstringenglish
@@ -458,8 +511,15 @@ this number}%
 \def\@hundred{hundred}\def\@thousand{thousand}%
 \def\@hundredth{hundredth}\def\@thousandth{thousandth}%
 \@@ordinalstringenglish{#1}{#2}}
+%    \end{macrocode}
+% No gender in English, so make feminine and neuter same as
+% masculine:
+%    \begin{macrocode}
 \let\@ordinalstringFenglish=\@ordinalstringMenglish
 \let\@ordinalstringNenglish=\@ordinalstringMenglish
+%    \end{macrocode}
+% First letter of each word in upper case:
+%    \begin{macrocode
 \DeclareRobustCommand{\@OrdinalstringMenglish}[2]{%
 \let\@unitthstring=\@@Unitthstringenglish
 \let\@teenthstring=\@@Teenthstringenglish
@@ -471,8 +531,10 @@ this number}%
 \def\@hundred{Hundred}\def\@thousand{Thousand}%
 \def\@hundredth{Hundredth}\def\@thousandth{Thousandth}%
 \@@ordinalstringenglish{#1}{#2}}
+%    \end{macrocode}
+% No gender in English, so make feminine and neuter same as
+% masculine:
+%    \begin{macrocode}
 \let\@OrdinalstringFenglish=\@OrdinalstringMenglish
 \let\@OrdinalstringNenglish=\@OrdinalstringMenglish
-\endinput
-%%
-%% End of file `fc-english.def'.
+%    \end{macrocode}
