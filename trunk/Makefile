@@ -15,23 +15,17 @@ fc-samp.pdf	: fc-samp.tex $(STYFILES)
 		pdflatex fc-samp
 
 dist	: README CHANGES fmtcount-manual.tex \
-	  fmtcount.perl \
+	  fmtcount.perl $(STYFILES) \
 	  ../dist/fmtcount.dtx
 	\cp CHANGES ../dist
 	cp2dist -f fmtcount.sty README fmtcount-manual.tex ../dist
 	make -C ../dist
 
-../dist/fmtcount.dtx	: fmtcount.sty fmtcount.perl \
-			  fmtcount-manual.tex \
-			  fc-*.tex
+../dist/fmtcount.dtx	: $(STYFILES)  \
+			  fmtcount-manual.tex 
 	makedtx -author "Nicola Talbot" \
 		-src "(.+)\.(sty)=>\1.\2" \
-		-src "(fc-.*)\.(tex)=>\1.\2" \
-		-src "fmtcount.perl\Z=>fmtcount.perl" \
-		-macrocode "fmtcount.perl" \
-		-comment "fmtcount.perl" \
-		-comment ".+\.tex" \
-		-setambles ".*\.perl=>\\nopreamble\\nopostamble" \
+		-src "(.+)\.(def)=>\1.\2" \
 		-doc fmtcount-manual.tex fmtcount
 	dos2unix fmtcount.dtx
 	dos2unix fmtcount.ins
