@@ -21,6 +21,7 @@ fmtcount.tds.zip	: fmtcount.pdf \
 	mkdir -p source/latex/fmtcount
 	cp *.{sty,def} tex/latex/fmtcount/
 	cp fmtcount.{dtx,ins} source/latex/fmtcount
+	cp $(SRC)/fmtcount.perl source/latex/fmtcount
 	cp fmtcount.pdf README CHANGES doc/latex/fmtcount
 	cp $(SRC)/fc-*.tex doc/latex/fmtcount/
 	zip -r fmtcount.tds.zip tex source doc 
@@ -30,6 +31,7 @@ fmtcount.zip	: fmtcount.tds.zip
 	cp fmtcount.{dtx,ins,pdf} fmtcount/
 	cp README CHANGES fmtcount/
 	cp $(SRC)/fc-*.tex fmtcount/
+	cp $(SRC)/fmtcount.perl fmtcount/
 	zip -r fmtcount.zip fmtcount/ fmtcount.tds.zip
 
 fmtcount.sty	: fmtcount.dtx fmtcount.ins
