@@ -404,7 +404,7 @@ zehntes%
         \appto#2{einhundert}%
      \else
 %    \end{macrocode}
-% otherwise use \einhundert
+% otherwise use \cs{einhundert}
 %    \begin{macrocode}
         \eappto#2{\einhundert}%
       \fi

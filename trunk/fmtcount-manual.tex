@@ -3,10 +3,13 @@
 \usepackage{color}
 \usepackage[utf8]{inputenc}
 \usepackage[english,french]{babel}
-\usepackage{amsmath}
+\usepackage{amsmath,amssymb}
 \usepackage{tabularx,supertabular,multirow}
 \usepackage[T1]{fontenc}
 \usepackage{cmap}
+\newcommand*\uref[1]{\href{#1}{#1}}
+\DeclareMathOperator{\intv}{..}
+\newcommand*\interface{}
 \usepackage[colorlinks,
             bookmarks,
             bookmarksopen,
@@ -14,7 +17,7 @@
             pdftitle={fmtcount.sty: Displaying the Values of LaTeX Counters},
             pdfkeywords={LaTeX,counter}]{hyperref}
 
-\CheckSum{2738}
+\CheckSum{9034}
 
 \doxitem{Option}{option}{options}
 
@@ -26,7 +29,7 @@
  \title{fmtcount.sty: Displaying the Values of 
 \LaTeX\ Counters}
  \author{Nicola L.C. Talbot\\
- \url{http://theoval.cmp.uea.ac.uk/~nlct/}
+ \url{www.dickimaw-books.com}
  \and
  Vincent Belaïche}
  \date{%%DATE%% (version %%VERSION%%)\relax

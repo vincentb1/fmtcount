@@ -1,7 +1,7 @@
 # File        : fmtcount.perl
 # Author      : Nicola Talbot
-# Date        : 26 May 2007
-# Version     : 1.05
+# Date        : 2012-09-25
+# Version     : 1.06
 # Description : LaTeX2HTML implementation of fmtcount package
 
 package main;
@@ -415,9 +415,9 @@ sub get_numberstringenglish{
               'quarante',
               'cinquante',
               'soixante',
-              'septente',
-              'huitante',
-              'nonente');
+              'septante',
+              'octante',
+              'nonante');
 
 $hundrednamefrench    = "cent";
 $hundredthnamefrench  = "centi\\`eme";

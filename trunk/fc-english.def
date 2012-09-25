@@ -309,9 +309,9 @@ zeroth%
 \or ninetieth%
 \fi
 }
-%   \end{macrocode}
+%    \end{macrocode}
 % The teens:
-%   \begin{macrocode}
+%    \begin{macrocode}
 \newcommand*{\@@teenthstringenglish}[1]{%
 \ifcase#1\relax
 tenth%
@@ -326,9 +326,9 @@ tenth%
 \or nineteenth%
 \fi
 }
-%   \end{macrocode}
+%    \end{macrocode}
 % As before, but with the first letter in upper case. The units:
-%   \begin{macrocode}
+%    \begin{macrocode}
 \newcommand*{\@@Unitthstringenglish}[1]{%
 \ifcase#1\relax
 Zeroth%
@@ -399,7 +399,7 @@ this number}%
 \@strctr=#1\relax \divide\@strctr by 1000\relax
 \ifnum\@strctr>9\relax
 %    \end{macrocode}
-% #1 is greater or equal to 10000
+% \#1 is greater or equal to 10000
 %    \begin{macrocode}
   \divide\@strctr by 10
   \ifnum\@strctr>1\relax
@@ -519,7 +519,7 @@ this number}%
 \let\@ordinalstringNenglish=\@ordinalstringMenglish
 %    \end{macrocode}
 % First letter of each word in upper case:
-%    \begin{macrocode
+%    \begin{macrocode}
 \DeclareRobustCommand{\@OrdinalstringMenglish}[2]{%
 \let\@unitthstring=\@@Unitthstringenglish
 \let\@teenthstring=\@@Teenthstringenglish
