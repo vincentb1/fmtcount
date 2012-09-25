@@ -1,0 +1,27 @@
+% \subsubsection{fc-germanb.def}
+%    \begin{macrocode}
+\ProvidesFCLanguage{germanb}[2012/06/18]
+%    \end{macrocode}
+% Load fc-german.def if not already loaded
+%    \begin{macrocode}
+\FCloadlang{german}
+%    \end{macrocode}
+% Set |germanb| to be equivalent to |german|.
+%    \begin{macrocode}
+\let\@ordinalMgermanb=\@ordinalMgerman
+\let\@ordinalFgermanb=\@ordinalFgerman
+\let\@ordinalNgermanb=\@ordinalNgerman
+\let\@numberstringMgermanb=\@numberstringMgerman
+\let\@numberstringFgermanb=\@numberstringFgerman
+\let\@numberstringNgermanb=\@numberstringNgerman
+\let\@NumberstringMgermanb=\@NumberstringMgerman
+\let\@NumberstringFgermanb=\@NumberstringFgerman
+\let\@NumberstringNgermanb=\@NumberstringNgerman
+\let\@ordinalstringMgermanb=\@ordinalstringMgerman
+\let\@ordinalstringFgermanb=\@ordinalstringFgerman
+\let\@ordinalstringNgermanb=\@ordinalstringNgerman
+\let\@OrdinalstringMgermanb=\@OrdinalstringMgerman
+\let\@OrdinalstringFgermanb=\@OrdinalstringFgerman
+\let\@OrdinalstringNgermanb=\@OrdinalstringNgerman
+%    \end{macrocode}
+

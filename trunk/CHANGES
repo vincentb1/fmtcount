@@ -1,5 +1,19 @@
 fmtcount package versions:
 
+Version 2.0:
+
+ * fcprefix.sty, fcnumparser.sty added by Vincent Belaïche
+
+ * fmtcount.sty now loads etoolbox
+
+ * Minor corrections to fc-spanish.def (corrections provided by
+   Fernando Maldonado Millán)
+
+ * Minor corrections to fc-german.def (corrections provided by
+   Dominik Waßenhoven)
+
+ * Fixed bug in OrdinalstringMgerman etc
+
 Version 1.31:
 
  * fixed unwanted space in \decimalnum

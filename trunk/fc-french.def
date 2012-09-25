@@ -1,93 +1,105 @@
-%% -*- mode: LaTeX -*-
-%% This is file `fc-french.def',
-%% generated with the docstrip utility.
-%%
-%% The original source files were:
-%%
-%% fmtcount.dtx  (with options: `fc-french.def,package')
-%% 
-%%  fmtcount.dtx
-%%  Copyright 2009 Nicola Talbot
-%% 
-%%  This work may be distributed and/or modified under the
-%%  conditions of the LaTeX Project Public License, either version 1.3
-%%  of this license of (at your option) any later version.
-%%  The latest version of this license is in
-%%    http://www.latex-project.org/lppl.txt
-%%  and version 1.3 or later is part of all distributions of LaTeX
-%%  version 2005/12/01 or later.
-%% 
-%%  This work has the LPPL maintenance status `maintained'.
-%% 
-%%  The Current Maintainer of this work is Nicola Talbot.
-%% 
-%%  This work consists of the files fmtcount.dtx and fmtcount.ins and the derived files fmtcount.sty,
-%%  fc-british.def, fc-english.def, fc-french.def, fc-german.def, fc-italian.def, fc-portuges.def,
-%%  fc-spanish.def, fc-UKenglish.def, fc-USenglish.def, fmtcount.perl, fc-lang.tex, fc-samp.tex.
-%% 
-%% \CharacterTable
-%%  {Upper-case    \A\B\C\D\E\F\G\H\I\J\K\L\M\N\O\P\Q\R\S\T\U\V\W\X\Y\Z
-%%   Lower-case    \a\b\c\d\e\f\g\h\i\j\k\l\m\n\o\p\q\r\s\t\u\v\w\x\y\z
-%%   Digits        \0\1\2\3\4\5\6\7\8\9
-%%   Exclamation   \!     Double quote  \"     Hash (number) \#
-%%   Dollar        \$     Percent       \%     Ampersand     \&
-%%   Acute accent  \'     Left paren    \(     Right paren   \)
-%%   Asterisk      \*     Plus          \+     Comma         \,
-%%   Minus         \-     Point         \.     Solidus       \/
-%%   Colon         \:     Semicolon     \;     Less than     \<
-%%   Equals        \=     Greater than  \>     Question mark \?
-%%   Commercial at \@     Left bracket  \[     Backslash     \\
-%%   Right bracket \]     Circumflex    \^     Underscore    \_
-%%   Grave accent  \`     Left brace    \{     Vertical bar  \|
-%%   Right brace   \}     Tilde         \~}
+% \subsubsection{fc-french.def}
+% Definitions for French.
+%    \begin{macrocode}
 \ProvidesFCLanguage{french}[2012/06/18]
+%    \end{macrocode}
+% Package \styfmt{fcprefix} is needed to format the prefix \meta{$n$} in \meta{$n$}illion or
+% \meta{$n$}illiard.  Big numbers were developped based reference:
+% \uref{http://www.alain.be/boece/noms\_de\_nombre.html}
+%    \begin{macrocode}
 \RequirePackage{fcprefix}
-
-% bignumber were developped based reference: http://www.alain.be/boece/noms_de_nombre.html
-
-
-% ###########################################################################################################
-% Options for French
-
-
-% ===========================================================================================================
-% s of cent
-% -----------------------------------------------------------------------------------------------------------
-% never=never place s after cent
-% reformed=place s after cent conditionally to having 2..9 hundreds
-% traditional=same as reformed, but no s if a ten or unit after hundreds is non zero
-% -----------------------------------------------------------------------------------------------------------
-\define@key{fcfrench}{s of cent}[reformed]{%
-  \ifthenelse{\equal{#1}{never}}{%
-    \def\fc@frenchoptions@s@of@cent{0}%
+%    \end{macrocode}
+% Options for controlling plural mark. First of all we define some temporary macro \cs{fc@french@set@plural}
+% in order to factorize code that defines an plural mark option:\newline\noindent
+% \begin{tabularx}{\linewidth}{@{}>{\raggedleft\arraybackslash\ttfamily}rX@{}}
+% \#1&key name,\\
+% \#2&key value,\\
+% \#3&configuration index for `\texttt{reformed}', \\
+% \#4&configuration index for `\texttt{traditional}',\\
+% \#5&configuration index for `\texttt{reformed o}', and\\
+% \#6&configuration index for `\texttt{traditional o}'.
+% \end{tabularx}
+%    \begin{macrocode}
+\def\fc@french@set@plural#1#2#3#4#5#6{%
+  \ifthenelse{\equal{#2}{reformed}}{%
+    \expandafter\def\csname fc@frenchoptions@#1@plural\endcsname{#3}%
   }{%
-    \ifthenelse{\equal{#1}{reformed}}{%
-      \def\fc@frenchoptions@s@of@cent{1}%
+    \ifthenelse{\equal{#2}{traditional}}{%
+      \expandafter\def\csname fc@frenchoptions@#1@plural\endcsname{#4}%
     }{%
-      \ifthenelse{\equal{#1}{traditional}}{%
-        \def\fc@frenchoptions@s@of@cent{3}%
+      \ifthenelse{\equal{#2}{reformed o}}{%
+        \expandafter\def\csname fc@frenchoptions@#1@plural\endcsname{#5}%
       }{%
-        \PackageError{fmtcount}{Unexpected argument}{%
-          French option `force s' expects `never', `reformed' or `traditional'
-        }
-      }%
-    }% reformed
-  }% never
+        \ifthenelse{\equal{#2}{traditional o}}{%
+          \expandafter\def\csname fc@frenchoptions@#1@plural\endcsname{#6}%
+        }{%
+          \ifthenelse{\equal{#2}{always}}{%
+            \expandafter\def\csname fc@frenchoptions@#1@plural\endcsname{0}%
+          }{%
+            \ifthenelse{\equal{#2}{never}}{%
+              \expandafter\def\csname fc@frenchoptions@#1@plural\endcsname{1}%
+            }{%
+              \ifthenelse{\equal{#2}{multiple}}{%
+                \expandafter\def\csname fc@frenchoptions@#1@plural\endcsname{2}%
+              }{%
+                \ifthenelse{\equal{#2}{multiple g-last}}{%
+                  \expandafter\def\csname fc@frenchoptions@#1@plural\endcsname{3}%
+                }{%
+                  \ifthenelse{\equal{#2}{multiple l-last}}{%
+                    \expandafter\def\csname fc@frenchoptions@#1@plural\endcsname{4}%
+                  }{%
+                    \ifthenelse{\equal{#2}{multiple lng-last}}{%
+                      \expandafter\def\csname fc@frenchoptions@#1@plural\endcsname{5}%
+                    }{%
+                      \ifthenelse{\equal{#2}{multiple ng-last}}{%
+                        \expandafter\def\csname fc@frenchoptions@#1@plural\endcsname{6}%
+                      }{%
+                        \PackageError{fmtcount}{Unexpected argument}{%
+                          `#2' was unexpected: french option `#1 plural' expects `reformed', `traditional',
+                          `reformed o', `traditional o', `always', `never', `multiple', `multiple g-last',
+                          `multiple l-last', `multiple lng-last', or `multiple ng-last'.%
+                        }}}}}}}}}}}}}
+%    \end{macrocode}
+% Now a shorthand \cs{@tempa} is defined just to define all the options controlling plural mark. This
+% shorthand takes into account that `\texttt{reformed}' and `\texttt{traditional}' have the same effect, and
+% so do `\texttt{reformed o}' and `\texttt{traditional o}'.
+%    \begin{macrocode}
+\def\@tempa#1#2#3{%
+  \define@key{fcfrench}{#1 plural}[reformed]{%
+    \fc@french@set@plural{#1}{##1}{#2}{#2}{#3}{#3}%
+  }%
 }
-
-% ===========================================================================================================
-% dash or space
-% -----------------------------------------------------------------------------------------------------------
-% traditional=use dash for numbers below 100, except when `et' is used, and space otherwise
-% reformed=reform of 1990, use dash except with million & milliard
-% always=always use dashes to separate all words
-% -----------------------------------------------------------------------------------------------------------
+\@tempa{vingt}{4}{5}
+\@tempa{cent}{4}{5}
+\@tempa{mil}{0}{0}
+\@tempa{n-illion}{2}{6}
+\@tempa{n-illiard}{2}{6}
+%    \end{macrocode}
+% For option `\texttt{all plural}' we cannot use the \cs{@tempa} shorthand, because `\texttt{all plural}'
+% is just a multiplexer.
+%    \begin{macrocode}
+\define@key{fcfrench}{all plural}[reformed]{%
+  \csname KV@fcfrench@vingt plural\endcsname{#1}%
+  \csname KV@fcfrench@cent plural\endcsname{#1}%
+  \csname KV@fcfrench@mil plural\endcsname{#1}%
+  \csname KV@fcfrench@n-illion plural\endcsname{#1}%
+  \csname KV@fcfrench@n-illiard plural\endcsname{#1}%
+}
+%    \end{macrocode}
+% Now options `\texttt{dash or space}', we have three possible key values:\newline\noindent
+% \begin{tabularx}{\linewidth}{@{}>{\raggedleft\arraybackslash\ttfamily}rX@{}}
+% traditional& use dash for numbers below 100, except when `et' is used, and space otherwise\\
+% reformed& reform of 1990, use dash except with million \& milliard, and suchlikes,
+%   i.e. \meta{$n$}illion and \meta{$n$}illiard,\\
+% always& always use dashes to separate all words
+% \end{tabularx}
+%    \begin{macrocode}
 \define@key{fcfrench}{dash or space}[reformed]{%
   \ifthenelse{\equal{#1}{traditional}}{%
     \let\fc@frenchoptions@supermillion@dos\space%
     \let\fc@frenchoptions@submillion@dos\space
   }{%
-    \ifthenelse{\equal{#1}{reformed}}{%
+    \ifthenelse{\equal{#1}{reformed}\or\equal{#1}{1990}}{%
       \let\fc@frenchoptions@supermillion@dos\space
       \def\fc@frenchoptions@submillion@dos{-}%
     }{%
@@ -99,69 +111,77 @@
           French option `dash or space' expects `always', `reformed' or `traditional'
         }
       }%
-    }% reformed
-  }% never
+    }%
+  }%
 }
-
-% ===========================================================================================================
-% scale
-% -----------------------------------------------------------------------------------------------------------
-% long= n-illions & n-illiards are used with 10^{6*n} = 1 n-illion, and 10^{6*n+3} = 1 n-illiard
-% short=n-illions are used with 10^{3*n+3} = 1 n-illion
-% recursive= 10^18 = un milliard de milliards
-% -----------------------------------------------------------------------------------------------------------
+%    \end{macrocode}
+% Option `\texttt{scale}', can take 3 possible values:\newline\noindent
+% \begin{tabularx}{\linewidth}{@{}>{\raggedleft\arraybackslash\ttfamily}rX@{}}
+%  long& for which \meta{\(n\)}illions \& \meta{\(n\)}illiards are used with \(10^{6\times n} = 1
+%   \textrm{\meta{$n$}}illion\), and \(10^{6\times n+3} = 1 \textrm{\meta{$n$}}illiard\)\\
+% short& for which \meta{$n$}illions only are used with \(10^{3\times n+3} = 1
+%   \textrm{\meta{$n$}illion}\)\\
+% recursive& for which \(10^{18} = \textrm{un milliard de milliards}\)
+% \end{tabularx}
+%    \begin{macrocode}
 \define@key{fcfrench}{scale}[recursive]{%
   \ifthenelse{\equal{#1}{long}}{%
-      \let\fc@poweroften\fc@@poweroften@longscalefrench
+      \let\fc@poweroften\fc@@pot@longscalefrench
   }{%
     \ifthenelse{\equal{#1}{recursive}}{%
-      \let\fc@poweroften\fc@@poweroften@recursivefrench
+      \let\fc@poweroften\fc@@pot@recursivefrench
     }{%
       \ifthenelse{\equal{#1}{short}}{%
-        \let\fc@poweroften\fc@@poweroften@shortscalefrench
+        \let\fc@poweroften\fc@@pot@shortscalefrench
       }{%
         \PackageError{fmtcount}{Unexpected argument}{%
           French option `scale' expects `long', `recursive' or `short'
         }
       }%
-    }% reformed
-  }% never
+    }%
+  }%
 }
-
-% ===========================================================================================================
-% milliard threshold
-% -----------------------------------------------------------------------------------------------------------
-% ignored if scale is different from `long'
-% infinity= 
-% infty= same as infinity
-% any integer n>0=
-% -----------------------------------------------------------------------------------------------------------
-\define@key{fcfrench}{milliard threshold}[infinity]{%
+%    \end{macrocode}
+% Option `\texttt{n-illiard upto}' is ignored if `\texttt{scale}' is different from `\texttt{long}'. It can
+% take the following values:\newline\noindent
+% \begin{tabularx}{\linewidth}{@{}>{\raggedleft\arraybackslash\ttfamily}rX@{}}
+% infinity&in that case \meta{$n$}illard are never disabled,\\
+% infty&this is just a shorthand for `\texttt{infinity}', and\\
+% \textrm{\(n\)}& any integer that is such that \(n>0\), and that \(\forall k\in\mathbb{N}, k\geq n\),
+%   number \(10^{6\times k+3}\) will be formatted as ``mille \meta{$n$}illions''
+% \end{tabularx}
+%    \begin{macrocode}
+\define@key{fcfrench}{n-illiard upto}[infinity]{%
   \ifthenelse{\equal{#1}{infinity}}{%
-      \def\fc@longscale@milliard@threshold{0}%
+      \def\fc@longscale@nilliard@upto{0}%
   }{%
     \ifthenelse{\equal{#1}{infty}}{%
-      \def\fc@longscale@milliard@threshold{0}%
+      \def\fc@longscale@nilliard@upto{0}%
     }{%
       \if Q\ifnum9<1#1Q\fi\else
       \PackageError{fmtcount}{Unexpected argument}{%
         French option `milliard threshold' expects `infinity', or equivalently `infty', or a non negative
         integer.}%
-      \fi 
-      \def\fc@longscale@milliard@threshold{#1}%
+      \fi
+      \def\fc@longscale@nilliard@upto{#1}%
     }}%
 }
-
+%    \end{macrocode}
+% Now, the options `\texttt{france}', `\texttt{swiss}' and `\texttt{belgian}' are defined to select the
+% dialect to use. Macro \cs{@tempa} is just a local shorthand to define each one of this option.
+%    \begin{macrocode}
 \def\@tempa#1{%
   \define@key{fcfrench}{#1}[]{%
-    \PackageError{fmtcount}{Unexpected argument}{French option with key `#1' does not take any value}%
-  }
+    \PackageError{fmtcount}{Unexpected argument}{French option with key `#1' does not take
+      any value}}%
   \expandafter\def\csname KV@fcfrench@#1@default\endcsname{%
-    \def\fmtcount@french{#1}%
-  }
-}
-\@tempa{france}\@tempa{swiss}\@tempa{belgian}
-
+    \def\fmtcount@french{#1}}%
+}%
+\@tempa{france}\@tempa{swiss}\@tempa{belgian}%
+%    \end{macrocode}
+% Now, option `\texttt{dialect}' is now defined so that `\texttt{france}', `\texttt{swiss}' and
+% `\texttt{belgian}' can also be used as key values, which is more conventional although less concise.
+%    \begin{macrocode}
 \define@key{fcfrench}{dialect}[france]{%
   \ifthenelse{\equal{#1}{france}
     \or\equal{#1}{swiss}
@@ -170,7 +190,16 @@
     \PackageError{fmtcount}{Invalid value `#1' to french option dialect key}
     {Option `french' can only take the values `france',
       `belgian' or `swiss'}}}
-
+%    \end{macrocode}
+% The option \texttt{mil plural mark} allows to make the plural of \texttt{mil} to be regular,
+% i.e. \texttt{mils}, instead of \texttt{mille}. By default it is `\texttt{le}'.
+%    \begin{macrocode}
+\define@key{fcfrench}{mil plural mark}[le]{%
+  \def\fc@frenchoptions@mil@plural@mark{#1}}
+%    \end{macrocode}
+% Definition of case handling macros. This should be moved somewhere else to be commonalized between all
+% languages.
+%    \begin{macrocode}
 \def\fc@UpperCaseFirstLetter#1#2\@nil{%
   \uppercase{#1}#2}
 
@@ -183,7 +212,9 @@
 
 \let\fc@case\fc@CaseIden
 
-
+%    \end{macrocode}
+% \DescribeMacro\@ordinalMfrench
+%    \begin{macrocode}
 \newcommand*{\@ordinalMfrench}[2]{%
 \iffmtord@abbrv
   \edef#2{\number#1\relax\noexpand\fmtord{e}}%
@@ -194,19 +225,29 @@
     \edef#2{\number#1\relax\noexpand\fmtord{eme}}%
   \fi
 \fi}
+%    \end{macrocode}
+% \DescribeMacro\@ordinalFfrench
+%    \begin{macrocode}
 \newcommand*{\@ordinalFfrench}[2]{%
 \iffmtord@abbrv
   \edef#2{\number#1\relax\noexpand\fmtord{e}}%
 \else
-  \ifnum#1=1\relax
-     \edef#2{\number#1\relax\noexpand\fmtord{ere}}%
+  \ifnum#1=1 %
+     \edef#2{\number#1\relax\noexpand\fmtord{i\`ere}}%
   \else
-     \edef#2{\number#1\relax\noexpand\fmtord{eme}}%
+     \edef#2{\number#1\relax\noexpand\fmtord{i\`eme}}%
   \fi
 \fi}
+%    \end{macrocode}
+% In French neutral gender and masculine gender are formally identical.
+%    \begin{macrocode}
 \let\@ordinalNfrench\@ordinalMfrench
+%    \end{macrocode}
+% \DescribeMacro\@@unitstringfrench
+%    \begin{macrocode}
 \newcommand*{\@@unitstringfrench}[1]{%
-\ifcase#1%
+\noexpand\fc@case
+\ifcase#1 %
 z\'ero%
 \or un%
 \or deux%
@@ -218,15 +259,14 @@ z\'ero%
 \or huit%
 \or neuf%
 \fi
+\noexpand\@nil
 }
-\newcommand*{\@@unitstringFfrench}[1]{%
-\ifnum#1=1%
-une%
-\else\@@unitstringfrench{#1}%
-\fi
-}
+%    \end{macrocode}
+% \DescribeMacro\@@tenstringfrench
+%    \begin{macrocode}
 \newcommand*{\@@tenstringfrench}[1]{%
-\ifcase#1%
+\noexpand\fc@case
+\ifcase#1 %
 \or dix%
 \or vingt%
 \or trente%
@@ -238,1047 +278,1052 @@ une%
 \or nonante%
 \or cent%
 \fi
+\noexpand\@nil
 }
+%    \end{macrocode}
+% \DescribeMacro\@@teenstringfrench
+%    \begin{macrocode}
 \newcommand*{\@@teenstringfrench}[1]{%
-\ifcase#1%
-dix%
+\noexpand\fc@case
+\ifcase#1 %
+    dix%
 \or onze%
 \or douze%
 \or treize%
 \or quatorze%
 \or quinze%
 \or seize%
-\or dix-sept%
-\or dix-huit%
-\or dix-neuf%
+\or dix\noexpand\@nil-\noexpand\fc@case sept%
+\or dix\noexpand\@nil-\noexpand\fc@case huit%
+\or dix\noexpand\@nil-\noexpand\fc@case neuf%
 \fi
+\noexpand\@nil
 }
+%    \end{macrocode}
+% \DescribeMacro\@@seventiesfrench
+%    \begin{macrocode}
 \newcommand*{\@@seventiesfrench}[1]{%
 \@tenstring{6}%
 \ifnum#1=1 %
-\ \@andname\
+\fc@frenchoptions@submillion@dos\@andname\fc@frenchoptions@submillion@dos
 \else
 -%
 \fi
 \@teenstring{#1}%
 }
-\newcommand*{\@@eightiesfrench}[1]{%
-\@unitstring{4}-\@tenstring{2}%
+%    \end{macrocode}
+% \DescribeMacro\@@eightiesfrench Macro \cs{@@eightiesfrench} is used to format numbers in the interval
+% \([80\intv 89]\). Argument as follows:\newline
+% \begin{tabularx}{\linewidth}{@{}>{\raggedleft\arraybackslash\ttfamily}rX@{}}
+%   \#1&digit \(d_{w}\) such that the number to be formatted is \(80 + d_{w}\)\\
+% \end{tabularx}
+% Implicit arguments as:\newline
+% \begin{tabularx}{\linewidth}{@{}>{\raggedleft\arraybackslash\ttfamily}rX@{}}
+%   \cs{count0}&weight \(w\) of the number \(d_{w+1}d_{w}\) to be formatted\\
+%   \cs{count1}&same as \cs{\#1}\\
+%   \cs{count6}&input, counter giving the least weight of non zero digits in top level formatted number
+%   integral part, with rounding down to a multiple of 3,\\
+%   \cs{count9}&input, counter giving the power type of the power of ten following the eighties to be
+%   formatted; that is `1' for ``mil'' and `2' for ``\meta{$n$}illion\textbar \meta{$n$}illiard''.
+% \end{tabularx}
+%    \begin{macrocode}
+\newcommand*\@@eightiesfrench[1]{%
+\fc@case quatre\@nil-\noexpand\fc@case vingt%
 \ifnum#1>0 %
--\@unitstring{#1}%
+  \ifnum\fc@frenchoptions@vingt@plural=0 % vingt plural=always
+  s%
+  \fi
+  \noexpand\@nil
+  -\@unitstring{#1}%
 \else
-s%
+  \ifcase\fc@frenchoptions@vingt@plural\space
+    s% 0: always
+  \or
+    % 1: never
+  \or
+    s% 2: multiple
+  \or
+    % 3: multiple g-last
+    \ifnum\count0=\count6\ifnum\count9=0 s\fi\fi
+  \or
+    % 4: multiple l-last
+    \ifnum\count9=1 %
+    \else
+      s%
+    \fi
+  \or
+    % 5: multiple lng-last
+    \ifnum\count9=1 %
+    \else
+      \ifnum\count0>0 %
+        s%
+      \fi
+    \fi
+  \or
+    % or 6: multiple ng-last
+    \ifnum\count0>0 %
+      s%
+    \fi
+  \fi
+  \noexpand\@nil
 \fi
 }
 \newcommand*{\@@ninetiesfrench}[1]{%
-\@unitstring{4}-\@tenstring{2}-\@teenstring{#1}%
+\fc@case quatre\@nil-\noexpand\fc@case vingt%
+\ifnum\fc@frenchoptions@vingt@plural=0 % vingt plural=always
+  s%
+\fi
+\noexpand\@nil
+-\@teenstring{#1}%
 }
 \newcommand*{\@@seventiesfrenchswiss}[1]{%
 \@tenstring{7}%
 \ifnum#1=1\ \@andname\ \fi
 \ifnum#1>1-\fi
-\ifnum#1>0\@unitstring{#1}\fi
+\ifnum#1>0 \@unitstring{#1}\fi
 }
 \newcommand*{\@@eightiesfrenchswiss}[1]{%
 \@tenstring{8}%
 \ifnum#1=1\ \@andname\ \fi
 \ifnum#1>1-\fi
-\ifnum#1>0\@unitstring{#1}\fi
+\ifnum#1>0 \@unitstring{#1}\fi
 }
 \newcommand*{\@@ninetiesfrenchswiss}[1]{%
 \@tenstring{9}%
 \ifnum#1=1\ \@andname\ \fi
 \ifnum#1>1-\fi
-\ifnum#1>0\@unitstring{#1}\fi
+\ifnum#1>0 \@unitstring{#1}\fi
 }
-\newcommand*{\@@Unitstringfrench}[1]{%
-\ifcase#1%
-Z\'ero%
-\or Un%
-\or Deux%
-\or Trois%
-\or Quatre%
-\or Cinq%
-\or Six%
-\or Sept%
-\or Huit%
-\or Neuf%
-\fi
+%    \end{macrocode}
+% \DescribeMacro\fc@french@common Macro \cs{fc@french@common} does all the preliminary settings common to all
+% French dialects \& formatting options.
+%    \begin{macrocode}
+\newcommand*\fc@french@common{%
+  \let\@unitstring=\@@unitstringfrench
+  \let\@teenstring=\@@teenstringfrench
+  \let\@tenstring=\@@tenstringfrench
+  \def\@hundred{cent}%
+  \def\@andname{et}%
 }
-\newcommand*{\@@UnitstringFfrench}[1]{%
-\ifnum#1=1%
-  Une%
-\else
-  \@@Unitstringfrench{#1}%
-\fi
-}
-\newcommand*{\@@Tenstringfrench}[1]{%
-\ifcase#1%
-\or Dix%
-\or Vingt%
-\or Trente%
-\or Quarante%
-\or Cinquante%
-\or Soixante%
-\or Septante%
-\or Huitante%
-\or Nonante%
-\or Cent%
-\fi
-}
-\newcommand*{\@@Teenstringfrench}[1]{%
-\ifcase#1%
-Dix%
-\or Onze%
-\or Douze%
-\or Treize%
-\or Quatorze%
-\or Quinze%
-\or Seize%
-\or Dix-Sept%
-\or Dix-Huit%
-\or Dix-Neuf%
-\fi
-}
+%    \end{macrocode}
+%    \begin{macrocode}
 \DeclareRobustCommand{\@numberstringMfrenchswiss}[2]{%
 \let\fc@case\fc@CaseIden
-\let\@unitstring=\@@unitstringfrench
-\let\@teenstring=\@@teenstringfrench
-\let\@tenstring=\@@tenstringfrench
+\fc@french@common
 \let\@seventies=\@@seventiesfrenchswiss
 \let\@eighties=\@@eightiesfrenchswiss
 \let\@nineties=\@@ninetiesfrenchswiss
-\def\@hundred{cent}\def\@thousand{mille}%
-\def\@andname{et}%
+\let\fc@nbrstr@preamble\@empty
+\let\fc@nbrstr@postamble\@empty
 \@@numberstringfrench{#1}{#2}}
 \DeclareRobustCommand{\@numberstringMfrenchfrance}[2]{%
 \let\fc@case\fc@CaseIden
-\let\@unitstring=\@@unitstringfrench
-\let\@teenstring=\@@teenstringfrench
-\let\@tenstring=\@@tenstringfrench
+\fc@french@common
 \let\@seventies=\@@seventiesfrench
 \let\@eighties=\@@eightiesfrench
 \let\@nineties=\@@ninetiesfrench
-\def\@hundred{cent}\def\@thousand{mille}%
-\def\@andname{et}%
+\let\fc@nbrstr@preamble\@empty
+\let\fc@nbrstr@postamble\@empty
 \@@numberstringfrench{#1}{#2}}
 \DeclareRobustCommand{\@numberstringMfrenchbelgian}[2]{%
 \let\fc@case\fc@CaseIden
-\let\@unitstring=\@@unitstringfrench
-\let\@teenstring=\@@teenstringfrench
-\let\@tenstring=\@@tenstringfrench
+\fc@french@common
 \let\@seventies=\@@seventiesfrenchswiss
 \let\@eighties=\@@eightiesfrench
 \let\@nineties=\@@ninetiesfrench
-\def\@hundred{cent}\def\@thousand{mille}%
-\def\@andname{et}%
+\let\fc@nbrstr@preamble\@empty
+\let\fc@nbrstr@postamble\@empty
 \@@numberstringfrench{#1}{#2}}
 \let\@numberstringMfrench=\@numberstringMfrenchfrance
 \DeclareRobustCommand{\@numberstringFfrenchswiss}[2]{%
 \let\fc@case\fc@CaseIden
-\let\@unitstring=\@@unitstringFfrench
-\let\@teenstring=\@@teenstringfrench
-\let\@tenstring=\@@tenstringfrench
+\fc@french@common
 \let\@seventies=\@@seventiesfrenchswiss
 \let\@eighties=\@@eightiesfrenchswiss
 \let\@nineties=\@@ninetiesfrenchswiss
-\def\@hundred{cent}\def\@thousand{mille}%
-\def\@andname{et}%
+\let\fc@nbrstr@preamble\fc@@nbrstr@Fpreamble
+\let\fc@nbrstr@postamble\@empty
 \@@numberstringfrench{#1}{#2}}
 \DeclareRobustCommand{\@numberstringFfrenchfrance}[2]{%
 \let\fc@case\fc@CaseIden
-\let\@unitstring=\@@unitstringFfrench
-\let\@teenstring=\@@teenstringfrench
-\let\@tenstring=\@@tenstringfrench
+\fc@french@common
 \let\@seventies=\@@seventiesfrench
 \let\@eighties=\@@eightiesfrench
 \let\@nineties=\@@ninetiesfrench
-\def\@hundred{cent}\def\@thousand{mille}%
-\def\@andname{et}%
+\let\fc@nbrstr@preamble\fc@@nbrstr@Fpreamble
+\let\fc@nbrstr@postamble\@empty
 \@@numberstringfrench{#1}{#2}}
 \DeclareRobustCommand{\@numberstringFfrenchbelgian}[2]{%
 \let\fc@case\fc@CaseIden
-\let\@unitstring=\@@unitstringFfrench
-\let\@teenstring=\@@teenstringfrench
-\let\@tenstring=\@@tenstringfrench
+\fc@french@common
 \let\@seventies=\@@seventiesfrenchswiss
 \let\@eighties=\@@eightiesfrench
 \let\@nineties=\@@ninetiesfrench
-\def\@hundred{cent}\def\@thousand{mille}%
-\def\@andname{et}%
+\let\fc@nbrstr@preamble\fc@@nbrstr@Fpreamble
+\let\fc@nbrstr@postamble\@empty
 \@@numberstringfrench{#1}{#2}}
 \let\@numberstringFfrench=\@numberstringFfrenchfrance
 \let\@ordinalstringNfrench\@ordinalstringMfrench
 \DeclareRobustCommand{\@NumberstringMfrenchswiss}[2]{%
 \let\fc@case\fc@UpperCaseFirstLetter
-\let\@unitstring=\@@Unitstringfrench
-\let\@teenstring=\@@Teenstringfrench
-\let\@tenstring=\@@Tenstringfrench
+\fc@french@common
 \let\@seventies=\@@seventiesfrenchswiss
 \let\@eighties=\@@eightiesfrenchswiss
 \let\@nineties=\@@ninetiesfrenchswiss
-\def\@hundred{Cent}\def\@thousand{Mille}%
-\def\@andname{et}%
+\let\fc@nbrstr@preamble\@empty
+\let\fc@nbrstr@postamble\@empty
 \@@numberstringfrench{#1}{#2}}
 \DeclareRobustCommand{\@NumberstringMfrenchfrance}[2]{%
 \let\fc@case\fc@UpperCaseFirstLetter
-\let\@unitstring=\@@Unitstringfrench
-\let\@teenstring=\@@Teenstringfrench
-\let\@tenstring=\@@Tenstringfrench
+\fc@french@common
 \let\@seventies=\@@seventiesfrench
 \let\@eighties=\@@eightiesfrench
 \let\@nineties=\@@ninetiesfrench
-\def\@hundred{Cent}\def\@thousand{Mille}%
-\def\@andname{et}%
+\let\fc@nbrstr@preamble\@empty
+\let\fc@nbrstr@postamble\@empty
 \@@numberstringfrench{#1}{#2}}
 \DeclareRobustCommand{\@NumberstringMfrenchbelgian}[2]{%
 \let\fc@case\fc@UpperCaseFirstLetter
-\let\@unitstring=\@@Unitstringfrench
-\let\@teenstring=\@@Teenstringfrench
-\let\@tenstring=\@@Tenstringfrench
+\fc@french@common
 \let\@seventies=\@@seventiesfrenchswiss
 \let\@eighties=\@@eightiesfrench
 \let\@nineties=\@@ninetiesfrench
-\def\@hundred{Cent}\def\@thousand{Mille}%
-\def\@andname{et}%
+\let\fc@nbrstr@preamble\@empty
+\let\fc@nbrstr@postamble\@empty
 \@@numberstringfrench{#1}{#2}}
 \let\@NumberstringMfrench=\@NumberstringMfrenchfrance
 \DeclareRobustCommand{\@NumberstringFfrenchswiss}[2]{%
 \let\fc@case\fc@UpperCaseFirstLetter
-\let\@unitstring=\@@UnitstringFfrench
-\let\@teenstring=\@@Teenstringfrench
-\let\@tenstring=\@@Tenstringfrench
+\fc@french@common
 \let\@seventies=\@@seventiesfrenchswiss
 \let\@eighties=\@@eightiesfrenchswiss
 \let\@nineties=\@@ninetiesfrenchswiss
-\def\@hundred{Cent}\def\@thousand{Mille}%
-\def\@andname{et}%
+\let\fc@nbrstr@preamble\fc@@nbrstr@Fpreamble
+\let\fc@nbrstr@postamble\@empty
 \@@numberstringfrench{#1}{#2}}
 \DeclareRobustCommand{\@NumberstringFfrenchfrance}[2]{%
 \let\fc@case\fc@UpperCaseFirstLetter
-\let\@unitstring=\@@UnitstringFfrench
-\let\@teenstring=\@@Teenstringfrench
-\let\@tenstring=\@@Tenstringfrench
+\fc@french@common
 \let\@seventies=\@@seventiesfrench
 \let\@eighties=\@@eightiesfrench
 \let\@nineties=\@@ninetiesfrench
-\def\@hundred{Cent}\def\@thousand{Mille}%
-\def\@andname{et}%
+\let\fc@nbrstr@preamble\fc@@nbrstr@Fpreamble
+\let\fc@nbrstr@postamble\@empty
 \@@numberstringfrench{#1}{#2}}
 \DeclareRobustCommand{\@NumberstringFfrenchbelgian}[2]{%
 \let\fc@case\fc@UpperCaseFirstLetter
-\let\@unitstring=\@@UnitstringFfrench
-\let\@teenstring=\@@Teenstringfrench
-\let\@tenstring=\@@Tenstringfrench
+\fc@french@common
 \let\@seventies=\@@seventiesfrenchswiss
 \let\@eighties=\@@eightiesfrench
 \let\@nineties=\@@ninetiesfrench
-\def\@hundred{Cent}\def\@thousand{Mille}%
-\def\@andname{et}%
+\let\fc@nbrstr@preamble\fc@@nbrstr@Fpreamble
+\let\fc@nbrstr@postamble\@empty
 \@@numberstringfrench{#1}{#2}}
 \let\@NumberstringFfrench=\@NumberstringFfrenchfrance
 \let\@NumberstringNfrench\@NumberstringMfrench
 \DeclareRobustCommand{\@ordinalstringMfrenchswiss}[2]{%
-\ifnum#1=1 %
-\def#2{premier}%
-\else
-\let\@unitthstring=\@@unitthstringfrench
-\let\@unitstring=\@@unitstringfrench
-\let\@teenthstring=\@@teenthstringfrench
-\let\@teenstring=\@@teenstringfrench
-\let\@tenthstring=\@@tenthstringfrench
-\let\@tenstring=\@@tenstringfrench
-\let\@seventieths=\@@seventiethsfrenchswiss
-\let\@eightieths=\@@eightiethsfrenchswiss
-\let\@ninetieths=\@@ninetiethsfrenchswiss
+\let\fc@case\fc@CaseIden
+\let\fc@first=\fc@@firstfrench
+\fc@french@common
 \let\@seventies=\@@seventiesfrenchswiss
 \let\@eighties=\@@eightiesfrenchswiss
 \let\@nineties=\@@ninetiesfrenchswiss
-\def\@hundredth{centi\`eme}\def\@hundred{cent}%
-\def\@thousandth{mili\`eme}\def\@thousand{mille}%
-\def\@andname{et}%
 \@@ordinalstringfrench{#1}{#2}%
-\fi}
+}
+\newcommand*\fc@@firstfrench{premier}
+\newcommand*\fc@@firstFfrench{premi\`ere}
 \DeclareRobustCommand{\@ordinalstringMfrenchfrance}[2]{%
-\ifnum#1=1 %
-\def#2{premier}%
-\else
-\let\@unitthstring=\@@unitthstringfrench
-\let\@unitstring=\@@unitstringfrench
-\let\@teenthstring=\@@teenthstringfrench
-\let\@teenstring=\@@teenstringfrench
-\let\@tenthstring=\@@tenthstringfrench
-\let\@tenstring=\@@tenstringfrench
-\let\@seventieths=\@@seventiethsfrench
-\let\@eightieths=\@@eightiethsfrench
-\let\@ninetieths=\@@ninetiethsfrench
+\let\fc@case\fc@CaseIden
+\let\fc@first=\fc@@firstfrench
+\fc@french@common
 \let\@seventies=\@@seventiesfrench
 \let\@eighties=\@@eightiesfrench
 \let\@nineties=\@@ninetiesfrench
-\let\@teenstring=\@@teenstringfrench
-\def\@hundredth{centi\`eme}\def\@hundred{cent}%
-\def\@thousandth{mili\`eme}\def\@thousand{mille}%
-\def\@andname{et}%
-\@@ordinalstringfrench{#1}{#2}%
-\fi}
+\@@ordinalstringfrench{#1}{#2}}
 \DeclareRobustCommand{\@ordinalstringMfrenchbelgian}[2]{%
-\ifnum#1=1 %
-\def#2{premier}%
-\else
-\let\@unitthstring=\@@unitthstringfrench
-\let\@unitstring=\@@unitstringfrench
-\let\@teenthstring=\@@teenthstringfrench
-\let\@teenstring=\@@teenstringfrench
-\let\@tenthstring=\@@tenthstringfrench
-\let\@tenstring=\@@tenstringfrench
-\let\@seventieths=\@@seventiethsfrenchswiss
-\let\@eightieths=\@@eightiethsfrench
-\let\@ninetieths=\@@ninetiethsfrenchswiss
+\let\fc@case\fc@CaseIden
+\let\fc@first=\fc@@firstfrench
+\fc@french@common
 \let\@seventies=\@@seventiesfrench
 \let\@eighties=\@@eightiesfrench
 \let\@nineties=\@@ninetiesfrench
-\let\@teenstring=\@@teenstringfrench
-\def\@hundredth{centi\`eme}\def\@hundred{cent}%
-\def\@thousandth{mili\`eme}\def\@thousand{mille}%
-\def\@andname{et}%
 \@@ordinalstringfrench{#1}{#2}%
-\fi}
+}
 \let\@ordinalstringMfrench=\@ordinalstringMfrenchfrance
 \DeclareRobustCommand{\@ordinalstringFfrenchswiss}[2]{%
-\ifnum#1=1 %
-\def#2{premi\`ere}%
-\else
-\let\@unitthstring=\@@unitthstringfrench
-\let\@unitstring=\@@unitstringFfrench
-\let\@teenthstring=\@@teenthstringfrench
-\let\@teenstring=\@@teenstringfrench
-\let\@tenthstring=\@@tenthstringfrench
-\let\@tenstring=\@@tenstringfrench
-\let\@seventieths=\@@seventiethsfrenchswiss
-\let\@eightieths=\@@eightiethsfrenchswiss
-\let\@ninetieths=\@@ninetiethsfrenchswiss
+\let\fc@case\fc@CaseIden
+\let\fc@first=\fc@@firstFfrench
+\fc@french@common
 \let\@seventies=\@@seventiesfrenchswiss
 \let\@eighties=\@@eightiesfrenchswiss
 \let\@nineties=\@@ninetiesfrenchswiss
-\def\@hundredth{centi\`eme}\def\@hundred{cent}%
-\def\@thousandth{mili\`eme}\def\@thousand{mille}%
-\def\@andname{et}%
 \@@ordinalstringfrench{#1}{#2}%
-\fi}
+}
 \DeclareRobustCommand{\@ordinalstringFfrenchfrance}[2]{%
-\ifnum#1=1 %
-\def#2{premi\`ere}%
-\else
-\let\@unitthstring=\@@unitthstringfrench
-\let\@unitstring=\@@unitstringFfrench
-\let\@teenthstring=\@@teenthstringfrench
-\let\@teenstring=\@@teenstringfrench
-\let\@tenthstring=\@@tenthstringfrench
-\let\@tenstring=\@@tenstringfrench
-\let\@seventieths=\@@seventiethsfrench
-\let\@eightieths=\@@eightiethsfrench
-\let\@ninetieths=\@@ninetiethsfrench
+\let\fc@case\fc@CaseIden
+\let\fc@first=\fc@@firstFfrench
+\fc@french@common
 \let\@seventies=\@@seventiesfrench
 \let\@eighties=\@@eightiesfrench
 \let\@nineties=\@@ninetiesfrench
-\let\@teenstring=\@@teenstringfrench
-\def\@hundredth{centi\`eme}\def\@hundred{cent}%
-\def\@thousandth{mili\`eme}\def\@thousand{mille}%
-\def\@andname{et}%
 \@@ordinalstringfrench{#1}{#2}%
-\fi}
+}
 \DeclareRobustCommand{\@ordinalstringFfrenchbelgian}[2]{%
-\ifnum#1=1 %
-\def#2{premi\`ere}%
-\else
-\let\@unitthstring=\@@unitthstringfrench
-\let\@unitstring=\@@unitstringFfrench
-\let\@teenthstring=\@@teenthstringfrench
-\let\@teenstring=\@@teenstringfrench
-\let\@tenthstring=\@@tenthstringfrench
-\let\@tenstring=\@@tenstringfrench
-\let\@seventieths=\@@seventiethsfrenchswiss
-\let\@eightieths=\@@eightiethsfrench
-\let\@ninetieths=\@@ninetiethsfrench
+\let\fc@case\fc@CaseIden
+\let\fc@first=\fc@@firstFfrench
+\fc@french@common
 \let\@seventies=\@@seventiesfrench
 \let\@eighties=\@@eightiesfrench
 \let\@nineties=\@@ninetiesfrench
-\let\@teenstring=\@@teenstringfrench
-\def\@hundredth{centi\`eme}\def\@hundred{cent}%
-\def\@thousandth{mili\`eme}\def\@thousand{mille}%
-\def\@andname{et}%
 \@@ordinalstringfrench{#1}{#2}%
-\fi}
+}
 \let\@ordinalstringFfrench=\@ordinalstringFfrenchfrance
 \let\@ordinalstringNfrench\@ordinalstringMfrench
 \DeclareRobustCommand{\@OrdinalstringMfrenchswiss}[2]{%
-\ifnum#1=1 %
-\def#2{Premi\`ere}%
-\else
-\let\@unitthstring=\@@Unitthstringfrench
-\let\@unitstring=\@@Unitstringfrench
-\let\@teenthstring=\@@Teenthstringfrench
-\let\@teenstring=\@@Teenstringfrench
-\let\@tenthstring=\@@Tenthstringfrench
-\let\@tenstring=\@@Tenstringfrench
-\let\@seventieths=\@@seventiethsfrenchswiss
-\let\@eightieths=\@@eightiethsfrenchswiss
-\let\@ninetieths=\@@ninetiethsfrenchswiss
+\let\fc@case\fc@UpperCaseFirstLetter
+\let\fc@first=\fc@@firstfrench
+\fc@french@common
 \let\@seventies=\@@seventiesfrenchswiss
 \let\@eighties=\@@eightiesfrenchswiss
 \let\@nineties=\@@ninetiesfrenchswiss
-\def\@hundredth{Centi\`eme}\def\@hundred{Cent}%
-\def\@thousandth{Mili\`eme}\def\@thousand{Mille}%
-\def\@andname{et}%
 \@@ordinalstringfrench{#1}{#2}%
-\fi}
+}
 \DeclareRobustCommand{\@OrdinalstringMfrenchfrance}[2]{%
-\ifnum#1=1 %
-\def#2{Premi\`ere}%
-\else
-\let\@unitthstring=\@@Unitthstringfrench
-\let\@unitstring=\@@Unitstringfrench
-\let\@teenthstring=\@@Teenthstringfrench
-\let\@teenstring=\@@Teenstringfrench
-\let\@tenthstring=\@@Tenthstringfrench
-\let\@tenstring=\@@Tenstringfrench
-\let\@seventieths=\@@seventiethsfrench
-\let\@eightieths=\@@eightiethsfrench
-\let\@ninetieths=\@@ninetiethsfrench
+\let\fc@case\fc@UpperCaseFirstLetter
+\let\fc@first=\fc@@firstfrench
+\fc@french@common
 \let\@seventies=\@@seventiesfrench
 \let\@eighties=\@@eightiesfrench
 \let\@nineties=\@@ninetiesfrench
-\let\@teenstring=\@@Teenstringfrench
-\def\@hundredth{Centi\`eme}\def\@hundred{Cent}%
-\def\@thousandth{Mili\`eme}\def\@thousand{Mille}%
-\def\@andname{et}%
 \@@ordinalstringfrench{#1}{#2}%
-\fi}
+}
 \DeclareRobustCommand{\@OrdinalstringMfrenchbelgian}[2]{%
-\ifnum#1=1 %
-\def#2{Premi\`ere}%
-\else
-\let\@unitthstring=\@@Unitthstringfrench
-\let\@unitstring=\@@Unitstringfrench
-\let\@teenthstring=\@@Teenthstringfrench
-\let\@teenstring=\@@Teenstringfrench
-\let\@tenthstring=\@@Tenthstringfrench
-\let\@tenstring=\@@Tenstringfrench
-\let\@seventieths=\@@seventiethsfrenchswiss
-\let\@eightieths=\@@eightiethsfrench
-\let\@ninetieths=\@@ninetiethsfrench
+\let\fc@case\fc@UpperCaseFirstLetter
+\let\fc@first=\fc@@firstfrench
+\fc@french@common
 \let\@seventies=\@@seventiesfrench
 \let\@eighties=\@@eightiesfrench
 \let\@nineties=\@@ninetiesfrench
-\let\@teenstring=\@@Teenstringfrench
-\def\@hundredth{Centi\`eme}\def\@hundred{Cent}%
-\def\@thousandth{Mili\`eme}\def\@thousand{Mille}%
-\def\@andname{et}%
 \@@ordinalstringfrench{#1}{#2}%
-\fi}
+}
 \let\@OrdinalstringMfrench=\@OrdinalstringMfrenchfrance
 \DeclareRobustCommand{\@OrdinalstringFfrenchswiss}[2]{%
-\ifnum#1=1 %
-\def#2{Premi\`ere}%
-\else
-\let\@unitthstring=\@@Unitthstringfrench
-\let\@unitstring=\@@UnitstringFfrench
-\let\@teenthstring=\@@Teenthstringfrench
-\let\@teenstring=\@@Teenstringfrench
-\let\@tenthstring=\@@Tenthstringfrench
-\let\@tenstring=\@@Tenstringfrench
-\let\@seventieths=\@@seventiethsfrenchswiss
-\let\@eightieths=\@@eightiethsfrenchswiss
-\let\@ninetieths=\@@ninetiethsfrenchswiss
+\let\fc@case\fc@UpperCaseFirstLetter
+\let\fc@first=\fc@@firstfrench
+\fc@french@common
 \let\@seventies=\@@seventiesfrenchswiss
 \let\@eighties=\@@eightiesfrenchswiss
 \let\@nineties=\@@ninetiesfrenchswiss
-\def\@hundredth{Centi\`eme}\def\@hundred{Cent}%
-\def\@thousandth{Mili\`eme}\def\@thousand{Mille}%
-\def\@andname{et}%
 \@@ordinalstringfrench{#1}{#2}%
-\fi}
+}
 \DeclareRobustCommand{\@OrdinalstringFfrenchfrance}[2]{%
-\ifnum#1=1 %
-\def#2{Premi\`ere}%
-\else
-\let\@unitthstring=\@@Unitthstringfrench
-\let\@unitstring=\@@UnitstringFfrench
-\let\@teenthstring=\@@Teenthstringfrench
-\let\@teenstring=\@@Teenstringfrench
-\let\@tenthstring=\@@Tenthstringfrench
-\let\@tenstring=\@@Tenstringfrench
-\let\@seventieths=\@@seventiethsfrench
-\let\@eightieths=\@@eightiethsfrench
-\let\@ninetieths=\@@ninetiethsfrench
+\let\fc@case\fc@UpperCaseFirstLetter
+\let\fc@first=\fc@@firstFfrench
+\fc@french@common
 \let\@seventies=\@@seventiesfrench
 \let\@eighties=\@@eightiesfrench
 \let\@nineties=\@@ninetiesfrench
-\let\@teenstring=\@@Teenstringfrench
-\def\@hundredth{Centi\`eme}\def\@hundred{Cent}%
-\def\@thousandth{Mili\`eme}\def\@thousand{Mille}%
-\def\@andname{et}%
 \@@ordinalstringfrench{#1}{#2}%
-\fi}
+}
 \DeclareRobustCommand{\@OrdinalstringFfrenchbelgian}[2]{%
-\ifnum#1=1 %
-\def#2{Premi\`ere}%
-\else
-\let\@unitthstring=\@@Unitthstringfrench
-\let\@unitstring=\@@UnitstringFfrench
-\let\@teenthstring=\@@Teenthstringfrench
-\let\@teenstring=\@@Teenstringfrench
-\let\@tenthstring=\@@Tenthstringfrench
-\let\@tenstring=\@@Tenstringfrench
-\let\@seventieths=\@@seventiethsfrenchswiss
-\let\@eightieths=\@@eightiethsfrench
-\let\@ninetieths=\@@ninetiethsfrench
+\let\fc@case\fc@UpperCaseFirstLetter
+\let\fc@first=\fc@@firstFfrench
+\fc@french@common
 \let\@seventies=\@@seventiesfrench
 \let\@eighties=\@@eightiesfrench
 \let\@nineties=\@@ninetiesfrench
-\let\@teenstring=\@@Teenstringfrench
-\def\@hundredth{Centi\`eme}\def\@hundred{Cent}%
-\def\@thousandth{Mili\`eme}\def\@thousand{Mille}%
-\def\@andname{et}%
 \@@ordinalstringfrench{#1}{#2}%
-\fi}
+}
 \let\@OrdinalstringFfrench=\@OrdinalstringFfrenchfrance
 \let\@OrdinalstringNfrench\@OrdinalstringMfrench
-\newcommand*{\@@unitthstringfrench}[1]{%
-\ifcase#1%
-    z\'ero%
-\or uni\`eme%
-\or deuxi\`eme%
-\or troisi\`eme%
-\or quatri\`eme%
-\or cinqui\`eme%
-\or sixi\`eme%
-\or septi\`eme%
-\or huiti\`eme%
-\or neuvi\`eme%
-\fi
+%    \end{macrocode}
+% \DescribeMacro\fc@@do@plural@mark Macro \cs{fc@@do@plural@mark} will expand to the plural mark of
+% \meta{$n$}illiard, \meta{$n$}illion, mil, cent or vingt, whichever is applicable. First check that the macro
+% is not yet defined.
+%    \begin{macrocode}
+\@ifundefined{fc@@do@plural@mark}{}{\PackageError{fmtcount}{Duplicate definition}{Redefinition of macro
+    `fc@@do@plural@mark'}}
+%    \end{macrocode}
+% Arguments as follows:\newline
+% \begin{tabularx}{\linewidth}{@{}>{\raggedleft\arraybackslash\ttfamily}rX@{}}
+%   \#1&plural mark, `s' in general, but for mil it is \cs{fc@frenchoptions@mil@plural@mark1}\\
+% \end{tabularx}
+% Implicit arguments as follows:\newline
+% \begin{tabularx}{\linewidth}{@{}>{\raggedleft\arraybackslash\ttfamily}rX@{}}
+%   \cs{count0}&input, counter giving the weight \(w\), this is expected to be multiple of 3,\\
+%   \cs{count1}&input, counter giving the plural value of multiplied object \meta{$n$}illiard,
+%   \meta{$n$}illion, mil, cent or vingt, whichever is applicable, that is to say it is 1 when the considered
+%   objet is not multiplied, and 2 or more when it is multiplied,\\
+%   \cs{count6}&input, counter giving the least weight of non zero digits in top level formatted number
+%   integral part, with rounding down to a multiple of 3,\\
+%   \cs{count10}&input, counter giving the plural mark control option.\\
+% \end{tabularx}
+%    \begin{macrocode}
+\def\fc@@do@plural@mark#1{%
+  \ifcase\count10 %
+    #1% 0=always
+   \or% 1=never
+   \or% 2=multiple
+     \ifnum\count1>1 %
+       #1%
+     \fi
+  \or% 3= multiple g-last
+     \ifnum\count1>1 %
+       \ifnum\count0=\count6 %
+         #1%
+       \fi
+     \fi
+  \or% 4= multiple l-last
+     \ifnum\count1>1 %
+       \ifnum\count9=1 %
+       \else
+         #1%
+       \fi
+     \fi
+  \or% 5= multiple lng-last
+     \ifnum\count1>1 %
+       \ifnum\count9=1 %
+       \else
+         \if\count0>\count6 %
+           #1%
+         \fi
+       \fi
+     \fi
+  \or% 6= multiple ng-last
+     \ifnum\count1>1 %
+       \ifnum\count0>\count6 %
+         #1%
+       \fi
+     \fi
+  \fi
 }
-\newcommand*{\@@tenthstringfrench}[1]{%
-\ifcase#1%
-\or dixi\`eme%
-\or vingti\`eme%
-\or trenti\`eme%
-\or quaranti\`eme%
-\or cinquanti\`eme%
-\or soixanti\`eme%
-\or septenti\`eme%
-\or huitanti\`eme%
-\or nonenti\`eme%
-\fi
+%    \end{macrocode}
+% \DescribeMacro\fc@@nbrstr@Fpreamble Macro \cs{fc@@nbrstr@Fpreamble} do the necessary preliminaries before
+% formatting a cardinal with feminine gender.
+%    \begin{macrocode}
+\@ifundefined{fc@@nbrstr@Fpreamble}{}{%
+  \PackageError{fmtcount}{Duplicate definition}{Redefinition of macro
+    `fc@@nbrstr@Fpreamble'}}
+%    \end{macrocode}
+% \DescribeMacro\fc@@nbrstr@Fpreamble
+%    \begin{macrocode}
+\def\fc@@nbrstr@Fpreamble{%
+  \fc@read@unit{\count1}{0}%
+  \ifnum\count1=1 %
+      \let\fc@case@save\fc@case
+      \def\fc@case{\noexpand\fc@case}%
+      \def\@nil{\noexpand\@nil}%
+     \let\fc@nbrstr@postamble\fc@@nbrstr@Fpostamble
+  \fi
 }
-\newcommand*{\@@teenthstringfrench}[1]{%
-\ifcase#1%
-dixi\`eme%
-\or onzi\`eme%
-\or douzi\`eme%
-\or treizi\`eme%
-\or quatorzi\`eme%
-\or quinzi\`eme%
-\or seizi\`eme%
-\or dix-septi\`eme%
-\or dix-huiti\`eme%
-\or dix-neuvi\`eme%
-\fi
+%    \end{macrocode}
+% \DescribeMacro\fc@@nbrstr@Fpostamble
+%    \begin{macrocode}
+\def\fc@@nbrstr@Fpostamble{%
+  \let\fc@case\fc@case@save
+  \expandafter\fc@get@last@word\expandafter{\@tempa}\@tempb\@tempc
+  \def\@tempd{un}%
+  \ifx\@tempc\@tempd
+    \let\@tempc\@tempa
+    \edef\@tempa{\@tempb\fc@case une\@nil}%
+  \fi
 }
-\newcommand*{\@@seventiethsfrenchswiss}[1]{%
-\ifcase#1%
-  \@tenthstring{7}%
-\or
-  \@tenstring{7} \@andname\ \@unitthstring{1}%
-\else
-  \@tenstring{7}-\@unitthstring{#1}%
-\fi
-}
-\newcommand*{\@@eightiethsfrenchswiss}[1]{%
-\ifcase#1%
-\@tenthstring{8}%
-\or
-\@tenstring{8} \@andname\ \@unitthstring{1}%
-\else
-\@tenstring{8}-\@unitthstring{#1}%
-\fi}
-\newcommand*{\@@ninetiethsfrenchswiss}[1]{%
-\ifcase#1%
-\@tenthstring{9}%
-\or
-\@tenstring{9} \@andname\ \@unitthstring{1}%
-\else
-\@tenstring{9}-\@unitthstring{#1}%
-\fi}
-\newcommand*{\@@seventiethsfrench}[1]{%
-\ifnum#1=0 %
-\@tenstring{6}%
--%
-\else
-\@tenstring{6}%
-\ \@andname\
-\fi
-\@teenthstring{#1}%
-}
-\newcommand*{\@@eightiethsfrench}[1]{%
-\ifnum#1>0 %
-\@unitstring{4}-\@tenstring{2}%
--\@unitthstring{#1}%
-\else
-\@unitstring{4}-\@tenthstring{2}%
-\fi
-}
-\newcommand*{\@@ninetiethsfrench}[1]{%
-\@unitstring{4}-\@tenstring{2}-\@teenthstring{#1}%
-}
-\newcommand*{\@@Unitthstringfrench}[1]{%
-\ifcase#1%
-    Z\'ero%
-\or Uni\`eme%
-\or Deuxi\`eme%
-\or Troisi\`eme%
-\or Quatri\`eme%
-\or Cinqui\`eme%
-\or Sixi\`eme%
-\or Septi\`eme%
-\or Huiti\`eme%
-\or Neuvi\`eme%
-\fi
-}
-\newcommand*{\@@Tenthstringfrench}[1]{%
-\ifcase#1%
-\or Dixi\`eme%
-\or Vingti\`eme%
-\or Trenti\`eme%
-\or Quaranti\`eme%
-\or Cinquanti\`eme%
-\or Soixanti\`eme%
-\or Septenti\`eme%
-\or Huitanti\`eme%
-\or Nonenti\`eme%
-\fi
-}
-\newcommand*{\@@Teenthstringfrench}[1]{%
-\ifcase#1%
-Dixi\`eme%
-\or Onzi\`eme%
-\or Douzi\`eme%
-\or Treizi\`eme%
-\or Quatorzi\`eme%
-\or Quinzi\`eme%
-\or Seizi\`eme%
-\or Dix-Septi\`eme%
-\or Dix-Huiti\`eme%
-\or Dix-Neuvi\`eme%
-\fi
-}
-
-
-\@ifundefined{fc@@poweroften@longscalefrench}{}{%
-  \PackageError{fmtcount}{Duplicate definition}{Redefinition of macro `fc@@poweroften@longscalefrench'}}
-
-% arg #1 = counter giving the weight, this is expected to be multiple of 3
-% arg #2 = let n be the number of such power of ten we have, then #2 is 0 if n=0, 1 if n=1, or >1 if n>1
-% arg #3 = macro string number representing how many such power of ten we have
-% arg #4 = macro into which to append the result
-\def\fc@@poweroften@longscalefrench#1#2#3#4{%
-  {% First save argument into locals
-    \edef\@@tempa{\number#1}%
-    \edef\@@tempb{\number#2}%
-    \let\@@tempc#3%
-    \let\@tempd#4%
-    \let\@tempa\@@tempa
-    \let\@tempb\@@tempb
-    \let\@tempc\@@tempc
-    % now do the job
-    \count0=\@tempa
+%    \end{macrocode}
+% \DescribeMacro\fc@@pot@longscalefrench Macro \cs{fc@@pot@longscalefrench} is used to produce
+% powers of ten with long scale convention. The long scale convention is correct for French and elsewhere in
+% Europe. First we check that the macro is not yet defined.
+%    \begin{macrocode}
+\@ifundefined{fc@@pot@longscalefrench}{}{%
+  \PackageError{fmtcount}{Duplicate definition}{Redefinition of macro
+    `fc@@pot@longscalefrench'}}
+%    \end{macrocode}
+% Argument are as follows:\def\interface{\newline\noindent
+% \begin{tabularx}{\linewidth}{@{}>{\raggedleft\arraybackslash\ttfamily}rX@{}}
+%   \#1&input, plural value of \(d\), that is to say: let \(d\) be the number multiplying the considered power
+%   of ten, then the plural value \texttt{\#2} is expected to be \(0\) if \(d=0\), \(1\) if \(d=1\), or \(>1\)
+%   if \(d>1\)\\
+%   \#2&output, counter, maybe \(0\) when power of ten is \(1\), \(1\) when power of ten starts with
+%   ``mil(le)'', or \(2\) when power of ten is a ``\meta{$n$}illion(s)\textbar\meta{$n$}illiard(s)''\\
+%   \#3&output, macro into which to place the formatted power of ten
+% \end{tabularx}
+% Implicit arguments as follows:\newline
+% \begin{tabularx}{\linewidth}{@{}>{\raggedleft\arraybackslash\ttfamily}rX@{}}
+%   \cs{count0}&input, counter giving the weight \(w\), this is expected to be multiple of 3\\
+% \end{tabularx}
+% }\interface
+%    \begin{macrocode}
+\def\fc@@pot@longscalefrench#1#2#3{%
+  {%
+%    \end{macrocode}
+% First the input arguments are saved into local objects: \texttt{\#1} and \texttt{\#1} are respectively saved
+% into \cs{@tempa} and \cs{@tempb}.
+%    \begin{macrocode}
+    \edef\@tempb{\number#1}%
+%    \end{macrocode}
+% Let \cs{count1} be the plural value.
+%    \begin{macrocode}
     \count1=\@tempb
+%    \end{macrocode}
+% Let \(n\) and \(r\) the the quotient and remainder of division of weight \(w\) by \(6\), that is to say \(w
+% = n\times 6 + r\) and \(0\leq r < 6\), then \cs{count2} is set to \(n\) and \cs{count3} is set to \(r\).
+%    \begin{macrocode}
     \count2\count0 %
     \divide\count2 by 6 %
     \count3\count2 %
     \multiply\count3 by 6 %
     \count3-\count3 %
     \advance\count3 by \count0 %
-    % This \@temph macro is just to propagate the result after the 
-    \ifnum\count0>0 % If weight>=3, i.e we do have to append thousand or n-illion(s)/n-illiard(s)
-      \ifnum\count1>0 % we have at least one thousand/n-illion/n-illiard
-         % t if thousand, o if other
-         \edef\@temph{%
-            \ifnum\count2=0 % weight=3
-               t%
+    \ifnum\count0>0 %
+%    \end{macrocode}
+% If weight \(w\) (a.k.a. \cs{count0}) is such that \(w>0\), then \(w\geq 3\) because \(w\) is a multiple of
+% \(3\). So we \emph{may} have to append ``mil(le)'' or ``\meta{$n$}illion(s)'' or ``\meta{$n$}illiard(s)''.
+%    \begin{macrocode}
+      \ifnum\count1>0 %
+%    \end{macrocode}
+% Plural value is \(>0\) so have at least one ``mil(le)'' or ``\meta{$n$}illion(s)'' or
+% ``\meta{$n$}illiard(s)''. We need to distinguish between the case of ``mil(le)'' and that of
+% ``\meta{$n$}illion(s)'' or ``\meta{$n$}illiard(s)'', so we \cs{def}ine \cs{@temph} to `\texttt{1}' for
+% ``mil(le)'', and to `\texttt{2}' otherwise.
+%    \begin{macrocode}
+        \edef\@temph{%
+          \ifnum\count2=0 % weight=3
+%    \end{macrocode}
+% Here \(n=0\), with \(n=w\div 6\),but we also know that \(w\geq 3\), so we have \(w=3\) which means we are in
+% the ``mil(le)'' case.
+%    \begin{macrocode}
+            1%
+          \else
+            \ifnum\count3>2 %
+%    \end{macrocode}
+% Here we are in the case of \(3\leq r < 6\), with \(r\) the remainder of division of weight \(w\) by \(6\),
+% we should have ``\meta{$n$}illiard(s)'', but that may also be ``mil(le)'' instead depending on
+% option `\texttt{n-illiard upto}', known as \cs{fc@longscale@nilliard@upto}.
+%    \begin{macrocode}
+              \ifnum\fc@longscale@nilliard@upto=0 %
+%    \end{macrocode}
+% Here option `\texttt{n-illiard upto}' is `\texttt{infinity}', so we always use ``\meta{$n$}illiard(s)''.
+%    \begin{macrocode}
+                2%
+              \else
+%    \end{macrocode}
+% Here option `\texttt{n-illiard upto}' indicate some threshold to which to compare \(n\)
+% (a.k.a. \cs{count2}).
+%    \begin{macrocode}
+                \ifnum\count2>\fc@longscale@nilliard@upto
+                  1%
+                \else
+                  2%
+                \fi
+              \fi
             \else
-               \ifnum\count3>2 % power of the form 10^(6*n+r) with 3 =< r < 6
-                  \ifnum\fc@longscale@milliard@threshold=0 %
-                     o% always use the n-illiard notation
-                  \else
-                    % use the n-illiard below some threshold
-                    \ifnum\count2>\fc@longscale@milliard@threshold
-                      t%
-                    \else
-                      o%
-                    \fi
-                  \fi
-               \else
-                 o%
-               \fi
+              2%
             \fi
+          \fi
+        }%
+        \ifnum\@temph=1 %
+%    \end{macrocode}
+% Here \(10^w\) is formatted as ``mil(le)''.
+%    \begin{macrocode}
+          \count10=\fc@frenchoptions@mil@plural\space
+          \edef\@tempe{%
+            \noexpand\fc@case
+             mil%
+             \fc@@do@plural@mark\fc@frenchoptions@mil@plural@mark
+            \noexpand\@nil
           }%
-         \expandafter\if\@temph t%
-           % in case that the group of digit is =1 we, the French, do not say ``un mille'', but just mille
-           % so \@tempc which is ``un'' in  that case is set to empty
-           \ifnum\count1=1 %
-             \let\@tempc\@empty
-           \fi
-           \let\@tempe\@thousand
-         \else
-           % weight >= 6
-           \expandafter\fc@@latin@cardinal@pefix\expandafter{\the\count2}\@tempg
-           % now form the xxx-illion(s) or xxx-illiard(s) word
-           \edef\@tempe{%
-             \@tempg
-             \ifnum\count3>2 %
-               illiard%
-             \else
-               illion%
-             \fi
-             \ifnum\count1>1 %
-             s%
-             \fi
-           }%
-         \fi
-         % Now append into \@tempc the power of ten
-         \let\@tempf\@tempc
-         \edef\@tempc{%
-           % passed as #4
-           \ifx\@tempf\@empty\else
-             \@tempf
-             \fc@frenchoptions@supermillion@dos
-           \fi
-           % m, b and so on
-           \expandafter\fc@case\@tempe\@nil
-         }%
+        \else
+          % weight >= 6
+          \expandafter\fc@@latin@cardinal@pefix\expandafter{\the\count2}\@tempg
+          % now form the xxx-illion(s) or xxx-illiard(s) word
+          \ifnum\count3>2 %
+             \toks10{illiard}%
+             \count10=\csname fc@frenchoptions@n-illiard@plural\endcsname\space
+          \else
+             \toks10{illion}%
+             \count10=\csname fc@frenchoptions@n-illion@plural\endcsname\space
+          \fi
+          \edef\@tempe{%
+            \noexpand\fc@case
+            \@tempg
+            \the\toks10 %
+            \fc@@do@plural@mark s%
+            \noexpand\@nil
+          }%
+        \fi
+      \else
+%    \end{macrocode}
+% Here plural indicator of \(d\) indicates that \(d = 0\), so we have \(0\times10^{w}\), and it is not worth
+% to format \(10^{w}\), because there are none of them.
+%    \begin{macrocode}
+         \let\@tempe\@empty
+         \def\@temph{0}%
       \fi
+    \else
+%    \end{macrocode}
+% Case of \(w=0\).
+%    \begin{macrocode}
+      \let\@tempe\@empty
+      \def\@temph{0}%
     \fi
-    % \@tempa <- expansion of \@tempd (passed as #4) followed by expansion of \@tempc
-    % which is the string number for the considered 3 digit group
-    \edef\@tempa{%
-      \@tempd
-      \ifx\@tempd\@empty\else
-         \ifx\@tempc\@empty\else
-           \fc@frenchoptions@supermillion@dos
-         \fi
-      \fi
-      \@tempc
-    }%
-    % now place into \@tempa the redefintion
-    % of #3 for further propagation after closing group
-    \def\@tempb##1{\def\@tempa{\def#4{##1}}}%
-    \expandafter\@tempb\expandafter{\@tempa}%
+%    \end{macrocode}
+% Now place into \@cs{@tempa} the assignment of results \cs{@temph} and \cs{@tempe} to \texttt{\#2} and
+% \texttt{\#3} for further propagation after closing brace.
+%    \begin{macrocode}
+    \expandafter\toks\expandafter1\expandafter{\@tempe}%
+    \toks0{#2}%
+    \edef\@tempa{\the\toks0 \@temph \def\noexpand#3{\the\toks1}}%
     \expandafter
   }\@tempa
 }
-
-\@ifundefined{fc@@poweroften@shortscalefrench}{}{%
-  \PackageError{fmtcount}{Duplicate definition}{Redefinition of macro `fc@@poweroften@shortscalefrench'}}
-
-% arg #1 = counter giving the weight, this is expected to be multiple of 3
-% arg #2 = 0, 1 or 2, depending of how many such power of ten we have.
-% arg #3 = macro string number representing how many such power of ten we have
-% arg #4 = macro into which to addup the result
-\def\fc@@poweroften@shortscalefrench#1#2#3#4{%
-  {% First save argument into locals
-    \edef\@@tempa{\number#1}%
-    \edef\@@tempb{\number#2}%
-    \let\@@tempc#3%
-    \let\@tempd#4%
-    \let\@tempa\@@tempa
-    \let\@tempb\@@tempb
-    \let\@tempc\@@tempc
-    % now do the job
-    \count0=\@tempa
+%    \end{macrocode}
+% \DescribeMacro\fc@@pot@shortscalefrench Macro \cs{fc@@pot@shortscalefrench} is used to produce
+% powers of ten with short scale convention. This convention is the US convention and is not correct for
+% French and elsewhere in Europe. First we check that the macro is not yet defined.
+%    \begin{macrocode}
+\@ifundefined{fc@@pot@shortscalefrench}{}{%
+  \PackageError{fmtcount}{Duplicate definition}{Redefinition of macro
+    `fc@@pot@shortscalefrench'}}
+%    \end{macrocode}
+% Arguments as follows --- same interface as for \cs{fc@@pot@longscalefrench}:\interface
+%    \begin{macrocode}
+\def\fc@@pot@shortscalefrench#1#2#3{%
+  {%
+%    \end{macrocode}
+% First save input arguments \texttt{\#1}, \texttt{\#2}, and \texttt{\#3} into local macros
+% respectively \cs{@tempa}, \cs{@tempb}, \cs{@tempc} and \cs{@tempd}.
+%    \begin{macrocode}
+    \edef\@tempb{\number#1}%
+%    \end{macrocode}
+% And let \cs{count1} be the plural value.
+%    \begin{macrocode}
     \count1=\@tempb
+%    \end{macrocode}
+% Now, let \cs{count2} be the integer \(n\) generating the pseudo latin prefix, i.e. \(n\) is such that \(w =
+% 3\times n + 3\).
+%    \begin{macrocode}
     \count2\count0 %
     \divide\count2 by 3 %
     \advance\count2 by -1 %
-    % This \@temph macro is just to propagate the result after the 
+%    \end{macrocode}
+% Here is the real job, the formatted power of ten will go to \cs{@tempe}, and its power type will go to
+% \cs{@temph}. Please remember that the power type is an index in \([0\intv 2]\) indicating whether \(10^w\)
+% is formatted as \meta{nothing}, ``mil(le)'' or ``\meta{$n$}illion(s)\textbar\meta{$n$}illiard(s)''.
+%    \begin{macrocode}
     \ifnum\count0>0 % If weight>=3, i.e we do have to append thousand or n-illion(s)/n-illiard(s)
       \ifnum\count1>0 % we have at least one thousand/n-illion/n-illiard
          \ifnum\count2=0 %
-           % in case that the group of digit is =1 we, the French, do not say ``un mille'', but just mille
-           % so \@tempc which is ``un'' in  that case is set to empty
-           \ifnum\count1=1 %
-             \let\@tempc\@empty
-           \fi
-           \let\@tempe\@thousand
+           \def\@temph{1}%
+           \count1=\fc@frenchoptions@mil@plural\space
+           \edef\@tempe{%
+             mil%
+             \fc@@do@plural@mark\fc@frenchoptions@mil@plural@mark
+           }%
          \else
+           \def\@temph{2}%
            % weight >= 6
            \expandafter\fc@@latin@cardinal@pefix\expandafter{\the\count2}\@tempg
-           % now form the xxx-illion(s) or xxx-illiard(s) word
+           \count10=\csname fc@frenchoptions@n-illion@plural\endcsname\space
            \edef\@tempe{%
+             \noexpand\fc@case
              \@tempg
              illion%
-             \ifnum\count1>1 %
-             s%
-             \fi
+             \fc@@do@plural@mark s%
+             \noexpand\@nil
            }%
          \fi
-         % Now append into \@tempc the power of ten
-         \let\@tempf\@tempc
-         \edef\@tempc{%
-           % passed as #4
-           \ifx\@tempf\@empty\else
-             \@tempf
-             \fc@frenchoptions@submillion@dos
-           \fi
-           % m, b and so on
-           \expandafter\fc@case\@tempe\@nil
-         }%
-      \fi
-    \fi
-    % \@tempa <- expansion of \@tempd (passed as #4) followed by expansion of \@tempc
-    % which is the string number for the considered 3 digit group
-    \edef\@tempa{%
-      \@tempd
-      \ifx\@tempd\@empty\else
-         \ifx\@tempc\@empty\else
-           \fc@frenchoptions@supermillion@dos
-         \fi
-      \fi
-      \@tempc
-    }%
-    % now place into \@tempa the redefintion
-    % of #3 for further propagation after closing group
-    \def\@tempb##1{\def\@tempa{\def#4{##1}}}%
-    \expandafter\@tempb\expandafter{\@tempa}%
-    \expandafter
-  }\@tempa
-}
-
-
-\@ifundefined{fc@@poweroften@recursivefrench}{}{%
-  \PackageError{fmtcount}{Duplicate definition}{Redefinition of macro `fc@@poweroften@recursivefrench'}}
-
-% arg #1 = counter giving the weight, this is expected to be multiple of 3
-% arg #2 = 0, 1 or 2, depending of how many such power of ten we have.
-% arg #3 = macro string number representing how many such power of ten we have
-% arg #4 = macro into which to addup the result
-\def\fc@@poweroften@recursivefrench#1#2#3#4{%
-  {% First save argument into locals
-    \edef\@@tempa{\number#1}%
-    \edef\@@tempb{\number#2}%
-    \let\@@tempc#3%
-    \let\@tempd#4%
-    \let\@tempa\@@tempa
-    \let\@tempb\@@tempb
-    \let\@tempc\@@tempc
-    % now do the job
-    \count0=\@tempa
-    \count1=\@tempb
-    \count2\count0 %
-    \divide\count2 by 9 %
-    \advance\count2 by -1 %
-    \let\@tempe\@empty
-    \edef\@tempf{ de \fc@case milliards\@nil}%
-    \ifnum\count2>0 %
-      \count3\count2 %
-      \count3-\count3 %
-      \multiply\count3 by 9 %
-      \advance\count0 by \count3 %
-      \loop
-         % (\count2, \count3) <- (\count2 div 2, \count2 mod 2)
-         \count3\count2
-         \divide\count3 by 2 %
-         \multiply\count3 by 2 %
-         \count3-\count3 %
-         \advance\count3 by \count2 %
-         \divide\count2 by 2 %
-         \ifnum\count3=1 %
-           \let\@tempg\@tempe
-           \edef\@tempe{\@tempg\@tempf}%
-         \fi
-         \let\@tempg\@tempf
-         \edef\@tempf{\@tempg\@tempg}%
-         \ifnum\count2>0 %
-      \repeat
-    \fi
-    \divide\count0 by 3 %
-    % in case that the group of digit is =1 we, the French, do not say ``un mille'', but just mille
-    % so \@tempc which is ``un'' in  that case is set to empty
-    \ifnum\count1=1 %
-      \expandafter\let\expandafter\@tempc
-      \ifcase\count0 % 0 .. 5
-        % 0
-        \@tempc
-      \or  % 1 => mille
-        \@empty
-      \or % 2
-        \@tempc
-      \or % 3
-        \@tempc
-      \or % 4 => mille milliards
-        \@empty
       \else
-        \@tempc
+%    \end{macrocode}
+% Here we have \(d=0\), so nothing is to be formatted for \(d\times 10^w\).
+%    \begin{macrocode}
+        \def\@temph{0}%
+        \let\@tempe\@empty
       \fi
+    \else
+%    \end{macrocode}
+% Here \(w=0\).
+%    \begin{macrocode}
+      \def\@temph{0}%
+      \let\@tempe\@empty
     \fi
-    \edef\@tempg{%
-      \ifcase\count0 % 0 .. 5
-      \or
-        mille% 1
-      \or
-        million\ifnum\count1>1 s\fi % 2
-      \or
-        milliard\ifnum\count1>1 s\fi % 3
-      \or
-        mille\noexpand\@nil\ \noexpand\fc@case milliards% 4
-      \or
-        million\ifnum\count1>1 s\fi\noexpand\@nil\ de \noexpand\fc@case  milliards% 5
-      \fi
-      }%
-    % \@tempa <- expansion of \@tempd (passed as #4) followed by expansion of \@tempc
-    % which is the string number for the considered 3 digit group
-    % followed by the concerned power of ten
-    \edef\@tempa{%
-      \@tempd
-      \ifx\@tempd\@empty\else
-         \ifx\@tempc\@empty\else
-           \fc@frenchoptions@supermillion@dos
-         \fi
-      \fi
-      \@tempc
-      \ifx\@tempg\@empty\else
-         \ifx\@tempc\@empty\else
-           \fc@frenchoptions@supermillion@dos
-         \fi
-      \fi
-      \ifnum\count1>0 %
-         \expandafter\fc@case\@tempg\@nil
-         \@tempe
-      \fi
-    }%
-    \def\@tempb##1{\def\@tempa{\def#4{##1}}}%
-    \expandafter\@tempb\expandafter{\@tempa}%
+% now place into \@cs{@tempa} the assignment of results \cs{@temph} and \cs{@tempe} to to \texttt{\#2} and
+% \texttt{\#3} for further propagation after closing brace.
+%    \begin{macrocode}
+    \expandafter\toks\expandafter1\expandafter{\@tempe}%
+    \toks0{#2}%
+    \edef\@tempa{\the\toks0 \@temph \def\noexpand#3{\the\toks1}}%
     \expandafter
   }\@tempa
 }
-
-
-
-
-\@ifundefined{fc@lthundredstringfrench}{}{%
-  \PackageError{fmtcount}{Duplicate definition}{Redefinition of macro `fc@lthundredstringfrench'}}
-
-
-% Format a number in 0..99
-% Empty output for 0
-% arg #1 = input wheight
-% arg #2 = intput/output macro
-% The formatted number is concatenated after the content of #2, and the result
-% is placed into #2
-\def\fc@lthundredstringfrench#1#2{%
+%    \end{macrocode}
+% \DescribeMacro\fc@@pot@recursivefrench Macro \cs{fc@@pot@recursivefrench} is used to produce
+% power of tens that are of the form ``million de milliards de milliards'' for \(10^{24}\). First we check
+% that the macro is not yet defined.
+%    \begin{macrocode}
+\@ifundefined{fc@@pot@recursivefrench}{}{%
+  \PackageError{fmtcount}{Duplicate definition}{Redefinition of macro
+    `fc@@pot@recursivefrench'}}
+%    \end{macrocode}
+% The arguments are as follows --- same interface as for \cs{fc@@pot@longscalefrench}:\interface
+%    \begin{macrocode}
+\def\fc@@pot@recursivefrench#1#2#3{%
   {%
-    % first save arguments into local temporary macro/counters
-    \let\@tempc#2%
-    \count2=#1 %
-    % \count0 <- unit
-    \fc@read@unit{\count0}{\count2}%
-    % \count1 <- tens
-    \advance\count2 by 1 %
-    \fc@read@unit{\count1}{\count2}%
-    % \@tempa <- #2 followed by hundred string
+%    \end{macrocode}
+% First the input arguments are saved into local objects: \texttt{\#1} and \texttt{\#1} are respectively saved
+% into \cs{@tempa} and \cs{@tempb}.
+%    \begin{macrocode}
+    \edef\@tempb{\number#1}%
+    \let\@tempa\@@tempa
+%    \end{macrocode}
+% New get the inputs \texttt{\#1} and \texttt{\#1} into counters \cs{count0} and \cs{count1} as this is more
+% practical.
+%    \begin{macrocode}
+    \count1=\@tempb\space
+%    \end{macrocode}
+% Now compute into \cs{count2} how many times ``de milliards'' has to be repeated.
+%    \begin{macrocode}
+    \ifnum\count1>0 %
+      \count2\count0 %
+      \divide\count2 by 9 %
+      \advance\count2 by -1 %
+      \let\@tempe\@empty
+      \edef\@tempf{\fc@frenchoptions@supermillion@dos
+        de\fc@frenchoptions@supermillion@dos\fc@case milliards\@nil}%
+      \count11\count0 %
+      \ifnum\count2>0 %
+        \count3\count2 %
+        \count3-\count3 %
+        \multiply\count3 by 9 %
+        \advance\count11 by \count3 %
+        \loop
+           % (\count2, \count3) <- (\count2 div 2, \count2 mod 2)
+           \count3\count2 %
+           \divide\count3 by 2 %
+           \multiply\count3 by 2 %
+           \count3-\count3 %
+           \advance\count3 by \count2 %
+           \divide\count2 by 2 %
+           \ifnum\count3=1 %
+             \let\@tempg\@tempe
+             \edef\@tempe{\@tempg\@tempf}%
+           \fi
+           \let\@tempg\@tempf
+           \edef\@tempf{\@tempg\@tempg}%
+           \ifnum\count2>0 %
+        \repeat
+      \fi
+      \divide\count11 by 3 %
+      \ifcase\count11 % 0 .. 5
+        % 0 => d milliard(s) (de milliards)*
+        \def\@temph{2}%
+        \count10=\csname fc@frenchoptions@n-illiard@plural\endcsname\space
+      \or  % 1 => d mille milliard(s) (de milliards)*
+        \def\@temph{1}%
+        \count10=\fc@frenchoptions@mil@plural\space
+      \or % 2 => d million(s) (de milliards)*
+        \def\@temph{2}%
+        \count10=\csname fc@frenchoptions@n-illion@plural\endcsname\space
+      \or % 3 => d milliard(s) (de milliards)*
+        \def\@temph{2}%
+        \count10=\csname fc@frenchoptions@n-illiard@plural\endcsname\space
+      \or % 4 => d mille milliards (de milliards)*
+        \def\@temph{1}%
+        \count10=\fc@frenchoptions@mil@plural\space
+      \else % 5 => d million(s) (de milliards)*
+        \def\@temph{2}%
+        \count10=\csname fc@frenchoptions@n-illion@plural\endcsname\space
+      \fi
+      \let\@tempg\@tempe
+      \edef\@tempf{%
+        \ifcase\count11 % 0 .. 5
+        \or
+          mil\fc@@do@plural@mark \fc@frenchoptions@mil@plural@mark
+        \or
+          million\fc@@do@plural@mark s%
+        \or
+          milliard\fc@@do@plural@mark s%
+        \or
+          mil\fc@@do@plural@mark\fc@frenchoptions@mil@plural@mark
+          \noexpand\@nil\fc@frenchoptions@supermillion@dos
+          \noexpand\fc@case milliards% 4
+        \or
+          million\fc@@do@plural@mark s%
+          \noexpand\@nil\fc@frenchoptions@supermillion@dos
+          de\fc@frenchoptions@supermillion@dos\noexpand\fc@case  milliards% 5
+        \fi
+      }%
+      \edef\@tempe{%
+        \ifx\@tempf\@empty\else
+         \expandafter\fc@case\@tempf\@nil
+        \fi
+        \@tempg
+      }%
+    \else
+       \def\@temph{0}%
+       \let\@tempe\@empty
+    \fi
+%    \end{macrocode}
+% now place into \@cs{@tempa} the assignment of results \cs{@temph} and \cs{@tempe} to to \texttt{\#2} and
+% \texttt{\#3} for further propagation after closing brace.
+%    \begin{macrocode}
+    \expandafter\toks\expandafter1\expandafter{\@tempe}%
+    \toks0{#2}%
+    \edef\@tempa{\the\toks0 \@temph \def\noexpand#3{\the\toks1}}%
+    \expandafter
+  }\@tempa
+}
+%    \end{macrocode}
+% \DescribeMacro\fc@muladdfrench Macro \cs{fc@muladdfrench} is used to format the sum of a number \(a\) and
+% the product of a number \(d\) by a power of ten \(10^w\). Number \(d\) is made of three consecutive digits
+% \(d_{w+2}d_{w+1}d_w\) of respective weights \(w+2\), \(w+1\), and \(w\), while number \(a\) is made of all
+% digits with weight \(w' > w+2\) that have already been formatted. First check that the macro is not yet
+% defined.
+%    \begin{macrocode}
+\@ifundefined{fc@muladdfrench}{}{%
+  \PackageError{fmtcount}{Duplicate definition}{Redefinition of macro
+    `fc@muladdfrench'}}
+%    \end{macrocode}
+% Arguments as follows:\newline\noindent
+% \begin{tabularx}{\linewidth}{@{}>{\raggedleft\arraybackslash\ttfamily}rX@{}}
+%   \#2&input, plural indicator for number \(d\)\\
+%   \#3&input, formatted number \(d\)\\
+%   \#5&input, formatted number \(10^w\), i.e. power of ten which is multiplied by \(d\)\\
+% \end{tabularx}
+% Implicit arguments from context:\newline\noindent
+% \begin{tabularx}{\linewidth}{@{}>{\raggedleft\arraybackslash\ttfamily}rX@{}}
+%   \cs{@tempa}&input, formatted number \(a\)\\
+%              &output, macro to which place the mul-add result\\
+%   \cs{count8}&input, power type indicator for \(10^{w'}\), where \(w'\) is a weight of \(a\), this is an
+%   index in \([0\intv 2]\) that reflects whether \(10^{w'}\) is formatted by ``mil(le)'' --- for index \(=1\)
+%   --- or by ``\meta{$n$}illion(s)\textbar\meta{$n$}illiard(s)'' --- for index \(=2\)\\
+%   \cs{count9}&input, power type indicator for \(10^w\), this is an index in \([0\intv 2]\) that reflect
+%   whether the weight \(w\) of \(d\) is formatted by ``meta{nothing}'' --- for index \(=0\), ``mil(le)'' ---
+%   for index
+%   \(=1\) --- or by ``\meta{$n$}illion(s)\textbar \meta{$n$}illiard(s)'' --- for index \(=2\)\\
+% \end{tabularx}
+%    \begin{macrocode}
+\def\fc@muladdfrench#1#2#3{%
+  {%
+%    \end{macrocode}
+% First we save input arguments \texttt{\#1} -- \texttt{\#3} to local macros \cs{@tempc}, \cs{@tempd} and
+% \cs{@tempf}.
+%    \begin{macrocode}
+    \edef\@@tempc{#1}%
+    \edef\@@tempd{#2}%
+    \edef\@tempf{#3}%
+    \let\@tempc\@@tempc
+    \let\@tempd\@@tempd
+%    \end{macrocode}
+% First we want to do the ``multiplication'' of \(d \Rightarrow \cs{@tempd}\) and of \(10^w \Rightarrow
+% \cs{@tempf}\). So, prior to this we do some preprocessing of \(d \Rightarrow \cs{@tempd}\): we force
+% \cs{@tempd} to \meta{empty} if both \(d=1\) and \(10^w\Rightarrow\) ``mil(le)'', this is because we,
+% French, we do not say ``un mil'', but just ``mil''.
+%    \begin{macrocode}
+    \ifnum\@tempc=1 %
+      \ifnum\count9=1 %
+        \let\@tempd\@empty
+      \fi
+    \fi
+%    \end{macrocode}
+% Now we do the ``multiplication'' of \(d = \cs{@tempd}\) and of \(10^w = \cs{@tempf}\), and place the result
+% into \cs{@tempg}.
+%    \begin{macrocode}
+    \edef\@tempg{%
+      \@tempd
+      \ifx\@tempd\@empty\else
+        \ifx\@tempf\@empty\else
+           \ifcase\count9 %
+           \or
+             \fc@frenchoptions@submillion@dos
+           \or
+              \fc@frenchoptions@supermillion@dos
+           \fi
+         \fi
+       \fi
+     \@tempf
+   }%
+%    \end{macrocode}
+% Now to the ``addition'' of \(a\Rightarrow \cs{@tempa}\) and \(d\times 10^w\Rightarrow \cs{@tempg}\), and
+% place the results into \cs{@temph}.
+%    \begin{macrocode}
+   \edef\@temph{%
+     \@tempa
+     \ifx\@tempa\@empty\else
+       \ifx\@tempg\@empty\else
+         \ifcase\count8 %
+         \or
+           \fc@frenchoptions@submillion@dos
+         \or
+           \fc@frenchoptions@supermillion@dos
+         \fi
+       \fi
+     \fi
+     \@tempg
+   }%
+%    \end{macrocode}
+% Now propagate the result --- i.e. the expansion of \cs{@temph} --- into macro \cs{@tempa} after closing
+% brace.
+%    \begin{macrocode}
+    \def\@tempb##1{\def\@tempa{\def\@tempa{##1}}}%
+    \expandafter\@tempb\expandafter{\@temph}%
+    \expandafter
+  }\@tempa
+}%
+%    \end{macrocode}
+% \DescribeMacro\fc@lthundredstringfrench Macro \cs{fc@lthundredstringfrench} is used to format a number in
+% interval \([0 \intv 99]\). First we check that it is not already defined.
+%    \begin{macrocode}
+\@ifundefined{fc@lthundredstringfrench}{}{%
+  \PackageError{fmtcount}{Duplicate definition}{Redefinition of macro
+    `fc@lthundredstringfrench'}}
+%    \end{macrocode}
+% The number to format is not passed as an argument to this macro, instead each digits of it is in a
+% \cs{fc@digit@\meta{w}} macro after this number has been parsed. So the only thing that
+% \cs{fc@lthundredstringfrench} needs is to know \meta{w} which is passed as \cs{count0} for the less
+% significant digit.\newline
+% \begin{tabularx}{\linewidth}{@{}>{\raggedleft\arraybackslash\ttfamily}rX@{}}
+% \#1&intput/output macro to which append the result
+% \end{tabularx}
+% Implicit input arguments as follows:\newline
+% \begin{tabularx}{\linewidth}{@{}>{\raggedleft\arraybackslash\ttfamily}rX@{}}
+% \cs{count0}&weight \(w\) of least significant digit \(d_{w}\).
+% \end{tabularx}
+% The formatted number is appended to the content of \#1, and the result is placed into \#1.
+%    \begin{macrocode}
+\def\fc@lthundredstringfrench#1{%
+  {%
+%    \end{macrocode}
+% First save arguments into local temporary macro.
+%    \begin{macrocode}
+    \let\@tempc#1%
+%    \end{macrocode}
+% Read units \(d_w\) to \cs{count1}.
+%    \begin{macrocode}
+    \fc@read@unit{\count1}{\count0}%
+%    \end{macrocode}
+% Read tens \(d_{w+1}\) to \cs{count2}.
+%    \begin{macrocode}
+    \count3\count0 %
+    \advance\count3 1 %
+    \fc@read@unit{\count2}{\count3}%
+%    \end{macrocode}
+% Now do the real job, set macro \cs{@tempa} to \texttt{\#1} followed by \(d_{w+1}d_w\) formatted.
+%    \begin{macrocode}
     \edef\@tempa{%
       \@tempc
-      \ifnum\count1>1 %
+      \ifnum\count2>1 %
         % 20 .. 99
-        \ifnum\count1>6 %
+        \ifnum\count2>6 %
           % 70 .. 99
-          \ifnum\count1<8 %
+          \ifnum\count2<8 %
              % 70 .. 79
-             \@seventies{\count0}%
+             \@seventies{\count1}%
           \else
             % 80..99
-            \ifnum\count1<9 %
+            \ifnum\count2<9 %
               % 80 .. 89
-              \@eighties{\count0}%
+              \@eighties{\count1}%
             \else
               % 90 .. 99
-              \@nineties{\count0}%
+              \@nineties{\count1}%
             \fi
           \fi
         \else
           % 20..69
-          \@tenstring{\count1}%
-          \ifnum\count0>0 %
+          \@tenstring{\count2}%
+          \ifnum\count1>0 %
              % x1 .. x0
-             \ifnum\count0=1 %
+             \ifnum\count1=1 %
                % x1
                \fc@frenchoptions@submillion@dos\@andname\fc@frenchoptions@submillion@dos
              \else
                % x2 .. x9
                -%
              \fi
-             \@unitstring{\count0}%
+             \@unitstring{\count1}%
           \fi
         \fi
       \else
         % 0 .. 19
-        \ifnum\count1=0 % when tens = 0
+        \ifnum\count2=0 % when tens = 0
           % 0 .. 9
-          \ifnum\count0=0 % when units = 0
-            % \count2=1 when #1 = 0, i.e. only for the unit of the top level number
-            \ifnum\count2=1 %
+          \ifnum\count1=0 % when units = 0
+            % \count3=1 when #1 = 0, i.e. only for the unit of the top level number
+            \ifnum\count3=1 %
               \ifnum\fc@max@weight=0 %
                 \@unitstring{0}%
               \fi
             \fi
           \else
             % 1 .. 9
-            \@unitstring{\count0}%
+            \@unitstring{\count1}%
           \fi
         \else
           % 10 .. 19
-          \@teenstring{\count0}%
+          \@teenstring{\count1}%
         \fi
       \fi
     }%
-    % #2 <- \@tempa expansion after closing brace
-    \def\@tempb##1{\def\@tempa{\def#2{##1}}}%
+%    \end{macrocode}
+% Now propagate the expansion of \cs{@tempa} into \texttt{\#2} after closing brace.
+%    \begin{macrocode}
+    \def\@tempb##1{\def\@tempa{\def#1{##1}}}%
     \expandafter\@tempb\expandafter{\@tempa}%
     \expandafter
   }\@tempa
 }
-
-
+%    \end{macrocode}
+% \DescribeMacro\fc@ltthousandstringfrench Macro \cs{fc@ltthousandstringfrench} is used to format a number in
+% interval \([0 \intv 999]\). First we check that it is not already defined.
+%    \begin{macrocode}
 \@ifundefined{fc@ltthousandstringfrench}{}{%
-  \PackageError{fmtcount}{Duplicate definition}{Redefinition of macro `fc@ltthousandstringfrench'}}
-
-% Format a number in 0..999
-% Empty output for 0
-% arg #1 = input weight
-% arg #2 = output macro
-% The formatted number is placed into macro #2
-\def\fc@ltthousandstringfrench#1#2{%
+  \PackageError{fmtcount}{Duplicate definition}{Redefinition of macro
+    `fc@ltthousandstringfrench'}}
+%    \end{macrocode}
+% Output is empty for 0. Arguments as follows:\newline\noindent
+% \begin{tabularx}{\linewidth}{@{}>{\raggedleft\arraybackslash\ttfamily}rX@{}}
+% \#2&output, macro, formatted number \(d = d_{w+2}d_{w+1}d_w\)
+% \end{tabularx}
+% Implicit input arguments as follows:\newline\noindent
+% \begin{tabularx}{\linewidth}{@{}>{\raggedleft\arraybackslash\ttfamily}rX@{}}
+%   \cs{count0}&input weight \(10^{w}\) of number \(d_{w+2}d_{w+1}d_w\) to be formatted.\\
+%   \cs{count5}&least weight of formatted number with a non null digit.\\
+%   \cs{count9}&input, power type indicator of \(10^{w}\) \(0\Rightarrow\varnothing\), \(1\Rightarrow\textrm {
+%   ``mil(le)''}\), \(2\Rightarrow\textrm {\meta{$n$}illion(s)\textbar\meta{$n$}illiard(s)}\)\\
+% \end{tabularx}
+%    \begin{macrocode}
+\def\fc@ltthousandstringfrench#1{%
   {%
-    % first save arguments into local temporary macro/counters
-    % \count2 <- #1
-    \edef\@tempd{\number#1}%
-    \count2=\@tempd
-    % \count0 <- hundreds
-    \count4\count2
+%    \end{macrocode}
+%  Set counter \cs{count2} to digit \(d_{w+2}\), i.e. hundreds.
+%    \begin{macrocode}
+    \count4\count0 %
     \advance\count4 by 2 %
-    \fc@read@unit{\count0}{\count4}%
-    % check the two subsequent digits be non zero, check-result into \@tempa
+    \fc@read@unit{\count2 }{\count4 }%
+%    \end{macrocode}
+% Check that the two subsequent digits \(d_{w+1}d_w\) are non zero, place check-result into \cs{@tempa}.
+%    \begin{macrocode}
     \advance\count4 by -1 %
     \count3\count4 %
     \advance\count3 by -1 %
-    \fc@check@nonzeros{\count3}{\count4}\@tempa
-    % compute s after `cent' into \@temps
+    \fc@check@nonzeros{\count3 }{\count4 }\@tempa
+%    \end{macrocode}
+% Compute plural mark of `cent' into \cs{@temps}.
+%    \begin{macrocode}
     \edef\@temps{%
-      \ifcase\fc@frenchoptions@s@of@cent
+      \ifcase\fc@frenchoptions@cent@plural\space
+      % 0 => always
+      s%
       \or
-        \ifnum\count0>1s\fi
+      % 1 => never
       \or
-        \ifnum\count0>1 \ifnum\@tempa=0s\fi\fi
+      % 2 => multiple
+      \ifnum\count2>1s\fi
+      \or
+      % 3 => multiple g-last
+        \ifnum\count2>1 \ifnum\@tempa=0 \ifnum\count0=\count6s\fi\fi\fi
+      \or
+      % 4 => multiple l-last
+        \ifnum\count2>1 \ifnum\@tempa=0 \ifnum\count9=0s\else\ifnum\count9=2s\fi\fi\fi\fi
       \fi
     }%
     % compute spacing after cent(s?) into \@tempb
@@ -1286,230 +1331,258 @@ Dixi\`eme%
        \ifnum\@tempa>0 \fc@frenchoptions@submillion@dos\else\@empty\fi
     % now place into \@tempa the hundreds
     \edef\@tempa{%
-       \ifnum\count0=0 %
+       \ifnum\count2=0 %
        \else
-         \ifnum\count0=1 %
-           \@hundred
+         \ifnum\count2=1 %
+           \expandafter\fc@case\@hundred\@nil
          \else
-           \@unitstring{\count0}\fc@frenchoptions@submillion@dos\@hundred\@temps
+           \@unitstring{\count2}\fc@frenchoptions@submillion@dos
+           \noexpand\fc@case\@hundred\@temps\noexpand\@nil
          \fi
          \@tempb
        \fi
     }%
     % now append to \@tempa the ten and unit
-    \fc@lthundredstringfrench{\count2}\@tempa
-    % propagate after closing brace #2 <- \@tempa expansion 
+    \fc@lthundredstringfrench\@tempa
+%    \end{macrocode}
+% Propagate expansion of \cs{@tempa} into macro \texttt{\#2} after closing brace.
+%    \begin{macrocode}
+    \def\@tempb##1{\def\@tempa{\def#1{##1}}}%
+    \expandafter\@tempb\expandafter{\@tempa}%
+    \expandafter
+  }\@tempa
+}
+%    \end{macrocode}
+% \DescribeMacro\@@numberstringfrench Macro \cs{@@numberstringfrench} is the main engine for formatting
+% cadinal numbers in French. First we check that the control sequence is not yet defined.
+%    \begin{macrocode}
+\@ifundefined{@@numberstringfrench}{}{%
+  \PackageError{fmtcount}{Duplicate definition}{Redefinition of macro `@@numberstringfrench'}}
+%    \end{macrocode}
+% Arguments are as follows:\newline\noindent
+% \begin{tabularx}{\linewidth}{@{}>{\raggedleft\arraybackslash\ttfamily}rX@{}}
+% \#1&number to convert to string\\
+% \#2&macro into which to place the result
+% \end{tabularx}
+%    \begin{macrocode}
+\def\@@numberstringfrench#1#2{%
+  {%
+%    \end{macrocode}
+% First parse input number to be formatted and do some error handling.
+%    \begin{macrocode}
+    \edef\@tempa{#1}%
+    \expandafter\fc@number@parser\expandafter{\@tempa}%
+    \ifnum\fc@min@weight<0 %
+       \PackageError{fmtcount}{Out of range}%
+          {This macro does not work with fractional numbers}%
+    \fi
+%    \end{macrocode}
+% In the sequel, \cs{@tempa} is used to accumulate the formatted number.  Please note that \cs{space} after
+% \cs{fc@sign@case} is eaten by preceding number collection. This \cs{space} is needed so that when
+% \cs{fc@sign@case} expands to `\texttt{0}', then \cs{@tempa} is defined to `' (i.e. empty) rather than to
+% `\cs{relax}'.
+%    \begin{macrocode}
+    \edef\@tempa{\ifcase\fc@sign@case\space\or\fc@case plus\@nil\or\fc@case moins\@nil\fi}%
+    \fc@nbrstr@preamble
+    \fc@@nbrstrfrench@inner
+    \fc@nbrstr@postamble
+%    \end{macrocode}
+% Propagate the result --- i.e. expansion of \cs{@tempa} --- into macro \texttt{\#2} after closing brace.
+%    \begin{macrocode}
     \def\@tempb##1{\def\@tempa{\def#2{##1}}}%
     \expandafter\@tempb\expandafter{\@tempa}%
     \expandafter
   }\@tempa
 }
-
-\@ifundefined{@@numberstringfrench}{}{%
-  \PackageError{fmtcount}{Duplicate definition}{Redefinition of macro `@@numberstringfrench'}}
-
-% arg #1 = number to convert to string
-% arg #2 = macro into which to place the result
-\def\@@numberstringfrench#1#2{%
-  \edef\@tempa{#1}%
-  \expandafter\fc@number@parser\expandafter{\@tempa}%
-  \ifnum\fc@min@weight<0 %
-     \PackageError{fmtcount}{Out of range}%
-        {This macro does not work with fractional numbers}%
-  \fi
-  % use \count0 rather than directly \fc@sign@case, so that when \fc@sign@case expands to `0', then \@tempb is
-  % defined to `' (i.e. empty) rather than to `\relax '.
-  \count0=\fc@sign@case
-  \edef\@tempb{\ifcase\count0 \or plus \or moins \fi}%
-  {%
-    % accumulate
+%    \end{macrocode}
+% \DescribeMacro\fc@@nbrstrfrench@inner Common part of \cs{@@numberstringfrench} and \cs
+% {@@ordinalstringfrench}. Arguments are as follows:\newline\noindent
+% \begin{tabularx}{\linewidth}{@{}>{\raggedleft\arraybackslash\ttfamily}rX@{}}
+% \cs{@tempa}&input/output, macro to which the result is to be aggregated, initially empty or contains the
+% sign indication.\\
+% \end{tabularx}
+%    \begin{macrocode}
+\def\fc@@nbrstrfrench@inner{%
+%    \end{macrocode}
+% Now loop, first we compute starting weight as
+% \(3\times\left\lfloor\frac{\cs{fc@max@weight}}{3}\right\rfloor\) into \cs{count0}.
+%    \begin{macrocode}
     \count0=\fc@max@weight
     \divide\count0 by 3 %
     \multiply\count0 by 3 %
+%    \end{macrocode}
+% Now we compute final weight into \cs{count5}, and round down too multiple of \(3\) into
+% \cs{count6}. Warning: \cs{count6} is an implicit input argument to macro \cs{fc@ltthousandstringfrench}.
+%    \begin{macrocode}
+    \fc@intpart@find@last{\count5 }%
+    \count6\count5 %
+    \divide\count6 3 %
+    \multiply\count6 3 %
+    \count8=0 %
     \loop
-       \fc@ltthousandstringfrench{\count0}\@tempa
+%    \end{macrocode}
+% First we check whether digits in weight interval \([w \intv (w+2)]\) are all zero and place check result
+% into macro \cs{@tempt}.
+%    \begin{macrocode}
        \count1\count0 %
        \advance\count1 by 2 %
-       \fc@check@nonzeros{\count0}{\count1}\@tempt
-       \fc@poweroften{\count0}\@tempt\@tempa\@tempb
+       \fc@check@nonzeros{\count0 }{\count1 }\@tempt
+%    \end{macrocode}
+% Now we generate the power of ten \(10^w\), formatted power of ten goes to \cs{@tempb}, while power type
+% indicator goes to \cs{count9}.
+%    \begin{macrocode}
+       \fc@poweroften\@tempt{\count9 }\@tempb
+%    \end{macrocode}
+% Now we generate the formatted number \(d\) into macro \cs{@tempd} by which we need to multiply
+% \(10^w\). Implicit input argument is \cs{count9} for power type of \(10^9\), and \cs{count6}
+%    \begin{macrocode}
+       \fc@ltthousandstringfrench\@tempd
+%    \end{macrocode}
+% Finally do the multiplication-addition. Implicit arguments are \cs{@tempa} for input/output growing
+% formatted number, \cs{count8} for input previous power type, i.e. power type of \(10^{w+3}\), \cs{count9}
+% for input current power type, i.e. power type of \(10^w\).
+%    \begin{macrocode}
+       \fc@muladdfrench\@tempt\@tempd\@tempb
+%    \end{macrocode}
+% Then iterate.
+%    \begin{macrocode}
+       \count8\count9 %
        \advance\count0 by -3 %
-       \ifnum\count0>-3 %
+       \ifnum\count6>\count0 \else
     \repeat
-    % propagate the result into macro #2 after closing group
-    \def\@tempc##1{\def\@tempa{\def#2{##1}}}%
-    \expandafter\@tempc\expandafter{\@tempb}%
+}
+%    \end{macrocode}
+% \DescribeMacro\@@ordinalstringfrench Macro \cs{@@ordinalstringfrench} is the main engine for formatting
+% ordinal numbers in French. First check it is not yet defined.
+%    \begin{macrocode}
+\@ifundefined{@@ordinalstringfrench}{}{%
+  \PackageError{fmtcount}{Duplicate definition}{Redefinition of macro
+    `@@ordinalstringfrench'}}
+%    \end{macrocode}
+% Arguments are as follows:\newline\noindent
+% \begin{tabularx}{\linewidth}{@{}>{\raggedleft\arraybackslash\ttfamily}rX@{}}
+% \#1&number to convert to string\\
+% \#2&macro into which to place the result
+% \end{tabularx}
+%    \begin{macrocode}
+\def\@@ordinalstringfrench#1#2{%
+  {%
+%    \end{macrocode}
+% First parse input number to be formatted and do some error handling.
+%    \begin{macrocode}
+    \edef\@tempa{#1}%
+    \expandafter\fc@number@parser\expandafter{\@tempa}%
+    \ifnum\fc@min@weight<0 %
+       \PackageError{fmtcount}{Out of range}%
+          {This macro does not work with fractional numbers}%
+    \fi
+    \ifnum\fc@sign@case>0 %
+       \PackageError{fmtcount}{Out of range}%
+          {This macro does with negative or explicitly marked as positive numbers}%
+    \fi
+%    \end{macrocode}
+% Now handle the special case of first. We set \cs{count0} to \texttt{1} if we are in this case, and to
+% \texttt{0} otherwise
+%    \begin{macrocode}
+    \ifnum\fc@max@weight=0 %
+      \ifnum\csname fc@digit@0\endcsname=1 %
+        \count0=1 %
+      \else
+        \count0=0 % 
+      \fi
+    \else
+      \count0=0 % 
+    \fi
+    \ifnum\count0=1 %
+      \edef\@tempa{\expandafter\fc@case\fc@first\@nil}%
+    \else
+%    \end{macrocode}
+% Now we tamper a little bit with the plural handling options to ensure that there is no final plural mark.
+%    \begin{macrocode}
+      \def\@tempa##1{%
+        \expandafter\edef\csname fc@frenchoptions@##1@plural\endcsname{%
+          \ifcase\csname fc@frenchoptions@##1@plural\endcsname\space
+          0% 0: always => always
+          \or
+          1% 1: never => never
+          \or
+          6% 2: multiple => multiple  ng-last
+          \or
+          1% 3: multiple g-last => never
+          \or
+          5% 4: multiple l-last => multiple lng-last
+          \or
+          5% 5: multiple lng-last => multiple lng-last
+          \or
+          6% 6: multiple ng-last => multiple ng-last
+          \fi
+        }%
+      }%
+      \@tempa{vingt}%
+      \@tempa{cent}%
+      \@tempa{mil}%
+      \@tempa{n-illion}%
+      \@tempa{n-illiard}%
+%    \end{macrocode}
+% Now make \cs{fc@case} and \cs{@nil} non expandable
+%    \begin{macrocode}
+      \let\fc@case@save\fc@case
+      \def\fc@case{\noexpand\fc@case}%
+      \def\@nil{\noexpand\@nil}%
+%    \end{macrocode}
+% In the sequel, \cs{@tempa} is used to accumulate the formatted number.
+%    \begin{macrocode}
+      \let\@tempa\@empty
+      \fc@@nbrstrfrench@inner
+%    \end{macrocode}
+% Now restore \cs{fc@case}
+%    \begin{macrocode}
+     \let\fc@case\fc@case@save
+%    \end{macrocode}
+% Now we add the ``i\`eme'' ending
+%    \begin{macrocode}
+      \expandafter\fc@get@last@word\expandafter{\@tempa}\@tempb\@tempc
+      \expandafter\fc@get@last@letter\expandafter{\@tempc}\@tempd\@tempe
+      \def\@tempf{e}%
+      \ifx\@tempe\@tempf
+        \edef\@tempa{\@tempb\expandafter\fc@case\@tempd i\`eme\@nil}%
+      \else
+        \def\@tempf{q}%
+        \ifx\@tempe\@tempf
+          \edef\@tempa{\@tempb\expandafter\fc@case\@tempd qui\`eme\@nil}%
+        \else
+          \def\@tempf{f}%
+          \ifx\@tempe\@tempf
+            \edef\@tempa{\@tempb\expandafter\fc@case\@tempd vi\`eme\@nil}%
+          \else
+            \edef\@tempa{\@tempb\expandafter\fc@case\@tempc i\`eme\@nil}%
+          \fi
+        \fi
+      \fi
+    \fi
+%    \end{macrocode}
+% Propagate the result --- i.e. expansion of \cs{@tempa} --- into macro \texttt{\#2} after closing brace.
+%    \begin{macrocode}
+    \def\@tempb##1{\def\@tempa{\def#2{##1}}}%
+    \expandafter\@tempb\expandafter{\@tempa}%
     \expandafter
   }\@tempa
 }
-\newcommand*{\@@ordinalstringfrench}[2]{%
-\ifnum#1>99999
-\PackageError{fmtcount}{Out of range}%
-{This macro only works for values less than 100000}%
-\else
-\ifnum#1<0
-\PackageError{fmtcount}{Negative numbers not permitted}%
-{This macro does not work for negative numbers, however
-you can try typing "minus" first, and then pass the modulus of
-this number}%
-\fi
-\fi
-\def#2{}%
-\@strctr=#1\relax \divide\@strctr by 1000\relax
-\ifnum\@strctr>9
-  \@tmpstrctr=\@strctr
-  \divide\@strctr by 10\relax
-  \ifnum\@strctr>1\relax
-    \ifthenelse{\@strctr>6}{%
-      \@modulo{\@tmpstrctr}{10}%
-      \ifnum\@strctr=7\relax
-        \let\@@fc@ordstr#2\relax
-        \edef#2{\@@fc@ordstr\@seventies{\@tmpstrctr}}%
-      \else
-        \ifnum\@strctr=8\relax
-          \let\@@fc@ordstr#2\relax
-          \edef#2{\@@fc@ordstr\@eighties{\@tmpstrctr}}%
-        \else
-          \let\@@fc@ordstr#2\relax
-          \edef#2{\@@fc@ordstr\@nineties{\@tmpstrctr}}%
-        \fi
-      \fi
-    }{%
-      \let\@@fc@ordstr#2\relax
-      \edef#2{\@@fc@ordstr\@tenstring{\@strctr}}%
-      \@strctr=#1\relax
-      \divide\@strctr by 1000\relax
-      \@modulo{\@strctr}{10}%
-      \ifnum\@strctr=1 %
-         \let\@@fc@ordstr#2\relax
-         \edef#2{\@@fc@ordstr\ \@andname}%
-      \fi
-      \ifnum\@strctr>0\relax
-         \let\@@fc@ordstr#2\relax
-         \edef#2{\@@fc@ordstr\ \@unitstring{\@strctr}}%
-      \fi
-    }%
-  \else
-    \@strctr=#1\relax
-    \divide\@strctr by 1000\relax
-    \@modulo{\@strctr}{10}%
-    \let\@@fc@ordstr#2\relax
-    \edef#2{\@@fc@ordstr\@teenstring{\@strctr}}%
-  \fi
-  \@strctr=#1\relax \@modulo{\@strctr}{1000}%
-  \ifnum\@strctr=0 %
-    \let\@@fc@ordstr#2\relax
-    \edef#2{\@@fc@ordstr\ \@thousandth}%
-  \else
-    \let\@@fc@ordstr#2\relax
-    \edef#2{\@@fc@ordstr\ \@thousand}%
-  \fi
-\else
-  \ifnum\@strctr>0\relax
-    \let\@@fc@ordstr#2\relax
-    \edef#2{\@@fc@ordstr\@unitstring{\@strctr}}%
-    \@strctr=#1\relax \@modulo{\@strctr}{1000}%
-    \ifnum\@strctr=0 %
-      \let\@@fc@ordstr#2\relax
-      \edef#2{\@@fc@ordstr\ \@thousandth}%
-    \else
-      \let\@@fc@ordstr#2\relax
-      \edef#2{\@@fc@ordstr\ \@thousand}%
-    \fi
-  \fi
-\fi
-\@strctr=#1\relax \@modulo{\@strctr}{1000}%
-\divide\@strctr by 100\relax
-\ifnum\@strctr>0\relax
-  \ifnum#1>1000\relax
-    \let\@@fc@ordstr#2\relax
-    \edef#2{\@@fc@ordstr\ }%
-  \fi
-  \let\@@fc@ordstr#2\relax
-  \edef#2{\@@fc@ordstr\@unitstring{\@strctr}}%
-  \@strctr=#1\relax \@modulo{\@strctr}{100}%
-  \let\@@fc@ordstr#2\relax
-  \ifnum\@strctr=0 %
-    \edef#2{\@@fc@ordstr\ \@hundredth}%
-  \else
-    \edef#2{\@@fc@ordstr\ \@hundred}%
-  \fi
-\fi
-\@tmpstrctr=\@strctr
-\@strctr=#1\relax \@modulo{\@strctr}{100}%
-\ifnum#1>100\relax
-  \ifnum\@strctr>0\relax
-    \let\@@fc@ordstr#2\relax
-    \edef#2{\@@fc@ordstr\ \@andname\ }%
-  \fi
-\fi
-\ifnum\@strctr>19\relax
-  \@tmpstrctr=\@strctr
-  \divide\@strctr by 10\relax
-  \@modulo{\@tmpstrctr}{10}%
-  \ifthenelse{\@strctr>6}{%
-    \ifnum\@strctr=7\relax
-      \let\@@fc@ordstr#2\relax
-      \edef#2{\@@fc@ordstr\@seventieths{\@tmpstrctr}}%
-    \else
-      \ifnum\@strctr=8\relax
-        \let\@@fc@ordstr#2\relax
-        \edef#2{\@@fc@ordstr\@eightieths{\@tmpstrctr}}%
-      \else
-        \let\@@fc@ordstr#2\relax
-        \edef#2{\@@fc@ordstr\@ninetieths{\@tmpstrctr}}%
-      \fi
-    \fi
-  }{%
-    \ifnum\@tmpstrctr=0 %
-      \let\@@fc@ordstr#2\relax
-      \edef#2{\@@fc@ordstr\@tenthstring{\@strctr}}%
-    \else
-      \let\@@fc@ordstr#2\relax
-      \edef#2{\@@fc@ordstr\@tenstring{\@strctr}}%
-    \fi
-    \@strctr=#1\relax \@modulo{\@strctr}{10}%
-    \ifnum\@strctr=1 %
-      \let\@@fc@ordstr#2\relax
-      \edef#2{\@@fc@ordstr\ \@andname}%
-    \fi
-    \ifnum\@strctr>0\relax
-      \let\@@fc@ordstr#2\relax
-      \edef#2{\@@fc@ordstr\ \@unitthstring{\@strctr}}%
-    \fi
-  }%
-\else
-  \ifnum\@strctr<10 %
-    \ifnum\@strctr=0 %
-      \ifnum#1<100\relax
-        \let\@@fc@ordstr#2\relax
-        \edef#2{\@@fc@ordstr\@unitthstring{\@strctr}}%
-      \fi
-    \else
-      \let\@@fc@ordstr#2\relax
-      \edef#2{\@@fc@ordstr\@unitthstring{\@strctr}}%
-    \fi
-  \else
-    \@modulo{\@strctr}{10}%
-    \let\@@fc@ordstr#2\relax
-    \edef#2{\@@fc@ordstr\@teenthstring{\@strctr}}%
-  \fi
-\fi
-}
-
-\def\fc@frenchoptions@setdefaults{%
-  % 0=never s after cent
-  % 1=place s after cent conditionally to having 2..9 hundreds
-  % 2=same as 1, but no s if a ten or unit after hundreds is non zero
-  \def\fc@frenchoptions@s@of@cent{2}%
-  \let\fc@frenchoptions@submillion@dos\space%
-  \let\fc@frenchoptions@supermillion@dos\space%
+%    \end{macrocode}
+% Macro \cs{fc@frenchoptions@setdefaults} allows to set all options to default for the French.
+%    \begin{macrocode}
+\newcommand*\fc@frenchoptions@setdefaults{%
+  \csname KV@fcfrench@all plural\endcsname{reformed}%
+  \def\fc@frenchoptions@submillion@dos{-}%
+  \let\fc@frenchoptions@supermillion@dos\space
   \let\fc@u@in@duo\@empty% Could be `u'
-%  \let\fc@poweroften\fc@@poweroften@longscalefrench
-  \let\fc@poweroften\fc@@poweroften@recursivefrench
-  \def\fc@longscale@milliard@threshold{0}%
+  % \let\fc@poweroften\fc@@pot@longscalefrench
+  \let\fc@poweroften\fc@@pot@recursivefrench
+  \def\fc@longscale@nilliard@upto{0}% infinity
+  \def\fc@frenchoptions@mil@plural@mark{le}%
 }
 \fc@frenchoptions@setdefaults
-
-\endinput
-%%
-%% End of file `fc-french.def'.
+%    \end{macrocode}
+\iffalse Local variables: \fi
+\iffalse mode: docTeX     \fi
+\iffalse End:             \fi

@@ -1,15 +1,16 @@
+%\subsection{fcprefix.sty}
+% Pseudo-latin prefixes.
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{fcprefix}
 \RequirePackage{ifthen}
 \RequirePackage{keyval}
 \RequirePackage{fcnumparser}
-
-% ===========================================================================================================
-% Option `use duode and unde' is to select whether 18 and suchlikes (x8, x9) writes like duodevicies, or like
-% octodecies For French it should be `below 20'
-% Possible values are `below 20' and `never' 
-% -----------------------------------------------------------------------------------------------------------
+%    \end{macrocode}
+% Option `\texttt{use duode and unde}' is to select whether \(18\) and suchlikes (\(\meta{x}8\),
+% \(\meta{x}9\)) writes like duodevicies, or like octodecies. For French it should be `\texttt{below
+% 20}'. Possible values are `\texttt{below 20}' and `\texttt{never}'.
+%    \begin{macrocode}
 \define@key{fcprefix}{use duode and unde}[below20]{%
   \ifthenelse{\equal{#1}{below20}}{%
     \def\fc@duodeandunde{2}%
@@ -22,52 +23,55 @@
     }%
   }%
 }
-
-\def\fc@duodeandunde{2}% default is `below 20' like in French
-
-% ===========================================================================================================
-% Option `numeral u in duo', this can be `yes' or `no' and is used to select whether 12 and suchlikes write
-% like dodecxxx or duodecxxx for numerals.
-% -----------------------------------------------------------------------------------------------------------
+%    \end{macrocode}
+% Default is `\texttt{below 20}' like in French.
+%    \begin{macrocode}
+\def\fc@duodeandunde{2}
+%    \end{macrocode}
+% Option `\texttt{numeral u in duo}', this can be `\texttt{true}' or `\texttt{false}' and is used to select
+% whether 12 and suchlikes write like dodec\meta{xxx} or duodec\meta{xxx} for numerals.
+%    \begin{macrocode}
 \define@key{fcprefix}{numeral u in duo}[false]{%
-  \ifthenelse{\equal{#1}{no}}{%
+  \ifthenelse{\equal{#1}{false}}{%
     \let\fc@u@in@duo\@empty
   }{%
-    \ifthenelse{\equal{#1}{yes}}{%
+    \ifthenelse{\equal{#1}{true}}{%
       \def\fc@u@in@duo{u}%
     }{%
       \PackageError{fcprefix}{Unexpected option}{%
-        Option `numeral u in duo' expects `yes' or `no' }%
+        Option `numeral u in duo' expects `true' or `false' }%
     }%
   }%
 }
-
-% ===========================================================================================================
-% Option `e accute', this can be `yes' or `no' and is used to select whether letter `e' has an accute accents
-% when it pronouce [e] in French.
-% -----------------------------------------------------------------------------------------------------------
+%    \end{macrocode}
+% Option `\texttt{e accute}', this can be `\texttt{true}' or `\texttt{false}' and is used to select whether
+% letter `\texttt{e}' has an accute accent when it pronounce [e] in French.
+%    \begin{macrocode}
 \define@key{fcprefix}{e accute}[false]{%
-  \ifthenelse{\equal{#1}{no}}{%
+  \ifthenelse{\equal{#1}{false}}{%
     \let\fc@prefix@eaccute\@firstofone
   }{%
-    \ifthenelse{\equal{#1}{yes}}{%
+    \ifthenelse{\equal{#1}{true}}{%
       \let\fc@prefix@eaccute\'%
     }{%
       \PackageError{fcprefix}{Unexpected option}{%
-        Option `numeral u in duo' expects `yes' or `no' }%
+        Option `e accute' expects `true' or `false' }%
     }%
   }%
 }
-
-\let\fc@prefix@eaccute\'% default is to set accute accent like in French
-
-% ===========================================================================================================
-% Option `power of millia' tells how millia is raise to power n. It expects value
-% - `recurse': for which millia squared is noted as milliamillia
-% - `arabic' : for which millia squared is noted as millia^2
-% - `prefix' : for which millia squared is noted as bismillia
-% -----------------------------------------------------------------------------------------------------------
-\define@key{fcprefix}{powerofmillia}[prefix]{%
+%    \end{macrocode}
+% Default is to set accute accent like in French.
+%    \begin{macrocode}
+\let\fc@prefix@eaccute\'%
+%    \end{macrocode}
+% Option `\texttt{power of millia}' tells how millia is raise to power n. It expects value:\newline\noindent
+% \begin{tabularx}{\linewidth}{@{}>{\raggedleft\arraybackslash\ttfamily}rX@{}}
+% recursive&for which millia squared is noted as `milliamillia'\\
+% arabic&for which millia squared is noted as `millia\^{}2'\\
+% prefix&for which millia squared is noted as `bismillia'
+% \end{tabularx}
+%    \begin{macrocode}
+\define@key{fcprefix}{power of millia}[prefix]{%
   \ifthenelse{\equal{#1}{prefix}}{%
        \let\fc@power@of@millia@init\@gobbletwo
        \let\fc@power@of@millia\fc@@prefix@millia
@@ -76,30 +80,39 @@
        \let\fc@power@of@millia@init\@gobbletwo
        \let\fc@power@of@millia\fc@@arabic@millia
     }{%
-      \ifthenelse{\equal{#1}{recurse}}{%
+      \ifthenelse{\equal{#1}{recursive}}{%
         \let\fc@power@of@millia@init\fc@@recurse@millia@init
         \let\fc@power@of@millia\fc@@recurse@millia
       }{%
         \PackageError{fcprefix}{Unexpected option}{%
-          Option `power of millia' expects `recurse', `arabic', or `prefix' }%
+          Option `power of millia' expects `recursive', `arabic', or `prefix' }%
       }%
     }%
   }%
 }
-
-% Arg #1 = output macro
-% Arg #2 = counter with current weight
+%    \end{macrocode}
+% Arguments as follows:\def\interface{\newline\noindent
+% \begin{tabularx}{\linewidth}{@{}>{\raggedleft\arraybackslash\ttfamily}rX@{}}
+% \#1& output macro\\
+% \#2& number with current weight \(w\)
+% \end{tabularx}}\interface
+%    \begin{macrocode}
 \def\fc@@recurse@millia#1#2{%
   \let\@tempp#1%
   \edef#1{millia\@tempp}%
 }
-
-% Arg #1 = output macro
-% Arg #2 = counter with current weight
+%    \end{macrocode}
+% Arguments as follows --- same interface as \cs{fc@@recurse@millia}: \interface
+%    \begin{macrocode}
 \def\fc@@recurse@millia@init#1#2{%
   {%
-    % save input arguments into locals
-    \edef\@tempb{\the#2}%
+%    \end{macrocode}
+% Save input argument current weight \(w\) into local macro \cs{@tempb}.
+%    \begin{macrocode}
+    \edef\@tempb{\number#2}%
+%    \end{macrocode}
+% Now main loop from 0 to \(w\). Final value of \cs{@tempa} will be the result.
+%    \begin{macrocode}
     \count0=0 %
     \let\@tempa\@empty
     \loop
@@ -108,69 +121,91 @@
          \expandafter\def
            \expandafter\@tempa\expandafter{\@tempa millia}%
     \repeat
-    \def\@tempb##1{\def\@tempa{\def#1{##1}}}%
-    \expanftater\@tempb\expanftater{\@tempa}%
+%    \end{macrocode}
+% Now propagate the expansion of \cs{@tempa} into \texttt{\#1} after closing bace.
+%    \begin{macrocode}
+    \edef\@tempb{\def\noexpand#1{\@tempa}}%
     \expandafter
-  }\@tempa
+  }\@tempb
 }
-
-% Arg #1 = output macro
-% Arg #2 = counter with current weight
+%    \end{macrocode}
+% Arguments as follows --- same interface as \cs{fc@@recurse@millia}: \interface
+%    \begin{macrocode}
 \def\fc@@arabic@millia#1#2{%
   \ifnnum#2=0 %
     \let#1\@empty
   \else
-    \edef#1{millia\^\the#2}%
+    \edef#1{millia\^{}\the#2}%
   \fi
 }
-
-% Arg #1 = output macro
-% Arg #2 = counter with current weight
+%    \end{macrocode}
+% Arguments as follows --- same interface as \cs{fc@@recurse@millia}: \interface
+%    \begin{macrocode}
 \def\fc@@prefix@millia#1#2{%
   \fc@@latin@numeral@pefix{#2}{#1}%
 }
-
-% default value is prefix
+%    \end{macrocode}
+% Default value of option `\texttt{power of millia}' is `\texttt{prefix}':
+%    \begin{macrocode}
 \let\fc@power@of@millia@init\@gobbletwo
 \let\fc@power@of@millia\fc@@prefix@millia
-
-% ===========================================================================================================
-% Compute a cardinal prefix for n-illion, like 1 => m, 2 => bi, 3 => tri
-% The algorithm to derive this prefix is that of Russ Rowlett
-% I founds its documentation on Alain Lassine's site: http://www.alain.be/Boece/grands_nombres.html
-% -----------------------------------------------------------------------------------------------------------
-
+%    \end{macrocode}
+% \DescribeMacro\fc@@latin@cardinal@pefix Compute a cardinal prefix for n-illion, like \(1 \Rightarrow
+% \textrm{`m'}\), \(2 \Rightarrow \textrm{`bi'}\), \(3 \Rightarrow \textrm{`tri'}\). The algorithm to derive
+% this prefix is that of Russ Rowlett I founds its documentation on Alain Lassine's site:
+% \url{http://www.alain.be/Boece/grands\_nombres.html}. First check that macro is not yet defined.
+%    \begin{macrocode}
 \@ifundefined{fc@@latin@cardinal@pefix}{}{%
   \PackageError{fmtcount}{Duplicate definition}{Redefinition of macro `fc@@latin@cardinal@pefix'}}
-
-% #1 = input number
-% #2 = outut macro name into which to place the 
+%    \end{macrocode}
+% Arguments as follows:\newline\noindent
+% \begin{tabularx}{\linewidth}{@{}>{\raggedleft\arraybackslash\ttfamily}rX@{}}
+% \#1&input number to be formated\\
+% \#2&outut macro name into which to place the formatted result
+% \end{tabularx}
+%    \begin{macrocode}
 \def\fc@@latin@cardinal@pefix#1#2{%
   {%
-    % put input arguments into local
+%    \end{macrocode}
+% First we put input argument into local macro @cs{@tempa} with full expansion.
+%    \begin{macrocode}
     \edef\@tempa{\number#1}%
-    % -------------------------------------------------------------------------------------------------------
+%    \end{macrocode}
+% Now parse number from expanded input.
+%    \begin{macrocode}
     \expandafter\fc@number@parser\expandafter{\@tempa}%
     \count2=0 %
-    % \@tempt will hold the optional final t, \@tempu is used to initialize \@tempt
-    % to `t' when the firt non-zero 3digit group is met, which is the job made by \@tempi
+%    \end{macrocode}
+% \cs{@tempt} will hold the optional final \texttt{t}, \cs{@tempu} is used to initialize \cs{@tempt} to `t'
+% when the firt non-zero 3digit group is met, which is the job made by \cs{@tempi}.
+%    \begin{macrocode}
     \let\@tempt\@empty
     \def\@tempu{t}%
-    % \@tempm will hold the millia^n/3
+%    \end{macrocode}
+% \cs{@tempm} will hold the \texttt{millia\^}\(^{n\div 3}\)
+%    \begin{macrocode}
     \let\@tempm\@empty
-    % Loop
+%    \end{macrocode}
+% Loop by means of terminal recursion of herinafter defined macro \cs{@templ}. We loop by group of 3 digits.
+%    \begin{macrocode}
     \def\@templ{%
       \ifnum\count2>\fc@max@weight
         \let\next\relax
       \else
-        % Loop body
+%    \end{macrocode}
+% Loop body. Here we read a group of 3 consecutive digits \(d_2d_1d_0\) and place them respectively into
+% \cs{count3}, \cs{count4}, and \cs{count5}.
+%    \begin{macrocode}
         \fc@read@unit{\count3}{\count2}%
         \advance\count2 by 1 %
         \fc@read@unit{\count4}{\count2}%
         \advance\count2 by 1 %
         \fc@read@unit{\count5}{\count2}%
         \advance\count2 by 1 %
-        % if the 3digits are not all zero, then set \@tempt to `t' for the first time this event is met.
+%    \end{macrocode}
+% If the 3 considered digits \(d_2d_1d_0\) are not all zero, then set \cs{@tempt} to `\texttt{t}' for the
+% first time this event is met.
+%    \begin{macrocode}
         \edef\@tempn{%
           \ifnum\count3=0\else 1\fi
           \ifnum\count4=0\else 1\fi
@@ -180,10 +215,14 @@
           \let\@tempt\@tempu
           \let\@tempu\@empty
         \fi
-        % Now process the current group of 3 digits
+%    \end{macrocode}
+% Now process the current group \(d_2d_1d_0\) of 3 digits.
+%    \begin{macrocode}
         \let\@tempp\@tempa
         \edef\@tempa{%
-          % hundreds
+%    \end{macrocode}
+% Here we process \(d_{2}\) held by \cs{count5}, that is to say hundreds.
+%    \begin{macrocode}
           \ifcase\count5 %
           \or cen%
           \or ducen%
@@ -195,6 +234,9 @@
           \or octingen%
           \or nongen%
           \fi
+%    \end{macrocode}
+% Here we process \(d_1d_0\) held by \cs{count4} \& \cs{count3}, that is to say tens and units.
+%    \begin{macrocode}
           \ifnum\count4=0 %
             % x0(0..9)
             \ifnum\count2=3 %
@@ -211,7 +253,10 @@
               \or non%
               \fi
             \else
-              % weight 3*n, with n>0, i.e. this is followed by a millia^n
+%    \end{macrocode}
+% Here the weight of \cs{count3} is \(3\times n\), with \(n>0\), i.e. this is followed by a
+% \texttt{millia\^}\(n\).
+%    \begin{macrocode}
               \ifcase\count3 %
               \or \ifnum\count2>\fc@max@weight\else un\fi
               \or d\fc@u@in@duo o%
@@ -249,12 +294,21 @@
              \or nonagin\@tempt
              \fi
           \fi
-          % Insert the millia^(n/3) only if one of \count3 \count4 \count5 is non zero
+%    \end{macrocode}
+% Insert the \texttt{millia\^}\(^{(n\div 3)}\) only if \(d_2d_1d_0\not=0\), i.e. if one of \cs{count3}
+% \cs{count4} or \cs{count5} is non zero.
+%    \begin{macrocode}
           \@tempm
-          % add up previous version of \@tempa
+%    \end{macrocode}
+% And append previous version of \cs{@tempa}.
+%    \begin{macrocode}
           \@tempp
         }%
-        % concatenate millia to \@tempm
+%    \end{macrocode}
+% ``Concatenate'' \texttt{millia} to \cs{@tempm}, so that \cs{@tempm} will expand to
+% \texttt{millia\^}\(^{(n\div 3)+1}\) at the next iteration. Actually whether this is a concatenation or some
+% \texttt{millia} prefixing depends of option `\texttt{power of millia}'.
+%    \begin{macrocode}
         \fc@power@of@millia\@tempm{\count2}%
       \fi
       \next
@@ -262,43 +316,59 @@
     \let\@tempa\@empty
     \let\next\@templ
     \@templ
-    % propagate expansion of \@tempa into #2 after closing bracket
+%    \end{macrocode}
+% Propagate expansion of \cs{@tempa} into \texttt{\#2} after closing bracket.
+%    \begin{macrocode}
     \def\@tempb##1{\def\@tempa{\def#2{##1}}}%
     \expandafter\@tempb\expandafter{\@tempa}%
     \expandafter
   }\@tempa
 }
-
-% ===========================================================================================================
-% Compute a numeral prefix like sémel, bis, ter, quater, etc...  I found the algorithm to derive this prefix
-% on Alain Lassine's site: http://www.alain.be/Boece/nombres_gargantuesques.html
-% -----------------------------------------------------------------------------------------------------------
+%    \end{macrocode}
+% \DescribeMacro\fc@@latin@numeral@pefix Compute a numeral prefix like `sémel', `bis', `ter', `quater',
+% etc\ldots I found the algorithm to derive this prefix on Alain Lassine's site:
+% \url{http://www.alain.be/Boece/nombres\_gargantuesques.html}. First check that the macro is not yet defined.
+%    \begin{macrocode}
 \@ifundefined{fc@@latin@numeral@pefix}{}{%
-  \PackageError{fmtcount}{Duplicate definition}{Redefinition of macro `fc@@latin@numeral@pefix'}}
-
-% #1 = input number
-% #2 = outut macro name into which to place the 
+  \PackageError{fmtcount}{Duplicate definition}{Redefinition of macro 
+    `fc@@latin@numeral@pefix'}}
+%    \end{macrocode}
+% Arguments as follows:\newline\noindent
+% \begin{tabularx}{\linewidth}{@{}>{\raggedleft\arraybackslash\ttfamily}rX@{}}
+% \#1& input number to be formatted,\\
+% \#2&  outut macro name into which to place the result
+% \end{tabularx}
+%    \begin{macrocode}
 \def\fc@@latin@numeral@pefix#1#2{%
   {%
     \edef\@tempa{\number#1}%
     \def\fc@unit@weight{0}%
     \expandafter\fc@number@parser\expandafter{\@tempa}%
     \count2=0 %
-    % \@tempm will hold the millies^n/3
+%    \end{macrocode}
+% Macro \cs{@tempm} will hold the \texttt{millies\^}\(^{n\div 3}\).
+%    \begin{macrocode}
     \let\@tempm\@empty
-    % Loop
+%    \end{macrocode}
+% Loop over digits. This is done by defining macro \cs{@templ} for terminal recursion.
+%    \begin{macrocode}
     \def\@templ{%
       \ifnum\count2>\fc@max@weight
         \let\next\relax
       \else
-        % Loop body
+%    \end{macrocode}
+% Loop body. Three consecutive digits \(d_{2}d_{1}d_{0}\) are read into counters \cs{count3}, \cs{count4}, and
+% \cs{count5}.
+%    \begin{macrocode}
         \fc@read@unit{\count3}{\count2}%
         \advance\count2 by 1 %
         \fc@read@unit{\count4}{\count2}%
         \advance\count2 by 1 %
         \fc@read@unit{\count5}{\count2}%
         \advance\count2 by 1 %
-        % Check the use of duodevicies instead of octodecies
+%    \end{macrocode}
+% Check the use of \texttt{duodevicies} instead of \texttt{octodecies}.
+%    \begin{macrocode}
         \let\@tempn\@secondoftwo
         \ifnum\count3>7 %
           \ifnum\count4<\fc@duodeandunde
@@ -331,7 +401,9 @@
           \fi
           {enties}%
           \ifnum\count4=0 %
-            % x0(0..9)
+%    \end{macrocode}
+% Here \(d_{2}d_{1}d_{0}\) is such that \(d_{1} = 0\).
+%    \begin{macrocode}
             \ifcase\count3 %
             \or
               \ifnum\count2=3 %
@@ -349,7 +421,9 @@
             \or novies%
             \fi
           \else
-             % x(10..99)
+%    \end{macrocode}
+% Here \(d_{2}d_{1}d_{0}\) is such that \(d_{1} \geq 1\).
+%    \begin{macrocode}
              \ifcase\count3 %
              \or un%
              \or d\fc@u@in@duo o%
@@ -380,7 +454,11 @@
           % add up previous version of \@tempa
           \@tempp
         }%
-        % concatenate millies to \@tempm
+%    \end{macrocode}
+% Concatenate \texttt{millies} to \cs{@tempm} so that it is equal to \texttt{millies\^}\(^{n\div 3}\) at the
+% next iteration. Here we just have plain concatenation, contrary to cardinal for which a prefix can be used
+% instead.
+%    \begin{macrocode}
         \let\@tempp\@tempp
         \edef\@tempm{millies\@tempp}%
       \fi
@@ -389,16 +467,30 @@
     \let\@tempa\@empty
     \let\next\@templ
     \@templ
-    % propagate expansion of \@tempa into #2 after closing bracket
+%    \end{macrocode}
+% Now propagate expansion of \@tempa into \texttt{\#2} after closing bracket.
+%    \begin{macrocode}
     \def\@tempb##1{\def\@tempa{\def#2{##1}}}%
     \expandafter\@tempb\expandafter{\@tempa}%
     \expandafter
   }\@tempa
 }
-
-% ===========================================================================================================
-% Stuff for calling macros
-% -----------------------------------------------------------------------------------------------------------
+%    \end{macrocode}
+% Stuff for calling macros. Construct \cs{fc@call}\meta{some macro} can be used to pass two arguments to
+% \meta{some macro} with a configurable calling convention:
+% \begin{itemize}
+% \item the calling convention is such that there is one mandatory argument \meta{marg} and an optional
+%   argument \meta{oarg}
+% \item either \cs{fc@call} is \cs{let} to be equal to \cs{fc@call@opt@arg@second}, and then calling
+% convention is that the \meta{marg} is first and \meta{oarg} is second,
+% \item or \cs{fc@call} is \cs{let} to be equal to \cs{fc@call@opt@arg@first}, and then calling convention is
+%   that the \meta{oarg} is first and \meta{aarg} is second,
+% \item if \meta{oarg} is absent, then it is by convention set empty,
+% \item \meta{some macro} is supposed to have two mandatory arguments of which \meta{oarg} is passed to the
+%   first, and \meta{marg} is passed to the second, and
+% \item \meta{some macro} is called within a group.
+% \end{itemize}
+%    \begin{macrocode}
 \def\fc@call@opt@arg@second#1#2{%
   \def\@tempb{%
     \ifx[\@tempa
@@ -413,7 +505,8 @@
   \futurelet\@tempa
   \@tempb
 }
-
+%    \end{macrocode}
+%    \begin{macrocode}
 \def\fc@call@opt@arg@first#1{%
   \def\@tempb{%
     \ifx[\@tempa
@@ -428,37 +521,46 @@
 }
 
 \let\fc@call\fc@call@opt@arg@first
-
-
-% ===========================================================================================================
-% User API
-% -----------------------------------------------------------------------------------------------------------
-
-% Arg #1 = options
-% Arg #2 = input number
+%    \end{macrocode}
+% User API.
+% 
+% \DescribeMacro\@latinnumeralstringnum Macro \cs{@latinnumeralstringnum}. Arguments as
+% follows:\newline\noindent
+% \begin{tabularx}{\linewidth}{@{}>{\raggedleft\arraybackslash\ttfamily}rX@{}}
+% \#1&local options\\
+% \#2& input number
+% \end{tabularx}
+%    \begin{macrocode}
 \newcommand*{\@latinnumeralstringnum}[2]{%
   \setkeys{fcprefix}{#1}%
   \fc@@latin@numeral@pefix{#2}\@tempa
   \@tempa
 }
-
-% Arg #1 = options
-% Arg #2 = input counter
+%    \end{macrocode}
+% Arguments as follows:\newline\noindent
+% \begin{tabularx}{\linewidth}{@{}>{\raggedleft\arraybackslash\ttfamily}rX@{}}
+% \#1&local options\\
+% \#2&input counter
+% \end{tabularx}
+%    \begin{macrocode}
 \newcommand*{\@latinnumeralstring}[2]{%
   \setkeys{fcprefix}{#1}%
-  \message{Coucou!! `#2'}%
   \expandafter\let\expandafter
      \@tempa\expandafter\csname c@#2\endcsname
   \expandafter\fc@@latin@numeral@pefix\expandafter{\the\@tempa}\@tempa
   \@tempa
 }
-
-
+%    \end{macrocode}
+%    \begin{macrocode}
 \newcommand*{\latinnumeralstring}{%
-  \fc@call{\@latinnumeralstring}%
-}
-
-\newcommand*{\latinnumeralstringnum}{%
-  \fc@call{\@latinnumeralstringnum}%
+  \fc@call\@latinnumeralstring
 }
 %    \end{macrocode}
+%    \begin{macrocode}
+\newcommand*{\latinnumeralstringnum}{%
+  \fc@call\@latinnumeralstringnum
+}
+%    \end{macrocode}
+\iffalse Local variables: \fi
+\iffalse mode: docTeX     \fi
+\iffalse End:             \fi

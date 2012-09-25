@@ -2,6 +2,9 @@
 
 \usepackage{color}
 \usepackage[utf8]{inputenc}
+\usepackage[english,french]{babel}
+\usepackage{amsmath}
+\usepackage{tabularx,supertabular,multirow}
 \usepackage[T1]{fontenc}
 \usepackage{cmap}
 \usepackage[colorlinks,
@@ -14,6 +17,8 @@
 \CheckSum{2738}
 
 \doxitem{Option}{option}{options}
+
+\newlength{\tabcolwidth}
 
 \begin{document}
 \RecordChanges
@@ -86,6 +91,7 @@ will produce: 3\textsuperscript{rd}! whereas
 3\textsuperscript{rd} !
 \end{enumerate}
 
+The commands below only work for numbers in the range 0~to~99999.
 \begin{definition}[\DescribeMacro{\ordinalnum}]
 \cs{ordinalnum}\marg{n}\oarg{gender}
 \end{definition}
@@ -263,6 +269,7 @@ This is like \cs{binary} but takes an actual number rather than a
 counter as the argument. For example: \verb"\binarynum{5}" will
 produce: 101.
 
+The octal commands only work for values in the range 0~to~32768.
 \begin{definition}[\DescribeMacro{\octal}]
 \cs{octal}\marg{counter}
 \end{definition}
@@ -348,6 +355,8 @@ argument. For example: \verb"\aaalphnum{125}" will
 produce: uuuuu, and \verb"\AAAlphnum{125}" will 
 produce: UUUUU.
 
+The abalph commands described below only work for values in the
+range 0~to~17576.
 \begin{definition}[\DescribeMacro{\abalph}]
 \cs{abalph}\marg{counter}
 \end{definition}
@@ -408,20 +417,11 @@ and will load the code for those languages.  The commands
 \cs{ordinal}, \cs{ordinalstring} and \cs{numberstring} (and their
 variants) will then be formatted in the currently selected language.
 
-If the French language is selected, the French (France) version
-will be used by default (e.g.\ soxiante-dix for 70).  To
-select the Swiss or Belgian variants (e.g.\ septente for 70) use:
-\verb"\fmtcountsetoptions{french="\meta{dialect}\verb'}'
-where \meta{dialect} is either \texttt{swiss} or \texttt{belgian}.
-You can also use this command to change the action of 
-\cs{ordinal}.
-\verb"\fmtcountsetoptions{abbrv=true}" to produce ordinals
-of the form 2\textsuperscript{e} or
-\verb"\fmtcountsetoptions{abbrv=false}" to produce ordinals
-of the form 2\textsuperscript{eme} (default).
+If the French language is selected, the \texttt{french} option let you
+configure the dialect and other aspects. The \texttt{abbr} also has
+some influence with French. Please refer to \S~\ref
+{sec:options-french}.
 
-The \texttt{french} and \texttt{abbrv} settings only have an
-effect if the French language has been defined.
 
 The male gender for all languages is used by default, however the
 feminine or neuter forms can be obtained by passing \texttt{f} or
@@ -437,6 +437,280 @@ to happen in English, let alone other languages with which I'm not so
 familiar.) If you want to add support for another language,
 you will need to let me know how to form the numbers and ordinals 
 from~0 to~99999 in that language for each gender.
+
+\subsection{Options for French}
+\label{sec:options-french}
+
+This section is in French, as it is most useful to French speaking people.
+
+\selectlanguage{french} Il est possible de configurer plusieurs
+aspects de la numérotation en français avec les options
+\texttt{french} et \texttt{abbr}. Ces options n'ont d'effet que si le
+langage \texttt{french} est chargé.
+
+\begin{definition}[\DescribeMacro{\fmtcountsetoptions}]
+\cs{fmtcountsetoptions}\verb"{french="\marg{french options}\verb'}'
+\end{definition}
+L'argument \meta{french options} est une liste entre accolades et
+séparée par des virgules de réglages de la forme
+``\meta{clef}\texttt{=}\meta{valeur}'', chacun de ces réglages est
+ci-après désigné par ``option française'' pour le distinguer des
+``options générales'' telles que \texttt{french}.
+
+Le dialecte peut être sélectionné avec l'option française
+\texttt{dialect} dont la valeur \meta{dialect} peut être
+\texttt{france}, \texttt{belgian} ou \texttt{swiss}.
+\begin{definition}[\DescribeOption{dialect}]
+\cs{fmtcountsetoptions}\verb"{french={dialect="\marg{dialect}\verb'}}'
+\end{definition}
+\begin{definition}[\DescribeOption{french}]
+\cs{fmtcountsetoptions}\verb"{french="\meta{dialect}\verb'}'
+\end{definition}
+
+Pour alléger la notation et par souci de rétro-compatibilité
+\texttt{france}, \texttt{belgian} ou \texttt{swiss} sont également des
+\meta{clef}s pour \meta{french options} à utiliser sans \meta{valeur}.
+
+L'effet de l'option \texttt{dialect} est illustré ainsi:\newline
+\begin{tabularx}{\linewidth}{@{}lX@{}}
+  \pkgopt{france}& soixante-dix pour 70, quatre-vingts pour 80, et
+  quate-vingts-dix pour 90,\\
+  \pkgopt{belgian} & septante pour 70, quatre-vingts pour 80, et
+  nonante pour 90, \\
+  \pkgopt{swiss} &septante pour 70, huitante\footnote{voir
+    \href{http://www.alain.be/Boece/huitante_octante.html}{Octante et
+      huitante} sur le site d'Alain Lassine} pour 80, et
+  nonante pour 90
+\end{tabularx}
+Il est à noter que la variante \texttt{belgian} est parfaitement
+correcte pour les francophones français\footnote{je précise que
+  l'auteur de ces lignes est français}, et qu'elle est également
+utilisée en Suisse Romande hormis dans les cantons de Vaud, du Valais
+et de Fribourg. En ce qui concerne le mot ``octante'', il n'est
+actuellement pas pris en charge et n'est guère plus utilisé, ce qui
+est sans doute dommage car il est sans doute plus acceptable que le
+``huitante'' de certains de nos amis suisses.
+
+\begin{definition}[\DescribeOption{abbr}]
+\cs{fmtcountsetoptions}\verb"{abbr="\meta{boolean}\verb'}'
+\end{definition}
+L'option générale \texttt{abbr} permet de changer l'effet de
+\cs{ordinal}. Selon \meta{boolean} on a:\newline
+\begin{tabularx}{\linewidth}{@{}lX@{}}
+  \pkgopt{true}& pour produire des ordinaux de la forme
+  2\textsuperscript{e}, ou\\
+  \pkgopt{false}& pour produire des ordinaux de la forme
+  2\textsuperscript{eme} (par defaut)\\
+\end{tabularx}
+
+\begin{definition}[\DescribeOption{vingt plural}]
+\cs{fmtcountsetoptions}\verb"{french={vingt plural="\meta{french plural control}\verb'}}'
+\end{definition}
+\begin{definition}[\DescribeOption{cent plural}]
+\cs{fmtcountsetoptions}\verb"{french={cent plural="\meta{french plural control}\verb'}}'
+\end{definition}
+\begin{definition}[\DescribeOption{mil plural}]
+\cs{fmtcountsetoptions}\verb"{french={mil plural="\meta{french plural control}\verb'}}'
+\end{definition}
+\begin{definition}[\DescribeOption{n-illion plural}]
+\cs{fmtcountsetoptions}\verb"{french={n-illion plural="\meta{french plural control}\verb'}}'
+\end{definition}
+\begin{definition}[\DescribeOption{n-illiard plural}]
+\cs{fmtcountsetoptions}\verb"{french={n-illiard plural="\meta{french plural control}\verb'}}'
+\end{definition}
+\begin{definition}[\DescribeOption{all plural}]
+\cs{fmtcountsetoptions}\verb"{french={all plural="\meta{french plural control}\verb'}}'
+\end{definition}
+Les options \texttt{vingt plural}, \texttt{cent plural}, \texttt{mil plural}, \texttt{n-illion plural}, et
+\texttt{n-illiard plural}, permettent de contrôler très finement l'accord en nombre des mots respectivement
+vingt, cent, mil, et des mots de la forme \meta{\(n\)}illion et \meta{\(n\)}illiard, où \meta{\(n\)} désigne
+`m' pour 1, `b' pour 2, 'tr' pour 3, etc. L'option \texttt{all plural} est un raccourci permettant de
+contrôler de concert l'accord en nombre de tous ces mots. Tous ces paramètres valent \texttt{reformed} par
+défaut.
+
+Attention, comme on va l'expliquer, seules quelques combinaisons de configurations de ces options donnent un
+orthographe correcte vis à vis des règles en vigueur. La raison d'être de ces options est la suivante~:
+\begin{itemize}
+\item la règle de l'accord en nombre des noms de nombre dans un numéral cardinal dépend de savoir s'il a
+  vraiment une valeur cardinale ou bien une valeur ordinale, ainsi on écrit \og aller à la page deux-cent
+  (sans s) d'un livre de deux-cents (avec s) pages\fg, il faut donc pouvoir changer la configuration pour
+  sélectionner le cas considéré,
+\item un autre cas demandant quelque configurabilité est celui de \og mil\fg\ et \og mille\fg. Pour rappel \og
+  mille\fg\ est le pluriel irrégulier de \og mil\fg, mais l'alternance mil/mille est rare, voire pédante, car
+  aujourd'hui \og mille\fg\ n'est utilisé que comme un mot invariable, en effet le sort des pluriels étrangers
+  est systématiquement de finir par disparaître comme par exemple \og scénarii\fg\ aujourd'hui supplanté par
+  \og scénarios\fg. Pour continuer à pouvoir écrire \og mil\fg, il aurait fallu former le pluriel comme \og
+  mils\fg, ce qui n'est pas l'usage.  Certaines personnes utilisent toutefois encore \og mil\fg\ dans les
+  dates, par exemple \og mil neuf cent quatre-vingt quatre\fg\ au lieu de \og mille neuf cent quatre-vingt
+  quatre\fg,
+\item finalement les règles du français quoique bien définies ne sont pas très cohérentes et il est donc
+  inévitable qu'un jour ou l'autre on on les simplifie. Le paquetage \styfmt{fmtcount} est déjà prêt à cette
+  éventualité.
+\end{itemize}
+
+Le paramètre \meta{french plural control} peut prendre les valeurs suivantes:\newline
+\settowidth{\tabcolwidth}{\pkgopt{multiple lng-width}}
+\begin{supertabular}{@{}p{\tabcolwidth}p{\dimexpr\linewidth-\tabcolwidth-2\tabcolsep}@{}}
+  \pkgopt{traditional}& pour sélectionner la règle en usage chez les adultes à la date de parution de ce
+  document, et dans le cas des numéraux cardinaux, lorsqu'ils ont une valeur cardinale,\\
+  \pkgopt{reformed}& pour suivre toute nouvelle recommandation à la date de parution de ce document, , et
+  dans le cas des numéraux cardinaux, lorsqu'ils ont une valeur cardinale, l'idée des options
+  \texttt{traditional} et \texttt{reformed} est donc de pouvoir contenter à la fois les anciens et les
+  modernes, mais à dire vrai à la date où ce document est écrit elles ont exactement
+  le même effet,\\
+  \pkgopt{traditional o}& pareil que \texttt{traditional} mais dans le cas des numéraux cardinaux,
+  lorsqu'ils
+  ont une valeur ordinale,\\
+  \pkgopt{reformed o}& pareil que \texttt{reformed} mais dans le cas des numéraux cardinaux, lorsqu'ils ont
+  une valeur ordinale, de même que précédemment \texttt{reformed o} et \texttt{traditional o} ont
+  exactement le même effet,\\
+  \pkgopt{always}& pour marquer toujours le pluriel, ceci n'est correct que pour \og mil\fg\ vis à vis des
+  règles en vigueur,\\
+  \pkgopt{never}& pour ne jamais marquer le pluriel, ceci est incorrect vis à vis des règles d'orthographe
+  en vigueur,\\
+  \pkgopt{multiple}& pour marquer le pluriel lorsque le nombre considéré est multiplié par au moins 2, ceci
+  est la règle en vigueur pour les nombres de la forme \meta{\(n\)}illion et \meta{\(n\)}illiard lorsque le
+  nombre a une valeur cardinale,\\
+  \pkgopt{multiple g-last}& pour marquer le pluriel lorsque le nombre considéré est multiplié par au moins 2
+  est est \emph{\textbf{g}lobalement} en dernière position, où ``globalement'' signifie qu'on considère le
+  nombre formaté en entier, ceci est incorrect vis à vis des règles d'orthographe
+  en vigueur,\\
+  \pkgopt{multiple l-last}& pour marquer le pluriel lorsque le nombre considéré est multiplié par au moins 2
+  et est \emph{\textbf{l}ocalement} en dernière position, où ``localement'' siginifie qu'on considère
+  seulement la portion du nombre qui multiplie soit l'unité, soit un \meta{\(n\)}illion ou un
+  \meta{\(n\)}illiard~; ceci est la convention en vigueur pour le pluriel de ``vingt'' et de ``cent''
+  lorsque le nombre formaté a une valeur cardinale,\\
+  \pkgopt{multiple lng-last}& pour marquer le pluriel lorsque le nombre considéré est multiplié par au moins
+  2 et est \emph{\textbf{l}ocalement} mais \emph{\textbf{n}on \textbf{g}lobablement} en dernière position,
+  où ``localement'' et \emph{globablement} on la même siginification que pour les options \texttt{multiple
+    g-last} et \texttt{multiple l-last}~; ceci est la convention en vigueur pour le pluriel de ``vingt'' et
+  de ``cent'' lorsque le nombre formaté a une valeur ordinale,\\
+  \pkgopt{multiple ng-last}& pour marquer le pluriel lorsque le nombre considéré est multiplié par au moins
+  2, et \emph{\textbf{n}}'est pas \emph{\textbf{g}lobalement} en dernière position, où ``globalement'' a la
+  même signification que pour l'option \texttt{multiple g-last}~; ceci est la règle que j'infère être en
+  vigueur pour les nombres de la forme \meta{\(n\)}illion et \meta{\(n\)}illiard lorsque le nombre a une
+  valeur ordinale, mais à dire vrai pour des nombres aussi grands, par exemple \og deux millions\fg, je
+  pense qu'il n'est tout simplement pas d'usage de dire \og l'exemplaire deux million(s?)\fg\ pour \og le
+  deux millionième
+  exemplaire\fg.\\
+\end{supertabular}
+
+L'effet des paramètres \texttt{traditional}, \texttt{traditional o}, \texttt{reformed}, et \texttt{reformed
+  o}, est le suivant~:
+
+\setlength{\tabcolwidth}{\linewidth}
+\addtolength{\tabcolwidth}{-10\tabcolsep}
+\addtolength{\tabcolwidth}{-6\arrayrulewidth}
+\noindent\begin{tabular*}{\linewidth}{|%
+    >{\centering\arraybackslash\ttfamily}p{\dimexpr0.204\tabcolwidth-\arrayrulewidth-\doublerulesep}||%
+    *{4}{>{\centering\arraybackslash\ttfamily}p{0.199\tabcolwidth}|}}\hline
+  \textrm{\meta{x} dans ``\meta{x} }plural\textrm{''}&traditional&reformed&traditional o&reformed o\\\hline
+  \hline
+  vingt&\multicolumn{2}{c|}{}&\multicolumn{2}{c|}{}\\\cline{1-1}
+  cent&%
+  \multicolumn{2}{c|}{\multirow{-2}{\dimexpr0.398\tabcolwidth+\arrayrulewidth+2\tabcolsep}{\centering 
+      multiple l-last}}&%
+  \multicolumn{2}{c|}{\multirow{-2}{\dimexpr0.398\tabcolwidth+\arrayrulewidth+2\tabcolsep}{\centering 
+      multiple lng-last}}\\\hline
+  mil&\multicolumn{4}{c|}{always}\\\hline
+  n-illion&\multicolumn{2}{c|}{}&\multicolumn{2}{c|}{}\\\cline{1-1}
+  n-illiard&%
+  \multicolumn{2}{c|}{\multirow{-2}{\dimexpr0.398\tabcolwidth+\arrayrulewidth+2\tabcolsep}{\centering 
+      multiple}}&%
+  \multicolumn{2}{c|}{\multirow{-2}{\dimexpr0.398\tabcolwidth+\arrayrulewidth+2\tabcolsep}{\centering 
+      multiple ng-last}}\\\hline
+\end{tabular*}
+
+Les configurations qui respectent les règles d'orthographe sont les suivantes~:
+\begin{itemize}
+\item \verb"\fmtcountsetoptions{french={all plural=reformed o}}" pour formater les numéraux cardinaux à
+  valeur ordinale,
+\item \verb"\fmtcountsetoptions{french={mil plural=multiple}}" pour activer l'alternance mil/mille.
+\item \verb"\fmtcountsetoptions{french={all plural=reformed}}" pour revenir dans la configuration par
+  défaut.
+\end{itemize}
+
+\begin{definition}[\DescribeOption{dash or space}]
+\cs{fmtcountsetoptions}\verb"{french={dash or space="\meta{dash or space}\verb'}}'
+\end{definition}
+Avant la réforme de l'orthographe de 1990, on ne met des traits d'union qu'entre les dizaines et les unités,
+et encore sauf quand le nombre \(n\) considéré est tel que \(n\mod10=1\), dans ce cas on écrit ``et un''
+sans trait d'union. Après la réforme de 1990, on recommande de mettre des traits d'union de partout sauf
+autour de ``mille'', ``million'' et ``milliard'', et les mots analogues comme ``billion'',
+``billiard''. Cette exception a toutefois été contestée par de nombreux auteurs, et on peut aussi mettre des
+traits d'union de partout.  Mettre l'option \meta{dash or space} à:\newline
+\begin{tabularx}{\linewidth}{lX}
+  \pkgopt{traditional}&  pour sélectionner la règle d'avant la réforme de 1990,\\
+  \pkgopt{1990}&  pour suivre  la recommandation de la réforme de 1990, \\
+  \pkgopt{reformed}&  pour suivre  la recommandation de la dernière
+  réforme pise en charge, actuellement l'effet est le même que \textrm{1990}, ou à\\
+  \pkgopt{always}&  pour mettre systématiquement des traits d'union de partout.\\
+\end{tabularx}
+Par défaut, l'option vaut \texttt{reformed}.
+
+
+\begin{definition}[\DescribeOption{scale}]
+\cs{fmtcountsetoptions}\verb"{french={scale="\meta{scale}\verb'}}'
+\end{definition}
+L'option \texttt{scale} permet de configurer l'écriture des grands
+nombres. Mettre \meta{scale} à:\newline
+\begin{tabularx}{\linewidth}{lX}
+  \pkgopt{recursive}&  dans ce cas \(10^{30}\) donne mille milliards de
+  milliards de milliards, pour \(10^n\), on écrit \(10^{n-9\times
+    \max\{(n\div 9)-1,0\}}\) suivi de la répétition \(\max\{(n\div
+  9)-1,0\}\) fois de ``de milliards''\\
+  \pkgopt{long}&  \(10^{6\times n}\) donne un \meta{\(n\)}illion où
+  \meta{\(n\)} est remplacé par ``bi'' pour 2, ``tri'' pour 3, etc. et
+  \(10^{6\times n+3}\) donne un \meta{\(n\)}illiard avec la même
+  convention pour \meta{\(n\)}. L'option \texttt{long} est correcte en
+  Europe, par contre j'ignore l'usage au
+  Québec.\\
+  \pkgopt{short}&  \(10^{6\times n}\) donne un \meta{\(n\)}illion où
+  \meta{\(n\)} est remplacé par ``bi'' pour 2, ``tri'' pour 3,
+  etc. L'option \texttt{short} est incorrecte en Europe.
+\end{tabularx}
+Par défaut, l'option vaut \texttt{recursive}.
+
+\begin{definition}[\DescribeOption{n-illiard upto}]
+\cs{fmtcountsetoptions}\verb"{french={n-illiard upto="\meta{n-illiard upto}\verb'}}'
+\end{definition}
+Cette option n'a de sens que si \texttt{scale} vaut
+\texttt{long}. Certaines personnes préfèrent dire ``mille
+\meta{$n$}illions'' qu'un ``\meta{$n$}illiard''. Mettre l'option
+\texttt{n-illiard upto} à:\newline
+\begin{tabularx}{\linewidth}{lX}
+  \pkgopt{infinity}&  pour que \(10^{6\times n +3}\) donne
+  \meta{$n$}illiards pour tout \(n>0\),\\
+  \pkgopt{infty}&  même effet que \texttt{infinity}, \\
+  \(k\)&  où \(k\) est un entier quelconque strictement positif, dans
+  ce cas \(10^{6\times n +3}\) donne ``mille \meta{\(n\)}illions''
+  lorsque \(n>k\), et donne ``\meta{\(n\)}illiard'' sinon\\
+\end{tabularx}
+
+\begin{definition}[\DescribeOption{mil plural mark}]
+\cs{fmtcountsetoptions}\verb"{french={mil plural mark="\meta{any text}\verb'}}'
+\end{definition}
+La valeur par défaut de cette option est \og\texttt{le}\fg. Il s'agit de la terminaison ajoutée à \og
+mil\fg\ pour former le pluriel, c'est à dire \og mille\fg, cette option ne sert pas à grand chose sauf dans
+l'éventualité où ce pluriel serait francisé un jour --- à dire vrai si cela se produisait une alternance
+mille/milles est plus vraisemblable, car \og mille\fg\ est plus fréquent que \og mille\fg\ et que les
+pluriels francisés sont formés en ajoutant \og s\fg\ à la forme la plus fréquente, par exemple \og
+blini/blinis\fg, alors que \og blini\fg\ veut dire \og crêpes\fg\ (au pluriel).
+
+
+\selectlanguage{english}
+
+%\subsection{Prefixes}
+%\label{sec:latin-prefixes}
+%
+%\begin{definition}[\DescribeMacro{\latinnumeralstring}]
+%\cs{latinnumeralstring}\marg{counter}\oarg{prefix options}
+%\end{definition}
+%
+%\begin{definition}[\DescribeMacro{\latinnumeralstringnum}]
+%\cs{latinnumeralstringnum}\marg{number}\oarg{prefix options}
+%\end{definition}
+
 
 \section{Configuration File \texttt{fmtcount.cfg}}
 

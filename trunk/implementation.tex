@@ -1,0 +1,29 @@
+\documentclass{ltxdoc}
+\usepackage{hyperref}
+\usepackage{tabularx}
+\usepackage{amsmath,amssymb}
+\usepackage[T1]{fontenc}
+\EnableCrossrefs         
+ %\DisableCrossrefs % Say \DisableCrossrefs if index is ready
+\CodelineIndex
+\RecordChanges                  % Gather update information
+ %\OnlyDescription  % comment out for implementation details
+ %\OldMakeindex     % use if your MakeIndex is pre-v2.9
+\setlength\hfuzz{15pt}  % dont make so many
+\hbadness=7000          % over and under full box warnings
+\let\styfmt\texttt
+\newcommand*\uref[1]{\href{#1}{#1}}
+\DeclareMathOperator{\intv}{..}
+\newcommand*\interface{}
+\newlength\tabcolwidth
+\begin{document}
+%   \makeatletter
+    \DocInput{fc-french.def}
+    \DocInput{fcnumparser.sty}
+    \DocInput{fcprefix.sty}
+\end{document}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 

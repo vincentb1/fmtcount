@@ -30,7 +30,7 @@
 \newcommand{\@@unitstringgerman}[1]{%
 \ifcase#1%
 null%
-\or ein%
+\or eins%
 \or zwei%
 \or drei%
 \or vier%
@@ -100,8 +100,9 @@ zehn%
 % As above, but initial letters in upper case:
 %    \begin{macrocode}
 \DeclareRobustCommand{\@NumberstringMgerman}[2]{%
-\@numberstringMgerman{#1}{\@@num@str}%
-\edef#2{\noexpand\MakeUppercase\@@num@str}}
+  \@numberstringMgerman{#1}{\@@num@str}%
+ \edef#2{\noexpand\MakeUppercase\expandonce\@@num@str}%
+}
 %    \end{macrocode}
 % Feminine and neuter form:
 %    \begin{macrocode}
@@ -150,24 +151,29 @@ zehn%
 % As above, but with initial letters in upper case.
 %    \begin{macrocode}
 \DeclareRobustCommand{\@OrdinalstringMgerman}[2]{%
-\@ordinalstringMgerman{#1}{\@@num@str}%
-\edef#2{\protect\MakeUppercase\@@num@str}}
+ \@ordinalstringMgerman{#1}{\@@num@str}%
+ \edef#2{\noexpand\MakeUppercase\expandonce\@@num@str}%
+}
 %    \end{macrocode}
 % Feminine form:
 %    \begin{macrocode}
 \DeclareRobustCommand{\@OrdinalstringFgerman}[2]{%
-\@ordinalstringFgerman{#1}{\@@num@str}%
-\edef#2{\protect\MakeUppercase\@@num@str}}
+ \@ordinalstringFgerman{#1}{\@@num@str}%
+ \edef#2{\noexpand\MakeUppercase\expandonce\@@num@str}%
+}
 %    \end{macrocode}
 % Neuter form:
 %    \begin{macrocode}
 \DeclareRobustCommand{\@OrdinalstringNgerman}[2]{%
-\@ordinalstringNgerman{#1}{\@@num@str}%
-\edef#2{\protect\MakeUppercase\@@num@str}}
+ \@ordinalstringNgerman{#1}{\@@num@str}%
+ \edef#2{\noexpand\MakeUppercase\expandonce\@@num@str}%
+}
 %    \end{macrocode}
 % Code for converting numbers into textual ordinals. As before,
 % it is easier to split it into units, tens and teens.
 % Units:
+%\changes{2.0}{2012-09-25}{fixed spelling mistake (correction
+%provided by Dominik Wa\ss enhoven)}
 %    \begin{macrocode}
 \newcommand{\@@unitthstringMgerman}[1]{%
 \ifcase#1%
@@ -176,7 +182,7 @@ nullter%
 \or zweiter%
 \or dritter%
 \or vierter%
-\or f\"unter%
+\or f\"unfter%
 \or sechster%
 \or siebter%
 \or achter%
@@ -268,6 +274,8 @@ zehnte%
 }
 %    \end{macrocode}
 % Units (neuter):
+%\changes{2.0}{2012-09-25}{fixed spelling mistake (correction
+%provided by Dominik Wa\ss enhoven)}
 %    \begin{macrocode}
 \newcommand{\@@unitthstringNgerman}[1]{%
 \ifcase#1%
@@ -276,7 +284,7 @@ nulltes%
 \or zweites%
 \or drittes%
 \or viertes%
-\or f\"unte%
+\or f\"unftes%
 \or sechstes%
 \or siebtes%
 \or achtes%
@@ -325,25 +333,21 @@ zehntes%
 \newcommand{\@@numberunderhundredgerman}[2]{%
 \ifnum#1<10\relax
   \ifnum#1>0\relax
-    \let\@@fc@numstr#2\relax
-    \edef#2{\@@fc@numstr\@unitstring{#1}}%
+    \eappto#2{\@unitstring{#1}}%
   \fi
 \else
   \@tmpstrctr=#1\relax
   \@modulo{\@tmpstrctr}{10}%
   \ifnum#1<20\relax
-    \let\@@fc@numstr#2\relax
-    \edef#2{\@@fc@numstr\@teenstring{\@tmpstrctr}}%
+    \eappto#2{\@teenstring{\@tmpstrctr}}%
   \else
     \ifnum\@tmpstrctr=0\relax
     \else
-      \let\@@fc@numstr#2\relax
-      \edef#2{\@@fc@numstr\@unitstring{\@tmpstrctr}und}%
+      \eappto#2{\@unitstring{\@tmpstrctr}und}%
     \fi
     \@tmpstrctr=#1\relax
     \divide\@tmpstrctr by 10\relax
-    \let\@@fc@numstr#2\relax
-    \edef#2{\@@fc@numstr\@tenstring{\@tmpstrctr}}%
+    \eappto#2{\@tenstring{\@tmpstrctr}}%
   \fi
 \fi
 }
@@ -370,16 +374,14 @@ zehntes%
 %    \end{macrocode}
 % \#1 is $\geq 2000$, \cs{@strctr} now contains the number of thousands
 %    \begin{macrocode}
-\@@numberunderhundredgerman{\@strctr}{#2}%
-  \let\@@fc@numstr#2\relax
-  \edef#2{\@@fc@numstr tausend}%
+ \@@numberunderhundredgerman{\@strctr}{#2}%
+  \appto#2{tausend}%
 \else
 %    \end{macrocode}
 % \#1 lies in range [1000,1999]
 %    \begin{macrocode}
   \ifnum\@strctr=1\relax
-    \let\@@fc@numstr#2\relax
-    \edef#2{\@@fc@numstr\eintausend}%
+    \eappto#2{\eintausend}%
   \fi
 \fi
 \@strctr=#1\relax
@@ -389,8 +391,7 @@ zehntes%
 %    \end{macrocode}
 % now dealing with number in range [200,999]
 %    \begin{macrocode}
-  \let\@@fc@numstr#2\relax
-  \edef#2{\@@fc@numstr\@unitstring{\@strctr}hundert}%
+  \eappto#2{\@unitstring{\@strctr}hundert}%
 \else
    \ifnum\@strctr=1\relax
 %    \end{macrocode}
@@ -400,14 +401,12 @@ zehntes%
 %    \end{macrocode}
 % if original number $> 1000$, use einhundert
 %    \begin{macrocode}
-        \let\@@fc@numstr#2\relax
-        \edef#2{\@@fc@numstr einhundert}%
+        \appto#2{einhundert}%
      \else
 %    \end{macrocode}
 % otherwise use \einhundert
 %    \begin{macrocode}
-        \let\@@fc@numstr#2\relax
-        \edef#2{\@@fc@numstr\einhundert}%
+        \eappto#2{\einhundert}%
       \fi
    \fi
 \fi
@@ -417,8 +416,7 @@ zehntes%
   \def#2{null}%
 \else
   \ifnum\@strctr=1\relax
-    \let\@@fc@numstr#2\relax
-    \edef#2{\@@fc@numstr eins}%
+    \appto#2{eins}%
   \else
     \@@numberunderhundredgerman{\@strctr}{#2}%
   \fi
@@ -429,24 +427,20 @@ zehntes%
 %    \begin{macrocode}
 \newcommand{\@@numberunderhundredthgerman}[2]{%
 \ifnum#1<10\relax
- \let\@@fc@numstr#2\relax
- \edef#2{\@@fc@numstr\@unitthstring{#1}}%
+ \eappto#2{\@unitthstring{#1}}%
 \else
   \@tmpstrctr=#1\relax
   \@modulo{\@tmpstrctr}{10}%
   \ifnum#1<20\relax
-    \let\@@fc@numstr#2\relax
-    \edef#2{\@@fc@numstr\@teenthstring{\@tmpstrctr}}%
+    \eappto#2{\@teenthstring{\@tmpstrctr}}%
   \else
     \ifnum\@tmpstrctr=0\relax
     \else
-      \let\@@fc@numstr#2\relax
-      \edef#2{\@@fc@numstr\@unitstring{\@tmpstrctr}und}%
+      \eappto#2{\@unitstring{\@tmpstrctr}und}%
     \fi
     \@tmpstrctr=#1\relax
     \divide\@tmpstrctr by 10\relax
-    \let\@@fc@numstr#2\relax
-    \edef#2{\@@fc@numstr\@tenthstring{\@tmpstrctr}}%
+    \eappto#2{\@tenthstring{\@tmpstrctr}}%
   \fi
 \fi
 }
@@ -471,15 +465,14 @@ zehntes%
 % \#1 is $\geq 2000$, \cs{@strctr} now contains the number of thousands
 %    \begin{macrocode}
 \@@numberunderhundredgerman{\@strctr}{#2}%
-  \let\@@fc@numstr#2\relax
 %    \end{macrocode}
 % is that it, or is there more?
 %    \begin{macrocode}
   \@tmpstrctr=#1\relax \@modulo{\@tmpstrctr}{1000}%
   \ifnum\@tmpstrctr=0\relax
-    \edef#2{\@@fc@numstr\@thousandth}%
+    \eappto#2{\@thousandth}%
   \else
-    \edef#2{\@@fc@numstr tausend}%
+    \appto#2{tausend}%
   \fi
 \else
 %    \end{macrocode}
@@ -487,11 +480,9 @@ zehntes%
 %    \begin{macrocode}
   \ifnum\@strctr=1\relax
     \ifnum#1=1000\relax
-      \let\@@fc@numstr#2\relax
-      \edef#2{\@@fc@numstr\@thousandth}%
+      \eappto#2{\@thousandth}%
     \else
-      \let\@@fc@numstr#2\relax
-      \edef#2{\@@fc@numstr\eintausend}%
+      \eappto#2{\eintausend}%
     \fi
   \fi
 \fi
@@ -501,20 +492,17 @@ zehntes%
 \ifnum\@strctr>1\relax
 %    \end{macrocode}
 % now dealing with number in range [200,999]
-%    \begin{macrocode}
-  \let\@@fc@numstr#2\relax
-%    \end{macrocode}
 % is that it, or is there more?
 %    \begin{macrocode}
   \@tmpstrctr=#1\relax \@modulo{\@tmpstrctr}{100}%
   \ifnum\@tmpstrctr=0\relax
      \ifnum\@strctr=1\relax
-       \edef#2{\@@fc@numstr\@hundredth}%
+       \eappto#2{\@hundredth}%
      \else
-       \edef#2{\@@fc@numstr\@unitstring{\@strctr}\@hundredth}%
+       \eappto#2{\@unitstring{\@strctr}\@hundredth}%
      \fi
   \else
-     \edef#2{\@@fc@numstr\@unitstring{\@strctr}hundert}%
+     \eappto#2{\@unitstring{\@strctr}hundert}%
   \fi
 \else
    \ifnum\@strctr=1\relax
@@ -524,15 +512,12 @@ zehntes%
 %    \begin{macrocode}
      \@tmpstrctr=#1\relax \@modulo{\@tmpstrctr}{100}%
      \ifnum\@tmpstrctr=0\relax
-        \let\@@fc@numstr#2\relax
-        \edef#2{\@@fc@numstr\@hundredth}%
+        \eappto#2{\@hundredth}%
      \else
      \ifnum#1>1000\relax
-        \let\@@fc@numstr#2\relax
-        \edef#2{\@@fc@numstr einhundert}%
+        \appto#2{einhundert}%
      \else
-        \let\@@fc@numstr#2\relax
-        \edef#2{\@@fc@numstr\einhundert}%
+        \eappto#2{\einhundert}%
      \fi
      \fi
    \fi
@@ -543,5 +528,9 @@ zehntes%
 \@@numberunderhundredthgerman{\@strctr}{#2}%
 }%
 }
+%    \end{macrocode}
+% Load fc-germanb.def if not already loaded
+%    \begin{macrocode}
+\FCloadlang{germanb}
 %    \end{macrocode}
 

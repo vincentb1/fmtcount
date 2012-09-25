@@ -5,6 +5,7 @@
 \ProvidesPackage{fmtcount}[2012/06/18 v2.0]
 \RequirePackage{ifthen}
 \RequirePackage{keyval}
+\RequirePackage{etoolbox}
 %    \end{macrocode}
 % \changes{1.3}{2007/7/19}{no
 %longer using xspace package}
@@ -64,7 +65,7 @@
 %been loaded, do \meta{true} otherwise do \meta{false}
 %    \begin{macrocode}
 \newcommand{\@FC@iflangloaded}[3]{%
-  \@ifundefined{ver@fc-#1.def}{#3}{#2}%
+  \ifcsundef{ver@fc-#1.def}{#3}{#2}%
 }
 %    \end{macrocode}
 %\end{macro}
@@ -89,7 +90,7 @@
 % \meta{language}\texttt{.ldf} has been loaded.
 %    \begin{macrocode}
 \newcommand*{\@fc@loadifbabelldf}[1]{%
-  \@ifundefined{ver@#1.ldf}{}{\FCloadlang{#1}}%
+  \ifcsundef{ver@#1.ldf}{}{\FCloadlang{#1}}%
 }
 %    \end{macrocode}
 %\end{macro}
@@ -110,7 +111,9 @@
 \@fc@loadifbabelldf{french}
 \@fc@loadifbabelldf{frenchb}
 \@fc@loadifbabelldf{german}%
+\@fc@loadifbabelldf{germanb}%
 \@fc@loadifbabelldf{ngerman}%
+\@fc@loadifbabelldf{ngermanb}%
 \@fc@loadifbabelldf{italian}
 %    \end{macrocode}
 %\begin{macro}{\fmtcount@french}
@@ -186,7 +189,6 @@
 %\end{option}
 %\begin{macro}{\fmtcountsetoptions}
 % Define command to set options.
-%\changes{??}{??}{remove unwanted eol}
 %    \begin{macrocode}
 \newcommand*{\fmtcountsetoptions}[1]{%
   \def\fmtcount@fmtord{}%
@@ -221,7 +223,7 @@
     }%
     {%
     }%
-  }%
+  }
 }
 %    \end{macrocode}
 %\end{macro}

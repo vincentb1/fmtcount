@@ -1,13 +1,18 @@
-Add max value for commands to documentaion
+Add max value for commands to documentation
+DONE
 
 Fix bugs in German translation (see comp.text.tex message from
 Dominik Waßenhoven (29/01/11))
+DONE
 
 also (same date and op) bug in \Ordinalstringnum
+DONE
 
 French correction (see message from Vincent Belaiche 2012/05/13)
+DONE
 
 Make commands like \ordinalstringnum robust.
+DONE
 
 The optional argument isn't being written to the aux file.
 

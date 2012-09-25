@@ -57,11 +57,13 @@ cera%
 }
 %    \end{macrocode}
 % Tens (argument must go from 1 to 10):
+%\changes{2.0}{2012-06-18}{fixed spelling mistake (correction
+%provided by Fernando Maldonado)}
 %    \begin{macrocode}
 \newcommand{\@@tenstringspanish}[1]{%
 \ifcase#1\relax
 \or diez%
-\or viente%
+\or veinte%
 \or treinta%
 \or cuarenta%
 \or cincuenta%
@@ -188,10 +190,12 @@ Cera%
 %    \end{macrocode}
 % Tens:
 %    \begin{macrocode}
+%\changes{2.0}{2012-06-18}{fixed spelling mistake (correction
+%provided by Fernando Maldonado)}
 \newcommand{\@@Tenstringspanish}[1]{%
 \ifcase#1\relax
 \or Diez%
-\or Viente%
+\or Veinte%
 \or Treinta%
 \or Cuarenta%
 \or Cincuenta%
@@ -299,6 +303,8 @@ Veinte%
 \@@numberstringspanish{#1}{#2}}
 %    \end{macrocode}
 % Feminine form:
+%\changes{2.0}{2012-06-18}{changed andname to `b' (correction
+%provided by Fernando Maldonado)}
 %    \begin{macrocode}
 \DeclareRobustCommand{\@numberstringFspanish}[2]{%
 \let\@unitstring=\@@unitstringFspanish
@@ -307,7 +313,7 @@ Veinte%
 \let\@twentystring=\@@twentystringFspanish
 \let\@hundredstring=\@@hundredstringFspanish
 \def\@hundred{cien}\def\@thousand{mil}%
-\def\@andname{y}%
+\def\@andname{b}%
 \@@numberstringspanish{#1}{#2}}
 %    \end{macrocode}
 % Make neuter same as masculine:
@@ -327,6 +333,8 @@ Veinte%
 \@@numberstringspanish{#1}{#2}}
 %    \end{macrocode}
 % Feminine form:
+%\changes{2.0}{2012-06-18}{changed andname to `b' (correction
+%provided by Fernando Maldonado)}
 %    \begin{macrocode}
 \DeclareRobustCommand{\@NumberstringFspanish}[2]{%
 \let\@unitstring=\@@UnitstringFspanish
@@ -334,7 +342,7 @@ Veinte%
 \let\@tenstring=\@@Tenstringspanish
 \let\@twentystring=\@@TwentystringFspanish
 \let\@hundredstring=\@@HundredstringFspanish
-\def\@andname{y}%
+\def\@andname{b}%
 \def\@hundred{Cien}\def\@thousand{Mil}%
 \@@numberstringspanish{#1}{#2}}
 %    \end{macrocode}
@@ -731,7 +739,11 @@ this number}%
 \ifnum#1>100\relax
   \ifnum\@strctr>0\relax
     \let\@@fc@numstr#2\relax
-    \edef#2{\@@fc@numstr\ \@andname\ }%
+%    \end{macrocode}
+%\changes{2.0}{2012-06-18}{removed andname (correction
+%provided by Fernando Maldonado)}
+%    \begin{macrocode}
+    \edef#2{\@@fc@numstr\ }%
   \fi
 \fi
 \ifnum\@strctr>29\relax

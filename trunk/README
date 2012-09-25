@@ -2,13 +2,14 @@ LaTeX Package : fmtcount v%%VERSION%%
 
 Last Modified : %%DATE%%
 
-Author        : Nicola Talbot
+Author        : Nicola Talbot and Vincent Belaïche
 
 Files         : fmtcount.dtx   - documented source file
                 fmtcount.ins   - installation script
 		fmtcount.perl  - latex2html style file
-		fc-samp.tex    - sample files
-		fc-lang.tex    /
+		fc-samp.tex       \
+		fc-lang.tex        - sample files
+	        fc-frlargenum.tex /
 
 The package fmtcount.sty provides commands 
 that display the value of a LaTeX counter in a variety 
