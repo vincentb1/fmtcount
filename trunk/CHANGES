@@ -1,5 +1,9 @@
 fmtcount package versions:
 
+Version 2.01:
+
+ * Fixed copyright text in fmtcount.ins
+
 Version 2.0:
 
  * fcprefix.sty, fcnumparser.sty added by Vincent Belaïche

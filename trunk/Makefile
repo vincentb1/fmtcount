@@ -21,13 +21,19 @@ fc-frlargenum.pdf	: fc-frlargenum.tex $(STYFILES)
 dist	: README CHANGES fmtcount-manual.tex \
 	  fmtcount.perl $(STYFILES) \
 	  ../dist/fmtcount.dtx
+	dos2unix CHANGES
+	dos2unix README
+	dos2unix fc-lang.tex
+	dos2unix fc-samp.tex
+	dos2unix fc-frlargenum.tex
+	dos2unix fmtcount.perl
 	\cp CHANGES ../dist
 	cp2dist -f fmtcount.sty README fmtcount-manual.tex ../dist
 	make -C ../dist
 
 ../dist/fmtcount.dtx	: $(STYFILES)  \
 			  fmtcount-manual.tex 
-	makedtx -author "Nicola Talbot" \
+	makedtx -author "Nicola Talbot and Vincent Belaïche" \
 		-src "(.+)\.(sty)=>\1.\2" \
 		-src "(.+)\.(def)=>\1.\2" \
 		-doc fmtcount-manual.tex fmtcount

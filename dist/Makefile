@@ -19,9 +19,10 @@ fmtcount.tds.zip	: fmtcount.pdf \
 	mkdir -p doc/latex/fmtcount
 	mkdir -p tex/latex/fmtcount
 	mkdir -p source/latex/fmtcount
+	mkdir -p scripts/fmtcount
 	cp *.{sty,def} tex/latex/fmtcount/
 	cp fmtcount.{dtx,ins} source/latex/fmtcount
-	cp $(SRC)/fmtcount.perl source/latex/fmtcount
+	cp $(SRC)/fmtcount.perl scripts/fmtcount/
 	cp fmtcount.pdf README CHANGES doc/latex/fmtcount
 	cp $(SRC)/fc-*.tex doc/latex/fmtcount/
 	zip -r fmtcount.tds.zip tex source doc 
@@ -63,5 +64,5 @@ squeaky	:
 	\rm -f fmtcount-manual*.png
 	\rm -f *.sty *.def
 	\rm -f README CHANGES 
-	\rm -rf doc/ tex/ source/ fmtcount/ 
+	\rm -rf doc/ tex/ source/ fmtcount/ scripts/
 	\rm -f fmtcount.zip fmtcount.tds.zip
