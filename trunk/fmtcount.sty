@@ -2,10 +2,11 @@
 % This section deals with the code for |fmtcount.sty|
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{fmtcount}[2012/09/28 v2.01]
+\ProvidesPackage{fmtcount}[2012/10/24 v2.02]
 \RequirePackage{ifthen}
 \RequirePackage{keyval}
 \RequirePackage{etoolbox}
+\RequirePackage{fcprefix}
 %    \end{macrocode}
 % \changes{1.3}{2007/7/19}{no
 %longer using xspace package}
@@ -42,16 +43,32 @@
 %
 %\begin{macro}{\FCloadlang}
 %changes{2.0}{2012-06-18}{new}
+%changes{2.02}{2012-10-24}{ensured catcode for @ set to `letter'
+%before loading file}
 %\begin{definition}
 %\cs{FCloadlang}\marg{language}
 %\end{definition}
 % Load \styfmt{fmtcount} language file,
 % \texttt{fc-}\meta{language}\texttt{.def}, unless already loaded.
 %    \begin{macrocode}
+\newcount\fc@tmpcatcode
+\def\fc@languages{}
+\def\fc@mainlang{}%
 \newcommand*{\FCloadlang}[1]{%
   \@FC@iflangloaded{#1}{}%
   {%
+    \fc@tmpcatcode=\catcode`\@\relax
+    \catcode `\@ 11\relax
     \input{fc-#1.def}%
+    \catcode `\@ \fc@tmpcatcode\relax
+    \ifdefempty{\fc@languages}%
+    {%
+      \def\fc@languages{#1}%
+    }%
+    {%
+       \appto\fc@languages{,#1}%
+    }%
+    \def\fc@mainlang{#1}%
   }%
 }
 %    \end{macrocode}
@@ -1450,6 +1467,47 @@
 }
 %    \end{macrocode}
 %\end{macro}
+%
+%\begin{macro}{\fc@multiling}
+%changes{2.02}{2012-10-24}{new}
+%\cs{fc@multiling}\marg{name}\marg{gender}
+%    \begin{macrocode}
+\newcommand*{\fc@multiling}[2]{%
+  \ifcsundef{@#1#2\languagename}%
+  {% try loading it
+     \FCloadlang{\languagename}%
+  }%
+  {%
+  }%
+  \ifcsundef{@#1#2\languagename}%
+  {%
+    \PackageWarning{fmtcount}%
+    {No support for \expandafter\string\csname#1\endcsname\space for
+     language '\languagename'}%
+    \ifthenelse{\equal{\languagename}{\fc@mainlang}}%
+    {%
+       \FCloadlang{english}%
+    }%
+    {%
+    }%
+    \ifcsdef{@#1#2\fc@mainlang}%
+    {%
+       \csuse{@#1#2\fc@mainlang}%
+    }%
+    {%
+       \PackageWarningNoLine{fmtcount}%
+       {No languages loaded at all! Loading english definitions}%
+       \FCloadlang{english}%
+       \def\fc@mainlang{english}%
+       \csuse{@#1#2english}%
+    }%
+  }%
+  {%
+    \csuse{@#1#2\languagename}%
+  }%
+}
+%    \end{macrocode}
+%\end{macro}
 %\begin{macro}{\@set@mulitling@fmtcount}
 % This defines the number and ordinal string macros to use 
 % \cs{languagename}:
@@ -1461,226 +1519,91 @@
 % The masculine version of \cs{numberstring}:
 %    \begin{macrocode}
   \def\@numberstringM{%
-    \@ifundefined{@numberstringM\languagename}%
-    {%
-      \PackageWarning{fmtcount}%
-      {No support for \string\numberstring\space for
-       language '\languagename'}%
-      \@numberstringMenglish
-    }%
-    {%
-      \csname @numberstringM\languagename\endcsname
-    }%
+    \fc@multiling{numberstring}{M}%
   }%
 %    \end{macrocode}
 % The feminine version of \cs{numberstring}:
 %    \begin{macrocode}
   \def\@numberstringF{%
-    \@ifundefined{@numberstringF\languagename}%
-    {%
-      \PackageWarning{fmtcount}%
-      {No support for \string\numberstring\space for
-       language '\languagename'}%
-      \@numberstringMenglish
-    }%
-    {%
-      \csname @numberstringF\languagename\endcsname
-    }%
+    \fc@multiling{numberstring}{F}%
   }%
 %    \end{macrocode}
 % The neuter version of \cs{numberstring}:
 %    \begin{macrocode}
   \def\@numberstringN{%
-    \@ifundefined{@numberstringN\languagename}%
-    {%
-      \PackageWarning{fmtcount}%
-      {No support for \string\numberstring\space for
-       language '\languagename'}%
-      \@numberstringMenglish
-    }%
-    {%
-      \csname @numberstringN\languagename\endcsname
-    }%
+    \fc@multiling{numberstring}{N}%
   }%
 %    \end{macrocode}
 % The masculine version of \cs{Numberstring}:
 %    \begin{macrocode}
   \def\@NumberstringM{%
-    \@ifundefined{@NumberstringM\languagename}%
-    {%
-      \PackageWarning{fmtcount}%
-      {No support for \string\Numberstring\space
-       for language '\languagename'}%
-      \@NumberstringMenglish
-    }%
-    {%
-      \csname @NumberstringM\languagename\endcsname
-    }%
+    \fc@multiling{Numberstring}{M}%
   }%
 %    \end{macrocode}
 % The feminine version of \cs{Numberstring}:
 %    \begin{macrocode}
   \def\@NumberstringF{%
-    \@ifundefined{@NumberstringF\languagename}%
-    {%
-      \PackageWarning{fmtcount}%
-      {No support for \string\Numberstring\space
-       for language '\languagename'}%
-      \@NumberstringMenglish
-    }%
-    {%
-      \csname @NumberstringF\languagename\endcsname
-    }%
+    \fc@multiling{Numberstring}{F}%
   }%
 %    \end{macrocode}
 % The neuter version of \cs{Numberstring}:
 %    \begin{macrocode}
   \def\@NumberstringN{%
-    \@ifundefined{@NumberstringN\languagename}%
-    {%
-      \PackageWarning{fmtcount}%
-      {No support for \string\Numberstring\space
-       for language '\languagename'}%
-      \@NumberstringMenglish
-    }%
-    {%
-      \csname @NumberstringN\languagename\endcsname
-    }%
+    \fc@multiling{Numberstring}{N}%
   }%
 %    \end{macrocode}
 % The masculine version of \cs{ordinal}:
 %    \begin{macrocode}
   \def\@ordinalM{%
-    \@ifundefined{@ordinalM\languagename}%
-    {%
-      \PackageWarning{fmtcount}%
-      {No support for \string\ordinal\space
-       for language '\languagename'}%
-      \@ordinalMenglish
-    }%
-    {%
-      \csname @ordinalM\languagename\endcsname
-    }%
+    \fc@multiling{ordinal}{M}%
   }%
 %    \end{macrocode}
 % The feminine version of \cs{ordinal}:
 %    \begin{macrocode}
   \def\@ordinalF{%
-    \@ifundefined{@ordinalF\languagename}%
-    {%
-      \PackageWarning{fmtcount}%
-      {No support for \string\ordinal\space
-       for language '\languagename'}%
-      \@ordinalMenglish
-    }%
-    {%
-      \csname @ordinalF\languagename\endcsname
-    }%
+    \fc@multiling{ordinal}{F}%
   }%
 %    \end{macrocode}
 % The neuter version of \cs{ordinal}:
 %    \begin{macrocode}
   \def\@ordinalN{%
-    \@ifundefined{@ordinalN\languagename}%
-    {%
-      \PackageWarning{fmtcount}%
-      {No support for \string\ordinal\space 
-       for language '\languagename'}%
-      \@ordinalMenglish
-    }%
-    {%
-      \csname @ordinalN\languagename\endcsname
-    }%
+    \fc@multiling{ordinal}{N}%
   }%
 %    \end{macrocode}
 % The masculine version of \cs{ordinalstring}:
 %    \begin{macrocode}
   \def\@ordinalstringM{%
-    \@ifundefined{@ordinalstringM\languagename}%
-    {%
-      \PackageWarning{fmtcount}%
-      {No support for \string\ordinalstring\space
-      for language '\languagename'}%
-      \@ordinalstringMenglish
-    }%
-    {%
-      \csname @ordinalstringM\languagename\endcsname
-    }%
+    \fc@multiling{ordinalstring}{M}%
   }%
 %    \end{macrocode}
 % The feminine version of \cs{ordinalstring}:
 %    \begin{macrocode}
   \def\@ordinalstringF{%
-    \@ifundefined{@ordinalstringF\languagename}%
-    {%
-      \PackageWarning{fmtcount}%
-      {No support for \string\ordinalstring\space 
-       for language '\languagename'}%
-      \@ordinalstringMenglish
-    }%
-    {%
-      \csname @ordinalstringF\languagename\endcsname
-    }%
+    \fc@multiling{ordinalstring}{F}%
   }%
 %    \end{macrocode}
 % The neuter version of \cs{ordinalstring}:
 %    \begin{macrocode}
   \def\@ordinalstringN{%
-    \@ifundefined{@ordinalstringN\languagename}%
-    {%
-      \PackageWarning{fmtcount}%
-      {No support for \string\ordinalstring\space
-       for language '\languagename'}%
-      \@ordinalstringMenglish
-    }%
-    {%
-      \csname @ordinalstringN\languagename\endcsname 
-    }%
+    \fc@multiling{ordinalstring}{N}%
   }%
 %    \end{macrocode}
 % The masculine version of \cs{Ordinalstring}:
 %    \begin{macrocode}
   \def\@OrdinalstringM{%
-    \@ifundefined{@OrdinalstringM\languagename}%
-    {%
-      \PackageWarning{fmtcount}%
-      {No support for \string\Ordinalstring\space
-       for language '\languagename'}%
-      \@OrdinalstringMenglish
-    }%
-    {%
-      \csname @OrdinalstringM\languagename\endcsname
-    }%
+    \fc@multiling{Ordinalstring}{M}%
   }%
 %    \end{macrocode}
 % The feminine version of \cs{Ordinalstring}:
 %    \begin{macrocode}
   \def\@OrdinalstringF{%
-    \@ifundefined{@OrdinalstringF\languagename}%
-    {%
-      \PackageWarning{fmtcount}%
-      {No support for \string\Ordinalstring\space
-       for language '\languagename'}%
-      \@OrdinalstringMenglish
-    }%
-    {%
-      \csname @OrdinalstringF\languagename\endcsname
-    }%
+    \fc@multiling{Ordinalstring}{F}%
   }%
 %    \end{macrocode}
 % The neuter version of \cs{Ordinalstring}:
 %    \begin{macrocode}
   \def\@OrdinalstringN{%
-    \@ifundefined{@OrdinalstringN\languagename}%
-    {%
-      \PackageWarning{fmtcount}%
-      {No support for \string\Ordinalstring\space
-       for language '\languagename'}%
-      \@OrdinalstringMenglish
-    }%
-    {%
-      \csname @OrdinalstringN\languagename\endcsname
-    }%
+    \fc@multiling{Ordinalstring}{N}%
   }%
 }
 %    \end{macrocode}

@@ -1,5 +1,14 @@
 fmtcount package versions:
 
+Version 2.02:
+
+ * Improved check for multilingual options
+
+ * Fixed \FCloadlang so that catcode for @ set to `letter' before
+   reading .def file.
+
+ * Moved loading of fcprefix from fc-french.def to fmtcount.sty
+
 Version 2.01:
 
  * Fixed copyright text in fmtcount.ins

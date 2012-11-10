@@ -1,14 +1,13 @@
 % \subsubsection{fc-french.def}
 % Definitions for French.
 %    \begin{macrocode}
-\ProvidesFCLanguage{french}[2012/06/18]
+\ProvidesFCLanguage{french}[2012/10/24]
 %    \end{macrocode}
 % Package \styfmt{fcprefix} is needed to format the prefix \meta{$n$} in \meta{$n$}illion or
 % \meta{$n$}illiard.  Big numbers were developped based reference:
 % \uref{http://www.alain.be/boece/noms\_de\_nombre.html}
-%    \begin{macrocode}
-\RequirePackage{fcprefix}
-%    \end{macrocode}
+% (Package now loaded by \sty{fmtcount})
+%
 % Options for controlling plural mark. First of all we define some temporary macro \cs{fc@french@set@plural}
 % in order to factorize code that defines an plural mark option:\newline\noindent
 % \begin{tabularx}{\linewidth}{@{}>{\raggedleft\arraybackslash\ttfamily}rX@{}}

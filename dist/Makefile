@@ -25,7 +25,7 @@ fmtcount.tds.zip	: fmtcount.pdf \
 	cp $(SRC)/fmtcount.perl scripts/fmtcount/
 	cp fmtcount.pdf README CHANGES doc/latex/fmtcount
 	cp $(SRC)/fc-*.tex doc/latex/fmtcount/
-	zip -r fmtcount.tds.zip tex source doc 
+	zip -r fmtcount.tds.zip tex source doc scripts
 
 fmtcount.zip	: fmtcount.tds.zip
 	mkdir -p fmtcount
