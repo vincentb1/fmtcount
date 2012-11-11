@@ -1,5 +1,10 @@
 fmtcount package versions:
 
+Version 2.03:
+
+ * Renamed \@fc@loadifbabelldf to \@fc@loadifbabelorpolyglossialdf
+   and added check for polyglossia language.
+
 Version 2.02:
 
  * Improved check for multilingual options

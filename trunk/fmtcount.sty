@@ -2,7 +2,7 @@
 % This section deals with the code for |fmtcount.sty|
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{fmtcount}[2012/10/24 v2.02]
+\ProvidesPackage{fmtcount}[2012/11/11 v2.03]
 \RequirePackage{ifthen}
 \RequirePackage{keyval}
 \RequirePackage{etoolbox}
@@ -97,7 +97,7 @@
 %    \end{macrocode}
 %\end{macro}
 %
-%\begin{macro}{\@fc@loadifbabelldf}
+%\begin{macro}{\@fc@loadifbabelorpolyglossialdf}
 %\begin{definition}
 %\cs{@fc@loadigbabelldf}\marg{language}
 %\end{definition}
@@ -105,9 +105,13 @@
 %\texttt{fc-}\meta{language}\texttt{.def}, 
 % if babel language definition file
 % \meta{language}\texttt{.ldf} has been loaded.
+%\changes{2.03}{2012-11-11}{renamed \cs{@fc@loadifbabelldf} to
+% \cs{@fc@loadifbabelorpolyglossialdf}}
+%\changes{2.03}{2012-11-11}{added check for polyglossia language}
 %    \begin{macrocode}
-\newcommand*{\@fc@loadifbabelldf}[1]{%
+\newcommand*{\@fc@loadifbabelorpolyglossialdf}[1]{%
   \ifcsundef{ver@#1.ldf}{}{\FCloadlang{#1}}%
+  \IfFileExists{gloss-#1.ldf}{\ifcsundef{#1@loaded}{}{\FCloadlang{#1}}}{}%
 }
 %    \end{macrocode}
 %\end{macro}
@@ -118,20 +122,20 @@
 %\changes{2.0}{2012-06-18}{changed check for \cs{l@}\meta{language} 
 % to check for \cs{date}\meta{language}}
 %    \begin{macrocode}
-\@fc@loadifbabelldf{english}
-\@fc@loadifbabelldf{UKenglish}
-\@fc@loadifbabelldf{british}
-\@fc@loadifbabelldf{USenglish}
-\@fc@loadifbabelldf{american}
-\@fc@loadifbabelldf{spanish}
-\@fc@loadifbabelldf{portuges}
-\@fc@loadifbabelldf{french}
-\@fc@loadifbabelldf{frenchb}
-\@fc@loadifbabelldf{german}%
-\@fc@loadifbabelldf{germanb}%
-\@fc@loadifbabelldf{ngerman}%
-\@fc@loadifbabelldf{ngermanb}%
-\@fc@loadifbabelldf{italian}
+\@fc@loadifbabelorpolyglossialdf{english}
+\@fc@loadifbabelorpolyglossialdf{UKenglish}
+\@fc@loadifbabelorpolyglossialdf{british}
+\@fc@loadifbabelorpolyglossialdf{USenglish}
+\@fc@loadifbabelorpolyglossialdf{american}
+\@fc@loadifbabelorpolyglossialdf{spanish}
+\@fc@loadifbabelorpolyglossialdf{portuges}
+\@fc@loadifbabelorpolyglossialdf{french}
+\@fc@loadifbabelorpolyglossialdf{frenchb}
+\@fc@loadifbabelorpolyglossialdf{german}%
+\@fc@loadifbabelorpolyglossialdf{germanb}%
+\@fc@loadifbabelorpolyglossialdf{ngerman}%
+\@fc@loadifbabelorpolyglossialdf{ngermanb}%
+\@fc@loadifbabelorpolyglossialdf{italian}
 %    \end{macrocode}
 %\begin{macro}{\fmtcount@french}
 % Define keys for use with |\fmtcountsetoptions|.
