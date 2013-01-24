@@ -1,3 +1,10 @@
+Considering fmtcount localisations: If you wanted to add support for
+[czech] and [slovak], it is simple: we say the following:
+
+\def \ordinalnum #1 {{#1}\@ifnextchar.\@{.\@}}
+
+
+
 Add max value for commands to documentation
 DONE
 
