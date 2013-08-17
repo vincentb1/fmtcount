@@ -2,38 +2,57 @@
 % Italian support is now handled by interfacing to Enrico Gregorio's
 % itnumpar package.
 %    \begin{macrocode}
-\ProvidesFCLanguage{italian}[2012/06/18]
+\ProvidesFCLanguage{italian}[2013/08/17]
 
 \RequirePackage{itnumpar}
 
 \newcommand{\@numberstringMitalian}[2]{%
   \edef#2{\noexpand\printnumeroinparole{#1}}%
 }
+\global\let\@numberstringMitalian\@numberstringMitalian
 
 \newcommand{\@numberstringFitalian}[2]{%
   \edef#2{\noexpand\printnumeroinparole{#1}}}
 
+\global\let\@numberstringFitalian\@numberstringFitalian
+
 \newcommand{\@NumberstringMitalian}[2]{%
-  \edef#2{\noexpand\printNumeroinparole{#1}}}
+  \edef#2{\noexpand\printNumeroinparole{#1}}%
+}
+\global\let\@NumberstringMitalian\@NumberstringMitalian
 
 \newcommand{\@NumberstringFitalian}[2]{%
-  \edef#2{\noexpand\printNumeroinparole{#1}}}
+  \edef#2{\noexpand\printNumeroinparole{#1}}%
+}
+\global\let\@NumberstringFitalian\@NumberstringFitalian
 
 \newcommand{\@ordinalstringMitalian}[2]{%
-  \edef#2{\noexpand\printordinalem{#1}}}
+  \edef#2{\noexpand\printordinalem{#1}}%
+}
+\global\let\@ordinalstringMitalian\@ordinalstringMitalian
 
 \newcommand{\@ordinalstringFitalian}[2]{%
-  \edef#2{\noexpand\printordinalef{#1}}}
+  \edef#2{\noexpand\printordinalef{#1}}%
+}
+\global\let\@ordinalstringFitalian\@ordinalstringFitalian
 
 \newcommand{\@OrdinalstringMitalian}[2]{%
-  \edef#2{\noexpand\printOrdinalem{#1}}}
+  \edef#2{\noexpand\printOrdinalem{#1}}%
+}
+\global\let\@OrdinalstringMitalian\@OrdinalstringMitalian
 
 \newcommand{\@OrdinalstringFitalian}[2]{%
-  \edef#2{\noexpand\printOrdinalef{#1}}}
+  \edef#2{\noexpand\printOrdinalef{#1}}%
+}
+\global\let\@OrdinalstringFitalian\@OrdinalstringFitalian
 
 \newcommand{\@ordinalMitalian}[2]{%
   \edef#2{#1\relax\noexpand\fmtord{o}}}
+
+\global\let\@ordinalMitalian\@ordinalMitalian
+
 \newcommand{\@ordinalFitalian}[2]{%
   \edef#2{#1\relax\noexpand\fmtord{a}}}
+\global\let\@ordinalFitalian\@ordinalFitalian
 %    \end{macrocode}
 

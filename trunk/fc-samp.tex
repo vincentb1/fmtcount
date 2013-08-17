@@ -6,12 +6,12 @@
 \padzeroes[5]
 
 \newcommand{\printrow}[1]{%
-\newline
-\setcounter{N}{#1}
-\makebox[0.75in][r]{\decimal{N}\quad}
-\makebox[0.75in][r]{\hexadecimal{N}\quad}
-\makebox[0.75in][r]{\ordinal{N}\quad}
-\makebox[2in][l]{\numberstring{N}}
+  \newline
+  \setcounter{N}{#1}
+  \makebox[0.75in][r]{\decimal{N}\quad}
+  \makebox[0.75in][r]{\hexadecimal{N}\quad}
+  \makebox[0.75in][r]{\ordinal{N}\quad}
+  \makebox[2in][l]{\numberstring{N}}
 }
 
 \renewcommand{\thesection}{\ordinal{section}}

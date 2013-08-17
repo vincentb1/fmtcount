@@ -1,29 +1,29 @@
 % \subsubsection{fc-ngermanb.def}
 %    \begin{macrocode}
-\ProvidesFCLanguage{ngermanb}[2012/06/18]
-\FCloadlang{german}
+\ProvidesFCLanguage{ngermanb}[2013/08/17]%
+\FCloadlang{german}%
 %    \end{macrocode}
 % Set |ngermanb| to be equivalent to |german|. Is it okay to do
 % this? (I don't know the difference between the two.)
 %    \begin{macrocode}
-\let\@ordinalMngermanb=\@ordinalMgerman
-\let\@ordinalFngermanb=\@ordinalFgerman
-\let\@ordinalNngermanb=\@ordinalNgerman
-\let\@numberstringMngermanb=\@numberstringMgerman
-\let\@numberstringFngermanb=\@numberstringFgerman
-\let\@numberstringNngermanb=\@numberstringNgerman
-\let\@NumberstringMngermanb=\@NumberstringMgerman
-\let\@NumberstringFngermanb=\@NumberstringFgerman
-\let\@NumberstringNngermanb=\@NumberstringNgerman
-\let\@ordinalstringMngermanb=\@ordinalstringMgerman
-\let\@ordinalstringFngermanb=\@ordinalstringFgerman
-\let\@ordinalstringNngermanb=\@ordinalstringNgerman
-\let\@OrdinalstringMngermanb=\@OrdinalstringMgerman
-\let\@OrdinalstringFngermanb=\@OrdinalstringFgerman
-\let\@OrdinalstringNngermanb=\@OrdinalstringNgerman
+\global\let\@ordinalMngermanb=\@ordinalMgerman
+\global\let\@ordinalFngermanb=\@ordinalFgerman
+\global\let\@ordinalNngermanb=\@ordinalNgerman
+\global\let\@numberstringMngermanb=\@numberstringMgerman
+\global\let\@numberstringFngermanb=\@numberstringFgerman
+\global\let\@numberstringNngermanb=\@numberstringNgerman
+\global\let\@NumberstringMngermanb=\@NumberstringMgerman
+\global\let\@NumberstringFngermanb=\@NumberstringFgerman
+\global\let\@NumberstringNngermanb=\@NumberstringNgerman
+\global\let\@ordinalstringMngermanb=\@ordinalstringMgerman
+\global\let\@ordinalstringFngermanb=\@ordinalstringFgerman
+\global\let\@ordinalstringNngermanb=\@ordinalstringNgerman
+\global\let\@OrdinalstringMngermanb=\@OrdinalstringMgerman
+\global\let\@OrdinalstringFngermanb=\@OrdinalstringFgerman
+\global\let\@OrdinalstringNngermanb=\@OrdinalstringNgerman
 %    \end{macrocode}
 % Load fc-ngerman.def if not already loaded
 %    \begin{macrocode}
-\FCloadlang{ngerman}
+\FCloadlang{ngerman}%
 %    \end{macrocode}
 

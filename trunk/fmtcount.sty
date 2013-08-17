@@ -2,7 +2,7 @@
 % This section deals with the code for |fmtcount.sty|
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{fmtcount}[2012/11/11 v2.03]
+\ProvidesPackage{fmtcount}[2013/08/17 v2.03]
 \RequirePackage{ifthen}
 \RequirePackage{keyval}
 \RequirePackage{etoolbox}
@@ -50,25 +50,34 @@
 %\end{definition}
 % Load \styfmt{fmtcount} language file,
 % \texttt{fc-}\meta{language}\texttt{.def}, unless already loaded.
+% Unfortunately neither babel nor polyglossia keep a list of loaded
+% dialects, so we can't load all the necessary def files in the
+% preamble as we don't know which dialects the user requires.
+% Therefore the dialect definitions get loaded when a command such
+% as \cs{ordinalnum} is used, if they
+% haven't already been loaded.
 %    \begin{macrocode}
 \newcount\fc@tmpcatcode
-\def\fc@languages{}
+\def\fc@languages{}%
 \def\fc@mainlang{}%
 \newcommand*{\FCloadlang}[1]{%
   \@FC@iflangloaded{#1}{}%
   {%
     \fc@tmpcatcode=\catcode`\@\relax
     \catcode `\@ 11\relax
-    \input{fc-#1.def}%
+    \InputIfFileExists{fc-#1.def}%
+    {%
+      \ifdefempty{\fc@languages}%
+      {%
+        \gdef\fc@languages{#1}%
+      }%
+      {%
+         \gappto\fc@languages{,#1}%
+      }%
+      \gdef\fc@mainlang{#1}%
+    }%
+    {}%
     \catcode `\@ \fc@tmpcatcode\relax
-    \ifdefempty{\fc@languages}%
-    {%
-      \def\fc@languages{#1}%
-    }%
-    {%
-       \appto\fc@languages{,#1}%
-    }%
-    \def\fc@mainlang{#1}%
   }%
 }
 %    \end{macrocode}
@@ -131,6 +140,7 @@
 \@fc@loadifbabelorpolyglossialdf{portuges}
 \@fc@loadifbabelorpolyglossialdf{french}
 \@fc@loadifbabelorpolyglossialdf{frenchb}
+\@fc@loadifbabelorpolyglossialdf{francais}
 \@fc@loadifbabelorpolyglossialdf{german}%
 \@fc@loadifbabelorpolyglossialdf{germanb}%
 \@fc@loadifbabelorpolyglossialdf{ngerman}%

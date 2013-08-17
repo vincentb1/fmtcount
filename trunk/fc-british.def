@@ -1,28 +1,28 @@
 % \subsubsection{fc-british.def}
 % British definitions
 %    \begin{macrocode}
-\ProvidesFCLanguage{british}[2012/06/18]
+\ProvidesFCLanguage{british}[2013/08/17]%
 %    \end{macrocode}
 % Load fc-english.def, if not already loaded
 %    \begin{macrocode}
-\FCloadlang{english}
+\FCloadlang{english}%
 %    \end{macrocode}
 % These are all just synonyms for the commands provided by
 % fc-english.def.
 %    \begin{macrocode}
-\let\@ordinalMbritish\@ordinalMenglish
-\let\@ordinalFbritish\@ordinalMenglish
-\let\@ordinalNbritish\@ordinalMenglish
-\let\@numberstringMbritish\@numberstringMenglish
-\let\@numberstringFbritish\@numberstringMenglish
-\let\@numberstringNbritish\@numberstringMenglish
-\let\@NumberstringMbritish\@NumberstringMenglish
-\let\@NumberstringFbritish\@NumberstringMenglish
-\let\@NumberstringNbritish\@NumberstringMenglish
-\let\@ordinalstringMbritish\@ordinalstringMenglish
-\let\@ordinalstringFbritish\@ordinalstringMenglish
-\let\@ordinalstringNbritish\@ordinalstringMenglish
-\let\@OrdinalstringMbritish\@OrdinalstringMenglish
-\let\@OrdinalstringFbritish\@OrdinalstringMenglish
-\let\@OrdinalstringNbritish\@OrdinalstringMenglish
+\global\let\@ordinalMbritish\@ordinalMenglish
+\global\let\@ordinalFbritish\@ordinalMenglish
+\global\let\@ordinalNbritish\@ordinalMenglish
+\global\let\@numberstringMbritish\@numberstringMenglish
+\global\let\@numberstringFbritish\@numberstringMenglish
+\global\let\@numberstringNbritish\@numberstringMenglish
+\global\let\@NumberstringMbritish\@NumberstringMenglish
+\global\let\@NumberstringFbritish\@NumberstringMenglish
+\global\let\@NumberstringNbritish\@NumberstringMenglish
+\global\let\@ordinalstringMbritish\@ordinalstringMenglish
+\global\let\@ordinalstringFbritish\@ordinalstringMenglish
+\global\let\@ordinalstringNbritish\@ordinalstringMenglish
+\global\let\@OrdinalstringMbritish\@OrdinalstringMenglish
+\global\let\@OrdinalstringFbritish\@OrdinalstringMenglish
+\global\let\@OrdinalstringNbritish\@OrdinalstringMenglish
 %    \end{macrocode}

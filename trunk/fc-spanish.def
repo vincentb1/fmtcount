@@ -1,290 +1,300 @@
 % \subsubsection{fc-spanish.def}
 % Spanish definitions
 %    \begin{macrocode}
-\ProvidesFCLanguage{spanish}[2012/06/18]
+\ProvidesFCLanguage{spanish}[2013/08/17]%
 %    \end{macrocode}
 % Define macro that converts a number or count register (first
 % argument) to an ordinal, and stores the result in the
 % second argument, which must be a control sequence.
 % Masculine:
 %    \begin{macrocode}
-\newcommand{\@ordinalMspanish}[2]{%
-\edef#2{\number#1\relax\noexpand\fmtord{o}}}
+\gdef\@ordinalMspanish#1{%
+  \edef#2{\number#1\relax\noexpand\fmtord{o}}%
+}%
 %    \end{macrocode}
 % Feminine:
 %    \begin{macrocode}
-\newcommand{\@ordinalFspanish}[2]{%
-\edef#2{\number#1\relax\noexpand\fmtord{a}}}
+\gdef\@ordinalFspanish}[2]{%
+  \edef#2{\number#1\relax\noexpand\fmtord{a}}%
+}%
 %    \end{macrocode}
 % Make neuter same as masculine:
 %    \begin{macrocode}
-\let\@ordinalNspanish\@ordinalMspanish
+\global\let\@ordinalNspanish\@ordinalMspanish
 %    \end{macrocode}
 % Convert a number to text. The easiest way to do this is to
 % break it up into units, tens, teens, twenties and hundreds.
 % Units (argument must be a number from 0 to 9):
 %    \begin{macrocode}
-\newcommand{\@@unitstringspanish}[1]{%
-\ifcase#1\relax
-cero%
-\or uno%
-\or dos%
-\or tres%
-\or cuatro%
-\or cinco%
-\or seis%
-\or siete%
-\or ocho%
-\or nueve%
-\fi
-}
+\gdef\@@unitstringspanish#1{%
+  \ifcase#1\relax
+    cero%
+    \or uno%
+    \or dos%
+    \or tres%
+    \or cuatro%
+    \or cinco%
+    \or seis%
+    \or siete%
+    \or ocho%
+    \or nueve%
+  \fi
+}%
 %    \end{macrocode}
 % Feminine:
 %    \begin{macrocode}
-\newcommand{\@@unitstringFspanish}[1]{%
-\ifcase#1\relax
-cera%
-\or una%
-\or dos%
-\or tres%
-\or cuatro%
-\or cinco%
-\or seis%
-\or siete%
-\or ocho%
-\or nueve%
-\fi
-}
+\gdef\@@unitstringFspanish#1{%
+  \ifcase#1\relax
+    cera%
+    \or una%
+    \or dos%
+    \or tres%
+    \or cuatro%
+    \or cinco%
+    \or seis%
+    \or siete%
+    \or ocho%
+    \or nueve%
+  \fi
+}%
 %    \end{macrocode}
 % Tens (argument must go from 1 to 10):
 %\changes{2.0}{2012-06-18}{fixed spelling mistake (correction
 %provided by Fernando Maldonado)}
 %    \begin{macrocode}
-\newcommand{\@@tenstringspanish}[1]{%
-\ifcase#1\relax
-\or diez%
-\or veinte%
-\or treinta%
-\or cuarenta%
-\or cincuenta%
-\or sesenta%
-\or setenta%
-\or ochenta%
-\or noventa%
-\or cien%
-\fi
-}
+\gdef\@@tenstringspanish#1{%
+  \ifcase#1\relax
+    \or diez%
+    \or veinte%
+    \or treinta%
+    \or cuarenta%
+    \or cincuenta%
+    \or sesenta%
+    \or setenta%
+    \or ochenta%
+    \or noventa%
+    \or cien%
+  \fi
+}%
 %    \end{macrocode}
 % Teens:
 %    \begin{macrocode}
-\newcommand{\@@teenstringspanish}[1]{%
-\ifcase#1\relax
-diez%
-\or once%
-\or doce%
-\or trece%
-\or catorce%
-\or quince%
-\or diecis\'eis%
-\or diecisiete%
-\or dieciocho%
-\or diecinueve%
-\fi
-}
+\gdef\@@teenstringspanish#1{%
+  \ifcase#1\relax
+    diez%
+    \or once%
+    \or doce%
+    \or trece%
+    \or catorce%
+    \or quince%
+    \or diecis\'eis%
+    \or diecisiete%
+    \or dieciocho%
+    \or diecinueve%
+  \fi
+}%
 %    \end{macrocode}
 % Twenties:
 %    \begin{macrocode}
-\newcommand{\@@twentystringspanish}[1]{%
-\ifcase#1\relax
-veinte%
-\or veintiuno%
-\or veintid\'os%
-\or veintitr\'es%
-\or veinticuatro%
-\or veinticinco%
-\or veintis\'eis%
-\or veintisiete%
-\or veintiocho%
-\or veintinueve%
-\fi}
+\gdef\@@twentystringspanish#1{%
+  \ifcase#1\relax
+    veinte%
+    \or veintiuno%
+    \or veintid\'os%
+    \or veintitr\'es%
+    \or veinticuatro%
+    \or veinticinco%
+    \or veintis\'eis%
+    \or veintisiete%
+    \or veintiocho%
+    \or veintinueve%
+  \fi
+}%
 %    \end{macrocode}
 % Feminine form:
 %    \begin{macrocode}
-\newcommand{\@@twentystringFspanish}[1]{%
-\ifcase#1\relax
-veinte%
-\or veintiuna%
-\or veintid\'os%
-\or veintitr\'es%
-\or veinticuatro%
-\or veinticinco%
-\or veintis\'eis%
-\or veintisiete%
-\or veintiocho%
-\or veintinueve%
-\fi}
+\gdef\@@twentystringFspanish#1{%
+  \ifcase#1\relax
+    veinte%
+    \or veintiuna%
+    \or veintid\'os%
+    \or veintitr\'es%
+    \or veinticuatro%
+    \or veinticinco%
+    \or veintis\'eis%
+    \or veintisiete%
+    \or veintiocho%
+    \or veintinueve%
+  \fi
+}%
 %    \end{macrocode}
 % Hundreds:
 %    \begin{macrocode}
-\newcommand{\@@hundredstringspanish}[1]{%
-\ifcase#1\relax
-\or ciento%
-\or doscientos%
-\or trescientos%
-\or cuatrocientos%
-\or quinientos%
-\or seiscientos%
-\or setecientos%
-\or ochocientos%
-\or novecientos%
-\fi}
+\gdef\@@hundredstringspanish#1{%
+  \ifcase#1\relax
+    \or ciento%
+    \or doscientos%
+    \or trescientos%
+    \or cuatrocientos%
+    \or quinientos%
+    \or seiscientos%
+    \or setecientos%
+    \or ochocientos%
+    \or novecientos%
+  \fi
+}%
 %    \end{macrocode}
 % Feminine form:
 %    \begin{macrocode}
-\newcommand{\@@hundredstringFspanish}[1]{%
-\ifcase#1\relax
-\or cienta%
-\or doscientas%
-\or trescientas%
-\or cuatrocientas%
-\or quinientas%
-\or seiscientas%
-\or setecientas%
-\or ochocientas%
-\or novecientas%
-\fi}
+\gdef\@@hundredstringFspanish#1{%
+  \ifcase#1\relax
+    \or cienta%
+    \or doscientas%
+    \or trescientas%
+    \or cuatrocientas%
+    \or quinientas%
+    \or seiscientas%
+    \or setecientas%
+    \or ochocientas%
+    \or novecientas%
+  \fi
+}%
 %    \end{macrocode}
 % As above, but with initial letter uppercase:
 %    \begin{macrocode}
-\newcommand{\@@Unitstringspanish}[1]{%
-\ifcase#1\relax
-Cero%
-\or Uno%
-\or Dos%
-\or Tres%
-\or Cuatro%
-\or Cinco%
-\or Seis%
-\or Siete%
-\or Ocho%
-\or Nueve%
-\fi
-}
+\gdef\@@Unitstringspanish#1{%
+  \ifcase#1\relax
+    Cero%
+    \or Uno%
+    \or Dos%
+    \or Tres%
+    \or Cuatro%
+    \or Cinco%
+    \or Seis%
+    \or Siete%
+    \or Ocho%
+    \or Nueve%
+  \fi
+}%
 %    \end{macrocode}
 % Feminine form:
 %    \begin{macrocode}
-\newcommand{\@@UnitstringFspanish}[1]{%
-\ifcase#1\relax
-Cera%
-\or Una%
-\or Dos%
-\or Tres%
-\or Cuatro%
-\or Cinco%
-\or Seis%
-\or Siete%
-\or Ocho%
-\or Nueve%
-\fi
-}
+\gdef\@@UnitstringFspanish#1{%
+  \ifcase#1\relax
+    Cera%
+    \or Una%
+    \or Dos%
+    \or Tres%
+    \or Cuatro%
+    \or Cinco%
+    \or Seis%
+    \or Siete%
+    \or Ocho%
+    \or Nueve%
+  \fi
+}%
 %    \end{macrocode}
 % Tens:
 %    \begin{macrocode}
 %\changes{2.0}{2012-06-18}{fixed spelling mistake (correction
 %provided by Fernando Maldonado)}
-\newcommand{\@@Tenstringspanish}[1]{%
-\ifcase#1\relax
-\or Diez%
-\or Veinte%
-\or Treinta%
-\or Cuarenta%
-\or Cincuenta%
-\or Sesenta%
-\or Setenta%
-\or Ochenta%
-\or Noventa%
-\or Cien%
-\fi
-}
+\gdef\@@Tenstringspanish#1{%
+  \ifcase#1\relax
+    \or Diez%
+    \or Veinte%
+    \or Treinta%
+    \or Cuarenta%
+    \or Cincuenta%
+    \or Sesenta%
+    \or Setenta%
+    \or Ochenta%
+    \or Noventa%
+    \or Cien%
+  \fi
+}%
 %    \end{macrocode}
 % Teens:
 %    \begin{macrocode}
-\newcommand{\@@Teenstringspanish}[1]{%
-\ifcase#1\relax
-Diez%
-\or Once%
-\or Doce%
-\or Trece%
-\or Catorce%
-\or Quince%
-\or Diecis\'eis%
-\or Diecisiete%
-\or Dieciocho%
-\or Diecinueve%
-\fi
-}
+\gdef\@@Teenstringspanish#1{%
+  \ifcase#1\relax
+    Diez%
+    \or Once%
+    \or Doce%
+    \or Trece%
+    \or Catorce%
+    \or Quince%
+    \or Diecis\'eis%
+    \or Diecisiete%
+    \or Dieciocho%
+    \or Diecinueve%
+  \fi
+}%
 %    \end{macrocode}
 % Twenties:
 %    \begin{macrocode}
-\newcommand{\@@Twentystringspanish}[1]{%
-\ifcase#1\relax
-Veinte%
-\or Veintiuno%
-\or Veintid\'os%
-\or Veintitr\'es%
-\or Veinticuatro%
-\or Veinticinco%
-\or Veintis\'eis%
-\or Veintisiete%
-\or Veintiocho%
-\or Veintinueve%
-\fi}
+\gdef\@@Twentystringspanish#1{%
+  \ifcase#1\relax
+    Veinte%
+    \or Veintiuno%
+    \or Veintid\'os%
+    \or Veintitr\'es%
+    \or Veinticuatro%
+    \or Veinticinco%
+    \or Veintis\'eis%
+    \or Veintisiete%
+    \or Veintiocho%
+    \or Veintinueve%
+  \fi
+}%
 %    \end{macrocode}
 % Feminine form:
 %    \begin{macrocode}
-\newcommand{\@@TwentystringFspanish}[1]{%
-\ifcase#1\relax
-Veinte%
-\or Veintiuna%
-\or Veintid\'os%
-\or Veintitr\'es%
-\or Veinticuatro%
-\or Veinticinco%
-\or Veintis\'eis%
-\or Veintisiete%
-\or Veintiocho%
-\or Veintinueve%
-\fi}
+\gdef\@@TwentystringFspanish#1{%
+  \ifcase#1\relax
+    Veinte%
+    \or Veintiuna%
+    \or Veintid\'os%
+    \or Veintitr\'es%
+    \or Veinticuatro%
+    \or Veinticinco%
+    \or Veintis\'eis%
+    \or Veintisiete%
+    \or Veintiocho%
+    \or Veintinueve%
+  \fi
+}%
 %    \end{macrocode}
 % Hundreds:
 %    \begin{macrocode}
-\newcommand{\@@Hundredstringspanish}[1]{%
-\ifcase#1\relax
-\or Ciento%
-\or Doscientos%
-\or Trescientos%
-\or Cuatrocientos%
-\or Quinientos%
-\or Seiscientos%
-\or Setecientos%
-\or Ochocientos%
-\or Novecientos%
-\fi}
+\gdef\@@Hundredstringspanish#1{%
+  \ifcase#1\relax
+    \or Ciento%
+    \or Doscientos%
+    \or Trescientos%
+    \or Cuatrocientos%
+    \or Quinientos%
+    \or Seiscientos%
+    \or Setecientos%
+    \or Ochocientos%
+    \or Novecientos%
+  \fi
+}%
 %    \end{macrocode}
 % Feminine form:
 %    \begin{macrocode}
-\newcommand{\@@HundredstringFspanish}[1]{%
-\ifcase#1\relax
-\or Cienta%
-\or Doscientas%
-\or Trescientas%
-\or Cuatrocientas%
-\or Quinientas%
-\or Seiscientas%
-\or Setecientas%
-\or Ochocientas%
-\or Novecientas%
-\fi}
+\gdef\@@HundredstringFspanish#1{%
+  \ifcase#1\relax
+    \or Cienta%
+    \or Doscientas%
+    \or Trescientas%
+    \or Cuatrocientas%
+    \or Quinientas%
+    \or Seiscientas%
+    \or Setecientas%
+    \or Ochocientas%
+    \or Novecientas%
+  \fi
+}%
 %    \end{macrocode}
 % This has changed in version 1.09, so that it now stores the
 % result in the second argument, but doesn't display anything.
@@ -293,376 +303,396 @@ Veinte%
 % are not meant for use in documents.)
 %    \begin{macrocode}
 \DeclareRobustCommand{\@numberstringMspanish}[2]{%
-\let\@unitstring=\@@unitstringspanish
-\let\@teenstring=\@@teenstringspanish
-\let\@tenstring=\@@tenstringspanish
-\let\@twentystring=\@@twentystringspanish
-\let\@hundredstring=\@@hundredstringspanish
-\def\@hundred{cien}\def\@thousand{mil}%
-\def\@andname{y}%
-\@@numberstringspanish{#1}{#2}}
+  \let\@unitstring=\@@unitstringspanish
+  \let\@teenstring=\@@teenstringspanish
+  \let\@tenstring=\@@tenstringspanish
+  \let\@twentystring=\@@twentystringspanish
+  \let\@hundredstring=\@@hundredstringspanish
+  \def\@hundred{cien}\def\@thousand{mil}%
+  \def\@andname{y}%
+  \@@numberstringspanish{#1}{#2}%
+}%
+\global\let\@numberstringMspanish\@numberstringMspanish
 %    \end{macrocode}
 % Feminine form:
 %\changes{2.0}{2012-06-18}{changed andname to `b' (correction
 %provided by Fernando Maldonado)}
 %    \begin{macrocode}
 \DeclareRobustCommand{\@numberstringFspanish}[2]{%
-\let\@unitstring=\@@unitstringFspanish
-\let\@teenstring=\@@teenstringspanish
-\let\@tenstring=\@@tenstringspanish
-\let\@twentystring=\@@twentystringFspanish
-\let\@hundredstring=\@@hundredstringFspanish
-\def\@hundred{cien}\def\@thousand{mil}%
-\def\@andname{b}%
-\@@numberstringspanish{#1}{#2}}
+  \let\@unitstring=\@@unitstringFspanish
+  \let\@teenstring=\@@teenstringspanish
+  \let\@tenstring=\@@tenstringspanish
+  \let\@twentystring=\@@twentystringFspanish
+  \let\@hundredstring=\@@hundredstringFspanish
+  \def\@hundred{cien}\def\@thousand{mil}%
+  \def\@andname{b}%
+  \@@numberstringspanish{#1}{#2}%
+}%
+\global\let\@numberstringFspanish\@numberstringFspanish
 %    \end{macrocode}
 % Make neuter same as masculine:
 %    \begin{macrocode}
-\let\@numberstringNspanish\@numberstringMspanish
+\global\let\@numberstringNspanish\@numberstringMspanish
 %    \end{macrocode}
 % As above, but initial letters in upper case:
 %    \begin{macrocode}
 \DeclareRobustCommand{\@NumberstringMspanish}[2]{%
-\let\@unitstring=\@@Unitstringspanish
-\let\@teenstring=\@@Teenstringspanish
-\let\@tenstring=\@@Tenstringspanish
-\let\@twentystring=\@@Twentystringspanish
-\let\@hundredstring=\@@Hundredstringspanish
-\def\@andname{y}%
-\def\@hundred{Cien}\def\@thousand{Mil}%
-\@@numberstringspanish{#1}{#2}}
+  \let\@unitstring=\@@Unitstringspanish
+  \let\@teenstring=\@@Teenstringspanish
+  \let\@tenstring=\@@Tenstringspanish
+  \let\@twentystring=\@@Twentystringspanish
+  \let\@hundredstring=\@@Hundredstringspanish
+  \def\@andname{y}%
+  \def\@hundred{Cien}\def\@thousand{Mil}%
+  \@@numberstringspanish{#1}{#2}%
+}%
+\global\let\@NumberstringMspanish\@NumberstringMspanish
 %    \end{macrocode}
 % Feminine form:
 %\changes{2.0}{2012-06-18}{changed andname to `b' (correction
 %provided by Fernando Maldonado)}
 %    \begin{macrocode}
 \DeclareRobustCommand{\@NumberstringFspanish}[2]{%
-\let\@unitstring=\@@UnitstringFspanish
-\let\@teenstring=\@@Teenstringspanish
-\let\@tenstring=\@@Tenstringspanish
-\let\@twentystring=\@@TwentystringFspanish
-\let\@hundredstring=\@@HundredstringFspanish
-\def\@andname{b}%
-\def\@hundred{Cien}\def\@thousand{Mil}%
-\@@numberstringspanish{#1}{#2}}
+  \let\@unitstring=\@@UnitstringFspanish
+  \let\@teenstring=\@@Teenstringspanish
+  \let\@tenstring=\@@Tenstringspanish
+  \let\@twentystring=\@@TwentystringFspanish
+  \let\@hundredstring=\@@HundredstringFspanish
+  \def\@andname{b}%
+  \def\@hundred{Cien}\def\@thousand{Mil}%
+  \@@numberstringspanish{#1}{#2}%
+}%
+\global\let\@NumberstringFspanish\@NumberstringFspanish
 %    \end{macrocode}
 % Make neuter same as masculine:
 %    \begin{macrocode}
-\let\@NumberstringNspanish\@NumberstringMspanish
+\global\let\@NumberstringNspanish\@NumberstringMspanish
 %    \end{macrocode}
 % As above, but for ordinals.
 %    \begin{macrocode}
 \DeclareRobustCommand{\@ordinalstringMspanish}[2]{%
-\let\@unitthstring=\@@unitthstringspanish
-\let\@unitstring=\@@unitstringspanish
-\let\@teenthstring=\@@teenthstringspanish
-\let\@tenthstring=\@@tenthstringspanish
-\let\@hundredthstring=\@@hundredthstringspanish
-\def\@thousandth{mil\'esimo}%
-\@@ordinalstringspanish{#1}{#2}}
+  \let\@unitthstring=\@@unitthstringspanish
+  \let\@unitstring=\@@unitstringspanish
+  \let\@teenthstring=\@@teenthstringspanish
+  \let\@tenthstring=\@@tenthstringspanish
+  \let\@hundredthstring=\@@hundredthstringspanish
+  \def\@thousandth{mil\'esimo}%
+  \@@ordinalstringspanish{#1}{#2}%
+}%
+\global\let\@ordinalstringMspanish\@ordinalstringMspanish
 %    \end{macrocode}
 % Feminine form:
 %    \begin{macrocode}
 \DeclareRobustCommand{\@ordinalstringFspanish}[2]{%
-\let\@unitthstring=\@@unitthstringFspanish
-\let\@unitstring=\@@unitstringFspanish
-\let\@teenthstring=\@@teenthstringFspanish
-\let\@tenthstring=\@@tenthstringFspanish
-\let\@hundredthstring=\@@hundredthstringFspanish
-\def\@thousandth{mil\'esima}%
-\@@ordinalstringspanish{#1}{#2}}
+  \let\@unitthstring=\@@unitthstringFspanish
+  \let\@unitstring=\@@unitstringFspanish
+  \let\@teenthstring=\@@teenthstringFspanish
+  \let\@tenthstring=\@@tenthstringFspanish
+  \let\@hundredthstring=\@@hundredthstringFspanish
+  \def\@thousandth{mil\'esima}%
+  \@@ordinalstringspanish{#1}{#2}%
+}%
+\global\let\@ordinalstringFspanish\@ordinalstringFspanish
 %    \end{macrocode}
 % Make neuter same as masculine:
 %    \begin{macrocode}
-\let\@ordinalstringNspanish\@ordinalstringMspanish
+\global\let\@ordinalstringNspanish\@ordinalstringMspanish
 %    \end{macrocode}
 % As above, but with initial letters in upper case.
 %    \begin{macrocode}
 \DeclareRobustCommand{\@OrdinalstringMspanish}[2]{%
-\let\@unitthstring=\@@Unitthstringspanish
-\let\@unitstring=\@@Unitstringspanish
-\let\@teenthstring=\@@Teenthstringspanish
-\let\@tenthstring=\@@Tenthstringspanish
-\let\@hundredthstring=\@@Hundredthstringspanish
-\def\@thousandth{Mil\'esimo}%
-\@@ordinalstringspanish{#1}{#2}}
+  \let\@unitthstring=\@@Unitthstringspanish
+  \let\@unitstring=\@@Unitstringspanish
+  \let\@teenthstring=\@@Teenthstringspanish
+  \let\@tenthstring=\@@Tenthstringspanish
+  \let\@hundredthstring=\@@Hundredthstringspanish
+  \def\@thousandth{Mil\'esimo}%
+  \@@ordinalstringspanish{#1}{#2}%
+}
+\global\let\@OrdinalstringMspanish\@OrdinalstringMspanish
 %    \end{macrocode}
 % Feminine form:
 %    \begin{macrocode}
 \DeclareRobustCommand{\@OrdinalstringFspanish}[2]{%
-\let\@unitthstring=\@@UnitthstringFspanish
-\let\@unitstring=\@@UnitstringFspanish
-\let\@teenthstring=\@@TeenthstringFspanish
-\let\@tenthstring=\@@TenthstringFspanish
-\let\@hundredthstring=\@@HundredthstringFspanish
-\def\@thousandth{Mil\'esima}%
-\@@ordinalstringspanish{#1}{#2}}
+  \let\@unitthstring=\@@UnitthstringFspanish
+  \let\@unitstring=\@@UnitstringFspanish
+  \let\@teenthstring=\@@TeenthstringFspanish
+  \let\@tenthstring=\@@TenthstringFspanish
+  \let\@hundredthstring=\@@HundredthstringFspanish
+  \def\@thousandth{Mil\'esima}%
+  \@@ordinalstringspanish{#1}{#2}%
+}%
+\global\let\@OrdinalstringFspanish\@OrdinalstringFspanish
 %    \end{macrocode}
 % Make neuter same as masculine:
 %    \begin{macrocode}
-\let\@OrdinalstringNspanish\@OrdinalstringMspanish
+\global\let\@OrdinalstringNspanish\@OrdinalstringMspanish
 %    \end{macrocode}
 % Code for convert numbers into textual ordinals. As before,
 % it is easier to split it into units, tens, teens and hundreds.
 % Units:
 %    \begin{macrocode}
-\newcommand{\@@unitthstringspanish}[1]{%
-\ifcase#1\relax
-cero%
-\or primero%
-\or segundo%
-\or tercero%
-\or cuarto%
-\or quinto%
-\or sexto%
-\or s\'eptimo%
-\or octavo%
-\or noveno%
-\fi
-}
+\gdef\@@unitthstringspanish#1{%
+  \ifcase#1\relax
+    cero%
+    \or primero%
+    \or segundo%
+    \or tercero%
+    \or cuarto%
+    \or quinto%
+    \or sexto%
+    \or s\'eptimo%
+    \or octavo%
+    \or noveno%
+  \fi
+}%
 %    \end{macrocode}
 % Tens:
 %    \begin{macrocode}
-\newcommand{\@@tenthstringspanish}[1]{%
-\ifcase#1\relax
-\or d\'ecimo%
-\or vig\'esimo%
-\or trig\'esimo%
-\or cuadrag\'esimo%
-\or quincuag\'esimo%
-\or sexag\'esimo%
-\or septuag\'esimo%
-\or octog\'esimo%
-\or nonag\'esimo%
-\fi
-}
+\gdef\@@tenthstringspanish#1{%
+  \ifcase#1\relax
+    \or d\'ecimo%
+    \or vig\'esimo%
+    \or trig\'esimo%
+    \or cuadrag\'esimo%
+    \or quincuag\'esimo%
+    \or sexag\'esimo%
+    \or septuag\'esimo%
+    \or octog\'esimo%
+    \or nonag\'esimo%
+  \fi
+}%
 %    \end{macrocode}
 % Teens:
 %    \begin{macrocode}
-\newcommand{\@@teenthstringspanish}[1]{%
-\ifcase#1\relax
-d\'ecimo%
-\or und\'ecimo%
-\or duod\'ecimo%
-\or decimotercero%
-\or decimocuarto%
-\or decimoquinto%
-\or decimosexto%
-\or decimos\'eptimo%
-\or decimoctavo%
-\or decimonoveno%
-\fi
-}
+\gdef\@@teenthstringspanish#1{%
+  \ifcase#1\relax
+    d\'ecimo%
+    \or und\'ecimo%
+    \or duod\'ecimo%
+    \or decimotercero%
+    \or decimocuarto%
+    \or decimoquinto%
+    \or decimosexto%
+    \or decimos\'eptimo%
+    \or decimoctavo%
+    \or decimonoveno%
+  \fi
+}%
 %    \end{macrocode}
 % Hundreds:
 %    \begin{macrocode}
-\newcommand{\@@hundredthstringspanish}[1]{%
-\ifcase#1\relax
-\or cent\'esimo%
-\or ducent\'esimo%
-\or tricent\'esimo%
-\or cuadringent\'esimo%
-\or quingent\'esimo%
-\or sexcent\'esimo%
-\or septing\'esimo%
-\or octingent\'esimo%
-\or noningent\'esimo%
-\fi}
+\gdef\@@hundredthstringspanish#1{%
+  \ifcase#1\relax
+    \or cent\'esimo%
+    \or ducent\'esimo%
+    \or tricent\'esimo%
+    \or cuadringent\'esimo%
+    \or quingent\'esimo%
+    \or sexcent\'esimo%
+    \or septing\'esimo%
+    \or octingent\'esimo%
+    \or noningent\'esimo%
+  \fi
+}%
 %    \end{macrocode}
 % Units (feminine):
 %    \begin{macrocode}
-\newcommand{\@@unitthstringFspanish}[1]{%
-\ifcase#1\relax
-cera%
-\or primera%
-\or segunda%
-\or tercera%
-\or cuarta%
-\or quinta%
-\or sexta%
-\or s\'eptima%
-\or octava%
-\or novena%
-\fi
-}
+\gdef\@@unitthstringFspanish#1{%
+  \ifcase#1\relax
+    cera%
+    \or primera%
+    \or segunda%
+    \or tercera%
+    \or cuarta%
+    \or quinta%
+    \or sexta%
+    \or s\'eptima%
+    \or octava%
+    \or novena%
+  \fi
+}%
 %    \end{macrocode}
 % Tens (feminine):
 %    \begin{macrocode}
-\newcommand{\@@tenthstringFspanish}[1]{%
-\ifcase#1\relax
-\or d\'ecima%
-\or vig\'esima%
-\or trig\'esima%
-\or cuadrag\'esima%
-\or quincuag\'esima%
-\or sexag\'esima%
-\or septuag\'esima%
-\or octog\'esima%
-\or nonag\'esima%
-\fi
-}
+\gdef\@@tenthstringFspanish#1{%
+  \ifcase#1\relax
+    \or d\'ecima%
+    \or vig\'esima%
+    \or trig\'esima%
+    \or cuadrag\'esima%
+    \or quincuag\'esima%
+    \or sexag\'esima%
+    \or septuag\'esima%
+    \or octog\'esima%
+    \or nonag\'esima%
+  \fi
+}%
 %    \end{macrocode}
 % Teens (feminine)
 %    \begin{macrocode}
-\newcommand{\@@teenthstringFspanish}[1]{%
-\ifcase#1\relax
-d\'ecima%
-\or und\'ecima%
-\or duod\'ecima%
-\or decimotercera%
-\or decimocuarta%
-\or decimoquinta%
-\or decimosexta%
-\or decimos\'eptima%
-\or decimoctava%
-\or decimonovena%
-\fi
-}
+\gdef\@@teenthstringFspanish#1{%
+  \ifcase#1\relax
+    d\'ecima%
+    \or und\'ecima%
+    \or duod\'ecima%
+    \or decimotercera%
+    \or decimocuarta%
+    \or decimoquinta%
+    \or decimosexta%
+    \or decimos\'eptima%
+    \or decimoctava%
+    \or decimonovena%
+  \fi
+}%
 %    \end{macrocode}
 % Hundreds (feminine)
 %    \begin{macrocode}
-\newcommand{\@@hundredthstringFspanish}[1]{%
-\ifcase#1\relax
-\or cent\'esima%
-\or ducent\'esima%
-\or tricent\'esima%
-\or cuadringent\'esima%
-\or quingent\'esima%
-\or sexcent\'esima%
-\or septing\'esima%
-\or octingent\'esima%
-\or noningent\'esima%
-\fi}
+\gdef\@@hundredthstringFspanish#1{%
+  \ifcase#1\relax
+    \or cent\'esima%
+    \or ducent\'esima%
+    \or tricent\'esima%
+    \or cuadringent\'esima%
+    \or quingent\'esima%
+    \or sexcent\'esima%
+    \or septing\'esima%
+    \or octingent\'esima%
+    \or noningent\'esima%
+  \fi
+}%
 %    \end{macrocode}
 % As above, but with initial letters in upper case
 %    \begin{macrocode}
-\newcommand{\@@Unitthstringspanish}[1]{%
-\ifcase#1\relax
-Cero%
-\or Primero%
-\or Segundo%
-\or Tercero%
-\or Cuarto%
-\or Quinto%
-\or Sexto%
-\or S\'eptimo%
-\or Octavo%
-\or Noveno%
-\fi
-}
+\gdef\@@Unitthstringspanish#1{%
+  \ifcase#1\relax
+    Cero%
+    \or Primero%
+    \or Segundo%
+    \or Tercero%
+    \or Cuarto%
+    \or Quinto%
+    \or Sexto%
+    \or S\'eptimo%
+    \or Octavo%
+    \or Noveno%
+  \fi
+}%
 %    \end{macrocode}
 % Tens:
 %    \begin{macrocode}
-\newcommand{\@@Tenthstringspanish}[1]{%
-\ifcase#1\relax
-\or D\'ecimo%
-\or Vig\'esimo%
-\or Trig\'esimo%
-\or Cuadrag\'esimo%
-\or Quincuag\'esimo%
-\or Sexag\'esimo%
-\or Septuag\'esimo%
-\or Octog\'esimo%
-\or Nonag\'esimo%
-\fi
-}
+\gdef\@@Tenthstringspanish#1{%
+  \ifcase#1\relax
+    \or D\'ecimo%
+    \or Vig\'esimo%
+    \or Trig\'esimo%
+    \or Cuadrag\'esimo%
+    \or Quincuag\'esimo%
+    \or Sexag\'esimo%
+    \or Septuag\'esimo%
+    \or Octog\'esimo%
+    \or Nonag\'esimo%
+  \fi
+}%
 %    \end{macrocode}
 % Teens:
 %    \begin{macrocode}
-\newcommand{\@@Teenthstringspanish}[1]{%
-\ifcase#1\relax
-D\'ecimo%
-\or Und\'ecimo%
-\or Duod\'ecimo%
-\or Decimotercero%
-\or Decimocuarto%
-\or Decimoquinto%
-\or Decimosexto%
-\or Decimos\'eptimo%
-\or Decimoctavo%
-\or Decimonoveno%
-\fi
-}
+\gdef\@@Teenthstringspanish#1{%
+  \ifcase#1\relax
+    D\'ecimo%
+    \or Und\'ecimo%
+    \or Duod\'ecimo%
+    \or Decimotercero%
+    \or Decimocuarto%
+    \or Decimoquinto%
+    \or Decimosexto%
+    \or Decimos\'eptimo%
+    \or Decimoctavo%
+    \or Decimonoveno%
+  \fi
+}%
 %    \end{macrocode}
 % Hundreds
 %    \begin{macrocode}
-\newcommand{\@@Hundredthstringspanish}[1]{%
-\ifcase#1\relax
-\or Cent\'esimo%
-\or Ducent\'esimo%
-\or Tricent\'esimo%
-\or Cuadringent\'esimo%
-\or Quingent\'esimo%
-\or Sexcent\'esimo%
-\or Septing\'esimo%
-\or Octingent\'esimo%
-\or Noningent\'esimo%
-\fi}
+\gdef\@@Hundredthstringspanish#1{%
+  \ifcase#1\relax
+    \or Cent\'esimo%
+    \or Ducent\'esimo%
+    \or Tricent\'esimo%
+    \or Cuadringent\'esimo%
+    \or Quingent\'esimo%
+    \or Sexcent\'esimo%
+    \or Septing\'esimo%
+    \or Octingent\'esimo%
+    \or Noningent\'esimo%
+  \fi
+}%
 %    \end{macrocode}
 % As above, but feminine.
 %    \begin{macrocode}
-\newcommand{\@@UnitthstringFspanish}[1]{%
-\ifcase#1\relax
-Cera%
-\or Primera%
-\or Segunda%
-\or Tercera%
-\or Cuarta%
-\or Quinta%
-\or Sexta%
-\or S\'eptima%
-\or Octava%
-\or Novena%
-\fi
-}
+\gdef\@@UnitthstringFspanish#1{%
+  \ifcase#1\relax
+    Cera%
+    \or Primera%
+    \or Segunda%
+    \or Tercera%
+    \or Cuarta%
+    \or Quinta%
+    \or Sexta%
+    \or S\'eptima%
+    \or Octava%
+    \or Novena%
+  \fi
+}%
 %    \end{macrocode}
 % Tens (feminine)
 %    \begin{macrocode}
-\newcommand{\@@TenthstringFspanish}[1]{%
-\ifcase#1\relax
-\or D\'ecima%
-\or Vig\'esima%
-\or Trig\'esima%
-\or Cuadrag\'esima%
-\or Quincuag\'esima%
-\or Sexag\'esima%
-\or Septuag\'esima%
-\or Octog\'esima%
-\or Nonag\'esima%
-\fi
-}
+\gdef\@@TenthstringFspanish#1{%
+  \ifcase#1\relax
+    \or D\'ecima%
+    \or Vig\'esima%
+    \or Trig\'esima%
+    \or Cuadrag\'esima%
+    \or Quincuag\'esima%
+    \or Sexag\'esima%
+    \or Septuag\'esima%
+    \or Octog\'esima%
+    \or Nonag\'esima%
+  \fi
+}%
 %    \end{macrocode}
 % Teens (feminine):
 %    \begin{macrocode}
-\newcommand{\@@TeenthstringFspanish}[1]{%
-\ifcase#1\relax
-D\'ecima%
-\or Und\'ecima%
-\or Duod\'ecima%
-\or Decimotercera%
-\or Decimocuarta%
-\or Decimoquinta%
-\or Decimosexta%
-\or Decimos\'eptima%
-\or Decimoctava%
-\or Decimonovena%
-\fi
-}
+\gdef\@@TeenthstringFspanish#1{%
+  \ifcase#1\relax
+    D\'ecima%
+    \or Und\'ecima%
+    \or Duod\'ecima%
+    \or Decimotercera%
+    \or Decimocuarta%
+    \or Decimoquinta%
+    \or Decimosexta%
+    \or Decimos\'eptima%
+    \or Decimoctava%
+    \or Decimonovena%
+  \fi
+}%
 %    \end{macrocode}
 % Hundreds (feminine):
 %    \begin{macrocode}
-\newcommand{\@@HundredthstringFspanish}[1]{%
-\ifcase#1\relax
-\or Cent\'esima%
-\or Ducent\'esima%
-\or Tricent\'esima%
-\or Cuadringent\'esima%
-\or Quingent\'esima%
-\or Sexcent\'esima%
-\or Septing\'esima%
-\or Octingent\'esima%
-\or Noningent\'esima%
-\fi}
+\gdef\@@HundredthstringFspanish#1{%
+  \ifcase#1\relax
+    \or Cent\'esima%
+    \or Ducent\'esima%
+    \or Tricent\'esima%
+    \or Cuadringent\'esima%
+    \or Quingent\'esima%
+    \or Sexcent\'esima%
+    \or Septing\'esima%
+    \or Octingent\'esima%
+    \or Noningent\'esima%
+  \fi
+}%
 %    \end{macrocode}
 % This has changed in version 1.09, so that it now stores the
 % results in the second argument (which must be a control
@@ -671,7 +701,7 @@ D\'ecima%
 % with older versions. (These internal macros are not meant for
 % use in documents.)
 %    \begin{macrocode}
-\newcommand{\@@numberstringspanish}[2]{%
+\gdef\@@numberstringspanish#1#2{%
 \ifnum#1>99999
 \PackageError{fmtcount}{Out of range}%
 {This macro only works for values less than 100000}%
@@ -778,11 +808,11 @@ this number}%
     \fi
   \fi
 \fi
-}
+}%
 %    \end{macrocode}
 % As above, but for ordinals
 %    \begin{macrocode}
-\newcommand{\@@ordinalstringspanish}[2]{%
+\gdef\@@ordinalstringspanish#1#2{%
 \@strctr=#1\relax
 \ifnum#1>99999
 \PackageError{fmtcount}{Out of range}%
@@ -872,6 +902,6 @@ this number}%
 \fi
 \fi
 \fi
-}
+}%
 %    \end{macrocode}
 

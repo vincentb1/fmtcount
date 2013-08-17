@@ -1,28 +1,28 @@
 % \subsubsection{fc-UKenglish.def}
 % English definitions
 %    \begin{macrocode}
-\ProvidesFCLanguage{UKenglish}[2012/06/18]
+\ProvidesFCLanguage{UKenglish}[2013/08/17]%
 %    \end{macrocode}
 % Loaded fc-english.def if not already loaded
 %    \begin{macrocode}
-\FCloadlang{english}
+\FCloadlang{english}%
 %    \end{macrocode}
 % These are all just synonyms for the commands provided by
 % fc-english.def.
 %    \begin{macrocode}
-\let\@ordinalMUKenglish\@ordinalMenglish
-\let\@ordinalFUKenglish\@ordinalMenglish
-\let\@ordinalNUKenglish\@ordinalMenglish
-\let\@numberstringMUKenglish\@numberstringMenglish
-\let\@numberstringFUKenglish\@numberstringMenglish
-\let\@numberstringNUKenglish\@numberstringMenglish
-\let\@NumberstringMUKenglish\@NumberstringMenglish
-\let\@NumberstringFUKenglish\@NumberstringMenglish
-\let\@NumberstringNUKenglish\@NumberstringMenglish
-\let\@ordinalstringMUKenglish\@ordinalstringMenglish
-\let\@ordinalstringFUKenglish\@ordinalstringMenglish
-\let\@ordinalstringNUKenglish\@ordinalstringMenglish
-\let\@OrdinalstringMUKenglish\@OrdinalstringMenglish
-\let\@OrdinalstringFUKenglish\@OrdinalstringMenglish
-\let\@OrdinalstringNUKenglish\@OrdinalstringMenglish
+\global\let\@ordinalMUKenglish\@ordinalMenglish
+\global\let\@ordinalFUKenglish\@ordinalMenglish
+\global\let\@ordinalNUKenglish\@ordinalMenglish
+\global\let\@numberstringMUKenglish\@numberstringMenglish
+\global\let\@numberstringFUKenglish\@numberstringMenglish
+\global\let\@numberstringNUKenglish\@numberstringMenglish
+\global\let\@NumberstringMUKenglish\@NumberstringMenglish
+\global\let\@NumberstringFUKenglish\@NumberstringMenglish
+\global\let\@NumberstringNUKenglish\@NumberstringMenglish
+\global\let\@ordinalstringMUKenglish\@ordinalstringMenglish
+\global\let\@ordinalstringFUKenglish\@ordinalstringMenglish
+\global\let\@ordinalstringNUKenglish\@ordinalstringMenglish
+\global\let\@OrdinalstringMUKenglish\@OrdinalstringMenglish
+\global\let\@OrdinalstringFUKenglish\@OrdinalstringMenglish
+\global\let\@OrdinalstringNUKenglish\@OrdinalstringMenglish
 %    \end{macrocode} 

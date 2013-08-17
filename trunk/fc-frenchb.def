@@ -1,24 +1,24 @@
 % \subsubsection{fc-frenchb.def}
 %    \begin{macrocode}
-\ProvidesFCLanguage{frenchb}[2012/06/18]
-\FCloadlang{french}
+\ProvidesFCLanguage{frenchb}[2013/08/17]%
+\FCloadlang{french}%
 %    \end{macrocode}
 % Set |frenchb| to be equivalent to |french|.
 %    \begin{macrocode}
-\let\@ordinalMfrenchb=\@ordinalMfrench
-\let\@ordinalFfrenchb=\@ordinalFfrench
-\let\@ordinalNfrenchb=\@ordinalNfrench
-\let\@numberstringMfrenchb=\@numberstringMfrench
-\let\@numberstringFfrenchb=\@numberstringFfrench
-\let\@numberstringNfrenchb=\@numberstringNfrench
-\let\@NumberstringMfrenchb=\@NumberstringMfrench
-\let\@NumberstringFfrenchb=\@NumberstringFfrench
-\let\@NumberstringNfrenchb=\@NumberstringNfrench
-\let\@ordinalstringMfrenchb=\@ordinalstringMfrench
-\let\@ordinalstringFfrenchb=\@ordinalstringFfrench
-\let\@ordinalstringNfrenchb=\@ordinalstringNfrench
-\let\@OrdinalstringMfrenchb=\@OrdinalstringMfrench
-\let\@OrdinalstringFfrenchb=\@OrdinalstringFfrench
-\let\@OrdinalstringNfrenchb=\@OrdinalstringNfrench
+\global\let\@ordinalMfrenchb=\@ordinalMfrench
+\global\let\@ordinalFfrenchb=\@ordinalFfrench
+\global\let\@ordinalNfrenchb=\@ordinalNfrench
+\global\let\@numberstringMfrenchb=\@numberstringMfrench
+\global\let\@numberstringFfrenchb=\@numberstringFfrench
+\global\let\@numberstringNfrenchb=\@numberstringNfrench
+\global\let\@NumberstringMfrenchb=\@NumberstringMfrench
+\global\let\@NumberstringFfrenchb=\@NumberstringFfrench
+\global\let\@NumberstringNfrenchb=\@NumberstringNfrench
+\global\let\@ordinalstringMfrenchb=\@ordinalstringMfrench
+\global\let\@ordinalstringFfrenchb=\@ordinalstringFfrench
+\global\let\@ordinalstringNfrenchb=\@ordinalstringNfrench
+\global\let\@OrdinalstringMfrenchb=\@OrdinalstringMfrench
+\global\let\@OrdinalstringFfrenchb=\@OrdinalstringFfrench
+\global\let\@OrdinalstringNfrenchb=\@OrdinalstringNfrench
 %    \end{macrocode}
 

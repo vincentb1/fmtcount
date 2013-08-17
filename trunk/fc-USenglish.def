@@ -1,29 +1,29 @@
 % \subsubsection{fc-USenglish.def}
 % US English definitions
 %    \begin{macrocode}
-\ProvidesFCLanguage{USenglish}[2012/06/18]
+\ProvidesFCLanguage{USenglish}[2013/08/17]%
 %    \end{macrocode}
 % Loaded fc-english.def if not already loaded
 %    \begin{macrocode}
-\FCloadlang{english}
+\FCloadlang{english}%
 %    \end{macrocode}
 % These are all just synonyms for the commands provided by
 % fc-english.def. (This needs fixing as there are some differences
 % between UK and US number strings.)
 %    \begin{macrocode}
-\let\@ordinalMUSenglish\@ordinalMenglish
-\let\@ordinalFUSenglish\@ordinalMenglish
-\let\@ordinalNUSenglish\@ordinalMenglish
-\let\@numberstringMUSenglish\@numberstringMenglish
-\let\@numberstringFUSenglish\@numberstringMenglish
-\let\@numberstringNUSenglish\@numberstringMenglish
-\let\@NumberstringMUSenglish\@NumberstringMenglish
-\let\@NumberstringFUSenglish\@NumberstringMenglish
-\let\@NumberstringNUSenglish\@NumberstringMenglish
-\let\@ordinalstringMUSenglish\@ordinalstringMenglish
-\let\@ordinalstringFUSenglish\@ordinalstringMenglish
-\let\@ordinalstringNUSenglish\@ordinalstringMenglish
-\let\@OrdinalstringMUSenglish\@OrdinalstringMenglish
-\let\@OrdinalstringFUSenglish\@OrdinalstringMenglish
-\let\@OrdinalstringNUSenglish\@OrdinalstringMenglish
+\global\let\@ordinalMUSenglish\@ordinalMenglish
+\global\let\@ordinalFUSenglish\@ordinalMenglish
+\global\let\@ordinalNUSenglish\@ordinalMenglish
+\global\let\@numberstringMUSenglish\@numberstringMenglish
+\global\let\@numberstringFUSenglish\@numberstringMenglish
+\global\let\@numberstringNUSenglish\@numberstringMenglish
+\global\let\@NumberstringMUSenglish\@NumberstringMenglish
+\global\let\@NumberstringFUSenglish\@NumberstringMenglish
+\global\let\@NumberstringNUSenglish\@NumberstringMenglish
+\global\let\@ordinalstringMUSenglish\@ordinalstringMenglish
+\global\let\@ordinalstringFUSenglish\@ordinalstringMenglish
+\global\let\@ordinalstringNUSenglish\@ordinalstringMenglish
+\global\let\@OrdinalstringMUSenglish\@OrdinalstringMenglish
+\global\let\@OrdinalstringFUSenglish\@OrdinalstringMenglish
+\global\let\@OrdinalstringNUSenglish\@OrdinalstringMenglish
 %    \end{macrocode}

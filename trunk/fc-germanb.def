@@ -1,27 +1,27 @@
 % \subsubsection{fc-germanb.def}
 %    \begin{macrocode}
-\ProvidesFCLanguage{germanb}[2012/06/18]
+\ProvidesFCLanguage{germanb}[2013/08/17]%
 %    \end{macrocode}
 % Load fc-german.def if not already loaded
 %    \begin{macrocode}
-\FCloadlang{german}
+\FCloadlang{german}%
 %    \end{macrocode}
 % Set |germanb| to be equivalent to |german|.
 %    \begin{macrocode}
-\let\@ordinalMgermanb=\@ordinalMgerman
-\let\@ordinalFgermanb=\@ordinalFgerman
-\let\@ordinalNgermanb=\@ordinalNgerman
-\let\@numberstringMgermanb=\@numberstringMgerman
-\let\@numberstringFgermanb=\@numberstringFgerman
-\let\@numberstringNgermanb=\@numberstringNgerman
-\let\@NumberstringMgermanb=\@NumberstringMgerman
-\let\@NumberstringFgermanb=\@NumberstringFgerman
-\let\@NumberstringNgermanb=\@NumberstringNgerman
-\let\@ordinalstringMgermanb=\@ordinalstringMgerman
-\let\@ordinalstringFgermanb=\@ordinalstringFgerman
-\let\@ordinalstringNgermanb=\@ordinalstringNgerman
-\let\@OrdinalstringMgermanb=\@OrdinalstringMgerman
-\let\@OrdinalstringFgermanb=\@OrdinalstringFgerman
-\let\@OrdinalstringNgermanb=\@OrdinalstringNgerman
+\global\let\@ordinalMgermanb=\@ordinalMgerman
+\global\let\@ordinalFgermanb=\@ordinalFgerman
+\global\let\@ordinalNgermanb=\@ordinalNgerman
+\global\let\@numberstringMgermanb=\@numberstringMgerman
+\global\let\@numberstringFgermanb=\@numberstringFgerman
+\global\let\@numberstringNgermanb=\@numberstringNgerman
+\global\let\@NumberstringMgermanb=\@NumberstringMgerman
+\global\let\@NumberstringFgermanb=\@NumberstringFgerman
+\global\let\@NumberstringNgermanb=\@NumberstringNgerman
+\global\let\@ordinalstringMgermanb=\@ordinalstringMgerman
+\global\let\@ordinalstringFgermanb=\@ordinalstringFgerman
+\global\let\@ordinalstringNgermanb=\@ordinalstringNgerman
+\global\let\@OrdinalstringMgermanb=\@OrdinalstringMgerman
+\global\let\@OrdinalstringFgermanb=\@OrdinalstringFgerman
+\global\let\@OrdinalstringNgermanb=\@OrdinalstringNgerman
 %    \end{macrocode}
 

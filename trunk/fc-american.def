@@ -1,28 +1,28 @@
 % \subsubsection{fc-american.def}
 % American English definitions
 %    \begin{macrocode}
-\ProvidesFCLanguage{american}[2012/06/18]
+\ProvidesFCLanguage{american}[2013/08/17]%
 %    \end{macrocode}
 % Loaded fc-USenglish.def if not already loaded
 %    \begin{macrocode}
-\FCloadlang{USenglish}
+\FCloadlang{USenglish}%
 %    \end{macrocode}
 % These are all just synonyms for the commands provided by
 % fc-USenglish.def.
 %    \begin{macrocode}
-\let\@ordinalMamerican\@ordinalMUSenglish
-\let\@ordinalFamerican\@ordinalMUSenglish
-\let\@ordinalNamerican\@ordinalMUSenglish
-\let\@numberstringMamerican\@numberstringMUSenglish
-\let\@numberstringFamerican\@numberstringMUSenglish
-\let\@numberstringNamerican\@numberstringMUSenglish
-\let\@NumberstringMamerican\@NumberstringMUSenglish
-\let\@NumberstringFamerican\@NumberstringMUSenglish
-\let\@NumberstringNamerican\@NumberstringMUSenglish
-\let\@ordinalstringMamerican\@ordinalstringMUSenglish
-\let\@ordinalstringFamerican\@ordinalstringMUSenglish
-\let\@ordinalstringNamerican\@ordinalstringMUSenglish
-\let\@OrdinalstringMamerican\@OrdinalstringMUSenglish
-\let\@OrdinalstringFamerican\@OrdinalstringMUSenglish
-\let\@OrdinalstringNamerican\@OrdinalstringMUSenglish
+\global\let\@ordinalMamerican\@ordinalMUSenglish
+\global\let\@ordinalFamerican\@ordinalMUSenglish
+\global\let\@ordinalNamerican\@ordinalMUSenglish
+\global\let\@numberstringMamerican\@numberstringMUSenglish
+\global\let\@numberstringFamerican\@numberstringMUSenglish
+\global\let\@numberstringNamerican\@numberstringMUSenglish
+\global\let\@NumberstringMamerican\@NumberstringMUSenglish
+\global\let\@NumberstringFamerican\@NumberstringMUSenglish
+\global\let\@NumberstringNamerican\@NumberstringMUSenglish
+\global\let\@ordinalstringMamerican\@ordinalstringMUSenglish
+\global\let\@ordinalstringFamerican\@ordinalstringMUSenglish
+\global\let\@ordinalstringNamerican\@ordinalstringMUSenglish
+\global\let\@OrdinalstringMamerican\@OrdinalstringMUSenglish
+\global\let\@OrdinalstringFamerican\@OrdinalstringMUSenglish
+\global\let\@OrdinalstringNamerican\@OrdinalstringMUSenglish
 %    \end{macrocode}

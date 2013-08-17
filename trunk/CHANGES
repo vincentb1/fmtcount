@@ -5,6 +5,11 @@ Version 2.03:
  * Renamed \@fc@loadifbabelldf to \@fc@loadifbabelorpolyglossialdf
    and added check for polyglossia language.
 
+ * Fixed multilingual issues where provided languages weren't
+   detected.
+
+ * Removed spurious spaces.
+
 Version 2.02:
 
  * Improved check for multilingual options

@@ -2,7 +2,7 @@
 % German definitions (thank you to K. H. Fricke for supplying
 % this information)
 %    \begin{macrocode}
-\ProvidesFCLanguage{german}[2012/06/18]
+\ProvidesFCLanguage{german}[2013/08/17]%
 %    \end{macrocode}
 % Define macro that converts a number or count register (first
 % argument) to an ordinal, and stores the result in the
@@ -10,164 +10,184 @@
 % Masculine:
 %    \begin{macrocode}
 \newcommand{\@ordinalMgerman}[2]{%
-\edef#2{\number#1\relax.}}
+  \edef#2{\number#1\relax.}%
+}%
+\global\let\@ordinalMgerman\@ordinalMgerman
 %    \end{macrocode}
 % Feminine:
 %    \begin{macrocode}
 \newcommand{\@ordinalFgerman}[2]{%
-\edef#2{\number#1\relax.}}
+  \edef#2{\number#1\relax.}%
+}%
+\global\let\@ordinalFgerman\@ordinalFgerman
 %    \end{macrocode}
 % Neuter:
 %    \begin{macrocode}
 \newcommand{\@ordinalNgerman}[2]{%
-\edef#2{\number#1\relax.}}
+  \edef#2{\number#1\relax.}%
+}%
+\global\let\@ordinalNgerman\@ordinalNgerman
 %    \end{macrocode}
 % Convert a number to text. The easiest way to do this is to
 % break it up into units, tens and teens.
 % Units (argument must be a number from 0 to 9, 1 on its own (eins)
 % is dealt with separately):
 %    \begin{macrocode}
-\newcommand{\@@unitstringgerman}[1]{%
-\ifcase#1%
-null%
-\or eins%
-\or zwei%
-\or drei%
-\or vier%
-\or f\"unf%
-\or sechs%
-\or sieben%
-\or acht%
-\or neun%
-\fi
-}
+\gdef\@@unitstringgerman#1{%
+  \ifcase#1%
+    null%
+    \or eins%
+    \or zwei%
+    \or drei%
+    \or vier%
+    \or f\"unf%
+    \or sechs%
+    \or sieben%
+    \or acht%
+    \or neun%
+  \fi
+}%
 %    \end{macrocode}
 % Tens (argument must go from 1 to 10):
 %    \begin{macrocode}
-\newcommand{\@@tenstringgerman}[1]{%
-\ifcase#1%
-\or zehn%
-\or zwanzig%
-\or drei{\ss}ig%
-\or vierzig%
-\or f\"unfzig%
-\or sechzig%
-\or siebzig%
-\or achtzig%
-\or neunzig%
-\or einhundert%
-\fi
-}
+\gdef\@@tenstringgerman#1{%
+  \ifcase#1%
+    \or zehn%
+    \or zwanzig%
+    \or drei{\ss}ig%
+    \or vierzig%
+    \or f\"unfzig%
+    \or sechzig%
+    \or siebzig%
+    \or achtzig%
+    \or neunzig%
+    \or einhundert%
+  \fi
+}%
 %    \end{macrocode}
 % |\einhundert| is set to |einhundert| by default, user can
 % redefine this command to just |hundert| if required, similarly
 % for |\eintausend|.
 %    \begin{macrocode}
-\providecommand*{\einhundert}{einhundert}
-\providecommand*{\eintausend}{eintausend}
+\providecommand*{\einhundert}{einhundert}%
+\providecommand*{\eintausend}{eintausend}%
+\global\let\einhundert\einhundert
+\global\let\eintausend\eintausend
 %    \end{macrocode}
 % Teens:
 %    \begin{macrocode}
-\newcommand{\@@teenstringgerman}[1]{%
-\ifcase#1%
-zehn%
-\or elf%
-\or zw\"olf%
-\or dreizehn%
-\or vierzehn%
-\or f\"unfzehn%
-\or sechzehn%
-\or siebzehn%
-\or achtzehn%
-\or neunzehn%
-\fi
-}
+\gdef\@@teenstringgerman#1{%
+  \ifcase#1%
+    zehn%
+    \or elf%
+    \or zw\"olf%
+    \or dreizehn%
+    \or vierzehn%
+    \or f\"unfzehn%
+    \or sechzehn%
+    \or siebzehn%
+    \or achtzehn%
+    \or neunzehn%
+  \fi
+}%
 %    \end{macrocode}
 % The results are stored in the second argument, but doesn't 
 % display anything.
 %    \begin{macrocode}
 \DeclareRobustCommand{\@numberstringMgerman}[2]{%
-\let\@unitstring=\@@unitstringgerman
-\let\@teenstring=\@@teenstringgerman
-\let\@tenstring=\@@tenstringgerman
-\@@numberstringgerman{#1}{#2}}
+  \let\@unitstring=\@@unitstringgerman
+  \let\@teenstring=\@@teenstringgerman
+  \let\@tenstring=\@@tenstringgerman
+  \@@numberstringgerman{#1}{#2}%
+}%
+\global\let\@numberstringMgerman\@numberstringMgerman
 %    \end{macrocode}
 % Feminine and neuter forms:
 %    \begin{macrocode}
-\let\@numberstringFgerman=\@numberstringMgerman
-\let\@numberstringNgerman=\@numberstringMgerman
+\global\let\@numberstringFgerman=\@numberstringMgerman
+\global\let\@numberstringNgerman=\@numberstringMgerman
 %    \end{macrocode}
 % As above, but initial letters in upper case:
 %    \begin{macrocode}
 \DeclareRobustCommand{\@NumberstringMgerman}[2]{%
   \@numberstringMgerman{#1}{\@@num@str}%
- \edef#2{\noexpand\MakeUppercase\expandonce\@@num@str}%
-}
+  \edef#2{\noexpand\MakeUppercase\expandonce\@@num@str}%
+}%
+\global\let\@NumberstringMgerman\@NumberstringMgerman
 %    \end{macrocode}
 % Feminine and neuter form:
 %    \begin{macrocode}
-\let\@NumberstringFgerman=\@NumberstringMgerman
-\let\@NumberstringNgerman=\@NumberstringMgerman
+\global\let\@NumberstringFgerman=\@NumberstringMgerman
+\global\let\@NumberstringNgerman=\@NumberstringMgerman
 %    \end{macrocode}
 % As above, but for ordinals.
 %    \begin{macrocode}
 \DeclareRobustCommand{\@ordinalstringMgerman}[2]{%
-\let\@unitthstring=\@@unitthstringMgerman
-\let\@teenthstring=\@@teenthstringMgerman
-\let\@tenthstring=\@@tenthstringMgerman
-\let\@unitstring=\@@unitstringgerman
-\let\@teenstring=\@@teenstringgerman
-\let\@tenstring=\@@tenstringgerman
-\def\@thousandth{tausendster}%
-\def\@hundredth{hundertster}%
-\@@ordinalstringgerman{#1}{#2}}
+  \let\@unitthstring=\@@unitthstringMgerman
+  \let\@teenthstring=\@@teenthstringMgerman
+  \let\@tenthstring=\@@tenthstringMgerman
+  \let\@unitstring=\@@unitstringgerman
+  \let\@teenstring=\@@teenstringgerman
+  \let\@tenstring=\@@tenstringgerman
+  \def\@thousandth{tausendster}%
+  \def\@hundredth{hundertster}%
+  \@@ordinalstringgerman{#1}{#2}%
+}%
+\global\let\@ordinalstringMgerman\@ordinalstringMgerman
 %    \end{macrocode}
 % Feminine form:
 %    \begin{macrocode}
 \DeclareRobustCommand{\@ordinalstringFgerman}[2]{%
-\let\@unitthstring=\@@unitthstringFgerman
-\let\@teenthstring=\@@teenthstringFgerman
-\let\@tenthstring=\@@tenthstringFgerman
-\let\@unitstring=\@@unitstringgerman
-\let\@teenstring=\@@teenstringgerman
-\let\@tenstring=\@@tenstringgerman
-\def\@thousandth{tausendste}%
-\def\@hundredth{hundertste}%
-\@@ordinalstringgerman{#1}{#2}}
+  \let\@unitthstring=\@@unitthstringFgerman
+  \let\@teenthstring=\@@teenthstringFgerman
+  \let\@tenthstring=\@@tenthstringFgerman
+  \let\@unitstring=\@@unitstringgerman
+  \let\@teenstring=\@@teenstringgerman
+  \let\@tenstring=\@@tenstringgerman
+  \def\@thousandth{tausendste}%
+  \def\@hundredth{hundertste}%
+  \@@ordinalstringgerman{#1}{#2}%
+}%
+\global\let\@ordinalstringFgerman\@ordinalstringFgerman
 %    \end{macrocode}
 % Neuter form:
 %    \begin{macrocode}
 \DeclareRobustCommand{\@ordinalstringNgerman}[2]{%
-\let\@unitthstring=\@@unitthstringNgerman
-\let\@teenthstring=\@@teenthstringNgerman
-\let\@tenthstring=\@@tenthstringNgerman
-\let\@unitstring=\@@unitstringgerman
-\let\@teenstring=\@@teenstringgerman
-\let\@tenstring=\@@tenstringgerman
-\def\@thousandth{tausendstes}%
-\def\@hundredth{hunderstes}%
-\@@ordinalstringgerman{#1}{#2}}
+  \let\@unitthstring=\@@unitthstringNgerman
+  \let\@teenthstring=\@@teenthstringNgerman
+  \let\@tenthstring=\@@tenthstringNgerman
+  \let\@unitstring=\@@unitstringgerman
+  \let\@teenstring=\@@teenstringgerman
+  \let\@tenstring=\@@tenstringgerman
+  \def\@thousandth{tausendstes}%
+  \def\@hundredth{hunderstes}%
+  \@@ordinalstringgerman{#1}{#2}%
+}%
+\global\let\@ordinalstringNgerman\@ordinalstringNgerman
 %    \end{macrocode}
 % As above, but with initial letters in upper case.
 %    \begin{macrocode}
 \DeclareRobustCommand{\@OrdinalstringMgerman}[2]{%
  \@ordinalstringMgerman{#1}{\@@num@str}%
  \edef#2{\noexpand\MakeUppercase\expandonce\@@num@str}%
-}
+}%
+\global\let\@OrdinalstringMgerman\@OrdinalstringMgerman
 %    \end{macrocode}
 % Feminine form:
 %    \begin{macrocode}
 \DeclareRobustCommand{\@OrdinalstringFgerman}[2]{%
  \@ordinalstringFgerman{#1}{\@@num@str}%
  \edef#2{\noexpand\MakeUppercase\expandonce\@@num@str}%
-}
+}%
+\global\let\@OrdinalstringFgerman\@OrdinalstringFgerman
 %    \end{macrocode}
 % Neuter form:
 %    \begin{macrocode}
 \DeclareRobustCommand{\@OrdinalstringNgerman}[2]{%
  \@ordinalstringNgerman{#1}{\@@num@str}%
  \edef#2{\noexpand\MakeUppercase\expandonce\@@num@str}%
-}
+}%
+\global\let\@OrdinalstringNgerman\@OrdinalstringNgerman
 %    \end{macrocode}
 % Code for converting numbers into textual ordinals. As before,
 % it is easier to split it into units, tens and teens.
@@ -175,162 +195,162 @@ zehn%
 %\changes{2.0}{2012-09-25}{fixed spelling mistake (correction
 %provided by Dominik Wa\ss enhoven)}
 %    \begin{macrocode}
-\newcommand{\@@unitthstringMgerman}[1]{%
-\ifcase#1%
-nullter%
-\or erster%
-\or zweiter%
-\or dritter%
-\or vierter%
-\or f\"unfter%
-\or sechster%
-\or siebter%
-\or achter%
-\or neunter%
-\fi
-}
+\gdef\@@unitthstringMgerman#1{%
+  \ifcase#1%
+    nullter%
+    \or erster%
+    \or zweiter%
+    \or dritter%
+    \or vierter%
+    \or f\"unfter%
+    \or sechster%
+    \or siebter%
+    \or achter%
+    \or neunter%
+  \fi
+}%
 %    \end{macrocode}
 % Tens:
 %    \begin{macrocode}
-\newcommand{\@@tenthstringMgerman}[1]{%
-\ifcase#1%
-\or zehnter%
-\or zwanzigster%
-\or drei{\ss}igster%
-\or vierzigster%
-\or f\"unfzigster%
-\or sechzigster%
-\or siebzigster%
-\or achtzigster%
-\or neunzigster%
-\fi
-}
+\gdef\@@tenthstringMgerman#1{%
+  \ifcase#1%
+    \or zehnter%
+    \or zwanzigster%
+    \or drei{\ss}igster%
+    \or vierzigster%
+    \or f\"unfzigster%
+    \or sechzigster%
+    \or siebzigster%
+    \or achtzigster%
+    \or neunzigster%
+  \fi
+}%
 %    \end{macrocode}
 % Teens:
 %    \begin{macrocode}
-\newcommand{\@@teenthstringMgerman}[1]{%
-\ifcase#1%
-zehnter%
-\or elfter%
-\or zw\"olfter%
-\or dreizehnter%
-\or vierzehnter%
-\or f\"unfzehnter%
-\or sechzehnter%
-\or siebzehnter%
-\or achtzehnter%
-\or neunzehnter%
-\fi
-}
+\gdef\@@teenthstringMgerman#1{%
+  \ifcase#1%
+    zehnter%
+    \or elfter%
+    \or zw\"olfter%
+    \or dreizehnter%
+    \or vierzehnter%
+    \or f\"unfzehnter%
+    \or sechzehnter%
+    \or siebzehnter%
+    \or achtzehnter%
+    \or neunzehnter%
+  \fi
+}%
 %    \end{macrocode}
 % Units (feminine):
 %    \begin{macrocode}
-\newcommand{\@@unitthstringFgerman}[1]{%
-\ifcase#1%
-nullte%
-\or erste%
-\or zweite%
-\or dritte%
-\or vierte%
-\or f\"unfte%
-\or sechste%
-\or siebte%
-\or achte%
-\or neunte%
-\fi
-}
+\gdef\@@unitthstringFgerman#1{%
+  \ifcase#1%
+    nullte%
+    \or erste%
+    \or zweite%
+    \or dritte%
+    \or vierte%
+    \or f\"unfte%
+    \or sechste%
+    \or siebte%
+    \or achte%
+    \or neunte%
+  \fi
+}%
 %    \end{macrocode}
 % Tens (feminine):
 %    \begin{macrocode}
-\newcommand{\@@tenthstringFgerman}[1]{%
-\ifcase#1%
-\or zehnte%
-\or zwanzigste%
-\or drei{\ss}igste%
-\or vierzigste%
-\or f\"unfzigste%
-\or sechzigste%
-\or siebzigste%
-\or achtzigste%
-\or neunzigste%
-\fi
-}
+\gdef\@@tenthstringFgerman#1{%
+  \ifcase#1%
+    \or zehnte%
+    \or zwanzigste%
+    \or drei{\ss}igste%
+    \or vierzigste%
+    \or f\"unfzigste%
+    \or sechzigste%
+    \or siebzigste%
+    \or achtzigste%
+    \or neunzigste%
+  \fi
+}%
 %    \end{macrocode}
 % Teens (feminine)
 %    \begin{macrocode}
-\newcommand{\@@teenthstringFgerman}[1]{%
-\ifcase#1%
-zehnte%
-\or elfte%
-\or zw\"olfte%
-\or dreizehnte%
-\or vierzehnte%
-\or f\"unfzehnte%
-\or sechzehnte%
-\or siebzehnte%
-\or achtzehnte%
-\or neunzehnte%
-\fi
-}
+\gdef\@@teenthstringFgerman#1{%
+  \ifcase#1%
+    zehnte%
+    \or elfte%
+    \or zw\"olfte%
+    \or dreizehnte%
+    \or vierzehnte%
+    \or f\"unfzehnte%
+    \or sechzehnte%
+    \or siebzehnte%
+    \or achtzehnte%
+    \or neunzehnte%
+  \fi
+}%
 %    \end{macrocode}
 % Units (neuter):
 %\changes{2.0}{2012-09-25}{fixed spelling mistake (correction
 %provided by Dominik Wa\ss enhoven)}
 %    \begin{macrocode}
-\newcommand{\@@unitthstringNgerman}[1]{%
-\ifcase#1%
-nulltes%
-\or erstes%
-\or zweites%
-\or drittes%
-\or viertes%
-\or f\"unftes%
-\or sechstes%
-\or siebtes%
-\or achtes%
-\or neuntes%
-\fi
-}
+\gdef\@@unitthstringNgerman#1{%
+  \ifcase#1%
+    nulltes%
+    \or erstes%
+    \or zweites%
+    \or drittes%
+    \or viertes%
+    \or f\"unftes%
+    \or sechstes%
+    \or siebtes%
+    \or achtes%
+    \or neuntes%
+  \fi
+}%
 %    \end{macrocode}
 % Tens (neuter):
 %    \begin{macrocode}
-\newcommand{\@@tenthstringNgerman}[1]{%
-\ifcase#1%
-\or zehntes%
-\or zwanzigstes%
-\or drei{\ss}igstes%
-\or vierzigstes%
-\or f\"unfzigstes%
-\or sechzigstes%
-\or siebzigstes%
-\or achtzigstes%
-\or neunzigstes%
-\fi
-}
+\gdef\@@tenthstringNgerman#1{%
+  \ifcase#1%
+    \or zehntes%
+    \or zwanzigstes%
+    \or drei{\ss}igstes%
+    \or vierzigstes%
+    \or f\"unfzigstes%
+    \or sechzigstes%
+    \or siebzigstes%
+    \or achtzigstes%
+    \or neunzigstes%
+  \fi
+}%
 %    \end{macrocode}
 % Teens (neuter)
 %    \begin{macrocode}
-\newcommand{\@@teenthstringNgerman}[1]{%
-\ifcase#1%
-zehntes%
-\or elftes%
-\or zw\"olftes%
-\or dreizehntes%
-\or vierzehntes%
-\or f\"unfzehntes%
-\or sechzehntes%
-\or siebzehntes%
-\or achtzehntes%
-\or neunzehntes%
-\fi
-}
+\gdef\@@teenthstringNgerman#1{%
+  \ifcase#1%
+    zehntes%
+    \or elftes%
+    \or zw\"olftes%
+    \or dreizehntes%
+    \or vierzehntes%
+    \or f\"unfzehntes%
+    \or sechzehntes%
+    \or siebzehntes%
+    \or achtzehntes%
+    \or neunzehntes%
+  \fi
+}%
 %    \end{macrocode}
 % This appends the results to |\#2| for number |\#2| (in range 0 to
 % 100.)
 % null and eins are dealt with separately in
 % |\@@numberstringgerman|.
 %    \begin{macrocode}
-\newcommand{\@@numberunderhundredgerman}[2]{%
+\gdef\@@numberunderhundredgerman#1#2{%
 \ifnum#1<10\relax
   \ifnum#1>0\relax
     \eappto#2{\@unitstring{#1}}%
@@ -350,13 +370,13 @@ zehntes%
     \eappto#2{\@tenstring{\@tmpstrctr}}%
   \fi
 \fi
-}
+}%
 %    \end{macrocode}
 % This stores the results in the second argument 
 % (which must be a control
 % sequence), but it doesn't display anything.
 %    \begin{macrocode}
-\newcommand{\@@numberstringgerman}[2]{%
+\gdef\@@numberstringgerman#1#2{%
 \ifnum#1>99999\relax
   \PackageError{fmtcount}{Out of range}%
   {This macro only works for values less than 100000}%
@@ -421,11 +441,11 @@ zehntes%
     \@@numberunderhundredgerman{\@strctr}{#2}%
   \fi
 \fi
-}
+}%
 %    \end{macrocode}
 % As above, but for ordinals
 %    \begin{macrocode}
-\newcommand{\@@numberunderhundredthgerman}[2]{%
+\gdef\@@numberunderhundredthgerman#1#2{%
 \ifnum#1<10\relax
  \eappto#2{\@unitthstring{#1}}%
 \else
@@ -443,10 +463,10 @@ zehntes%
     \eappto#2{\@tenthstring{\@tmpstrctr}}%
   \fi
 \fi
-}
+}%
 %    \end{macrocode}
 %    \begin{macrocode}
-\newcommand{\@@ordinalstringgerman}[2]{%
+\gdef\@@ordinalstringgerman#1#2{%
 \ifnum#1>99999\relax
   \PackageError{fmtcount}{Out of range}%
   {This macro only works for values less than 100000}%
@@ -527,10 +547,10 @@ zehntes%
 \ifthenelse{\@strctr=0 \and #1>0}{}{%
 \@@numberunderhundredthgerman{\@strctr}{#2}%
 }%
-}
+}%
 %    \end{macrocode}
 % Load fc-germanb.def if not already loaded
 %    \begin{macrocode}
-\FCloadlang{germanb}
+\FCloadlang{germanb}%
 %    \end{macrocode}
 

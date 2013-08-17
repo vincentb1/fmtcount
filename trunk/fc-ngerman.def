@@ -1,26 +1,26 @@
 % \subsubsection{fc-ngerman.def}
 %    \begin{macrocode}
-\ProvidesFCLanguage{ngerman}[2012/06/18]
-\FCloadlang{german}
-\FCloadlang{ngermanb}
+\ProvidesFCLanguage{ngerman}[2012/06/18]%
+\FCloadlang{german}%
+\FCloadlang{ngermanb}%
 %    \end{macrocode}
 % Set |ngerman| to be equivalent to |german|. Is it okay to do
 % this? (I don't know the difference between the two.)
 %    \begin{macrocode}
-\let\@ordinalMngerman=\@ordinalMgerman
-\let\@ordinalFngerman=\@ordinalFgerman
-\let\@ordinalNngerman=\@ordinalNgerman
-\let\@numberstringMngerman=\@numberstringMgerman
-\let\@numberstringFngerman=\@numberstringFgerman
-\let\@numberstringNngerman=\@numberstringNgerman
-\let\@NumberstringMngerman=\@NumberstringMgerman
-\let\@NumberstringFngerman=\@NumberstringFgerman
-\let\@NumberstringNngerman=\@NumberstringNgerman
-\let\@ordinalstringMngerman=\@ordinalstringMgerman
-\let\@ordinalstringFngerman=\@ordinalstringFgerman
-\let\@ordinalstringNngerman=\@ordinalstringNgerman
-\let\@OrdinalstringMngerman=\@OrdinalstringMgerman
-\let\@OrdinalstringFngerman=\@OrdinalstringFgerman
-\let\@OrdinalstringNngerman=\@OrdinalstringNgerman
+\global\let\@ordinalMngerman=\@ordinalMgerman
+\global\let\@ordinalFngerman=\@ordinalFgerman
+\global\let\@ordinalNngerman=\@ordinalNgerman
+\global\let\@numberstringMngerman=\@numberstringMgerman
+\global\let\@numberstringFngerman=\@numberstringFgerman
+\global\let\@numberstringNngerman=\@numberstringNgerman
+\global\let\@NumberstringMngerman=\@NumberstringMgerman
+\global\let\@NumberstringFngerman=\@NumberstringFgerman
+\global\let\@NumberstringNngerman=\@NumberstringNgerman
+\global\let\@ordinalstringMngerman=\@ordinalstringMgerman
+\global\let\@ordinalstringFngerman=\@ordinalstringFgerman
+\global\let\@ordinalstringNngerman=\@ordinalstringNgerman
+\global\let\@OrdinalstringMngerman=\@OrdinalstringMgerman
+\global\let\@OrdinalstringFngerman=\@OrdinalstringFgerman
+\global\let\@OrdinalstringNngerman=\@OrdinalstringNgerman
 %    \end{macrocode}
 

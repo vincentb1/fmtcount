@@ -17,7 +17,7 @@
             pdftitle={fmtcount.sty: Displaying the Values of LaTeX Counters},
             pdfkeywords={LaTeX,counter}]{hyperref}
 
-\CheckSum{8940}
+\CheckSum{9271}
 
 \doxitem{Option}{option}{options}
 
@@ -31,7 +31,7 @@
  \author{Nicola L.C. Talbot\\
  \url{www.dickimaw-books.com}
  \and
- Vincent Belaïche}
+ Vincent Bela\"iche}
  \date{%%DATE%% (version %%VERSION%%)\relax
 }
  \maketitle
@@ -414,11 +414,24 @@ and French (Belgian). German support was added in version
 Italian support was added in version 1.31.\footnote{Thanks to
 Edoardo Pasca for supplying the information.}
 
-The package checks to see if the command \cs{l@}\meta{language} is
-defined\footnote{this will be true if you have loaded \sty{babel}},
-and will load the code for those languages.  The commands
+
+To ensure the language definitions are loaded correctly for document
+dialects, use
+\begin{definition}[\DescribeMacro{\FCloadlang}]
+\cs{FCloadlang}\marg{dialect}
+\end{definition}
+in the preamble. The \meta{dialect} should match the options passed
+to \sty{babel} or \sty{polyglossia}. If you don't use this,
+\sty{fmtcount} will attempt to detect the required dialects, but
+this isn't guaranteed to work.
+
+The commands
 \cs{ordinal}, \cs{ordinalstring} and \cs{numberstring} (and their
-variants) will then be formatted in the currently selected language.
+variants) will be formatted in the currently selected language.
+If the current language hasn't been loaded (via \cs{FCloadlang}
+above) and \sty{fmtcount} detects a definition file for that
+language it will attempt to load it, but this isn't robust and may
+cause problems, so it's best to use \cs{FCloadlang}.
 
 If the French language is selected, the \texttt{french} option let you
 configure the dialect and other aspects. The \texttt{abbr} also has
