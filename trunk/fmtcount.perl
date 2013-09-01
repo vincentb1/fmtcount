@@ -3,6 +3,8 @@
 # Date        : 2012-09-25
 # Version     : 1.06
 # Description : LaTeX2HTML implementation of fmtcount package
+# This file should be place in LaTeX2HTML's styles directory
+# in order for LaTeX2HTML to find it.
 
 package main;
 
