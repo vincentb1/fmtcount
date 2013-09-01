@@ -1,0 +1,173 @@
+#!/usr/bin/env perl
+
+use strict;
+use Getopt::Long;
+
+my %optctl = ();
+
+&GetOptions(\%optctl, "v", "f=s", "p=s");
+
+if ($#ARGV < 1)
+{
+  die "$0 <source files> <destination>\n";
+}
+
+my $outfile = pop @ARGV;
+
+# If more than one source file is given the destination 
+# must be a directory
+
+if ($#ARGV > 0 and not -d $outfile)
+{
+  die "Multiple sources files must have a directory as the target\n";
+}
+
+my $outdir = '';
+
+if (-d $outfile)
+{
+  $outdir = $outfile;
+
+  unless ($outdir=~m/\/$/)
+  {
+    $outdir.='/';
+  }
+}
+
+my $perlversion = '??';
+
+if ($optctl{'p'})
+{
+   open PFD, $optctl{'p'} or die "Can't read '$optctl{p}' $!\n";
+
+   while (<PFD>)
+   {
+      if (/^\s*#\s*Version\s*:\s*([^\s]+)/)
+      {
+         $perlversion = $1;
+         last;
+      }
+   }
+
+   close PFD;
+}
+
+my $versionFile = "version";
+
+if ($optctl{'f'})
+{
+  $versionFile = $optctl{'f'};
+}
+
+open VFD, $versionFile or die "Can't read '$versionFile' $!\n";
+
+my $date;
+my $version = "1.0";
+
+if ($versionFile=~/\.sty$/)
+{
+   while (<VFD>)
+   {
+      if (/\\ProvidesPackage{[^}]+}\[(\d\d\d\d)\/(\d\d)\/(\d\d)\s+v?\s*([\d\.]+)/)
+      {
+         $date = join('-', $1, $2, $3);
+         $version = $4;
+         &message("Date: $date\nVersion: $version\n");
+         last;
+      }
+   }
+}
+elsif ($versionFile=~/\.cls$/)
+{
+   while (<VFD>)
+   {
+      if (/\\ProvidesClass{[^}]+}\[(\d\d\d\d)\/(\d\d)\/(\d\d)\s+v?\s*([\d\.]+)/)
+      {
+         $date = join('-', $1, $2, $3);
+         $version = $4;
+         &message("Date: $date\nVersion: $version\n");
+         last;
+      }
+   }
+}
+else
+{
+
+  $_ = <VFD>;
+
+  chomp;
+
+  $version = $_;
+
+  $_ = <VFD>;
+
+  chomp;
+
+  $date = $_;
+}
+
+close VFD;
+
+unless ($date)
+{
+  my ($sec, $min, $hour, $mday, $mon, $year) = localtime(time);
+
+  $year = $year + 1900;
+
+  $date = sprintf "%d-%2d-%2d", $year, $mon, $mday;
+}
+
+foreach my $infile (@ARGV)
+{
+  if ($outdir)
+  {
+     $infile=~m/([^\/]+)$/;
+
+     my $base = $1;
+
+     $outfile = $outdir.$base;
+  }
+
+  # Make sure the source and target aren't the same file.
+
+  my ($inDev, $inIno, $outDev, $outIno);
+
+  ($inDev, $inIno) = stat $infile;
+  ($outDev, $outIno) = stat $outfile;
+
+  if ($inDev eq $outDev and $inIno eq $outIno)
+  {
+     die "Source and target file must be different ('$infile')\n";
+  }
+
+  open INFD, $infile or die "Can't read '$infile' $!\n";
+
+  open OUTFD, ">$outfile" or die "Can't open '$outfile' $!\n";
+
+  &message("$infile -> $outfile\n");
+
+  while (<INFD>)
+  {
+     s/%%VERSION%%/$version/g;
+     s/%%DATE%%/$date/g;
+     s/%%PERLVERSION%%/$perlversion/g;
+
+     print OUTFD;
+  }
+
+  close OUTFD;
+
+  close INFD;
+
+  unlink($infile);
+}
+
+sub message{
+  my $mess = shift;
+
+  if ($optctl{'v'})
+  {
+     print $mess;
+  }
+}
+1;

@@ -8,11 +8,6 @@ install	: fmtcount.sty fmtcount.pdf
 	cp fmtcount.pdf $(HOME)/texmf/doc/latex/fmtcount/
 	cp fmtcount.sty $(HOME)/texmf/tex/latex/fmtcount/
 
-www	: fmtcount.tds.zip fmtcount.pdf
-	cp fmtcount.{dtx,ins,pdf} $(HOME)/www/latex/packages/fmtcount/
-	cp README CHANGES $(HOME)/www/latex/packages/fmtcount/
-	cp fmtcount.tds.zip $(HOME)/www/latex/packages/fmtcount/
-
 fmtcount.tds.zip	: fmtcount.pdf \
 		  fmtcount.sty \
 		  README CHANGES

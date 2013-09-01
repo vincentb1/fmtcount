@@ -3,6 +3,8 @@ Considering fmtcount localisations: If you wanted to add support for
 
 \def \ordinalnum #1 {{#1}\@ifnextchar.\@{.\@}}
 
+Feature request tracker: 
+http://www.dickimaw-books.com/cgi-bin/featuretracker.cgi?category=fmtcount&status=Open
 
 
 Add max value for commands to documentation

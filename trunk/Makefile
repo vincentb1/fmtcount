@@ -4,8 +4,6 @@ STYFILES=fmtcount.sty fcnumparser.sty fcprefix.sty \
 	 fc-UKenglish.def fc-USenglish.def fc-ngermanb.def \
 	 fc-ngerman.def fc-germanb.def
 
-NLCTDOC=$(HOME)/tex/latex/nlctdoc/nlctdoc.cls
-
 test	: fc-samp.pdf fc-frlargenum.pdf sample-polyglossia.pdf
 
 fc-lang.pdf	: fc-lang.tex $(STYFILES)
@@ -24,12 +22,6 @@ sample-polyglossia.pdf	: sample-polyglossia.tex $(STYFILES)
 dist	: README CHANGES fmtcount-manual.tex \
 	  fmtcount.perl $(STYFILES) \
 	  ../dist/fmtcount.dtx
-	dos2unix CHANGES
-	dos2unix README
-	dos2unix fc-lang.tex
-	dos2unix fc-samp.tex
-	dos2unix fc-frlargenum.tex
-	dos2unix fmtcount.perl
 	\cp CHANGES ../dist
 	cp2dist -f fmtcount.sty README fmtcount-manual.tex ../dist
 	make -C ../dist
@@ -40,19 +32,15 @@ dist	: README CHANGES fmtcount-manual.tex \
 		-src "(.+)\.(sty)=>\1.\2" \
 		-src "(.+)\.(def)=>\1.\2" \
 		-doc fmtcount-manual.tex fmtcount
-	dos2unix fmtcount.dtx
-	dos2unix fmtcount.ins
 	mv2dist -f fmtcount.sty fmtcount.{dtx,ins} ../dist
 
-../dist/fmtcount.pdf	: ../dist/fmtcount.dtx \
-			$(NLCTDOC)
+../dist/fmtcount.pdf	: ../dist/fmtcount.dtx 
 			make -C ../dist fmtcount.pdf
 
 ../dist/fmtcount-manual.tex	: fmtcount-manual.tex
 	cp2dist -f fmtcount.sty fmtcount-manual.tex ../dist
 
-../dist/fmtcount-manual.html	: ../dist/fmtcount-manual.tex \
-				$(NLCTDOC)
+../dist/fmtcount-manual.html	: ../dist/fmtcount-manual.tex 
 	make -C ../dist fmtcount-manual.html
 
 html	: ../dist/fmtcount-manual.html
