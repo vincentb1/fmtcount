@@ -15,6 +15,10 @@ Alternatively, you can run makedtx explicitly:
                 -src "(.+)\.(def)=>\1.\2" \
                 -doc fmtcount-manual.tex fmtcount
 
+The Perl script mv2dist moves the .dtx and .ins files from trunk/ to
+dist/ additionally substituting in the correct version number and
+date.
+
 Once the .dtx and .ins files have been created, the documentation
 can be compiled either using the Makefile file in the dist/
 directory or explicitly using:
