@@ -158,7 +158,7 @@
 %\begin{option}{french}
 %    \begin{macrocode}
 \define@key{fmtcount}{french}[france]{%
-  \@ifundefined{datefrench}%
+  \@FC@iflangloaded{french}%
   {%
     \PackageError{fmtcount}%
     {Language `french' not defined}%
@@ -224,7 +224,7 @@
 \newcommand*{\fmtcountsetoptions}[1]{%
   \def\fmtcount@fmtord{}%
   \setkeys{fmtcount}{#1}%
-  \@ifundefined{datefrench}{}%
+  \@FC@iflangloaded{french}{\@ifundefined{@ordinalstringMfrench}%
   {%
     \edef\@ordinalstringMfrench{\noexpand
       \csname @ordinalstringMfrench\fmtcount@french\noexpand\endcsname}%
@@ -242,7 +242,7 @@
       \csname @NumberstringMfrench\fmtcount@french\noexpand\endcsname}%
     \edef\@NumberstringFfrench{\noexpand
       \csname @NumberstringFfrench\fmtcount@french\noexpand\endcsname}%
-  }%
+  }{}}{}%
   \ifthenelse{\equal{\fmtcount@fmtord}{level}}%
   {%
     \renewcommand{\fmtord}[1]{##1}%
