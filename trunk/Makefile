@@ -32,7 +32,7 @@ dist	: README CHANGES fmtcount-manual.tex \
 		-src "(.+)\.(sty)=>\1.\2" \
 		-src "(.+)\.(def)=>\1.\2" \
 		-doc fmtcount-manual.tex fmtcount
-	mv2dist -f fmtcount.sty fmtcount.{dtx,ins} ../dist
+	./mv2dist -f fmtcount.sty fmtcount.{dtx,ins} ../dist
 
 ../dist/fmtcount.pdf	: ../dist/fmtcount.dtx 
 			make -C ../dist fmtcount.pdf
