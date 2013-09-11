@@ -7,23 +7,25 @@
 % argument) to an ordinal, and stores the result in the second
 % argument, which should be a control sequence. Masculine:
 %    \begin{macrocode}
-\gdef\@ordinalMportuges#1#2{%
+\newcommand*\@ordinalMportuges[2]{%
   \ifnum#1=0\relax
     \edef#2{\number#1}%
   \else
     \edef#2{\number#1\relax\noexpand\fmtord{o}}%
   \fi
 }%
+\global\let\@ordinalMportuges\@ordinalMportuges
 %    \end{macrocode}
 % Feminine:
 %    \begin{macrocode}
-\gdef\@ordinalFportuges#1#2{%
+\newcommand*\@ordinalFportuges[2]{%
   \ifnum#1=0\relax
     \edef#2{\number#1}%
   \else
     \edef#2{\number#1\relax\noexpand\fmtord{a}}%
   \fi
 }%
+\global\let\@ordinalFportuges\@ordinalFportuges
 %    \end{macrocode}
 % Make neuter same as masculine:
 %    \begin{macrocode}
@@ -34,7 +36,7 @@
 % must
 % be a number from 0 to 9):
 %    \begin{macrocode}
-\gdef\@@unitstringportuges#1#2{%
+\newcommand*\@@unitstringportuges[2]{%
   \ifcase#1\relax
     zero%
     \or um%
@@ -48,10 +50,11 @@
     \or nove%
   \fi
 }%
+\global\let\@@unitstringportuges\@@unitstringportuges
 %   \end{macrocode}
 % As above, but for feminine:
 %   \begin{macrocode}
-\gdef\@@unitstringFportuges#1{%
+\newcommand*\@@unitstringFportuges[1]{%
   \ifcase#1\relax
     zero%
     \or uma%
@@ -65,10 +68,11 @@
     \or nove%
   \fi
 }%
+\global\let\@@unitstringFportuges\@@unitstringFportuges
 %    \end{macrocode}
 % Tens (argument must be a number from 0 to 10):
 %    \begin{macrocode}
-\gdef\@@tenstringportuges#1{%
+\newcommand*\@@tenstringportuges[1]{%
   \ifcase#1\relax
     \or dez%
     \or vinte%
@@ -82,10 +86,11 @@
     \or cem%
   \fi
 }%
+\global\let\@@tenstringportuges\@@tenstringportuges
 %    \end{macrocode}
 % Teens (argument must be a number from 0 to 9):
 %    \begin{macrocode}
-\gdef\@@teenstringportuges#1{%
+\newcommand*\@@teenstringportuges[1]{%
   \ifcase#1\relax
     dez%
     \or onze%
@@ -99,10 +104,11 @@
     \or dezenove%
   \fi
 }%
+\global\let\@@teenstringportuges\@@teenstringportuges
 %    \end{macrocode}
 % Hundreds:
 %    \begin{macrocode}
-\gdef\@@hundredstringportuges#1{%
+\newcommand*\@@hundredstringportuges[1]{%
   \ifcase#1\relax
     \or cento%
     \or duzentos%
@@ -115,10 +121,11 @@
     \or novecentos%
   \fi
 }%
+\global\let\@@hundredstringportuges\@@hundredstringportuges
 %    \end{macrocode}
 % Hundreds (feminine):
 %    \begin{macrocode}
-\gdef\@@hundredstringFportuges#1{%
+\newcommand*\@@hundredstringFportuges[1]{%
   \ifcase#1\relax
     \or cento%
     \or duzentas%
@@ -131,10 +138,11 @@
     \or novecentas%
   \fi
 }%
+\global\let\@@hundredstringFportuges\@@hundredstringFportuges
 %    \end{macrocode}
 % Units (initial letter in upper case):
 %    \begin{macrocode}
-\gdef\@@Unitstringportuges#1{%
+\newcommand*\@@Unitstringportuges[1]{%
   \ifcase#1\relax
     Zero%
     \or Um%
@@ -148,10 +156,11 @@
     \or Nove%
   \fi
 }%
+\global\let\@@Unitstringportuges\@@Unitstringportuges
 %    \end{macrocode}
 % As above, but feminine:
 %    \begin{macrocode}
-\gdef\@@UnitstringFportuges#1{%
+\newcommand*\@@UnitstringFportuges[1]{%
   \ifcase#1\relax
     Zera%
     \or Uma%
@@ -165,10 +174,11 @@
     \or Nove%
   \fi
 }%
+\global\let\@@UnitstringFportuges\@@UnitstringFportuges
 %    \end{macrocode}
 % Tens (with initial letter in upper case):
 %    \begin{macrocode}
-\gdef\@@Tenstringportuges#1{%
+\newcommand*\@@Tenstringportuges[1]{%
   \ifcase#1\relax
     \or Dez%
     \or Vinte%
@@ -182,10 +192,11 @@
     \or Cem%
   \fi
 }%
+\global\let\@@Tenstringportuges\@@Tenstringportuges
 %    \end{macrocode}
 % Teens (with initial letter in upper case):
 %    \begin{macrocode}
-\gdef\@@Teenstringportuges#1{%
+\newcommand*\@@Teenstringportuges[1]{%
   \ifcase#1\relax
     Dez%
     \or Onze%
@@ -199,10 +210,11 @@
     \or Dezenove%
   \fi
 }%
+\global\let\@@Teenstringportuges\@@Teenstringportuges
 %    \end{macrocode}
 % Hundreds (with initial letter in upper case):
 %    \begin{macrocode}
-\gdef\@@Hundredstringportuges#1{%
+\newcommand*\@@Hundredstringportuges[1]{%
   \ifcase#1\relax
     \or Cento%
     \or Duzentos%
@@ -215,10 +227,11 @@
     \or Novecentos%
   \fi
 }%
+\global\let\@@Hundredstringportuges\@@Hundredstringportuges
 %    \end{macrocode}
 % As above, but feminine:
 %    \begin{macrocode}
-\gdef\@@HundredstringFportuges#1{%
+\newcommand*\@@HundredstringFportuges[1]{%
   \ifcase#1\relax
     \or Cento%
     \or Duzentas%
@@ -231,6 +244,7 @@
     \or Novecentas%
   \fi
 }%
+\global\let\@@HundredstringFportuges\@@HundredstringFportuges
 %    \end{macrocode}
 % This has changed in version 1.08, so that it now stores
 % the result in the second argument, but doesn't display
@@ -359,7 +373,7 @@
 % In order to do the ordinals, split into units, teens, tens
 % and hundreds. Units:
 %    \begin{macrocode}
-\gdef\@@unitthstringportuges#1{%
+\newcommand*\@@unitthstringportuges[1]{%
   \ifcase#1\relax
     zero%
     \or primeiro%
@@ -373,10 +387,11 @@
     \or nono%
   \fi
 }%
+\global\let\@@unitthstringportuges\@@unitthstringportuges
 %    \end{macrocode}
 % Tens:
 %    \begin{macrocode}
-\gdef\@@tenthstringportuges#1{%
+\newcommand*\@@tenthstringportuges[1]{%
   \ifcase#1\relax
     \or d\'ecimo%
     \or vig\'esimo%
@@ -389,19 +404,21 @@
     \or nonag\'esimo%
   \fi
 }%
+\global\let\@@tenthstringportuges\@@tenthstringportuges
 %    \end{macrocode}
 % Teens:
 %    \begin{macrocode}
-\gdef\@@teenthstringportuges#1{%
+\newcommand*\@@teenthstringportuges[1]{%
   \@tenthstring{1}%
   \ifnum#1>0\relax
     -\@unitthstring{#1}%
   \fi
 }%
+\global\let\@@teenthstringportuges\@@teenthstringportuges
 %    \end{macrocode}
 % Hundreds:
 %    \begin{macrocode}
-\gdef\@@hundredthstringportuges#1{%
+\newcommand*\@@hundredthstringportuges[1]{%
   \ifcase#1\relax
     \or cent\'esimo%
     \or ducent\'esimo%
@@ -414,10 +431,11 @@
     \or nongent\'esimo%
   \fi
 }%
+\global\let\@@hundredthstringportuges\@@hundredthstringportuges
 %    \end{macrocode}
 % Units (feminine):
 %    \begin{macrocode}
-\gdef\@@unitthstringFportuges#1{%
+\newcommand*\@@unitthstringFportuges[1]{%
   \ifcase#1\relax
     zero%
     \or primeira%
@@ -431,10 +449,11 @@
     \or nona%
   \fi
 }%
+\global\let\@@unitthstringFportuges\@@unitthstringFportuges
 %    \end{macrocode}
 % Tens (feminine):
 %    \begin{macrocode}
-\gdef\@@tenthstringFportuges#1{%
+\newcommand*\@@tenthstringFportuges[1]{%
   \ifcase#1\relax
     \or d\'ecima%
     \or vig\'esima%
@@ -447,10 +466,11 @@
     \or nonag\'esima%
   \fi
 }%
+\global\let\@@tenthstringFportuges\@@tenthstringFportuges
 %    \end{macrocode}
 % Hundreds (feminine):
 %    \begin{macrocode}
-\gdef\@@hundredthstringFportuges#1{%
+\newcommand*\@@hundredthstringFportuges[1]{%
   \ifcase#1\relax
     \or cent\'esima%
     \or ducent\'esima%
@@ -463,10 +483,11 @@
     \or nongent\'esima%
   \fi
 }%
+\global\let\@@hundredthstringFportuges\@@hundredthstringFportuges
 %    \end{macrocode}
 % As above, but with initial letter in upper case. Units:
 %    \begin{macrocode}
-\gdef\@@Unitthstringportuges#1{%
+\newcommand*\@@Unitthstringportuges[1]{%
   \ifcase#1\relax
     Zero%
     \or Primeiro%
@@ -480,10 +501,11 @@
     \or Nono%
   \fi
 }%
+\global\let\@@Unitthstringportuges\@@Unitthstringportuges
 %    \end{macrocode}
 % Tens:
 %    \begin{macrocode}
-\gdef\@@Tenthstringportuges#1{%
+\newcommand*\@@Tenthstringportuges[1]{%
   \ifcase#1\relax
     \or D\'ecimo%
     \or Vig\'esimo%
@@ -496,10 +518,11 @@
     \or Nonag\'esimo%
   \fi
 }%
+\global\let\@@Tenthstringportuges\@@Tenthstringportuges
 %    \end{macrocode}
 % Hundreds:
 %    \begin{macrocode}
-\gdef\@@Hundredthstringportuges#1{%
+\newcommand*\@@Hundredthstringportuges[1]{%
   \ifcase#1\relax
     \or Cent\'esimo%
     \or Ducent\'esimo%
@@ -512,10 +535,11 @@
     \or Nongent\'esimo%
   \fi
 }%
+\global\let\@@Hundredthstringportuges\@@Hundredthstringportuges
 %    \end{macrocode}
 % As above, but feminine. Units:
 %    \begin{macrocode}
-\gdef\@@UnitthstringFportuges#1{%
+\newcommand*\@@UnitthstringFportuges[1]{%
   \ifcase#1\relax
     Zera%
     \or Primeira%
@@ -529,10 +553,11 @@
     \or Nona%
   \fi
 }%
+\global\let\@@UnitthstringFportuges\@@UnitthstringFportuges
 %    \end{macrocode}
 % Tens (feminine);
 %    \begin{macrocode}
-\gdef\@@TenthstringFportuges#1{%
+\newcommand*\@@TenthstringFportuges[1]{%
   \ifcase#1\relax
     \or D\'ecima%
     \or Vig\'esima%
@@ -545,10 +570,11 @@
     \or Nonag\'esima%
   \fi
 }%
+\global\let\@@TenthstringFportuges\@@TenthstringFportuges
 %    \end{macrocode}
 % Hundreds (feminine):
 %    \begin{macrocode}
-\gdef\@@HundredthstringFportuges#1{%
+\newcommand*\@@HundredthstringFportuges[1]{%
   \ifcase#1\relax
     \or Cent\'esima%
     \or Ducent\'esima%
@@ -561,6 +587,7 @@
     \or Nongent\'esima%
   \fi
 }%
+\global\let\@@HundredthstringFportuges\@@HundredthstringFportuges
 %    \end{macrocode}
 % This has changed in version 1.09, so that it now stores
 % the result in the second argument (a control sequence), but it
@@ -568,7 +595,7 @@
 % it shouldn't affect documents created with older versions.
 % (These internal macros are not meant for use in documents.)
 %    \begin{macrocode}
-\gdef\@@numberstringportuges#1#2{%
+\newcommand*\@@numberstringportuges[2]{%
 \ifnum#1>99999
 \PackageError{fmtcount}{Out of range}%
 {This macro only works for values less than 100000}%
@@ -678,10 +705,11 @@ this number}%
   \fi
 \fi
 }%
+\global\let\@@numberstringportuges\@@numberstringportuges
 %    \end{macrocode}
 % As above, but for ordinals.
 %    \begin{macrocode}
-\gdef\@@ordinalstringportuges#1#2{%
+\newcommand*\@@ordinalstringportuges[2]{%
 \@strctr=#1\relax
 \ifnum#1>99999
 \PackageError{fmtcount}{Out of range}%
@@ -766,4 +794,5 @@ this number}%
 \fi
 \fi
 }%
+\global\let\@@ordinalstringportuges\@@ordinalstringportuges
 %    \end{macrocode}
