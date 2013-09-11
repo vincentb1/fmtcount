@@ -7,7 +7,7 @@
 % argument) to an ordinal, and stores the result in the 
 % second argument, which should be a control sequence.
 %    \begin{macrocode}
-\gdef\@ordinalMenglish#1#2{%
+\newcommand*\@ordinalMenglish[2]{%
 \def\@fc@ord{}%
 \@orgargctr=#1\relax
 \@ordinalctr=#1%
@@ -35,6 +35,7 @@
 \fi
 \edef#2{\number#1\relax\noexpand\fmtord{\@fc@ord}}%
 }%
+\global\let\@ordinalMenglish\@ordinalMenglish
 %    \end{macrocode}
 % There is no gender difference in English, so make feminine and
 % neuter the same as the masculine.
@@ -47,7 +48,7 @@
 % tens. First, the units: the argument should be between 0 and 9
 % inclusive.
 %    \begin{macrocode}
-\gdef\@@unitstringenglish#1{%
+\newcommand*\@@unitstringenglish[1]{%
   \ifcase#1\relax
     zero%
     \or one%
@@ -61,11 +62,12 @@
     \or nine%
 \fi
 }%
+\global\let\@@unitstringenglish\@@unitstringenglish
 %    \end{macrocode}
 % Next the tens, again the argument should be between 0 and 9
 % inclusive.
 %    \begin{macrocode}
-\gdef\@@tenstringenglish#1{%
+\newcommand*\@@tenstringenglish[1]{%
   \ifcase#1\relax
     \or ten%
     \or twenty%
@@ -78,11 +80,12 @@
     \or ninety%
   \fi
 }%
+\global\let\@@tenstringenglish\@@tenstringenglish
 %    \end{macrocode}
 % Finally the teens, again the argument should be between 0 and 9
 % inclusive.
 %    \begin{macrocode}
-\gdef\@@teenstringenglish#1{%
+\newcommand*\@@teenstringenglish[1]{%
   \ifcase#1\relax
     ten%
     \or eleven%
@@ -96,10 +99,11 @@
     \or nineteen%
   \fi
 }%
+\global\let\@@teenstringenglish\@@teenstringenglish
 %    \end{macrocode}
 % As above, but with the initial letter in uppercase. The units:
 %    \begin{macrocode}
-\gdef\@@Unitstringenglish#1{%
+\newcommand*\@@Unitstringenglish[1]{%
   \ifcase#1\relax
     Zero%
     \or One%
@@ -113,10 +117,11 @@
     \or Nine%
   \fi
 }%
+\global\let\@@Unitstringenglish\@@Unitstringenglish
 %    \end{macrocode}
 % The tens:
 %    \begin{macrocode}
-\gdef\@@Tenstringenglish#1{%
+\newcommand*\@@Tenstringenglish[1]{%
   \ifcase#1\relax
     \or Ten%
     \or Twenty%
@@ -129,10 +134,11 @@
     \or Ninety%
   \fi
 }%
+\global\let\@@Tenstringenglish\@@Tenstringenglish
 %    \end{macrocode}
 % The teens:
 %    \begin{macrocode}
-\gdef\@@Teenstringenglish#1{%
+\newcommand*\@@Teenstringenglish[1]{%
   \ifcase#1\relax
     Ten%
     \or Eleven%
@@ -146,6 +152,7 @@
     \or Nineteen%
   \fi
 }%
+\global\let\@@Teenstringenglish\@@Teenstringenglish
 %    \end{macrocode}
 % This has changed in version 1.09, so that it now stores
 % the result in the second argument, but doesn't display anything.
@@ -153,7 +160,7 @@
 % documents created with older versions. (These internal macros are
 % not meant for use in documents.)
 %    \begin{macrocode}
-\gdef\@@numberstringenglish#1#2{%
+\newcommand*\@@numberstringenglish[2]{%
 \ifnum#1>99999
 \PackageError{fmtcount}{Out of range}%
 {This macro only works for values less than 100000}%
@@ -237,6 +244,7 @@ this number}%
   \fi
 \fi
 }%
+\global\let\@@numberstringenglish\@@numberstringenglish
 %    \end{macrocode}
 % All lower case version, the second argument must be a 
 % control sequence.
@@ -262,7 +270,7 @@ this number}%
 % character (except ``and''). The second argument must be a control 
 % sequence.
 %    \begin{macrocode}
-\gdef\@NumberstringMenglish#1#2{%
+\newcommand*\@NumberstringMenglish[2]{%
   \let\@unitstring=\@@Unitstringenglish
   \let\@teenstring=\@@Teenstringenglish
   \let\@tenstring=\@@Tenstringenglish
@@ -270,6 +278,7 @@ this number}%
   \def\@andname{and}%
   \@@numberstringenglish{#1}{#2}%
 }%
+\global\let\@NumberstringMenglish\@NumberstringMenglish
 %    \end{macrocode}
 % There is no gender in English, so make feminine and neuter the
 % same
@@ -281,7 +290,7 @@ this number}%
 % Define a macro that produces an ordinal as a string. Again, break
 % it up into units, teens and tens. First the units:
 %    \begin{macrocode}
-\gdef\@@unitthstringenglish#1{%
+\newcommand*\@@unitthstringenglish[1]{%
   \ifcase#1\relax
     zeroth%
     \or first%
@@ -295,10 +304,11 @@ this number}%
     \or ninth%
   \fi
 }%
+\global\let\@@unitthstringenglish\@@unitthstringenglish
 %    \end{macrocode}
 % Next the tens:
 %    \begin{macrocode}
-\gdef\@@tenthstringenglish#1{%
+\newcommand*\@@tenthstringenglish[1]{%
   \ifcase#1\relax
     \or tenth%
     \or twentieth%
@@ -311,10 +321,11 @@ this number}%
     \or ninetieth%
   \fi
 }%
+\global\let\@@tenthstringenglish\@@tenthstringenglish
 %    \end{macrocode}
 % The teens:
 %    \begin{macrocode}
-\gdef\@@teenthstringenglish#1{%
+\newcommand*\@@teenthstringenglish[1]{%
   \ifcase#1\relax
     tenth%
     \or eleventh%
@@ -328,10 +339,11 @@ this number}%
     \or nineteenth%
   \fi
 }%
+\global\let\@@teenthstringenglish\@@teenthstringenglish
 %    \end{macrocode}
 % As before, but with the first letter in upper case. The units:
 %    \begin{macrocode}
-\gdef\@@Unitthstringenglish#1{%
+\newcommand*\@@Unitthstringenglish[1]{%
   \ifcase#1\relax
     Zeroth%
     \or First%
@@ -345,10 +357,11 @@ this number}%
     \or Ninth%
   \fi
 }%
+\global\let\@@Unitthstringenglish\@@Unitthstringenglish
 %    \end{macrocode}
 % The tens:
 %    \begin{macrocode}
-\gdef\@@Tenthstringenglish#1{%
+\newcommand*\@@Tenthstringenglish[1]{%
   \ifcase#1\relax
     \or Tenth%
     \or Twentieth%
@@ -361,10 +374,11 @@ this number}%
     \or Ninetieth%
   \fi
 }%
+\global\let\@@Tenthstringenglish\@@Tenthstringenglish
 %    \end{macrocode}
 % The teens:
 %    \begin{macrocode}
-\gdef\@@Teenthstringenglish#1{%
+\newcommand*\@@Teenthstringenglish[1]{%
   \ifcase#1\relax
     Tenth%
     \or Eleventh%
@@ -378,13 +392,14 @@ this number}%
     \or Nineteenth%
   \fi
 }%
+\global\let\@@Teenthstringenglish\@@Teenthstringenglish
 %    \end{macrocode}
 % Again, as from version 1.09, this has been changed to take two
 % arguments, where the second argument is a control sequence.
 % The resulting text is stored in the control sequence, and nothing
 % is displayed.
 %    \begin{macrocode}
-\gdef\@@ordinalstringenglish#1#2{%
+\newcommand*\@@ordinalstringenglish[2]{%
 \@strctr=#1\relax
 \ifnum#1>99999
 \PackageError{fmtcount}{Out of range}%
@@ -498,6 +513,7 @@ this number}%
   \fi
 \fi
 }%
+\global\let\@@ordinalstringenglish\@@ordinalstringenglish
 %    \end{macrocode}
 % All lower case version. Again, the second argument must be a
 % control sequence in which the resulting text is stored.
