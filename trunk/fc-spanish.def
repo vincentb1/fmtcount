@@ -14,9 +14,10 @@
 %    \end{macrocode}
 % Feminine:
 %    \begin{macrocode}
-\gdef\@ordinalFspanish}[2]{%
+\newcommand{\@ordinalFspanish}[2]{%
   \edef#2{\number#1\relax\noexpand\fmtord{a}}%
 }%
+\global\let\@ordinalFspanish\@ordinalFspanish
 %    \end{macrocode}
 % Make neuter same as masculine:
 %    \begin{macrocode}
