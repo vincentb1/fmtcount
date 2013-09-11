@@ -8,7 +8,7 @@
 % second argument, which must be a control sequence.
 % Masculine:
 %    \begin{macrocode}
-\newcommand*\@ordinalMspanish[1]{%
+\newcommand*\@ordinalMspanish[2]{%
   \edef#2{\number#1\relax\noexpand\fmtord{o}}%
 }%
 \global\let\@ordinalMspanish\@ordinalMspanish
