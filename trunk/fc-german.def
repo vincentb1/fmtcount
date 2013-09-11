@@ -33,7 +33,7 @@
 % Units (argument must be a number from 0 to 9, 1 on its own (eins)
 % is dealt with separately):
 %    \begin{macrocode}
-\gdef\@@unitstringgerman#1{%
+\newcommand*\@@unitstringgerman[1]{%
   \ifcase#1%
     null%
     \or eins%
@@ -47,10 +47,11 @@
     \or neun%
   \fi
 }%
+\global\let\@@unitstringgerman\@@unitstringgerman
 %    \end{macrocode}
 % Tens (argument must go from 1 to 10):
 %    \begin{macrocode}
-\gdef\@@tenstringgerman#1{%
+\newcommand*\@@tenstringgerman[1]{%
   \ifcase#1%
     \or zehn%
     \or zwanzig%
@@ -64,6 +65,7 @@
     \or einhundert%
   \fi
 }%
+\global\let\@@tenstringgerman\@@tenstringgerman
 %    \end{macrocode}
 % |\einhundert| is set to |einhundert| by default, user can
 % redefine this command to just |hundert| if required, similarly
@@ -76,7 +78,7 @@
 %    \end{macrocode}
 % Teens:
 %    \begin{macrocode}
-\gdef\@@teenstringgerman#1{%
+\newcommand*\@@teenstringgerman[1]{%
   \ifcase#1%
     zehn%
     \or elf%
@@ -90,6 +92,7 @@
     \or neunzehn%
   \fi
 }%
+\global\let\@@teenstringgerman\@@teenstringgerman
 %    \end{macrocode}
 % The results are stored in the second argument, but doesn't 
 % display anything.
@@ -195,7 +198,7 @@
 %\changes{2.0}{2012-09-25}{fixed spelling mistake (correction
 %provided by Dominik Wa\ss enhoven)}
 %    \begin{macrocode}
-\gdef\@@unitthstringMgerman#1{%
+\newcommand*\@@unitthstringMgerman[1]{%
   \ifcase#1%
     nullter%
     \or erster%
@@ -209,10 +212,11 @@
     \or neunter%
   \fi
 }%
+\global\let\@@unitthstringMgerman\@@unitthstringMgerman
 %    \end{macrocode}
 % Tens:
 %    \begin{macrocode}
-\gdef\@@tenthstringMgerman#1{%
+\newcommand*\@@tenthstringMgerman[1]{%
   \ifcase#1%
     \or zehnter%
     \or zwanzigster%
@@ -225,10 +229,11 @@
     \or neunzigster%
   \fi
 }%
+\global\let\@@tenthstringMgerman\@@tenthstringMgerman
 %    \end{macrocode}
 % Teens:
 %    \begin{macrocode}
-\gdef\@@teenthstringMgerman#1{%
+\newcommand*\@@teenthstringMgerman[1]{%
   \ifcase#1%
     zehnter%
     \or elfter%
@@ -242,10 +247,11 @@
     \or neunzehnter%
   \fi
 }%
+\global\let\@@teenthstringMgerman\@@teenthstringMgerman
 %    \end{macrocode}
 % Units (feminine):
 %    \begin{macrocode}
-\gdef\@@unitthstringFgerman#1{%
+\newcommand*\@@unitthstringFgerman[1]{%
   \ifcase#1%
     nullte%
     \or erste%
@@ -259,10 +265,11 @@
     \or neunte%
   \fi
 }%
+\global\let\@@unitthstringFgerman\@@unitthstringFgerman
 %    \end{macrocode}
 % Tens (feminine):
 %    \begin{macrocode}
-\gdef\@@tenthstringFgerman#1{%
+\newcommand*\@@tenthstringFgerman[1]{%
   \ifcase#1%
     \or zehnte%
     \or zwanzigste%
@@ -275,10 +282,11 @@
     \or neunzigste%
   \fi
 }%
+\global\let\@@tenthstringFgerman\@@tenthstringFgerman
 %    \end{macrocode}
 % Teens (feminine)
 %    \begin{macrocode}
-\gdef\@@teenthstringFgerman#1{%
+\newcommand*\@@teenthstringFgerman[1]{%
   \ifcase#1%
     zehnte%
     \or elfte%
@@ -292,12 +300,13 @@
     \or neunzehnte%
   \fi
 }%
+\global\let\@@teenthstringFgerman\@@teenthstringFgerman
 %    \end{macrocode}
 % Units (neuter):
 %\changes{2.0}{2012-09-25}{fixed spelling mistake (correction
 %provided by Dominik Wa\ss enhoven)}
 %    \begin{macrocode}
-\gdef\@@unitthstringNgerman#1{%
+\newcommand*\@@unitthstringNgerman[1]{%
   \ifcase#1%
     nulltes%
     \or erstes%
@@ -311,10 +320,11 @@
     \or neuntes%
   \fi
 }%
+\global\let\@@unitthstringNgerman\@@unitthstringNgerman
 %    \end{macrocode}
 % Tens (neuter):
 %    \begin{macrocode}
-\gdef\@@tenthstringNgerman#1{%
+\newcommand*\@@tenthstringNgerman[1]{%
   \ifcase#1%
     \or zehntes%
     \or zwanzigstes%
@@ -327,10 +337,11 @@
     \or neunzigstes%
   \fi
 }%
+\global\let\@@tenthstringNgerman\@@tenthstringNgerman
 %    \end{macrocode}
 % Teens (neuter)
 %    \begin{macrocode}
-\gdef\@@teenthstringNgerman#1{%
+\newcommand*\@@teenthstringNgerman[1]{%
   \ifcase#1%
     zehntes%
     \or elftes%
@@ -344,13 +355,14 @@
     \or neunzehntes%
   \fi
 }%
+\global\let\@@teenthstringNgerman\@@teenthstringNgerman
 %    \end{macrocode}
 % This appends the results to |\#2| for number |\#2| (in range 0 to
 % 100.)
 % null and eins are dealt with separately in
 % |\@@numberstringgerman|.
 %    \begin{macrocode}
-\gdef\@@numberunderhundredgerman#1#2{%
+\newcommand*\@@numberunderhundredgerman[2]{%
 \ifnum#1<10\relax
   \ifnum#1>0\relax
     \eappto#2{\@unitstring{#1}}%
@@ -371,12 +383,13 @@
   \fi
 \fi
 }%
+\global\let\@@numberunderhundredgerman\@@numberunderhundredgerman
 %    \end{macrocode}
 % This stores the results in the second argument 
 % (which must be a control
 % sequence), but it doesn't display anything.
 %    \begin{macrocode}
-\gdef\@@numberstringgerman#1#2{%
+\newcommand*\@@numberstringgerman[2]{%
 \ifnum#1>99999\relax
   \PackageError{fmtcount}{Out of range}%
   {This macro only works for values less than 100000}%
@@ -442,10 +455,11 @@
   \fi
 \fi
 }%
+\global\let\@@numberstringgerman\@@numberstringgerman
 %    \end{macrocode}
 % As above, but for ordinals
 %    \begin{macrocode}
-\gdef\@@numberunderhundredthgerman#1#2{%
+\newcommand*\@@numberunderhundredthgerman[2]{%
 \ifnum#1<10\relax
  \eappto#2{\@unitthstring{#1}}%
 \else
@@ -464,9 +478,10 @@
   \fi
 \fi
 }%
+\global\let\@@numberunderhundredthgerman\@@numberunderhundredthgerman
 %    \end{macrocode}
 %    \begin{macrocode}
-\gdef\@@ordinalstringgerman#1#2{%
+\newcommand*\@@ordinalstringgerman[2]{%
 \ifnum#1>99999\relax
   \PackageError{fmtcount}{Out of range}%
   {This macro only works for values less than 100000}%
@@ -548,6 +563,7 @@
 \@@numberunderhundredthgerman{\@strctr}{#2}%
 }%
 }%
+\global\let\@@ordinalstringgerman\@@ordinalstringgerman
 %    \end{macrocode}
 % Load fc-germanb.def if not already loaded
 %    \begin{macrocode}
