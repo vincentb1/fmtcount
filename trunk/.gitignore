@@ -3,3 +3,7 @@
 *.log
 *.dvi
 *~
+*.toc
+*.glo
+*.idx
+*.out
