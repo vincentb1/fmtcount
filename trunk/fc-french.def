@@ -4,9 +4,9 @@
 \ProvidesFCLanguage{french}[2012/10/24]%
 %    \end{macrocode}
 % Package \styfmt{fcprefix} is needed to format the prefix \meta{$n$} in \meta{$n$}illion or
-% \meta{$n$}illiard.  Big numbers were developped based reference:
+% \meta{$n$}illiard.  Big numbers were developped based on reference:
 % \uref{http://www.alain.be/boece/noms\_de\_nombre.html}
-% (Package now loaded by \sty{fmtcount})
+% (Package now loaded by \styfmt{fmtcount})
 %
 % Options for controlling plural mark. First of all we define some temporary macro \cs{fc@french@set@plural}
 % in order to factorize code that defines an plural mark option:\newline\noindent
@@ -640,12 +640,13 @@ z\'ero%
 % \meta{$n$}illiard, \meta{$n$}illion, mil, cent or vingt, whichever is applicable. First check that the macro
 % is not yet defined.
 %    \begin{macrocode}
-\@ifundefined{fc@@do@plural@mark}{}{\PackageError{fmtcount}{Duplicate definition}{Redefinition of macro
+\ifcsundef{fc@@do@plural@mark}{}%
+{\PackageError{fmtcount}{Duplicate definition}{Redefinition of macro
     `fc@@do@plural@mark'}}
 %    \end{macrocode}
 % Arguments as follows:\newline
 % \begin{tabularx}{\linewidth}{@{}>{\raggedleft\arraybackslash\ttfamily}rX@{}}
-%   \#1&plural mark, `s' in general, but for mil it is \cs{fc@frenchoptions@mil@plural@mark1}\\
+%   \#1&plural mark, `s' in general, but for mil it is \cs{fc@frenchoptions@mil@plural@mark}\\
 % \end{tabularx}
 % Implicit arguments as follows:\newline
 % \begin{tabularx}{\linewidth}{@{}>{\raggedleft\arraybackslash\ttfamily}rX@{}}
@@ -700,7 +701,7 @@ z\'ero%
 % \DescribeMacro\fc@@nbrstr@Fpreamble Macro \cs{fc@@nbrstr@Fpreamble} do the necessary preliminaries before
 % formatting a cardinal with feminine gender.
 %    \begin{macrocode}
-\@ifundefined{fc@@nbrstr@Fpreamble}{}{%
+\ifcsundef{fc@@nbrstr@Fpreamble}{}{%
   \PackageError{fmtcount}{Duplicate definition}{Redefinition of macro
     `fc@@nbrstr@Fpreamble'}}
 %    \end{macrocode}
@@ -732,7 +733,7 @@ z\'ero%
 % powers of ten with long scale convention. The long scale convention is correct for French and elsewhere in
 % Europe. First we check that the macro is not yet defined.
 %    \begin{macrocode}
-\@ifundefined{fc@@pot@longscalefrench}{}{%
+\ifcsundef{fc@@pot@longscalefrench}{}{%
   \PackageError{fmtcount}{Duplicate definition}{Redefinition of macro
     `fc@@pot@longscalefrench'}}
 %    \end{macrocode}
@@ -879,7 +880,7 @@ z\'ero%
 % powers of ten with short scale convention. This convention is the US convention and is not correct for
 % French and elsewhere in Europe. First we check that the macro is not yet defined.
 %    \begin{macrocode}
-\@ifundefined{fc@@pot@shortscalefrench}{}{%
+\ifcsundef{fc@@pot@shortscalefrench}{}{%
   \PackageError{fmtcount}{Duplicate definition}{Redefinition of macro
     `fc@@pot@shortscalefrench'}}
 %    \end{macrocode}
@@ -958,7 +959,7 @@ z\'ero%
 % power of tens that are of the form ``million de milliards de milliards'' for \(10^{24}\). First we check
 % that the macro is not yet defined.
 %    \begin{macrocode}
-\@ifundefined{fc@@pot@recursivefrench}{}{%
+\ifcsundef{fc@@pot@recursivefrench}{}{%
   \PackageError{fmtcount}{Duplicate definition}{Redefinition of macro
     `fc@@pot@recursivefrench'}}
 %    \end{macrocode}
@@ -1077,7 +1078,7 @@ z\'ero%
 % digits with weight \(w' > w+2\) that have already been formatted. First check that the macro is not yet
 % defined.
 %    \begin{macrocode}
-\@ifundefined{fc@muladdfrench}{}{%
+\ifcsundef{fc@muladdfrench}{}{%
   \PackageError{fmtcount}{Duplicate definition}{Redefinition of macro
     `fc@muladdfrench'}}
 %    \end{macrocode}
@@ -1171,7 +1172,7 @@ z\'ero%
 % \DescribeMacro\fc@lthundredstringfrench Macro \cs{fc@lthundredstringfrench} is used to format a number in
 % interval \([0 \intv 99]\). First we check that it is not already defined.
 %    \begin{macrocode}
-\@ifundefined{fc@lthundredstringfrench}{}{%
+\ifcsundef{fc@lthundredstringfrench}{}{%
   \PackageError{fmtcount}{Duplicate definition}{Redefinition of macro
     `fc@lthundredstringfrench'}}
 %    \end{macrocode}
@@ -1274,7 +1275,7 @@ z\'ero%
 % \DescribeMacro\fc@ltthousandstringfrench Macro \cs{fc@ltthousandstringfrench} is used to format a number in
 % interval \([0 \intv 999]\). First we check that it is not already defined.
 %    \begin{macrocode}
-\@ifundefined{fc@ltthousandstringfrench}{}{%
+\ifcsundef{fc@ltthousandstringfrench}{}{%
   \PackageError{fmtcount}{Duplicate definition}{Redefinition of macro
     `fc@ltthousandstringfrench'}}
 %    \end{macrocode}
@@ -1355,7 +1356,7 @@ z\'ero%
 % \DescribeMacro\@@numberstringfrench Macro \cs{@@numberstringfrench} is the main engine for formatting
 % cadinal numbers in French. First we check that the control sequence is not yet defined.
 %    \begin{macrocode}
-\@ifundefined{@@numberstringfrench}{}{%
+\ifcsundef{@@numberstringfrench}{}{%
   \PackageError{fmtcount}{Duplicate definition}{Redefinition of macro `@@numberstringfrench'}}
 %    \end{macrocode}
 % Arguments are as follows:\newline\noindent
@@ -1454,7 +1455,7 @@ z\'ero%
 % \DescribeMacro\@@ordinalstringfrench Macro \cs{@@ordinalstringfrench} is the main engine for formatting
 % ordinal numbers in French. First check it is not yet defined.
 %    \begin{macrocode}
-\@ifundefined{@@ordinalstringfrench}{}{%
+\ifcsundef{@@ordinalstringfrench}{}{%
   \PackageError{fmtcount}{Duplicate definition}{Redefinition of macro
     `@@ordinalstringfrench'}}
 %    \end{macrocode}

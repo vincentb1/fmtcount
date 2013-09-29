@@ -224,7 +224,7 @@
 \newcommand*{\fmtcountsetoptions}[1]{%
   \def\fmtcount@fmtord{}%
   \setkeys{fmtcount}{#1}%
-  \@FC@iflangloaded{french}{\@ifundefined{@ordinalstringMfrench}%
+  \@FC@iflangloaded{french}{\ifcsundef{@ordinalstringMfrench}%
   {%
     \edef\@ordinalstringMfrench{\noexpand
       \csname @ordinalstringMfrench\fmtcount@french\noexpand\endcsname}%
@@ -639,7 +639,7 @@
 % for \cs{FCordinal} to maintain compatibility with previous
 % versions.
 %    \begin{macrocode}
-\@ifundefined{ordinal}
+\ifcsundef{ordinal}
  {\let\ordinal\FCordinal}%
  {%
    \PackageWarning{fmtcount}%
@@ -1462,7 +1462,7 @@
 % sets the macros to use English.
 %    \begin{macrocode}
 \def\@setdef@ultfmtcount{%
-  \@ifundefined{@ordinalMenglish}{\FCloadlang{english}}{}%
+  \ifcsundef{@ordinalMenglish}{\FCloadlang{english}}{}%
   \def\@ordinalstringM{\@ordinalstringMenglish}%
   \let\@ordinalstringF=\@ordinalstringMenglish
   \let\@ordinalstringN=\@ordinalstringMenglish

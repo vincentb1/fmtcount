@@ -176,7 +176,7 @@
 %    \end{macrocode}
 % \DescribeMacro\fc@parse@integer@digits Macro \cs{fc@parse@integer@digits} is used to 
 %    \begin{macrocode}
-\@ifundefined{fc@parse@integer@digits}{}{%
+\ifcsundef{fc@parse@integer@digits}{}{%
   \PackageError{fcnumparser}{Duplicate definition}{Redefinition of 
     macro `fc@parse@integer@digits'}}
 \def\fc@parse@integer@digits#1#2\fc@nil{%
@@ -199,7 +199,7 @@
 % number.\newline \DescribeMacro\fc@read@unit \cs{fc@read@unit} just reads one digit and form an integer in
 % the range \([0 \intv 9]\). First we check that the macro is not yet defined.
 %    \begin{macrocode}
-\@ifundefined{fc@read@unit}{}{%
+\ifcsundef{fc@read@unit}{}{%
   \PackageError{fcnumparser}{Duplicate definition}{Redefinition of macro `fc@read@unit'}}
 %    \end{macrocode}
 % Arguments as follows:\def\interface{\newline\noindent
@@ -232,7 +232,7 @@
 % \DescribeMacro\fc@read@hundred Macro \cs{fc@read@hundred} is used to read a pair of digits and form an
 % integer in the range \([0 \intv 99]\).  First we check that the macro is not yet defined.
 %    \begin{macrocode}
-\@ifundefined{fc@read@hundred}{}{%
+\ifcsundef{fc@read@hundred}{}{%
   \PackageError{fcnumparser}{Duplicate definition}{Redefinition of macro `fc@read@hundred'}}
 %    \end{macrocode}
 % Arguments as follows --- same interface as \cs{fc@read@unit}:\interface
@@ -255,7 +255,7 @@
 % \DescribeMacro\fc@read@thousand Macro \cs{fc@read@thousand} is used to read a trio of digits and form an
 % integer in the range \([0 \intv 999]\).  First we check that the macro is not yet defined.
 %    \begin{macrocode}
-\@ifundefined{fc@read@thousand}{}{%
+\ifcsundef{fc@read@thousand}{}{%
   \PackageError{fcnumparser}{Duplicate definition}{Redefinition of macro
     `fc@read@thousand'}}
 %    \end{macrocode}
@@ -280,7 +280,7 @@
 % \DescribeMacro\fc@read@thousand Macro \cs{fc@read@myriad} is used to read a quatuor of digits and form an
 % integer in the range \([0 \intv 9999]\).  First we check that the macro is not yet defined.
 %    \begin{macrocode}
-\@ifundefined{fc@read@myriad}{}{%
+\ifcsundef{fc@read@myriad}{}{%
   \PackageError{fcnumparser}{Duplicate definition}{Redefinition of macro
     `fc@read@myriad'}}
 %    \end{macrocode}
@@ -305,7 +305,7 @@
 % represented by digits \cs{fc@digit@}\meta{$n$}, with \(n\) in some interval, is zero, one, or more than one.
 % First we check that the macro is not yet defined.
 %    \begin{macrocode}
-\@ifundefined{fc@check@nonzeros}{}{%
+\ifcsundef{fc@check@nonzeros}{}{%
   \PackageError{fcnumparser}{Duplicate definition}{Redefinition of macro
     `fc@check@nonzeros'}}
 %    \end{macrocode}
@@ -417,7 +417,7 @@
 % \DescribeMacro\fc@intpart@find@last Macro \cs{fc@intpart@find@last} find the rightmost non zero digit in the
 % integer part. First check that the macro is not yet defined.
 %    \begin{macrocode}
-\@ifundefined{fc@intpart@find@last}{}{%
+\ifcsundef{fc@intpart@find@last}{}{%
   \PackageError{fcnumparser}{Duplicate definition}{Redefinition of macro
     `fc@intpart@find@last'}}
 %    \end{macrocode}
@@ -469,7 +469,7 @@
 %   \#3&output macro 2: last word\\
 % \end{tabularx}
 %    \begin{macrocode}
-\@ifundefined{fc@get@last@word}{}{\PackageError{fcnumparser}{Duplicate definition}{Redefinition 
+\ifcsundef{fc@get@last@word}{}{\PackageError{fcnumparser}{Duplicate definition}{Redefinition 
     of macro `fc@get@last@word'}}%
 \def\fc@get@last@word#1#2#3{%
   {%
@@ -539,7 +539,7 @@
 %   \#3&output macro 2: last letter\\
 % \end{tabularx}
 %    \begin{macrocode}
-\@ifundefined{fc@get@last@letter}{}{\PackageError{fcnumparser}{Duplicate definition}{Redefinition 
+\ifcsundef{fc@get@last@letter}{}{\PackageError{fcnumparser}{Duplicate definition}{Redefinition 
     of macro `fc@get@last@letter'}}%
 \def\fc@get@last@letter#1#2#3{%
   {%

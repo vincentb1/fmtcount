@@ -155,7 +155,7 @@
 % this prefix is that of Russ Rowlett I founds its documentation on Alain Lassine's site:
 % \url{http://www.alain.be/Boece/grands\_nombres.html}. First check that macro is not yet defined.
 %    \begin{macrocode}
-\@ifundefined{fc@@latin@cardinal@pefix}{}{%
+\ifcsundef{fc@@latin@cardinal@pefix}{}{%
   \PackageError{fmtcount}{Duplicate definition}{Redefinition of macro `fc@@latin@cardinal@pefix'}}
 %    \end{macrocode}
 % Arguments as follows:\newline\noindent
@@ -330,7 +330,7 @@
 % etc\ldots I found the algorithm to derive this prefix on Alain Lassine's site:
 % \url{http://www.alain.be/Boece/nombres\_gargantuesques.html}. First check that the macro is not yet defined.
 %    \begin{macrocode}
-\@ifundefined{fc@@latin@numeral@pefix}{}{%
+\ifcsundef{fc@@latin@numeral@pefix}{}{%
   \PackageError{fmtcount}{Duplicate definition}{Redefinition of macro 
     `fc@@latin@numeral@pefix'}}
 %    \end{macrocode}
