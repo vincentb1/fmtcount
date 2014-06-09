@@ -36,7 +36,7 @@
 \newcommand*\@@unitstringgerman[1]{%
   \ifcase#1%
     null%
-    \or eins%
+    \or ein%
     \or zwei%
     \or drei%
     \or vier%
