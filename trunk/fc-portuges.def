@@ -35,8 +35,10 @@
 % split it up into units, tens, teens and hundreds. Units (argument
 % must
 % be a number from 0 to 9):
+%\changes{2.04}{2014-06-09}{Fixed bug that had incorrect number of
+%parameters specified}
 %    \begin{macrocode}
-\newcommand*\@@unitstringportuges[2]{%
+\newcommand*\@@unitstringportuges[1]{%
   \ifcase#1\relax
     zero%
     \or um%
@@ -596,54 +598,54 @@
 % (These internal macros are not meant for use in documents.)
 %    \begin{macrocode}
 \newcommand*\@@numberstringportuges[2]{%
-\ifnum#1>99999
-\PackageError{fmtcount}{Out of range}%
-{This macro only works for values less than 100000}%
+\ifnum#1>99999\relax
+  \PackageError{fmtcount}{Out of range}%
+  {This macro only works for values less than 100000}%
 \else
-\ifnum#1<0
-\PackageError{fmtcount}{Negative numbers not permitted}%
-{This macro does not work for negative numbers, however
-you can try typing "minus" first, and then pass the modulus of
-this number}%
-\fi
+  \ifnum#1<0\relax
+    \PackageError{fmtcount}{Negative numbers not permitted}%
+    {This macro does not work for negative numbers, however
+    you can try typing "minus" first, and then pass the modulus of
+    this number}%
+  \fi
 \fi
 \def#2{}%
 \@strctr=#1\relax \divide\@strctr by 1000\relax
-\ifnum\@strctr>9
+\ifnum\@strctr>9\relax
 %    \end{macrocode}
 % \#1 is greater or equal to 10000
 %    \begin{macrocode}
-  \divide\@strctr by 10
+  \divide\@strctr by 10\relax
   \ifnum\@strctr>1\relax
     \let\@@fc@numstr#2\relax
-    \edef#2{\@@fc@numstr\@tenstring{\@strctr}}%
+    \protected@edef#2{\@@fc@numstr\@tenstring{\@strctr}}%
     \@strctr=#1 \divide\@strctr by 1000\relax
     \@FCmodulo{\@strctr}{10}%
     \ifnum\@strctr>0
       \ifnum\@strctr=1\relax
         \let\@@fc@numstr#2\relax
-        \edef#2{\@@fc@numstr\ \@andname}%
+        \protected@edef#2{\@@fc@numstr\ \@andname}%
       \fi
       \let\@@fc@numstr#2\relax
-      \edef#2{\@@fc@numstr\ \@unitstring{\@strctr}}%
+      \protected@edef#2{\@@fc@numstr\ \@unitstring{\@strctr}}%
     \fi
   \else
     \@strctr=#1\relax
     \divide\@strctr by 1000\relax
     \@FCmodulo{\@strctr}{10}%
     \let\@@fc@numstr#2\relax
-    \edef#2{\@@fc@numstr\@teenstring{\@strctr}}%
+    \protected@edef#2{\@@fc@numstr\@teenstring{\@strctr}}%
   \fi
   \let\@@fc@numstr#2\relax
-  \edef#2{\@@fc@numstr\ \@thousand}%
+  \protected@edef#2{\@@fc@numstr\ \@thousand}%
 \else
   \ifnum\@strctr>0\relax
     \ifnum\@strctr>1\relax
       \let\@@fc@numstr#2\relax
-      \edef#2{\@@fc@numstr\@unitstring{\@strctr}\ }%
+      \protected@edef#2{\@@fc@numstr\@unitstring{\@strctr}\ }%
     \fi
     \let\@@fc@numstr#2\relax
-    \edef#2{\@@fc@numstr\@thousand}%
+    \protected@edef#2{\@@fc@numstr\@thousand}%
   \fi
 \fi
 \@strctr=#1\relax \@FCmodulo{\@strctr}{1000}%
@@ -651,57 +653,57 @@ this number}%
 \ifnum\@strctr>0\relax
   \ifnum#1>1000 \relax
     \let\@@fc@numstr#2\relax
-    \edef#2{\@@fc@numstr\ }%
+    \protected@edef#2{\@@fc@numstr\ }%
   \fi
   \@tmpstrctr=#1\relax
   \@FCmodulo{\@tmpstrctr}{1000}%
   \let\@@fc@numstr#2\relax
   \ifnum\@tmpstrctr=100\relax
-    \edef#2{\@@fc@numstr\@tenstring{10}}%
+    \protected@edef#2{\@@fc@numstr\@tenstring{10}}%
   \else
-    \edef#2{\@@fc@numstr\@hundredstring{\@strctr}}%
+    \protected@edef#2{\@@fc@numstr\@hundredstring{\@strctr}}%
   \fi%
 \fi
 \@strctr=#1\relax \@FCmodulo{\@strctr}{100}%
 \ifnum#1>100\relax
   \ifnum\@strctr>0\relax
     \let\@@fc@numstr#2\relax
-    \edef#2{\@@fc@numstr\ \@andname\ }%
+    \protected@edef#2{\@@fc@numstr\ \@andname\ }%
   \fi
 \fi
 \ifnum\@strctr>19\relax
   \divide\@strctr by 10\relax
   \let\@@fc@numstr#2\relax
-  \edef#2{\@@fc@numstr\@tenstring{\@strctr}}%
+  \protected@edef#2{\@@fc@numstr\@tenstring{\@strctr}}%
   \@strctr=#1\relax \@FCmodulo{\@strctr}{10}%
   \ifnum\@strctr>0
     \ifnum\@strctr=1\relax
       \let\@@fc@numstr#2\relax
-      \edef#2{\@@fc@numstr\ \@andname}%
+      \protected@edef#2{\@@fc@numstr\ \@andname}%
     \else
       \ifnum#1>100\relax
         \let\@@fc@numstr#2\relax
-        \edef#2{\@@fc@numstr\ \@andname}%
+        \protected@edef#2{\@@fc@numstr\ \@andname}%
       \fi
     \fi
     \let\@@fc@numstr#2\relax
-    \edef#2{\@@fc@numstr\ \@unitstring{\@strctr}}%
+    \protected@edef#2{\@@fc@numstr\ \@unitstring{\@strctr}}%
   \fi
 \else
   \ifnum\@strctr<10\relax
     \ifnum\@strctr=0\relax
       \ifnum#1<100\relax
         \let\@@fc@numstr#2\relax
-        \edef#2{\@@fc@numstr\@unitstring{\@strctr}}%
+        \protected@edef#2{\@@fc@numstr\@unitstring{\@strctr}}%
       \fi
-    \else%(>0,<10)
+    \else %(>0,<10)
       \let\@@fc@numstr#2\relax
-      \edef#2{\@@fc@numstr\@unitstring{\@strctr}}%
+      \protected@edef#2{\@@fc@numstr\@unitstring{\@strctr}}%
     \fi
   \else%>10
     \@FCmodulo{\@strctr}{10}%
     \let\@@fc@numstr#2\relax
-    \edef#2{\@@fc@numstr\@teenstring{\@strctr}}%
+    \protected@edef#2{\@@fc@numstr\@teenstring{\@strctr}}%
   \fi
 \fi
 }%
@@ -730,25 +732,25 @@ this number}%
       \ifnum\@strctr<20
         \@FCmodulo{\@tmpstrctr}{10}%
         \let\@@fc@ordstr#2\relax
-        \edef#2{\@@fc@ordstr\@teenthstring{\@tmpstrctr}}%
+        \protected@edef#2{\@@fc@ordstr\@teenthstring{\@tmpstrctr}}%
       \else
         \divide\@tmpstrctr by 10\relax
         \let\@@fc@ordstr#2\relax
-        \edef#2{\@@fc@ordstr\@tenthstring{\@tmpstrctr}}%
+        \protected@edef#2{\@@fc@ordstr\@tenthstring{\@tmpstrctr}}%
         \@tmpstrctr=\@strctr
         \@FCmodulo{\@tmpstrctr}{10}%
         \ifnum\@tmpstrctr>0\relax
           \let\@@fc@ordstr#2\relax
-          \edef#2{\@@fc@ordstr\@unitthstring{\@tmpstrctr}}%
+          \protected@edef#2{\@@fc@ordstr\@unitthstring{\@tmpstrctr}}%
         \fi
       \fi
     \else
       \let\@@fc@ordstr#2\relax
-      \edef#2{\@@fc@ordstr\@unitstring{\@strctr}}%
+      \protected@edef#2{\@@fc@ordstr\@unitstring{\@strctr}}%
     \fi
   \fi
   \let\@@fc@ordstr#2\relax
-  \edef#2{\@@fc@ordstr\@thousandth}%
+  \protected@edef#2{\@@fc@ordstr\@thousandth}%
 \fi
 \@strctr=#1\relax
 \@FCmodulo{\@strctr}{1000}%
@@ -757,38 +759,38 @@ this number}%
   \divide\@tmpstrctr by 100\relax
   \ifnum#1>1000\relax
     \let\@@fc@ordstr#2\relax
-    \edef#2{\@@fc@ordstr-}%
+    \protected@edef#2{\@@fc@ordstr-}%
   \fi
   \let\@@fc@ordstr#2\relax
-  \edef#2{\@@fc@ordstr\@hundredthstring{\@tmpstrctr}}%
+  \protected@edef#2{\@@fc@ordstr\@hundredthstring{\@tmpstrctr}}%
 \fi
 \@FCmodulo{\@strctr}{100}%
 \ifnum#1>99\relax
   \ifnum\@strctr>0\relax
     \let\@@fc@ordstr#2\relax
-    \edef#2{\@@fc@ordstr-}%
+    \protected@edef#2{\@@fc@ordstr-}%
   \fi
 \fi
 \ifnum\@strctr>9\relax
   \@tmpstrctr=\@strctr
   \divide\@tmpstrctr by 10\relax
   \let\@@fc@ordstr#2\relax
-  \edef#2{\@@fc@ordstr\@tenthstring{\@tmpstrctr}}%
+  \protected@edef#2{\@@fc@ordstr\@tenthstring{\@tmpstrctr}}%
   \@tmpstrctr=\@strctr
   \@FCmodulo{\@tmpstrctr}{10}%
   \ifnum\@tmpstrctr>0\relax
     \let\@@fc@ordstr#2\relax
-    \edef#2{\@@fc@ordstr-\@unitthstring{\@tmpstrctr}}%
+    \protected@edef#2{\@@fc@ordstr-\@unitthstring{\@tmpstrctr}}%
   \fi
 \else
   \ifnum\@strctr=0\relax
     \ifnum#1=0\relax
       \let\@@fc@ordstr#2\relax
-      \edef#2{\@@fc@ordstr\@unitstring{0}}%
+      \protected@edef#2{\@@fc@ordstr\@unitstring{0}}%
     \fi
   \else
     \let\@@fc@ordstr#2\relax
-    \edef#2{\@@fc@ordstr\@unitthstring{\@strctr}}%
+    \protected@edef#2{\@@fc@ordstr\@unitthstring{\@strctr}}%
   \fi
 \fi
 \fi
