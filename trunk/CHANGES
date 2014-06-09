@@ -5,6 +5,10 @@ Version 2.04:
  * Renamed \@modulo to \@FCmodulo to avoid conflict with other
    packages.
 
+ * Fixed "eins" bug in fc-german.def
+
+ * Fixed bug in \@@unitstringportuges
+
 Version 2.03:
 
  * Renamed \@fc@loadifbabelldf to \@fc@loadifbabelorpolyglossialdf
