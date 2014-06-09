@@ -9,6 +9,8 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 
+\usepackage{etoolbox}
+
 \usepackage[french,english,spanish,portuges,ngerman,italian]{babel}
 \usepackage{fmtcount}
 
@@ -19,6 +21,43 @@
 \newcount\myctr
 \newcount\langid
 
+\newcommand*{\deflangopt}[2][\relax]{%
+ \csdef{setlang#2}{\langid=#2#1}%
+}
+\newcommand*{\uselangopt}[1]{\csuse{setlang#1}}
+\deflangopt{1}
+\deflangopt{2}
+\deflangopt{3}
+\deflangopt[\fmtcountsetoptions{french}]{4}
+\deflangopt[\fmtcountsetoptions{french=swiss}]{5}
+\deflangopt[\fmtcountsetoptions{french=belgian}]{6}
+\deflangopt{7}
+\deflangopt{8}
+
+\newcommand*{\defformat}[1]{%
+  \csdef{setformat#1}{\numformat=#1\relax}%
+}
+\newcommand*{\useformat}[1]{\csuse{setformat#1}}
+
+\newcommand*{\setformat}{\numformat=1\relax}
+
+\defformat{1}
+\defformat{2}
+\defformat{3}
+\defformat{4}
+\defformat{5}
+\defformat{6}
+
+\newcommand*{\defgender}[2]{%
+  \csdef{setgender#1}{\myctr=#2\relax}%
+}
+\newcommand*{\usegender}[1]{\csuse{setgender#1}}
+
+\defgender{}{1}
+\defgender{m}{1}
+\defgender{f}{2}
+\defgender{n}{3}
+
 \begin{document}
 
 \section{Displaying the value of a counter}
@@ -28,28 +67,25 @@
 \langid=-1
 
 \loop
-\typeout{Which language?^^J}
-\typeout{[1] English}
-\typeout{[2] Portuguese}
-\typeout{[3] Spanish}
-\typeout{[4] French}
-\typeout{[5] French (Swiss)}
-\typeout{[6] French (Belgium)}
-\typeout{[7] German}
-\typeout{[8] Italian}
+  \typeout{Which language?^^J}
+  \typeout{[1] English}
+  \typeout{[2] Portuguese}
+  \typeout{[3] Spanish}
+  \typeout{[4] French}
+  \typeout{[5] French (Swiss)}
+  \typeout{[6] French (Belgium)}
+  \typeout{[7] German}
+  \typeout{[8] Italian}
 
-\typein[\response]{}
+  \typein[\response]{}
 
-\ifthenelse{\equal{\response}{1}}{\langid=1}{
-\ifthenelse{\equal{\response}{2}}{\langid=2}{
-\ifthenelse{\equal{\response}{3}}{\langid=3}{
-\ifthenelse{\equal{\response}{4}}{\langid=4\fmtcountsetoptions{french}}{
-\ifthenelse{\equal{\response}{5}}{\langid=5\fmtcountsetoptions{french=swiss}}{
-\ifthenelse{\equal{\response}{6}}{\langid=6\fmtcountsetoptions{french=belgian}}
-{\ifthenelse{\equal{\response}{7}}{\langid=7}{%
-\ifthenelse{\equal{\response}{8}}{\langid=8}{%
-\langid=-1
-\typeout{Invalid response '\response', please select a number from 1 to 6}}}}}}}}}
+  \ifcsundef{setlang\response}%
+  {%
+    \typeout{Invalid response '\response', please select a number from 1 to 8}%
+    \langid=-1\relax
+  }%
+  {\uselangopt{\response}}
+
 \ifnum\langid=-1
 \repeat
 
@@ -75,72 +111,71 @@ Current language: Italian.
 \def\startval{-1}
 
 \loop
-\typein[\startval]{Start value? (Integer from 0 to 99999)
-[Default 1]}
-\ifthenelse{\equal{\startval}{}}{\def\startval{1}}{}
-\ifnum\startval<0\def\startval{-1}\fi
-\ifnum\startval>99999\def\startval{-1}\fi
+ \typein[\startval]{Start value? (Integer from 0 to 99999) [Default 1]}
+ \ifdefempty{\startval}{\def\startval{1}}{}
+ \ifnum\startval<0\def\startval{-1}\fi
+ \ifnum\startval>99999\def\startval{-1}\fi
+
 \ifnum\startval=-1
 \repeat
 
 \def\endval{-1}
 
 \loop
-\typein[\endval]{End value? (Integer from 0 to 99999)
-[Default 1000]}
-\ifthenelse{\equal{\endval}{}}{\def\endval{1000}}{}
-\ifnum\endval<0\def\endval{-1}\fi
-\ifnum\endval>99999\def\endval{-1}\fi
+  \typein[\endval]{End value? (Integer from 0 to 99999) [Default 1000]}
+  \ifdefempty{\endval}{\def\endval{1000}}{}
+  \ifnum\endval<0\def\endval{-1}\fi
+  \ifnum\endval>99999\def\endval{-1}\fi
 \ifnum\endval=-1
 \repeat
 
 \def\stepsize{0}
 
 \loop
-\typein[\stepsize]{Step size? (Non zero integer)
-[Default 1]}
-\ifthenelse{\equal{\stepsize}{}}{\def\stepsize{1}}{}
+ \typein[\stepsize]{Step size? (Non zero integer) [Default 1]}
+ \ifdefempty{\stepsize}{\def\stepsize{1}}{}
 \ifnum\stepsize=0
 \repeat
 
 \typeout{From {\startval} to {\endval} step {\stepsize}}
 
-\ifnum\startval<\endval
-\ifnum\stepsize<0
-\PackageError{fc-lang}{Infinite loop not permitted!}{}
-\def\endval{\startval}
-\fi
+\ifnum\startval<\endval\relax
+ \ifnum\stepsize<0\relax
+  \PackageError{fc-lang}{Infinite loop not permitted!}{}
+  \def\endval{\startval}
+ \fi
 \fi
 
-\ifnum\startval>\endval
-\ifnum\stepsize>0
-\PackageError{fc-lang}{Infinite loop not permitted!}{}
-\def\endval{\startval}
-\fi
+\ifnum\startval>\endval\relax
+ \ifnum\stepsize>0\relax
+  \PackageError{fc-lang}{Infinite loop not permitted!}{}
+  \def\endval{\startval}
+ \fi
 \fi
 
 \newcount\numformat
 
 \numformat=-1
 \loop
-\typeout{Which format?^^J}
-\typeout{[1] ordinalstring}
-\typeout{[2] Ordinalstring}
-\typeout{[3] ORDINALstring}
-\typeout{[4] numberstring}
-\typeout{[5] Numberstring}
-\typeout{[6] NUMBERstring}
+  \typeout{Which format?^^J}
+  \typeout{[1] ordinalstring}
+  \typeout{[2] Ordinalstring}
+  \typeout{[3] ORDINALstring}
+  \typeout{[4] numberstring}
+  \typeout{[5] Numberstring}
+  \typeout{[6] NUMBERstring}
 
-\typein[\response]{Default: 1}
+  \typein[\response]{Default: 1}
 
-\ifthenelse{\equal{\response}{}}{\def\response{1}}{}%default val
-\ifthenelse{\equal{\response}{1}}{\numformat=1}{
-\ifthenelse{\equal{\response}{2}}{\numformat=2}{
-\ifthenelse{\equal{\response}{3}}{\numformat=3}{
-\ifthenelse{\equal{\response}{4}}{\numformat=4}{
-\ifthenelse{\equal{\response}{5}}{\numformat=5}{
-\ifthenelse{\equal{\response}{6}}{\numformat=6}{\numformat=-1
-\typeout{Invalid response '\response', please select a number from 1 to 4}}}}}}}
+  \ifcsundef{setformat\response}%
+  {%
+    \numformat=-1\relax
+    \typeout{Invalid response '\response', please select a number from 1 to 6}%
+  }%
+  {%
+    \useformat\response
+  }
+
 \ifnum\numformat=-1
 \repeat
 
@@ -161,23 +196,25 @@ Current language: Italian.
     \typeout{[1] eme}
     \typeout{[2] e}
     \typein[\response]{Default: 1}
-    \ifthenelse{\equal{\response}{}}%
+    \ifdefempty{\response}%
       {%
         \def\response{1}% default
         \myctr=1\relax
       }%
       {%
-        \ifthenelse{\equal{\response}{1}}%
+        \ifdefstring{\response}{1}%
         {%
           \fmtcountsetoptions{abbrv=false}\myctr=1\relax
         }%
         {%
-          \ifthenelse{\equal{\response}{2}}%
+          \ifdefstring{\response}{2}%
           {%
             \fmtcountsetoptions{abbrv}\myctr=2\relax
           }%
           {%
             \myctr=-1\relax
+            \typeout{Invalid response '\response', please select a
+number from 1 to 2}%
           }%
         }%
       }%
@@ -188,42 +225,78 @@ Current language: Italian.
 
 \myctr=-1
 \loop
-\typeout{Ordinal format?^^J}
-\typeout{[1] raised}
-\typeout{[2] level}
-\typein[\response]{Default: 1}
-\ifthenelse{\equal{\response}{1}\or\equal{\response}{}}{%
-\fmtcountsetoptions{fmtord=raise}\myctr=1}{%
-\ifthenelse{\equal{\response}{2}}{%
-\fmtcountsetoptions{fmtord=level}\myctr=2}{%
-\myctr=-1}}
+  \typeout{Ordinal format?^^J}
+  \typeout{[1] raised}
+  \typeout{[2] level}
+  \typein[\response]{Default: 1}
+  \ifdefempty{\response}{\def\response{1}}{}%
+
+  \ifdefstring{\response}{1}
+  {%
+    \fmtcountsetoptions{fmtord=raise}\myctr=1\relax
+  }%
+  {%
+    \ifdefstring{\response}{2}
+    {%
+       \fmtcountsetoptions{fmtord=level}\myctr=2\relax
+    }%
+    {%
+       \myctr=-1\relax
+       \typeout{Invalid response '\response', please select a
+       number from 1 to 2}%
+    }%
+  }
+
 \ifnum\myctr=-1
 \repeat
 
-\ifnum\langid=1
-\myctr=1
+\ifnum\langid=1\relax
+ \myctr=1\relax
 \else
-\ifthenelse{\langid=7 \and \numformat>3}{}{%
-\loop
-\ifnum\langid=7
-  \typein[\response]{Gender? (m, f or n) [Default: m]}
-  \ifthenelse{\equal{\response}{m}}{\myctr=1}{
-  \ifthenelse{\equal{\response}{f}}{\myctr=2}{
-   \ifthenelse{\equal{\response}{n}}{\myctr=3}{
-    \ifthenelse{\equal{\response}{}}{\myctr=1}{%
-    \myctr=-1
-  \typeout{Invalid response '\response'}}}}}
-\else
-  \typein[\response]{Gender? (m or f) [Default: m]}
-  \ifthenelse{\equal{\response}{m}}{\myctr=1}{
-  \ifthenelse{\equal{\response}{f}}{\myctr=2}{%
-  \ifthenelse{\equal{\response}{}}{\myctr=1}{%
-  \myctr=-1
-  \typeout{Invalid response '\response'}}}}
-\fi
-\ifnum\myctr=-1
-\repeat
-}
+
+ \ifboolexpr
+ {
+   test {\ifnumequal{\langid}{7}}
+   and
+   test {\ifnumgreater{\numformat}{3}} 
+ }%
+ {%
+   \loop
+     \ifnum\langid=7\relax
+       \typein[\response]{Gender? (m, f or n) [Default: m]}
+       \ifcsundef{setgender\response}%
+       {%
+         \typeout{Invalid response '\response', please select a
+          number from 1 to 3}%
+          \myctr=-1\relax
+       }%
+       {\usegender\response}
+     \else
+       \typein[\response]{Gender? (m or f) [Default: m]}
+       \ifcsundef{setgender\response}%
+       {%
+         \typeout{Invalid response '\response', please select a
+          number from 1 to 2}%
+          \myctr=-1\relax
+       }%
+       {%
+         \ifdefstring{\response}{3}
+         {%
+           \typeout{Invalid response '\response', please select a
+            number from 1 to 2}%
+            \myctr=-1\relax
+         }
+         {%
+           \usegender\response
+         }
+       }
+     \fi
+   \ifnum\myctr=-1
+   \repeat
+ }%
+ {%
+ }
+
 \fi
 
 \ifcase\myctr
