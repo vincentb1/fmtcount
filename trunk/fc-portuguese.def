@@ -1,0 +1,27 @@
+% \subsubsection{fc-portuguese.def}
+%    \begin{macrocode}
+\ProvidesFCLanguage{portuguese}[2014/06/09]%
+%    \end{macrocode}
+% Load fc-portuges.def if not already loaded
+%    \begin{macrocode}
+\FCloadlang{portuges}%
+%    \end{macrocode}
+% Set |portuguese| to be equivalent to |portuges|.
+%    \begin{macrocode}
+\global\let\@ordinalMportuguese=\@ordinalMportuges
+\global\let\@ordinalFportuguese=\@ordinalFportuges
+\global\let\@ordinalNportuguese=\@ordinalNportuges
+\global\let\@numberstringMportuguese=\@numberstringMportuges
+\global\let\@numberstringFportuguese=\@numberstringFportuges
+\global\let\@numberstringNportuguese=\@numberstringNportuges
+\global\let\@NumberstringMportuguese=\@NumberstringMportuges
+\global\let\@NumberstringFportuguese=\@NumberstringFportuges
+\global\let\@NumberstringNportuguese=\@NumberstringNportuges
+\global\let\@ordinalstringMportuguese=\@ordinalstringMportuges
+\global\let\@ordinalstringFportuguese=\@ordinalstringFportuges
+\global\let\@ordinalstringNportuguese=\@ordinalstringNportuges
+\global\let\@OrdinalstringMportuguese=\@OrdinalstringMportuges
+\global\let\@OrdinalstringFportuguese=\@OrdinalstringFportuges
+\global\let\@OrdinalstringNportuguese=\@OrdinalstringNportuges
+%    \end{macrocode}
+
