@@ -1,7 +1,7 @@
 % \subsubsection{fc-portuges.def}
 % Portuguse definitions
 %    \begin{macrocode}
-\ProvidesFCLanguage{portuges}[2013/08/17]%
+\ProvidesFCLanguage{portuges}[2014/06/09]%
 %    \end{macrocode}
 % Define macro that converts a number or count register (first
 % argument) to an ordinal, and stores the result in the second
