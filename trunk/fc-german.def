@@ -2,7 +2,7 @@
 % German definitions (thank you to K. H. Fricke for supplying
 % this information)
 %    \begin{macrocode}
-\ProvidesFCLanguage{german}[2013/08/17]%
+\ProvidesFCLanguage{german}[2014/06/09]%
 %    \end{macrocode}
 % Define macro that converts a number or count register (first
 % argument) to an ordinal, and stores the result in the
