@@ -11,7 +11,7 @@
 \def\@fc@ord{}%
 \@orgargctr=#1\relax
 \@ordinalctr=#1%
-\@modulo{\@ordinalctr}{100}%
+\@FCmodulo{\@ordinalctr}{100}%
 \ifnum\@ordinalctr=11\relax
   \def\@fc@ord{th}%
 \else
@@ -21,7 +21,7 @@
     \ifnum\@ordinalctr=13\relax
       \def\@fc@ord{th}%
     \else
-      \@modulo{\@ordinalctr}{10}%
+      \@FCmodulo{\@ordinalctr}{10}%
       \ifcase\@ordinalctr
         \def\@fc@ord{th}%      case 0
         \or \def\@fc@ord{st}%  case 1
@@ -180,7 +180,7 @@ this number}%
     \let\@@fc@numstr#2\relax
     \edef#2{\@@fc@numstr\@tenstring{\@strctr}}%
     \@strctr=#1 \divide\@strctr by 1000\relax
-    \@modulo{\@strctr}{10}%
+    \@FCmodulo{\@strctr}{10}%
     \ifnum\@strctr>0\relax
       \let\@@fc@numstr#2\relax
       \edef#2{\@@fc@numstr-\@unitstring{\@strctr}}%
@@ -188,7 +188,7 @@ this number}%
   \else
     \@strctr=#1\relax
     \divide\@strctr by 1000\relax
-    \@modulo{\@strctr}{10}%
+    \@FCmodulo{\@strctr}{10}%
     \let\@@fc@numstr#2\relax
     \edef#2{\@@fc@numstr\@teenstring{\@strctr}}%
   \fi
@@ -200,7 +200,7 @@ this number}%
     \edef#2{\@@fc@numstr\@unitstring{\@strctr}\ \@thousand}%
   \fi
 \fi
-\@strctr=#1\relax \@modulo{\@strctr}{1000}%
+\@strctr=#1\relax \@FCmodulo{\@strctr}{1000}%
 \divide\@strctr by 100
 \ifnum\@strctr>0\relax
    \ifnum#1>1000\relax
@@ -210,7 +210,7 @@ this number}%
    \let\@@fc@numstr#2\relax
    \edef#2{\@@fc@numstr\@unitstring{\@strctr}\ \@hundred}%
 \fi
-\@strctr=#1\relax \@modulo{\@strctr}{100}%
+\@strctr=#1\relax \@FCmodulo{\@strctr}{100}%
 \ifnum#1>100\relax
   \ifnum\@strctr>0\relax
     \let\@@fc@numstr#2\relax
@@ -221,7 +221,7 @@ this number}%
   \divide\@strctr by 10\relax
   \let\@@fc@numstr#2\relax
   \edef#2{\@@fc@numstr\@tenstring{\@strctr}}%
-  \@strctr=#1\relax \@modulo{\@strctr}{10}%
+  \@strctr=#1\relax \@FCmodulo{\@strctr}{10}%
   \ifnum\@strctr>0\relax
     \let\@@fc@numstr#2\relax
     \edef#2{\@@fc@numstr-\@unitstring{\@strctr}}%
@@ -238,7 +238,7 @@ this number}%
       \edef#2{\@@fc@numstr\@unitstring{\@strctr}}%
     \fi
   \else
-    \@modulo{\@strctr}{10}%
+    \@FCmodulo{\@strctr}{10}%
     \let\@@fc@numstr#2\relax
     \edef#2{\@@fc@numstr\@teenstring{\@strctr}}%
   \fi
@@ -424,18 +424,18 @@ this number}%
     \edef#2{\@@fc@ordstr\@tenstring{\@strctr}}%
     \@strctr=#1\relax
     \divide\@strctr by 1000\relax
-    \@modulo{\@strctr}{10}%
+    \@FCmodulo{\@strctr}{10}%
     \ifnum\@strctr>0\relax
       \let\@@fc@ordstr#2\relax
       \edef#2{\@@fc@ordstr-\@unitstring{\@strctr}}%
     \fi
   \else
     \@strctr=#1\relax \divide\@strctr by 1000\relax
-    \@modulo{\@strctr}{10}%
+    \@FCmodulo{\@strctr}{10}%
     \let\@@fc@ordstr#2\relax
     \edef#2{\@@fc@ordstr\@teenstring{\@strctr}}%
   \fi
-  \@strctr=#1\relax \@modulo{\@strctr}{1000}%
+  \@strctr=#1\relax \@FCmodulo{\@strctr}{1000}%
   \ifnum\@strctr=0\relax
     \let\@@fc@ordstr#2\relax
     \edef#2{\@@fc@ordstr\ \@thousandth}%
@@ -447,7 +447,7 @@ this number}%
   \ifnum\@strctr>0\relax
     \let\@@fc@ordstr#2\relax
     \edef#2{\@@fc@ordstr\@unitstring{\@strctr}}%
-    \@strctr=#1\relax \@modulo{\@strctr}{1000}%
+    \@strctr=#1\relax \@FCmodulo{\@strctr}{1000}%
     \let\@@fc@ordstr#2\relax
     \ifnum\@strctr=0\relax
       \edef#2{\@@fc@ordstr\ \@thousandth}%
@@ -456,7 +456,7 @@ this number}%
     \fi
   \fi
 \fi
-\@strctr=#1\relax \@modulo{\@strctr}{1000}%
+\@strctr=#1\relax \@FCmodulo{\@strctr}{1000}%
 \divide\@strctr by 100
 \ifnum\@strctr>0\relax
   \ifnum#1>1000\relax
@@ -465,7 +465,7 @@ this number}%
   \fi
   \let\@@fc@ordstr#2\relax
   \edef#2{\@@fc@ordstr\@unitstring{\@strctr}}%
-  \@strctr=#1\relax \@modulo{\@strctr}{100}%
+  \@strctr=#1\relax \@FCmodulo{\@strctr}{100}%
   \let\@@fc@ordstr#2\relax
   \ifnum\@strctr=0\relax
     \edef#2{\@@fc@ordstr\ \@hundredth}%
@@ -473,7 +473,7 @@ this number}%
     \edef#2{\@@fc@ordstr\ \@hundred}%
   \fi
 \fi
-\@strctr=#1\relax \@modulo{\@strctr}{100}%
+\@strctr=#1\relax \@FCmodulo{\@strctr}{100}%
 \ifnum#1>100\relax
   \ifnum\@strctr>0\relax
     \let\@@fc@ordstr#2\relax
@@ -483,14 +483,14 @@ this number}%
 \ifnum\@strctr>19\relax
   \@tmpstrctr=\@strctr
   \divide\@strctr by 10\relax
-  \@modulo{\@tmpstrctr}{10}%
+  \@FCmodulo{\@tmpstrctr}{10}%
   \let\@@fc@ordstr#2\relax
   \ifnum\@tmpstrctr=0\relax
     \edef#2{\@@fc@ordstr\@tenthstring{\@strctr}}%
   \else
     \edef#2{\@@fc@ordstr\@tenstring{\@strctr}}%
   \fi
-  \@strctr=#1\relax \@modulo{\@strctr}{10}%
+  \@strctr=#1\relax \@FCmodulo{\@strctr}{10}%
   \ifnum\@strctr>0\relax
     \let\@@fc@ordstr#2\relax
     \edef#2{\@@fc@ordstr-\@unitthstring{\@strctr}}%
@@ -507,7 +507,7 @@ this number}%
       \edef#2{\@@fc@ordstr\@unitthstring{\@strctr}}%
     \fi
   \else
-    \@modulo{\@strctr}{10}%
+    \@FCmodulo{\@strctr}{10}%
     \let\@@fc@ordstr#2\relax
     \edef#2{\@@fc@ordstr\@teenthstring{\@strctr}}%
   \fi

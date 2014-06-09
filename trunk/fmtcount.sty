@@ -2,7 +2,7 @@
 % This section deals with the code for |fmtcount.sty|
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{fmtcount}[2013/08/17 v2.03]
+\ProvidesPackage{fmtcount}[2014/06/09 v2.04]
 \RequirePackage{ifthen}
 \RequirePackage{keyval}
 \RequirePackage{etoolbox}
@@ -286,10 +286,11 @@
 %    \begin{macrocode}
 \ProcessOptions
 %    \end{macrocode}
-%\begin{macro}{\@modulo}
+%\begin{macro}{\@FCmodulo}
 %\begin{definition}
-%\cs{@modulo}\marg{count reg}\marg{n}
+%\cs{@FCmodulo}\marg{count reg}\marg{n}
 %\end{definition}
+%\changes{2.04}{2014-06-09}{renamed \cs{@modulo} to \cs{@FCmodulo}}
 % Sets the count register to be its value modulo \meta{n}. 
 % This is used for the
 % date, time, ordinal and numberstring commands. (The
@@ -297,12 +298,16 @@
 % \sty{datetime} package.)
 %    \begin{macrocode}
 \newcount\@DT@modctr
-\def\@modulo#1#2{%
+\newcommand*{\@FCmodulo}[2]{%
   \@DT@modctr=#1\relax
   \divide \@DT@modctr by #2\relax
   \multiply \@DT@modctr by #2\relax
   \advance #1 by -\@DT@modctr
 }
+%    \end{macrocode}
+% For backward compatibility:
+%    \begin{macrocode}
+\providecommand{\@modulo}{\@FCmodulo}
 %    \end{macrocode}
 %\end{macro}
 % The following registers are needed by |\@ordinal| etc

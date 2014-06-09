@@ -369,7 +369,7 @@
   \fi
 \else
   \@tmpstrctr=#1\relax
-  \@modulo{\@tmpstrctr}{10}%
+  \@FCmodulo{\@tmpstrctr}{10}%
   \ifnum#1<20\relax
     \eappto#2{\@teenstring{\@tmpstrctr}}%
   \else
@@ -418,7 +418,7 @@
   \fi
 \fi
 \@strctr=#1\relax
-\@modulo{\@strctr}{1000}%
+\@FCmodulo{\@strctr}{1000}%
 \divide\@strctr by 100\relax
 \ifnum\@strctr>1\relax
 %    \end{macrocode}
@@ -444,7 +444,7 @@
    \fi
 \fi
 \@strctr=#1\relax
-\@modulo{\@strctr}{100}%
+\@FCmodulo{\@strctr}{100}%
 \ifnum#1=0\relax
   \def#2{null}%
 \else
@@ -464,7 +464,7 @@
  \eappto#2{\@unitthstring{#1}}%
 \else
   \@tmpstrctr=#1\relax
-  \@modulo{\@tmpstrctr}{10}%
+  \@FCmodulo{\@tmpstrctr}{10}%
   \ifnum#1<20\relax
     \eappto#2{\@teenthstring{\@tmpstrctr}}%
   \else
@@ -503,7 +503,7 @@
 %    \end{macrocode}
 % is that it, or is there more?
 %    \begin{macrocode}
-  \@tmpstrctr=#1\relax \@modulo{\@tmpstrctr}{1000}%
+  \@tmpstrctr=#1\relax \@FCmodulo{\@tmpstrctr}{1000}%
   \ifnum\@tmpstrctr=0\relax
     \eappto#2{\@thousandth}%
   \else
@@ -522,14 +522,14 @@
   \fi
 \fi
 \@strctr=#1\relax
-\@modulo{\@strctr}{1000}%
+\@FCmodulo{\@strctr}{1000}%
 \divide\@strctr by 100\relax
 \ifnum\@strctr>1\relax
 %    \end{macrocode}
 % now dealing with number in range [200,999]
 % is that it, or is there more?
 %    \begin{macrocode}
-  \@tmpstrctr=#1\relax \@modulo{\@tmpstrctr}{100}%
+  \@tmpstrctr=#1\relax \@FCmodulo{\@tmpstrctr}{100}%
   \ifnum\@tmpstrctr=0\relax
      \ifnum\@strctr=1\relax
        \eappto#2{\@hundredth}%
@@ -545,7 +545,7 @@
 % dealing with number in range [100,199]
 % is that it, or is there more?
 %    \begin{macrocode}
-     \@tmpstrctr=#1\relax \@modulo{\@tmpstrctr}{100}%
+     \@tmpstrctr=#1\relax \@FCmodulo{\@tmpstrctr}{100}%
      \ifnum\@tmpstrctr=0\relax
         \eappto#2{\@hundredth}%
      \else
@@ -558,7 +558,7 @@
    \fi
 \fi
 \@strctr=#1\relax
-\@modulo{\@strctr}{100}%
+\@FCmodulo{\@strctr}{100}%
 \ifthenelse{\@strctr=0 \and #1>0}{}{%
 \@@numberunderhundredthgerman{\@strctr}{#2}%
 }%

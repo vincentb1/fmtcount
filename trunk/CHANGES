@@ -1,5 +1,10 @@
 fmtcount package versions:
 
+Version 2.04:
+
+ * Renamed \@modulo to \@FCmodulo to avoid conflict with other
+   packages.
+
 Version 2.03:
 
  * Renamed \@fc@loadifbabelldf to \@fc@loadifbabelorpolyglossialdf
