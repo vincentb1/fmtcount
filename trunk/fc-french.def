@@ -1264,7 +1264,7 @@ z\'ero%
       \fi
     }%
 %    \end{macrocode}
-% Now propagate the expansion of \cs{@tempa} into \texttt{\#2} after closing brace.
+% Now propagate the expansion of \cs{@tempa} into \texttt{\#1} after closing brace.
 %    \begin{macrocode}
     \def\@tempb##1{\def\@tempa{\def#1{##1}}}%
     \expandafter\@tempb\expandafter{\@tempa}%
@@ -1345,7 +1345,7 @@ z\'ero%
     % now append to \@tempa the ten and unit
     \fc@lthundredstringfrench\@tempa
 %    \end{macrocode}
-% Propagate expansion of \cs{@tempa} into macro \texttt{\#2} after closing brace.
+% Propagate expansion of \cs{@tempa} into macro \texttt{\#1} after closing brace.
 %    \begin{macrocode}
     \def\@tempb##1{\def\@tempa{\def#1{##1}}}%
     \expandafter\@tempb\expandafter{\@tempa}%
@@ -1411,7 +1411,7 @@ z\'ero%
     \divide\count0 by 3 %
     \multiply\count0 by 3 %
 %    \end{macrocode}
-% Now we compute final weight into \cs{count5}, and round down too multiple of \(3\) into
+% Now we compute final weight into \cs{count5}, and round down to multiple of \(3\) into
 % \cs{count6}. Warning: \cs{count6} is an implicit input argument to macro \cs{fc@ltthousandstringfrench}.
 %    \begin{macrocode}
     \fc@intpart@find@last{\count5 }%
