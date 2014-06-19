@@ -65,3 +65,37 @@ makesubdir: $(patsubst %,../%,$(FMTCOUNT))
 clean:
 	rm -fr tests
 	for w in $(LOGS); do rm -fr $$w.log; done
+
+overwrite: overwrite_short
+
+
+overwrite_short:
+# my bash does not have ;& in case ... esac
+	o=no; \
+	function overwrite(){ \
+		echo "Overwriting reference of test short-$$1"; \
+		cp -f tests/test-short-$$1-nodate.html reference/test-short-$$1.html; \
+	}; \
+	for w in $(SHORT); do \
+		if diff -abs tests/test-short-$$w-nodate.html reference/test-short-$$w.html > /dev/null; \
+		then echo "Test short-$$w ok"; else \
+			if [ $$o == no ]; then \
+				echo "Overwrite reference of test short-$$w ?"; \
+				select o in yes no all; do \
+					case $$o in \
+					yes) \
+						o=no; \
+						overwrite $$w;; \
+					all) \
+						overwrite $$w;; \
+					no) ;; \
+					esac; \
+					break; \
+				done; \
+			else \
+				overwrite $$w; \
+			fi ; \
+		fi ; \
+	done
+
+
