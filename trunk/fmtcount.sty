@@ -160,12 +160,12 @@
 \define@key{fmtcount}{french}[france]{%
   \@FC@iflangloaded{french}%
   {%
+    \setkeys{fcfrench}{#1}%
+  }%
+  {%
     \PackageError{fmtcount}%
     {Language `french' not defined}%
     {You need to load babel before loading fmtcount}%
-  }%
-  {%
-    \setkeys{fcfrench}{#1}%
   }%
 }
 %    \end{macrocode}
