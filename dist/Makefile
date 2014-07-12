@@ -1,12 +1,20 @@
+SHELL:=/bin/bash
+TEXMF_INSTALL_DIR?=$(HOME)/texmf
 SRC=../trunk
 
 all	: fmtcount.pdf
 
 ctan	: fmtcount.zip
 
-install	: fmtcount.sty fmtcount.pdf
-	cp fmtcount.pdf $(HOME)/texmf/doc/latex/fmtcount/
-	cp fmtcount.sty $(HOME)/texmf/tex/latex/fmtcount/
+install	: fmtcount.sty fmtcount.pdf $(TEXMF_INSTALL_DIR)/doc/latex/fmtcount $(TEXMF_INSTALL_DIR)/tex/latex/fmtcount
+	command cp fmtcount.pdf $(TEXMF_INSTALL_DIR)/doc/latex/fmtcount/
+	command cp fmtcount.sty $(TEXMF_INSTALL_DIR)/tex/latex/fmtcount/
+
+$(TEXMF_INSTALL_DIR)/doc/latex/fmtcount:
+	mkdir -p $@
+
+$(TEXMF_INSTALL_DIR)/tex/latex/fmtcount:
+	mkdir -p $@
 
 fmtcount.tds.zip	: fmtcount.pdf \
 		  fmtcount.sty \
@@ -15,19 +23,19 @@ fmtcount.tds.zip	: fmtcount.pdf \
 	mkdir -p tex/latex/fmtcount
 	mkdir -p source/latex/fmtcount
 	mkdir -p scripts/fmtcount
-	cp *.{sty,def} tex/latex/fmtcount/
-	cp fmtcount.{dtx,ins} source/latex/fmtcount
-	cp $(SRC)/fmtcount.perl scripts/fmtcount/
-	cp fmtcount.pdf README CHANGES doc/latex/fmtcount
-	cp $(SRC)/fc-*.tex doc/latex/fmtcount/
+	command cp *.{sty,def} tex/latex/fmtcount/
+	command cp fmtcount.{dtx,ins} source/latex/fmtcount
+	command cp $(SRC)/fmtcount.perl scripts/fmtcount/
+	command cp fmtcount.pdf README CHANGES doc/latex/fmtcount
+	command cp $(SRC)/fc-*.tex doc/latex/fmtcount/
 	zip -r fmtcount.tds.zip tex source doc scripts
 
 fmtcount.zip	: fmtcount.tds.zip
 	mkdir -p fmtcount
-	cp fmtcount.{dtx,ins,pdf} fmtcount/
-	cp README CHANGES fmtcount/
-	cp $(SRC)/fc-*.tex fmtcount/
-	cp $(SRC)/fmtcount.perl fmtcount/
+	command cp fmtcount.{dtx,ins,pdf} fmtcount/
+	command cp README CHANGES fmtcount/
+	command cp $(SRC)/fc-*.tex fmtcount/
+	command cp $(SRC)/fmtcount.perl fmtcount/
 	zip -r fmtcount.zip fmtcount/ fmtcount.tds.zip
 
 fmtcount.sty	: fmtcount.dtx fmtcount.ins
@@ -49,15 +57,15 @@ fmtcount-manual.html	: fmtcount-manual.tex ../../nlctdoc/nlctdoc.cls
 html	: fmtcount-manual.html 
 
 clean	:
-	\rm -f fmtcount.{aux,glo,idx,ilg,ind,log,out,toc,gls}
-	\rm -f *.{css,4ct,4tc,aux,dvi,glo,idv,idx,lg,log,tmp,xref,ind,out,toc,4dx,4ix,ilg}
-	\rm -f idxmake.{log,dvi}
+	command rm -f fmtcount.{aux,glo,idx,ilg,ind,log,out,toc,gls}
+	command rm -f *.{css,4ct,4tc,aux,dvi,glo,idv,idx,lg,log,tmp,xref,ind,out,toc,4dx,4ix,ilg}
+	command rm -f idxmake.{log,dvi}
 
 squeaky	:
-	\rm -f fmtcount.{dtx,ins,pdf,perl}
-	\rm -f fmtcount-manual.{html,tex}
-	\rm -f fmtcount-manual*.png
-	\rm -f *.sty *.def
-	\rm -f README CHANGES 
-	\rm -rf doc/ tex/ source/ fmtcount/ scripts/
-	\rm -f fmtcount.zip fmtcount.tds.zip
+	command rm -f fmtcount.{dtx,ins,pdf,perl}
+	command rm -f fmtcount-manual.{html,tex}
+	command rm -f fmtcount-manual*.png
+	command rm -f *.sty *.def
+	command rm -f README CHANGES 
+	command rm -rf doc/ tex/ source/ fmtcount/ scripts/
+	command rm -f fmtcount.zip fmtcount.tds.zip
