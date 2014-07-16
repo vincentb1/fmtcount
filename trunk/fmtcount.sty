@@ -2,7 +2,7 @@
 % This section deals with the code for |fmtcount.sty|
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{fmtcount}[2014/06/09 v2.04]
+\ProvidesPackage{fmtcount}[2014/07/18 v2.05]
 \RequirePackage{ifthen}
 \RequirePackage{keyval}
 \RequirePackage{etoolbox}
@@ -110,6 +110,78 @@
 %    \end{macrocode}
 %\end{macro}
 %
+% We need that flag to remember that a language has been loaded via package option, so that in the end we can
+% set \styfmt{fmtcount} in multiling
+%    \begin{macrocode}
+\newif\iffmtcount@language@option
+\fmtcount@language@optionfalse
+%    \end{macrocode}
+%\begin{macro}{\fc@supported@language@list}
+%    Declare list of supported languages, as a comma separated list. No space, no empty items. Each item is a
+%    language for which fmtcount is able to load language specific definitions. The raison d'\^etre of this
+%    list is to commonalize iteration on languages for the two following purposes:
+%    \begin{itemize}
+%    \item loading language definition as a result of the language being used by
+%      \styfmt{babel}/\styfmt{polyglossia}
+%    \item loading language definition as a result of package option
+%    \end{itemize}
+%    These two purposes cannot be handled in the same pass, we need two different passes otherwise there would
+%    be some corner cases when a package would be required --- as a result of loading language definition for
+%    one language --- between a \cs{DeclareOption} and a \cs{ProcessOption} which is forbidden by \LaTeXe.
+%\changes{2.05}{2014-07-18}{new}
+%    \begin{macrocode}
+\newcommand*\fc@supported@language@list{%
+english,%
+UKenglish,%
+british,%
+USenglish,%
+american,%
+spanish,%
+portuges,%
+french,%
+frenchb,%
+francais,%
+german,%
+germanb,%
+ngerman,%
+ngermanb,%
+italian}
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\fc@iterate@on@languages}
+%\begin{definition}
+%\cs{fc@iterate@on@languages}\marg{body}
+%\end{definition}
+% Now make some language iterator, note that for the following to work properly
+% \cs{fc@supported@language@list} must not be empty. \meta{body} is  a macro that takes one argument, and
+% \cs{fc@iterate@on@languages} applies it iteratively :
+%\changes{2.05}{2014-07-18}{new}
+%    \begin{macrocode}
+\newcommand*\fc@iterate@on@languages[1]{%
+  \ifx\fc@supported@language@list\@empty
+%    \end{macrocode}
+% That case should never happen !
+%    \begin{macrocode}
+    \PackageError{fmtcount}{Macro `\protect\@fc@iterate@on@languages' is empty}{You should never get here:
+      Something is broken within \texttt{fmtcount}, please report the issue on
+      \texttt{https://github.com/search?q=fmtcount\&ref=cmdform\&type=Issues}}%
+  \else
+    \let\fc@iterate@on@languages@body#1
+    \expandafter\@fc@iterate@on@languages\fc@supported@language@list,\fc@end\@nil
+  \fi
+}
+\def\fc@end@{\fc@end}%
+\def\@fc@iterate@on@languages#1,#2\@nil{%
+    \fc@iterate@on@languages@body{#1}%
+    \def\@tempa{#2}%
+    \ifx\@tempa\fc@end@\else
+      \def\@tempa{\@fc@iterate@on@languages#2\@nil}%
+      \expandafter
+      \@tempa
+    \fi
+}%
+%    \end{macrocode}
+%\end{macro}
 %\begin{macro}{\@fc@loadifbabelorpolyglossialdf}
 %\begin{definition}
 %\cs{@fc@loadifbabelorpolyglossialdf}\marg{language}
@@ -122,6 +194,7 @@
 % to compilation with \texttt{latex}, not \texttt{xelatex}.
 % \item \styfmt{polyglossia} language definition file \texttt{gloss-}\meta{language}\texttt{.ldf} has been
 %   loaded --- conditionally to compilation with \texttt{xelatex}, not \texttt{latex}.
+% \item \meta{language} option has been passed to package \styfmt{fmtcount}.
 % \end{itemize}
 % 
 %\changes{2.03}{2012-11-11}{renamed \cs{@fc@loadifbabelldf} to
@@ -144,22 +217,9 @@
 % british and USenglish babel settings}
 %\changes{2.0}{2012-06-18}{changed check for \cs{l@}\meta{language} 
 % to check for \cs{date}\meta{language}}
+%\changes{2.05}{2014-07-18}{use iterator rather than doing it flat on each language}
 %    \begin{macrocode}
-\@fc@loadifbabelorpolyglossialdf{english}
-\@fc@loadifbabelorpolyglossialdf{UKenglish}
-\@fc@loadifbabelorpolyglossialdf{british}
-\@fc@loadifbabelorpolyglossialdf{USenglish}
-\@fc@loadifbabelorpolyglossialdf{american}
-\@fc@loadifbabelorpolyglossialdf{spanish}
-\@fc@loadifbabelorpolyglossialdf{portuges}
-\@fc@loadifbabelorpolyglossialdf{french}
-\@fc@loadifbabelorpolyglossialdf{frenchb}
-\@fc@loadifbabelorpolyglossialdf{francais}
-\@fc@loadifbabelorpolyglossialdf{german}%
-\@fc@loadifbabelorpolyglossialdf{germanb}%
-\@fc@loadifbabelorpolyglossialdf{ngerman}%
-\@fc@loadifbabelorpolyglossialdf{ngermanb}%
-\@fc@loadifbabelorpolyglossialdf{italian}
+\fc@iterate@on@languages\@fc@loadifbabelorpolyglossialdf
 %    \end{macrocode}
 %\begin{macro}{\fmtcount@french}
 %  Define keys for use with |\fmtcountsetoptions|.  Key to switch French dialects (Does \styfmt{babel} store
@@ -283,6 +343,18 @@
 {%
 }
 %    \end{macrocode}
+%\begin{option}{\meta{language}}
+%    \begin{macrocode}
+\newcommand*\@fc@declare@language@option[1]{%
+  \DeclareOption{#1}{%
+    \@FC@iflangloaded{#1}{}{%
+      \fmtcount@language@optiontrue
+      \FCloadlang{#1}%
+     }}}%
+\fc@iterate@on@languages\@fc@declare@language@option
+%    \end{macrocode}
+%\end{option}
+%
 %\begin{option}{level}
 %    \begin{macrocode}
 \DeclareOption{level}{\def\fmtcount@fmtord{level}%
@@ -1661,7 +1733,28 @@
     \@set@mulitling@fmtcount
   }%
   {%
-    \@setdef@ultfmtcount
+%    \end{macrocode}
+% In the case that neither babel/polyglossia, nor ngerman has been loaded, then we go to multiling if a
+% language has been loaded by package option, and to delfault language otherwise.
+%    \begin{macrocode}
+    \iffmtcount@language@option
+        \@set@mulitling@fmtcount
+%    \end{macrocode}
+% Some sanity check at the beginning of document may help the end user understand what is wrong:
+%    \begin{macrocode}
+        \AtBeginDocument{%
+          \ifcsundef{languagename}%
+          {%
+            \PackageWarning{fmtcount}{%
+              `\protect\languagename' is undefined, you should use package babel/polyglossia when loading a
+              language via package option. Reverting to default language.
+            }%
+            \@setdef@ultfmtcount
+          }{}%
+        }
+    \else
+       \@setdef@ultfmtcount
+    \fi
   }%
 }
 %    \end{macrocode}

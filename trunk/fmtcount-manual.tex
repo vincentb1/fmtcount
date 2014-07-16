@@ -7,9 +7,36 @@
 \usepackage{tabularx,supertabular,multirow}
 \usepackage[T1]{fontenc}
 \usepackage{cmap}
+\usepackage{fmtcount}% needed
 \newcommand*\uref[1]{\href{#1}{#1}}
 \DeclareMathOperator{\intv}{..}
 \newcommand*\interface{}
+\makeatletter
+\newcommand*{\LanguagePackageOptionList}{{%
+ \def\@tempf##1{\texttt{##1}}% how to format each option
+ % we don't use \cs{newtoks} because anyway this is within a group
+ \toks0{}%
+ \def\@tempd{\toks0}% token in which we accumulate result
+ \def\@tempc{\toks1}% token in which we place next dialect
+ \count0 0 % to distinguish first and second iteration, we need to do tricks because we want to insert `and'
+           % before the last item in the list.
+ \def\@tempb##1{%
+   \ifnum\count0=0 %
+   \else\ifnum\count0=1 %
+     \expandafter\@tempd\expandafter{\the\toks1}%
+   \else
+     \edef\@tempa{\the\toks0, \the\toks1}%
+     \expandafter\@tempd\expandafter{\@tempa}%
+   \fi\fi
+   \expandafter\@tempc\expandafter{\@tempf{##1}}%
+   \advance\count0 by 1 %
+ }%
+ \fc@iterate@on@languages\@tempb
+ \edef\@tempa{\the\toks0, and \the\toks1}%
+ \expandafter
+}\@tempa}
+\makeatother
+
 \usepackage[colorlinks,
             bookmarks,
             bookmarksopen,
@@ -17,7 +44,7 @@
             pdftitle={fmtcount.sty: Displaying the Values of LaTeX Counters},
             pdfkeywords={LaTeX,counter}]{hyperref}
 
-\CheckSum{9736}
+\CheckSum{9790}
 
 \doxitem{Option}{option}{options}
 
@@ -387,16 +414,19 @@ produce: du, and \verb"\ABAlphnum{125}" will
 produce: DU.
 
 \section{Package Options}
+\label{sec:package-options}
 
 The following options can be passed to this package:
 
-\begin{tabular}{ll}
- \pkgopt{raise}    & make ordinal st,nd,rd,th appear as superscript\\
- \pkgopt{level}    & make ordinal st,nd,rd,th appear level with rest of 
-text
-\end{tabular}
+\begin{description}
+\item[\meta{dialect}] load language \meta{dialect}, supported \meta{dialect} are the same as passed to
+  \cs{FCloadlang}, see~\ref{sec:multilingual-support}
+\item[\pkgopt{raise}] make ordinal st,nd,rd,th appear as superscript
+\item[\pkgopt{level}] make ordinal st,nd,rd,th appear level with rest of text
+\end{description}
 
-\noindent These can also be set using the command:
+
+\noindent Options \pkgopt{raise} and \pkgopt{level} can also be set using the command:
 
 \begin{definition}[\DescribeMacro{\fmtcountsetoptions}]
 \cs{fmtcountsetoptions}\verb"{fmtord="\meta{type}\verb'}'
@@ -405,6 +435,7 @@ where \meta{type} is either \texttt{level} or
 \texttt{raise}.
 
 \section{Multilingual Support}
+\label{sec:multilingual-support}
 
 Version 1.02 of the \sty{fmtcount} package now has
 limited multilingual support.  The following languages are
@@ -420,8 +451,9 @@ dialects, use
 \begin{definition}[\DescribeMacro{\FCloadlang}]
 \cs{FCloadlang}\marg{dialect}
 \end{definition}
-in the preamble. The \meta{dialect} should match the options passed
-to \sty{babel} or \sty{polyglossia}. If you don't use this,
+in the preamble. The \meta{dialect} should match the options passed to \sty{babel} or
+\sty{polyglossia}. \sty{fmtcount} currently supports the following \meta{dialect}:
+\LanguagePackageOptionList. If you don't use this,
 \sty{fmtcount} will attempt to detect the required dialects, but
 this isn't guaranteed to work.
 
@@ -490,7 +522,7 @@ Pour alléger la notation et par souci de rétro-compatibilité
 L'effet de l'option \texttt{dialect} est illustré ainsi:\newline
 \begin{tabularx}{\linewidth}{@{}lX@{}}
   \pkgopt{france}& soixante-dix pour 70, quatre-vingts pour 80, et
-  quate-vingts-dix pour 90,\\
+  quatre-vingts-dix pour 90,\\
   \pkgopt{belgian} & septante pour 70, quatre-vingts pour 80, et
   nonante pour 90, \\
   \pkgopt{swiss} &septante pour 70, huitante\footnote{voir
