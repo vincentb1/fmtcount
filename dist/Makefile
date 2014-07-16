@@ -1,14 +1,15 @@
-SHELL:=/bin/bash
 TEXMF_INSTALL_DIR?=$(HOME)/texmf
 SRC=../trunk
+include $(SRC)/fc-makedefinitions.mak
+
 
 all	: fmtcount.pdf
 
 ctan	: fmtcount.zip
 
-install	: fmtcount.sty fmtcount.pdf $(TEXMF_INSTALL_DIR)/doc/latex/fmtcount $(TEXMF_INSTALL_DIR)/tex/latex/fmtcount
+install	:  fmtcount.pdf $(STYFILES) $(TEXMF_INSTALL_DIR)/doc/latex/fmtcount $(TEXMF_INSTALL_DIR)/tex/latex/fmtcount
 	command cp fmtcount.pdf $(TEXMF_INSTALL_DIR)/doc/latex/fmtcount/
-	command cp fmtcount.sty $(TEXMF_INSTALL_DIR)/tex/latex/fmtcount/
+	command cp $(STYFILES) $(TEXMF_INSTALL_DIR)/tex/latex/fmtcount/
 
 $(TEXMF_INSTALL_DIR)/doc/latex/fmtcount:
 	mkdir -p $@
@@ -38,7 +39,7 @@ fmtcount.zip	: fmtcount.tds.zip
 	command cp $(SRC)/fmtcount.perl fmtcount/
 	zip -r fmtcount.zip fmtcount/ fmtcount.tds.zip
 
-fmtcount.sty	: fmtcount.dtx fmtcount.ins
+$(STYFILES):%: fmtcount.dtx fmtcount.ins
 		latex fmtcount.ins
 
 fmtcount.pdf	: fmtcount.dtx 

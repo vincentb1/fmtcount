@@ -1,3 +1,4 @@
+include ../fc-makedefinitions.mak
 TESTS:= fc-samp sample-polyglossia
 
 SHORT:=UKenglish\
@@ -32,6 +33,15 @@ LOGS:=short
 
 
 all: short big
+	declare -i failure_count; \
+	for w in $(patsubst %,%.log,$(LOGS)); do\
+		failure_count=$$failure_count+$$(awk '/Total failure count = / {split($$0,a," *= *"); print a[2]}' $$w); \
+	done; \
+    echo "GRAND TOTAL FAILURE COUNT = $$failure_count"; \
+	if [ $$failure_count -ne 0 ]; then \
+		echo "ERROR: failure have been found, please correct before commiting changes"; \
+		exit -1; \
+	fi
 
 short: short.log
 
@@ -55,7 +65,7 @@ short.log: $(patsubst %,tests/test-short-%-nodate.html,$(SHORT))
 		diff -abs tests/test-short-$$w-nodate.html reference/test-short-$$w.html >> $@; \
 		if [ $$? -ne 0 ]; then diff_count=$$diff_count+1; fi; \
 	done; \
-	echo "Total count of difference = $${diff_count}" >> $@
+	echo "Total failure count = $${diff_count}" >> $@
 
 
 makesubdir: $(patsubst %,../%,$(FMTCOUNT))
