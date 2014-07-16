@@ -8,6 +8,10 @@
 \RequirePackage{etoolbox}
 \RequirePackage{fcprefix}
 %    \end{macrocode}
+% \changes{2.05}{2014-07-18}{Add \cs{RequirePackage} for \texttt{ifxetex}}
+%    \begin{macrocode}
+\RequirePackage{ifxetex}
+%    \end{macrocode}
 % \changes{1.3}{2007/7/19}{no
 %longer using xspace package}
 %\changes{1.31}{2009/10/02}{amsgen now loaded (\cs{new@ifnextchar}
@@ -50,7 +54,7 @@
 %\end{definition}
 % Load \styfmt{fmtcount} language file,
 % \texttt{fc-}\meta{language}\texttt{.def}, unless already loaded.
-% Unfortunately neither babel nor polyglossia keep a list of loaded
+% Unfortunately neither \styfmt{babel} nor \styfmt{polyglossia} keep a list of loaded
 % dialects, so we can't load all the necessary def files in the
 % preamble as we don't know which dialects the user requires.
 % Therefore the dialect definitions get loaded when a command such
@@ -108,19 +112,29 @@
 %
 %\begin{macro}{\@fc@loadifbabelorpolyglossialdf}
 %\begin{definition}
-%\cs{@fc@loadigbabelldf}\marg{language}
+%\cs{@fc@loadifbabelorpolyglossialdf}\marg{language}
 %\end{definition}
 %Loads fmtcount language file,
 %\texttt{fc-}\meta{language}\texttt{.def}, 
-% if babel language definition file
-% \meta{language}\texttt{.ldf} has been loaded.
+% if one of the following condition is met:
+% \begin{itemize}
+% \item \styfmt{babel} language definition file \meta{language}\texttt{.ldf} has been loaded --- conditionally
+% to compilation with \texttt{latex}, not \texttt{xelatex}.
+% \item \styfmt{polyglossia} language definition file \texttt{gloss-}\meta{language}\texttt{.ldf} has been
+%   loaded --- conditionally to compilation with \texttt{xelatex}, not \texttt{latex}.
+% \end{itemize}
+% 
 %\changes{2.03}{2012-11-11}{renamed \cs{@fc@loadifbabelldf} to
 % \cs{@fc@loadifbabelorpolyglossialdf}}
 %\changes{2.03}{2012-11-11}{added check for polyglossia language}
+%\changes{2.05}{2014-07-18}{use \cs{ifxetex} to discriminate between \styfmt{babel} and \styfmt{polyglossia}}
 %    \begin{macrocode}
 \newcommand*{\@fc@loadifbabelorpolyglossialdf}[1]{%
-  \ifcsundef{ver@#1.ldf}{}{\FCloadlang{#1}}%
-  \IfFileExists{gloss-#1.ldf}{\ifcsundef{#1@loaded}{}{\FCloadlang{#1}}}{}%
+  \ifxetex
+    \IfFileExists{gloss-#1.ldf}{\ifcsundef{#1@loaded}{}{\FCloadlang{#1}}}{}%
+  \else
+     \ifcsundef{ver@#1.ldf}{}{\FCloadlang{#1}}%
+  \fi
 }
 %    \end{macrocode}
 %\end{macro}
@@ -148,9 +162,8 @@
 \@fc@loadifbabelorpolyglossialdf{italian}
 %    \end{macrocode}
 %\begin{macro}{\fmtcount@french}
-% Define keys for use with |\fmtcountsetoptions|.
-% Key to switch French dialects (Does babel store
-%this kind of information?)
+%  Define keys for use with |\fmtcountsetoptions|.  Key to switch French dialects (Does \styfmt{babel} store
+%  this kind of information?)
 %    \begin{macrocode}
 \def\fmtcount@french{france}
 %    \end{macrocode}
@@ -282,9 +295,10 @@
   \def\fmtord#1{\textsuperscript{#1}}}
 %    \end{macrocode}
 %\end{option}
-% Process package options
+% Process package options 
+% \changes{2.05}{2014-07-18}{Add \cs{relax} after \cs{ProcessOptions} like shown in \texttt{clsguide.pdf}}
 %    \begin{macrocode}
-\ProcessOptions
+\ProcessOptions\relax
 %    \end{macrocode}
 %\begin{macro}{\@FCmodulo}
 %\begin{definition}
@@ -639,13 +653,15 @@
 % If \cs{ordinal} isn't defined make \cs{ordinal} a synonym
 % for \cs{FCordinal} to maintain compatibility with previous
 % versions.
+% \changes{2.05}{2014-07-18}{Use \cs{protect}, not \cs{string} in \cs{PackageWarning} to quote macros like
+% shown in \texttt{clsguide.pdf}}
 %    \begin{macrocode}
 \ifcsundef{ordinal}
  {\let\ordinal\FCordinal}%
  {%
    \PackageWarning{fmtcount}%
-   {\string\ordinal \space already defined use 
-    \string\FCordinal \space instead.}
+   {\protect\ordinal \space already defined use 
+    \protect\FCordinal \space instead.}
  }
 %    \end{macrocode}
 %\end{macro}
@@ -776,6 +792,9 @@
 %\end{macro}
 %\begin{macro}{\@ordinal@string}
 % Display ordinal as a string according to gender.
+% \changes{2.05}{2014-07-18}{Use \cs{protect}, not \cs{string} in \cs{PackageError} to quote macros like
+% shown in \texttt{clsguide.pdf}}
+% \changes{2.05}{2014-07-18}{Correct detailed error message, so `n' is one of available gender options}
 %    \begin{macrocode}
 \def\@ordinal@string#1[#2]{%
   {%
@@ -793,8 +812,8 @@
         {}%
         {%
           \PackageError{fmtcount}%
-          {Invalid gender option `#2' to \string\ordinalstring}%
-          {Available options are m, f or f}%
+          {Invalid gender option `#2' to \protect\ordinalstring}%
+          {Available options are m, f or n}%
         }%
         \protect\@ordinalstringM{#1}{\@fc@ordstr}%
       }%
@@ -828,6 +847,8 @@
 %\end{macro}
 %\begin{macro}{\@store@ordinal@string}
 % Store textual representation of number according to gender.
+% \changes{2.05}{2014-07-18}{Use \cs{protect}, not \cs{string} in \cs{PackageWarning} to quote macros like
+% shown in \texttt{clsguide.pdf}}
 %    \begin{macrocode}
 \def\@store@ordinal@string#1#2[#3]{%
   \ifthenelse{\equal{#3}{f}}%
@@ -844,7 +865,7 @@
       {}%
       {%
         \PackageError{fmtcount}%
-        {Invalid gender option `#3' to \string\ordinalstring}%
+        {Invalid gender option `#3' to \protect\ordinalstring}%
         {Available options are m, f or n}%
       }%
       \protect\@ordinalstringM{#2}{\@fc@ordstr}%
@@ -1486,6 +1507,8 @@
 %\begin{macro}{\fc@multiling}
 %changes{2.02}{2012-10-24}{new}
 %\cs{fc@multiling}\marg{name}\marg{gender}
+% \changes{2.05}{2014-07-18}{Use \cs{protect}, not \cs{string} in \cs{PackageWarning} to quote macros like
+% shown in \texttt{clsguide.pdf}}
 %    \begin{macrocode}
 \newcommand*{\fc@multiling}[2]{%
   \ifcsundef{@#1#2\languagename}%
@@ -1497,7 +1520,7 @@
   \ifcsundef{@#1#2\languagename}%
   {%
     \PackageWarning{fmtcount}%
-    {No support for \expandafter\string\csname#1\endcsname\space for
+    {No support for \expandafter\protect\csname #1\endcsname\space for
      language '\languagename'}%
     \ifthenelse{\equal{\languagename}{\fc@mainlang}}%
     {%
@@ -1623,9 +1646,11 @@
 }
 %    \end{macrocode}
 %\end{macro}
-% Check to see if babel or ngerman packages have been loaded.
+% Check to see if \styfmt{babel}, \styfmt{polyglossia} or \styfmt{ngerman} packages have been loaded, and if
+% yes set \styfmt{fmtcount} in multiling.
 %    \begin{macrocode}
-\@ifpackageloaded{babel}%
+\expandafter\@ifpackageloaded
+\expandafter{\ifxetex polyglossia\else babel\fi}%
 {%
   \@set@mulitling@fmtcount
 }%
@@ -1648,4 +1673,6 @@
 \let\@numberstring=\@numberstringM
 \let\@Numberstring=\@NumberstringM
 %    \end{macrocode}
-
+\iffalse Local variables: \fi
+\iffalse mode: docTeX     \fi
+\iffalse End:             \fi
