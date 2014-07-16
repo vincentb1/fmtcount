@@ -1,6 +1,7 @@
 include fc-makedefinitions.mak
 
 test	: fc-samp.pdf fc-frlargenum.pdf sample-polyglossia.pdf
+	$(MAKE) -C test
 
 fc-lang.pdf	: fc-lang.tex $(STYFILES)
 		pdflatex fc-lang
