@@ -173,12 +173,15 @@ italian}
 \def\fc@end@{\fc@end}%
 \def\@fc@iterate@on@languages#1,#2\@nil{%
     \fc@iterate@on@languages@body{#1}%
-    \def\@tempa{#2}%
-    \ifx\@tempa\fc@end@\else
-      \def\@tempa{\@fc@iterate@on@languages#2\@nil}%
+    {%
+      \def\@tempa{#2}%
+      \ifx\@tempa\fc@end@
+        \let\@tempa\@empty
+      \else
+        \def\@tempa{\@fc@iterate@on@languages#2\@nil}%
+      \fi
       \expandafter
-      \@tempa
-    \fi
+    }\@tempa
 }%
 %    \end{macrocode}
 %\end{macro}
