@@ -14,7 +14,7 @@
 
 \def\fc@end@{\fc@end}
 %    \end{macrocode}
-% \DescribeMacro\fc@number@analysis First of all we need to separate the number between integer and fractional
+% \DescribeMacro{\fc@number@analysis} First of all we need to separate the number between integer and fractional
 % part. Number to be analysed is in `\texttt{\#1}'. Decimal separator may be . or , whichever first. At end of
 % this macro, integer part goes to \cs{fc@integer@part} and fractional part goes to \cs{fc@fractional@part}.
 %    \begin{macrocode}
@@ -54,7 +54,7 @@
   \fi
 }
 %    \end{macrocode}
-% \DescribeMacro\fc@number@parser Macro \cs{fc@number@parser} is the main engine to parse a number.  Argument
+% \DescribeMacro{\fc@number@parser} Macro \cs{fc@number@parser} is the main engine to parse a number.  Argument
 % `\#1' is input and contains the number to be parsed. At end of this macro, each digit is stored separately
 % in a \cs{fc@digit@}\meta{$n$}, and macros \cs{fc@min@weight} and \cs{fc@max@weight} are set to the bounds
 % for \meta{$n$}.
@@ -174,7 +174,7 @@
   \edef\fc@min@weight{\the\fc@digit@counter}%
 }
 %    \end{macrocode}
-% \DescribeMacro\fc@parse@integer@digits Macro \cs{fc@parse@integer@digits} is used to 
+% \DescribeMacro{\fc@parse@integer@digits} Macro \cs{fc@parse@integer@digits} is used to 
 %    \begin{macrocode}
 \ifcsundef{fc@parse@integer@digits}{}{%
   \PackageError{fcnumparser}{Duplicate definition}{Redefinition of 
@@ -196,7 +196,7 @@
 
 %    \end{macrocode}
 % Now we have macros to read a few digits from the \cs{fc@digit@}\meta{$n$} array and form a correspoding
-% number.\newline \DescribeMacro\fc@read@unit \cs{fc@read@unit} just reads one digit and form an integer in
+% number.\newline \DescribeMacro{\fc@read@unit} \cs{fc@read@unit} just reads one digit and form an integer in
 % the range \([0 \intv 9]\). First we check that the macro is not yet defined.
 %    \begin{macrocode}
 \ifcsundef{fc@read@unit}{}{%
@@ -229,7 +229,7 @@
   \fi
 }
 %    \end{macrocode}
-% \DescribeMacro\fc@read@hundred Macro \cs{fc@read@hundred} is used to read a pair of digits and form an
+% \DescribeMacro{\fc@read@hundred} Macro \cs{fc@read@hundred} is used to read a pair of digits and form an
 % integer in the range \([0 \intv 99]\).  First we check that the macro is not yet defined.
 %    \begin{macrocode}
 \ifcsundef{fc@read@hundred}{}{%
@@ -252,7 +252,7 @@
   }\@tempb
 }
 %    \end{macrocode}
-% \DescribeMacro\fc@read@thousand Macro \cs{fc@read@thousand} is used to read a trio of digits and form an
+% \DescribeMacro{\fc@read@thousand} Macro \cs{fc@read@thousand} is used to read a trio of digits and form an
 % integer in the range \([0 \intv 999]\).  First we check that the macro is not yet defined.
 %    \begin{macrocode}
 \ifcsundef{fc@read@thousand}{}{%
@@ -277,7 +277,7 @@
 }
 %    \end{macrocode}
 % Note: one myriad is ten thousand.
-% \DescribeMacro\fc@read@thousand Macro \cs{fc@read@myriad} is used to read a quatuor of digits and form an
+% \DescribeMacro{\fc@read@thousand} Macro \cs{fc@read@myriad} is used to read a quatuor of digits and form an
 % integer in the range \([0 \intv 9999]\).  First we check that the macro is not yet defined.
 %    \begin{macrocode}
 \ifcsundef{fc@read@myriad}{}{%
@@ -301,7 +301,7 @@
   }\@tempb
 }
 %    \end{macrocode}
-% \DescribeMacro\fc@check@nonzeros Macro \cs{fc@check@nonzeros} is used to check whether the number
+% \DescribeMacro{\fc@check@nonzeros} Macro \cs{fc@check@nonzeros} is used to check whether the number
 % represented by digits \cs{fc@digit@}\meta{$n$}, with \(n\) in some interval, is zero, one, or more than one.
 % First we check that the macro is not yet defined.
 %    \begin{macrocode}
@@ -341,7 +341,7 @@
   }\@tempa
 }
 %    \end{macrocode}
-% \DescribeMacro\fc@@check@nonzeros@inner Macro \cs{fc@@check@nonzeros@inner} Check wehther some part of the
+% \DescribeMacro{\fc@@check@nonzeros@inner} Macro \cs{fc@@check@nonzeros@inner} Check wehther some part of the
 % parsed value contains some non-zero digit At the call of this macro we expect that:\newline\noindent
 % \begin{tabularx}{\linewidth}{@{}>{\raggedleft\arraybackslash}rX@{}}
 %   \cs{@tempa}&input/output macro:\newline\noindent
@@ -414,7 +414,7 @@
    \next
 }
 %    \end{macrocode}
-% \DescribeMacro\fc@intpart@find@last Macro \cs{fc@intpart@find@last} find the rightmost non zero digit in the
+% \DescribeMacro{\fc@intpart@find@last} Macro \cs{fc@intpart@find@last} find the rightmost non zero digit in the
 % integer part. First check that the macro is not yet defined.
 %    \begin{macrocode}
 \ifcsundef{fc@intpart@find@last}{}{%
@@ -462,7 +462,7 @@
   }\@tempa\space
 }
 %    \end{macrocode}
-% \DescribeMacro\fc@get@last@word Getting last word. Arguments as follows:\newline\noindent
+% \DescribeMacro{\fc@get@last@word} Getting last word. Arguments as follows:\newline\noindent
 % \begin{tabularx}{\linewidth}{@{}>{\raggedleft\arraybackslash\ttfamily}rX@{}}
 %   \#1&input: full sequence\\
 %   \#2&output macro 1: all sequence without last word\\
@@ -532,7 +532,7 @@
   }\@tempa
 }
 %    \end{macrocode}
-% \DescribeMacro\fc@get@last@word Getting last letter. Arguments as follows:\newline\noindent
+% \DescribeMacro{\fc@get@last@word} Getting last letter. Arguments as follows:\newline\noindent
 % \begin{tabularx}{\linewidth}{@{}>{\raggedleft\arraybackslash\ttfamily}rX@{}}
 %   \#1&input: full word\\
 %   \#2&output macro 1: all word without last letter\\
