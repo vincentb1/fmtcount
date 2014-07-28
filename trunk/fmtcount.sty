@@ -1754,7 +1754,22 @@ italian}
               language via package option. Reverting to default language.
             }%
             \@setdef@ultfmtcount
-          }{}%
+          }{%
+            \@FC@iflangloaded{\languagename}{}{%
+%    \end{macrocode}
+% The current \cs{languagename} is not a language that has been previously loaded. The correction is to have
+% \cs{languagename} let to \cs{fc@mainlang}. Please note that, as \cs{iffmtcount@language@option} is true,
+% we know that \texttt{fmtcount} has loaded some language.
+%    \begin{macrocode}
+              \PackageWarning{fmtcount}{%
+                Setting `\protect\languagename' to `\fc@mainlang'.\MessageBreak
+                Reason is that `\protect\languagename' was `\languagename',\MessageBreak
+                but `\languagename' was not loaded by fmtcount,\MessageBreak
+                whereas `\fc@mainlang' was the last language loaded by fmtcount ;
+              }%
+              \let\languagename\fc@mainlang
+            }
+          }%
         }
     \else
        \@setdef@ultfmtcount
