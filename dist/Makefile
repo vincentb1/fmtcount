@@ -49,6 +49,9 @@ fmtcount.pdf	: fmtcount.dtx
 		pdflatex fmtcount.dtx
 		pdflatex fmtcount.dtx
 
+fmtcount.dtx: $(patsubst %,../trunk/%,$(DTX_DEPENDANCIES))
+	$(MAKE) -C ../trunk dist
+
 fmtcount-manual.html	: fmtcount-manual.tex ../../nlctdoc/nlctdoc.cls
 			ht latex fmtcount-manual
 			tex '\def\filename{{fmtcount-manual}{idx}{4dx}{ind}} \input idxmake.4ht'

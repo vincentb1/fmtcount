@@ -1,7 +1,10 @@
 include ../fc-makedefinitions.mak
 TESTS:= fc-samp sample-polyglossia
+SAMPLE_DIR:=..
 
-SHORT:=UKenglish\
+# Tests with TEX4HT test engine
+#------------------------------------------------------------------------------------------------------------
+LANG_short:=UKenglish\
 	 USenglish\
 	 american\
 	 british\
@@ -14,6 +17,18 @@ SHORT:=UKenglish\
 	 ngerman\
 	 ngermanb\
 	 spanish
+LANG_shortgo:=english french
+# note: french cannot be tested with babel + tex4ht engine due to tex4ht problem with babel thin space used in
+# french before :;!?, see https://puszcza.gnu.org.ua/bugs/?213.
+LANG_shortbab:=english german
+
+# Tests with pdflatex test engine
+#------------------------------------------------------------------------------------------------------------
+LATEX_TESTS:=fc-samp fc-frlargenum
+
+# Tests with xelatex sample-polyglossia
+#------------------------------------------------------------------------------------------------------------
+XELATEX_TESTS:=sample-polyglossia
 
 # please set this variable to empty when https://puszcza.gnu.org.ua/bugs/?200 is solved
 # that will cause some `regression' as \ordinal of section is going to be tested
@@ -23,16 +38,12 @@ TEX4HT_BUG200_PATCH:= !/\\renewcommand{\\thesection}{\\ordinal{section}}/
 # italian => does not support 999999
 # portuges => does not support 0
 
-FMTCOUNT=$(patsubst ../%,%,$(wildcard ../*.sty) $(wildcard ../*.def))
+LOGS_SHORT:=short shortgo shortbab
+TEX4HT_LOGS:=$(LOGS_SHORT)
+LOGS:=pdftests $(TEX4HT_LOGS) 
 
-LOGS:=short
-
-
-.PHONY: all short big makesubdir
-
-
-
-all: short big
+.PHONY: all
+all: $(patsubst %,%.log,$(LOGS))
 	declare -i failure_count; \
 	for w in $(patsubst %,%.log,$(LOGS)); do\
 		failure_count=$$failure_count+$$(awk '/Total failure count = / {split($$0,a," *= *"); print a[2]}' $$w); \
@@ -43,42 +54,140 @@ all: short big
 		exit -1; \
 	fi
 
-short: short.log
+define ERROR_COUNT_AWK
+BEGIN { failcount=0} ;\
+/^Test [^:]+: failed/ { ++failcount } ;\
+END   { print "\nTotal failure count = " failcount}
+endef
 
-$(patsubst %,tests/test-short-%.tex,$(SHORT)):tests/test-short-%.tex: makesubdir
-	awk '/^% FCloadlang/ { $$0="\\FCloadlang{$*}\\def\\languagename{$*}\\makeatletter\n\\@set@mulitling@fmtcount\\makeatother"}; $(TEX4HT_BUG200_PATCH) {print}' ../fc-samp.tex > $@
 
+pdftests.log:  $(patsubst %,pdftests/%.pdf,$(LATEX_TESTS) $(XELATEX_TESTS))
+	awk '$(ERROR_COUNT_AWK)' $@ >> $@
+	@echo '=================================================================================================='
+	@echo '== End target pdftests'
+	@echo '=================================================================================================='
 
-tests/test-short-%.html: tests/test-short-%.tex
-	cd tests; htlatex $(patsubst tests/%,%,$<)
+.PHONY: echo_pdftest
+echo_pdftest:
+	@echo '=================================================================================================='
+	@echo '== Begin target pdftests'
+	@echo '=================================================================================================='
+
+$(patsubst %,pdftests/%.pdf,$(LATEX_TESTS)):pdftests/%.pdf:../%.tex $(patsubst %,pdftests/%,$(STYFILES)) echo_pdftest pdftests/.dir
+	cd pdftests; if latexmk -pdf ../$<; \
+	then echo "Test $*: ok" >> ../pdftests.log; \
+	else echo "Test $*: failed" >> ../pdftests.log; \
+	fi
+
+$(patsubst %,pdftests/%.pdf,$(XELATEX_TESTS)):pdftests/%.pdf:../%.tex $(patsubst %,pdftests/%,$(STYFILES)) \
+		echo_pdftest pdftests/.dir
+	cd pdftests; if latexmk -r ../xelatex_latexmkrc ../$<; \
+	then echo "Test $*: ok" >> ../pdftests.log; \
+	else echo "Test $*: failed" >> ../pdftests.log; \
+	fi
+
+# language loaded via FCLoadLang
+#------------------------------------------------------------------------------------------------------------
+$(patsubst %,tests/test-short-%.tex,$(LANG_short)):tests/test-short-%.tex: echo_short tests/.dir
+	awk '/^% FCloadlang/ { $$0="\\FCloadlang{$*}\\def\\languagename{$*}\\makeatletter\n\\@set@mulitling@fmtcount\\makeatother"}; $(TEX4HT_BUG200_PATCH) {print}' $(SAMPLE_DIR)/fc-samp.tex > $@
+
+# language loaded via global option
+#------------------------------------------------------------------------------------------------------------
+$(patsubst %,tests/test-shortgo-%.tex,$(LANG_shortgo)):tests/test-shortgo-%.tex: $(SAMPLE_DIR)/fc-samp.tex \
+		echo_shortgo tests/.dir
+	awk '/^ *\\documentclass/ { sub(/\[[^]]*/,"&,$*")}; $(TEX4HT_BUG200_PATCH) {print}' $< > $@
+
+# language loaded via prior usepackage of babel
+#------------------------------------------------------------------------------------------------------------
+$(patsubst %,tests/test-shortbab-%.tex,$(LANG_shortbab)):tests/test-shortbab-%.tex: \
+		$(SAMPLE_DIR)/fc-samp.tex echo_shortbab tests/.dir
+	awk '/^ *\\usepackage/ { $$0="\\usepackage[$*]{babel}\n" $$0}; $(TEX4HT_BUG200_PATCH) {print}' $< > $@
+
+# AWK script to normalize the HTML output for short number test
+# replace shortgo/shortbab by short in the header source & css reference
+# remove xml:lang language specification (when babel used) from <html> attributes
+define SHORT_NODATE_AWK
+/<meta name="src"/ || /<link rel="stylesheet"/ { sub(/"test-short(go|bab)-/,"\"test-short-")};\
+/<html/ {sub(/xml:lang=".." */,"")}; \
+!/<meta name="date"/ { gsub(/<!--l\. [0-9]+-->/,""); print}
+endef
+# "
+
+define SHORTTYPE_RULE
+$(1).log: $$(patsubst %,tests/test-$(1)-%-nodate.html,$$(LANG_$(1)))
+	if [ -f $$@ ]; then rm $$@; fi
+	declare -i diff_count=0; \
+	for w in $$(LANG_$(1)); do \
+		echo "Test $(1)-$$$$w:" >> $$@; \
+		diff -abs tests/test-$(1)-$$$$w-nodate.html reference/test-short-$$$$w.html >> $$@; \
+		if [ $$$$? -ne 0 ]; then diff_count=$$$$diff_count+1; fi; \
+	done; \
+	echo "Total failure count = $$$${diff_count}" >> $$@
+	@echo '=================================================================================================='
+	@echo '== End target $(1)'
+	@echo '=================================================================================================='
+
+tests/test-$(1)-%.html: tests/test-$(1)-%.tex
+	cd tests; htlatex $$(patsubst tests/%,%,$$<)
 
 # generation date removal, and variable comment removal
-tests/test-short-%-nodate.html: tests/test-short-%.html
-	awk '!/<meta name="date"/ { gsub(/<!--l\. [0-9]+-->/,""); print}' $< > $@
+tests/test-$(1)-%-nodate.html: tests/test-$(1)-%.html
+	awk '$(SHORT_NODATE_AWK)' $$< > $$@
 
+.PHONY: echo_$(1)
+echo_$(1):
+	@echo '=================================================================================================='
+	@echo '== Begin target $(1)'
+	@echo '=================================================================================================='
+endef
 
-short.log: $(patsubst %,tests/test-short-%-nodate.html,$(SHORT))
-	if [ -f $@ ]; then rm $@; fi
-	declare -i diff_count=0; \
-	for w in $(SHORT); do \
-		echo "Test short-$$w:" >> $@; \
-		diff -abs tests/test-short-$$w-nodate.html reference/test-short-$$w.html >> $@; \
-		if [ $$? -ne 0 ]; then diff_count=$$diff_count+1; fi; \
-	done; \
-	echo "Total failure count = $${diff_count}" >> $@
+$(foreach SHORTTYPE,$(LOGS_SHORT),$(eval $(call SHORTTYPE_RULE,$(SHORTTYPE))))
 
+.PHONY: makesubdir
+makesubdir: $(patsubst %,tests/%,$(STYFILES))
 
-makesubdir: $(patsubst %,../%,$(FMTCOUNT))
+# Docstrip of the poor --- supposedly faster than real docstrip... but I need to check that.
+# Does not contain any rule like: /^ *%\^\^A/ { sub(/%\^\^A/,"%"); print }
+# because anyway this is for test speed-up, not for distribution.
+define DOCSTRIP_AWK
+BEGIN                      { printenb = 0; };\
+/^%    \\end{macrocode}/   { printenb = 0; };\
+printenb == 1              { print };\
+/^%    \\begin{macrocode}/ { printenb = 1; }
+endef
+
+$(patsubst %,tests/%,$(STYFILES)):tests/%:../% tests/.dir
+	awk '$(DOCSTRIP_AWK)' $< > $@
+
+$(patsubst %,pdftests/%,$(STYFILES)):pdftests/%:tests/% pdftests/.dir
+	cp -u $< -T $@
+
+tests/.dir:
 	mkdir -p tests
-	for w in $(FMTCOUNT); do cp ../$$w tests; done
+	echo "" > $@
 
-clean:
+pdftests/.dir:
+	mkdir -p pdftests
+	echo "" > $@
+
+.PHONY: clean
+clean: cleanpdf cleantex4ht
+
+.PHONY: cleanpdf
+cleanpdf:
+	rm -fr pdftests
+	rm -f pdftests.log
+
+.PHONY: cleantex4ht
+cleantex4ht:
 	rm -fr tests
-	for w in $(LOGS); do rm -fr $$w.log; done
+	for w in $(TEX4HT_LOGS); do rm -f $$w.log; done
 
+.PHONY: overwrite
 overwrite: overwrite_short
 
 
+.PHONY: overwrite_short
 overwrite_short:
 # my bash does not have ;& in case ... esac
 	o=no; \

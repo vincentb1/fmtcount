@@ -1,21 +1,10 @@
 include fc-makedefinitions.mak
 
-test	: fc-samp.pdf fc-frlargenum.pdf sample-polyglossia.pdf
+.PHONY: test
+test	:
 	$(MAKE) -C test
 
-fc-lang.pdf	: fc-lang.tex $(STYFILES)
-		pdflatex fc-lang
-
-fc-samp.pdf	: fc-samp.tex $(STYFILES)
-		pdflatex fc-samp
-		pdflatex fc-samp
-
-fc-frlargenum.pdf	: fc-frlargenum.tex $(STYFILES)
-		pdflatex fc-frlargenum
-
-sample-polyglossia.pdf	: sample-polyglossia.tex $(STYFILES)
-	xelatex sample-polyglossia
-
+.PHONY: dist
 dist	: README CHANGES fmtcount-manual.tex \
 	  fmtcount.perl $(STYFILES) \
 	  ../dist/fmtcount.dtx
@@ -23,8 +12,7 @@ dist	: README CHANGES fmtcount-manual.tex \
 	./cp2dist -f fmtcount.sty README fmtcount-manual.tex ../dist
 	$(MAKE) -C ../dist
 
-../dist/fmtcount.dtx	: $(STYFILES)  \
-			  fmtcount-manual.tex 
+../dist/fmtcount.dtx	: $(DTX_DEPENDANCIES)
 	makedtx -author "Nicola Talbot and Vincent Belaïche" \
 		-src "(.+)\.(sty)=>\1.\2" \
 		-src "(.+)\.(def)=>\1.\2" \
@@ -40,12 +28,20 @@ dist	: README CHANGES fmtcount-manual.tex \
 ../dist/fmtcount-manual.html	: ../dist/fmtcount-manual.tex 
 	$(MAKE) -C ../dist fmtcount-manual.html
 
+.PHONY: html
 html	: ../dist/fmtcount-manual.html
 
+.PHONY: pdf
 pdf	: ../dist/fmtcount.pdf
 
+.PHONY: squeaky
 squeaky	:
 	$(MAKE) -C ../dist squeaky clean
 
+.PHONY: clean
 clean	:
 	command rm -f fc-*.{aux,log,pdf}
+
+# Local Variables:
+# coding: utf-8
+# End:

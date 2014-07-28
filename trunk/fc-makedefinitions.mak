@@ -4,3 +4,4 @@ STYFILES=fmtcount.sty fcnumparser.sty fcprefix.sty \
 	 fc-german.def fc-portuges.def fc-spanish.def \
 	 fc-UKenglish.def fc-USenglish.def fc-ngermanb.def \
 	 fc-ngerman.def fc-germanb.def
+DTX_DEPENDANCIES=$(STYFILES) fmtcount-manual.tex
