@@ -2,13 +2,13 @@
 % This section deals with the code for |fmtcount.sty|
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{fmtcount}[2014/07/18 v2.05]
+\ProvidesPackage{fmtcount}[2014/07/18 v3.00]
 \RequirePackage{ifthen}
 \RequirePackage{keyval}
 \RequirePackage{etoolbox}
 \RequirePackage{fcprefix}
 %    \end{macrocode}
-% \changes{2.05}{2014-07-18}{Add \cs{RequirePackage} for \texttt{ifxetex}}
+% \changes{3.00}{2014-07-18}{Add \cs{RequirePackage} for \texttt{ifxetex}}
 %    \begin{macrocode}
 \RequirePackage{ifxetex}
 %    \end{macrocode}
@@ -46,8 +46,8 @@
 %\end{macro}
 %
 %\begin{macro}{\FCloadlang}
-%changes{2.0}{2012-06-18}{new}
-%changes{2.02}{2012-10-24}{ensured catcode for @ set to `letter'
+%\changes{2.0}{2012-06-18}{new}
+%\changes{2.02}{2012-10-24}{ensured catcode for @ set to `letter'
 %before loading file}
 %\begin{definition}
 %\cs{FCloadlang}\marg{language}
@@ -87,7 +87,7 @@
 %    \end{macrocode}
 %\end{macro}
 %\begin{macro}{\@FC@iflangloaded}
-%changes{2.0}{2012-06-18}{new}
+%\changes{2.0}{2012-06-18}{new}
 %\begin{definition}
 %\cs{@FC@iflangloaded}\marg{language}\marg{true}\marg{false}
 %\end{definition}
@@ -100,7 +100,7 @@
 %    \end{macrocode}
 %\end{macro}
 %\begin{macro}{\ProvidesFCLanguage}
-%changes{2.0}{2012-06-18}{new}
+%\changes{2.0}{2012-06-18}{new}
 % Declare fmtcount language definition file. Adapted from
 % \ics{ProvidesFile}.
 %    \begin{macrocode}
@@ -128,7 +128,7 @@
 %    These two purposes cannot be handled in the same pass, we need two different passes otherwise there would
 %    be some corner cases when a package would be required --- as a result of loading language definition for
 %    one language --- between a \cs{DeclareOption} and a \cs{ProcessOption} which is forbidden by \LaTeXe.
-%\changes{2.05}{2014-07-18}{new}
+%\changes{3.00}{2014-07-18}{new}
 %    \begin{macrocode}
 \newcommand*\fc@supported@language@list{%
 english,%
@@ -155,7 +155,7 @@ italian}
 % Now make some language iterator, note that for the following to work properly
 % \cs{fc@supported@language@list} must not be empty. \meta{body} is  a macro that takes one argument, and
 % \cs{fc@iterate@on@languages} applies it iteratively :
-%\changes{2.05}{2014-07-18}{new}
+%\changes{3.00}{2014-07-18}{new}
 %    \begin{macrocode}
 \newcommand*\fc@iterate@on@languages[1]{%
   \ifx\fc@supported@language@list\@empty
@@ -167,18 +167,19 @@ italian}
       \texttt{https://github.com/search?q=fmtcount\&ref=cmdform\&type=Issues}}%
   \else
     \let\fc@iterate@on@languages@body#1
-    \expandafter\@fc@iterate@on@languages\fc@supported@language@list,\fc@end\@nil
+    \expandafter\@fc@iterate@on@languages\fc@supported@language@list,\@nil,%
   \fi
 }
-\def\fc@end@{\fc@end}%
-\def\@fc@iterate@on@languages#1,#2\@nil{%
-    \fc@iterate@on@languages@body{#1}%
+\def\@fc@iterate@on@languages#1,{%
     {%
-      \def\@tempa{#2}%
-      \ifx\@tempa\fc@end@
+      \def\@tempa{#1}%
+      \ifx\@tempa\@nnil
         \let\@tempa\@empty
       \else
-        \def\@tempa{\@fc@iterate@on@languages#2\@nil}%
+        \def\@tempa{%
+          \fc@iterate@on@languages@body{#1}%
+          \@fc@iterate@on@languages
+        }%
       \fi
       \expandafter
     }\@tempa
@@ -203,7 +204,7 @@ italian}
 %\changes{2.03}{2012-11-11}{renamed \cs{@fc@loadifbabelldf} to
 % \cs{@fc@loadifbabelorpolyglossialdf}}
 %\changes{2.03}{2012-11-11}{added check for polyglossia language}
-%\changes{2.05}{2014-07-18}{use \cs{ifxetex} to discriminate between \styfmt{babel} and \styfmt{polyglossia}}
+%\changes{3.00}{2014-07-18}{use \cs{ifxetex} to discriminate between \styfmt{babel} and \styfmt{polyglossia}}
 %    \begin{macrocode}
 \newcommand*{\@fc@loadifbabelorpolyglossialdf}[1]{%
   \ifxetex
@@ -220,7 +221,7 @@ italian}
 % british and USenglish babel settings}
 %\changes{2.0}{2012-06-18}{changed check for \cs{l@}\meta{language} 
 % to check for \cs{date}\meta{language}}
-%\changes{2.05}{2014-07-18}{use iterator rather than doing it flat on each language}
+%\changes{3.00}{2014-07-18}{use iterator rather than doing it flat on each language}
 %    \begin{macrocode}
 \fc@iterate@on@languages\@fc@loadifbabelorpolyglossialdf
 %    \end{macrocode}
@@ -371,7 +372,7 @@ italian}
 %    \end{macrocode}
 %\end{option}
 % Process package options 
-% \changes{2.05}{2014-07-18}{Add \cs{relax} after \cs{ProcessOptions} like shown in \texttt{clsguide.pdf}}
+% \changes{3.00}{2014-07-18}{Add \cs{relax} after \cs{ProcessOptions} like shown in \texttt{clsguide.pdf}}
 %    \begin{macrocode}
 \ProcessOptions\relax
 %    \end{macrocode}
@@ -728,7 +729,7 @@ italian}
 % If \cs{ordinal} isn't defined make \cs{ordinal} a synonym
 % for \cs{FCordinal} to maintain compatibility with previous
 % versions.
-% \changes{2.05}{2014-07-18}{Use \cs{protect}, not \cs{string} in \cs{PackageWarning} to quote macros like
+% \changes{3.00}{2014-07-18}{Use \cs{protect}, not \cs{string} in \cs{PackageWarning} to quote macros like
 % shown in \texttt{clsguide.pdf}}
 %    \begin{macrocode}
 \ifcsundef{ordinal}
@@ -867,9 +868,9 @@ italian}
 %\end{macro}
 %\begin{macro}{\@ordinal@string}
 % Display ordinal as a string according to gender.
-% \changes{2.05}{2014-07-18}{Use \cs{protect}, not \cs{string} in \cs{PackageError} to quote macros like
+% \changes{3.00}{2014-07-18}{Use \cs{protect}, not \cs{string} in \cs{PackageError} to quote macros like
 % shown in \texttt{clsguide.pdf}}
-% \changes{2.05}{2014-07-18}{Correct detailed error message, so `n' is one of available gender options}
+% \changes{3.00}{2014-07-18}{Correct detailed error message, so `n' is one of available gender options}
 %    \begin{macrocode}
 \def\@ordinal@string#1[#2]{%
   {%
@@ -922,7 +923,7 @@ italian}
 %\end{macro}
 %\begin{macro}{\@store@ordinal@string}
 % Store textual representation of number according to gender.
-% \changes{2.05}{2014-07-18}{Use \cs{protect}, not \cs{string} in \cs{PackageWarning} to quote macros like
+% \changes{3.00}{2014-07-18}{Use \cs{protect}, not \cs{string} in \cs{PackageWarning} to quote macros like
 % shown in \texttt{clsguide.pdf}}
 %    \begin{macrocode}
 \def\@store@ordinal@string#1#2[#3]{%
@@ -1580,9 +1581,9 @@ italian}
 %\end{macro}
 %
 %\begin{macro}{\fc@multiling}
-%changes{2.02}{2012-10-24}{new}
+%\changes{2.02}{2012-10-24}{new}
 %\cs{fc@multiling}\marg{name}\marg{gender}
-% \changes{2.05}{2014-07-18}{Use \cs{protect}, not \cs{string} in \cs{PackageWarning} to quote macros like
+%\changes{3.00}{2014-07-18}{Use \cs{protect}, not \cs{string} in \cs{PackageWarning} to quote macros like
 % shown in \texttt{clsguide.pdf}}
 %    \begin{macrocode}
 \newcommand*{\fc@multiling}[2]{%
