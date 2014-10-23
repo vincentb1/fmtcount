@@ -1,6 +1,7 @@
 include ../fc-makedefinitions.mak
 TESTS:= fc-samp sample-polyglossia
 SAMPLE_DIR:=..
+DASHES:='=================================================================================================='
 
 # Tests with TEX4HT test engine
 #------------------------------------------------------------------------------------------------------------
@@ -16,8 +17,9 @@ LANG_short:=UKenglish\
 	 germanb\
 	 ngerman\
 	 ngermanb\
+	 italian\
 	 spanish
-LANG_shortgo:=english french
+LANG_shortgo:=english french italian
 # note: french cannot be tested with babel + tex4ht engine due to tex4ht problem with babel thin space used in
 # french before :;!?, see https://puszcza.gnu.org.ua/bugs/?213.
 LANG_shortbab:=english german
@@ -34,6 +36,15 @@ XELATEX_TESTS:=sample-polyglossia
 # that will cause some `regression' as \ordinal of section is going to be tested
 TEX4HT_BUG200_PATCH:= !/\\renewcommand{\\thesection}{\\ordinal{section}}/
 
+$(foreach LANG,$(LANG_short),$(eval PRINTROW_$(LANG):=))
+
+# We have to set the following in order to remove occurrence of bug #13
+# (https://github.com/nlct/fmtcount/issues/13) and #14 (https://github.com/nlct/fmtcount/issues/14)
+PRINTROW_italian:=/^\\printrow/ { match($$0,/\{([0-9]+)\}/,a); n=strtonum(a[1]); if(n>9999) $$0="%- " $$0};\
+  $$0=="\\NUMBERstringnum{10}," { $$0 = "%- " $$0} ; \
+  $$0=="\\Ordinalstringnum{10}," { sub(/,/,".")} ;   \
+  $$0=="\\ORDINALstringnum{10}." { $$0 = "%- " $$0} ; 
+
 
 # italian => does not support 999999
 # portuges => does not support 0
@@ -43,16 +54,21 @@ TEX4HT_LOGS:=$(LOGS_SHORT)
 LOGS:=pdftests $(TEX4HT_LOGS) 
 
 .PHONY: all
-all: $(patsubst %,%.log,$(LOGS))
+all: $(addsuffix .log,$(LOGS))
 	declare -i failure_count; \
-	for w in $(patsubst %,%.log,$(LOGS)); do\
+	for w in $(addsuffix .log,$(LOGS)); do\
 		failure_count=$$failure_count+$$(awk '/Total failure count = / {split($$0,a," *= *"); print a[2]}' $$w); \
 	done; \
-    echo "GRAND TOTAL FAILURE COUNT = $$failure_count"; \
+	echo $(DASHES);\
+    echo "== GRAND TOTAL FAILURE COUNT = $$failure_count"; \
 	if [ $$failure_count -ne 0 ]; then \
-		echo "ERROR: failure have been found, please correct before commiting changes"; \
+		echo "== ERROR: please correct failed test(s) before commiting changes"; \
+		echo $(DASHES);\
 		exit -1; \
-	fi
+	fi;\
+	echo $(DASHES);
+
+
 
 define ERROR_COUNT_AWK
 BEGIN { failcount=0} ;\
@@ -61,17 +77,21 @@ END   { print "\nTotal failure count = " failcount}
 endef
 
 
-pdftests.log:  $(patsubst %,pdftests/%.pdf,$(LATEX_TESTS) $(XELATEX_TESTS))
-	awk '$(ERROR_COUNT_AWK)' $@ >> $@
-	@echo '=================================================================================================='
+pdftests.log:  $(patsubst %,pdftests/%.pdf,$(LATEX_TESTS) $(XELATEX_TESTS)) total_pdftests
+
+.PHONY: total_pdftests
+total_pdftests: $(patsubst %,pdftests/%.pdf,$(LATEX_TESTS) $(XELATEX_TESTS))
+	awk '$(ERROR_COUNT_AWK)' pdftests.log >> pdftests.log
+	@echo $(DASHES)
 	@echo '== End target pdftests'
-	@echo '=================================================================================================='
+	@echo $(DASHES)
 
 .PHONY: echo_pdftest
 echo_pdftest:
-	@echo '=================================================================================================='
+	rm -f pdftests.log
+	@echo $(DASHES)
 	@echo '== Begin target pdftests'
-	@echo '=================================================================================================='
+	@echo $(DASHES)
 
 $(patsubst %,pdftests/%.pdf,$(LATEX_TESTS)):pdftests/%.pdf:../%.tex $(patsubst %,pdftests/%,$(STYFILES)) echo_pdftest pdftests/.dir
 	cd pdftests; if latexmk -pdf ../$<; \
@@ -89,19 +109,19 @@ $(patsubst %,pdftests/%.pdf,$(XELATEX_TESTS)):pdftests/%.pdf:../%.tex $(patsubst
 # language loaded via FCLoadLang
 #------------------------------------------------------------------------------------------------------------
 $(patsubst %,tests/test-short-%.tex,$(LANG_short)):tests/test-short-%.tex: echo_short tests/.dir
-	awk '/^% FCloadlang/ { $$0="\\FCloadlang{$*}\\def\\languagename{$*}\\makeatletter\n\\@set@mulitling@fmtcount\\makeatother"}; $(TEX4HT_BUG200_PATCH) {print}' $(SAMPLE_DIR)/fc-samp.tex > $@
+	awk '/^% FCloadlang/ { $$0="\\FCloadlang{$*}\\def\\languagename{$*}\\makeatletter\n\\@set@mulitling@fmtcount\\makeatother"}; $(PRINTROW_$*) $(TEX4HT_BUG200_PATCH) {print}' $(SAMPLE_DIR)/fc-samp.tex > $@
 
 # language loaded via global option
 #------------------------------------------------------------------------------------------------------------
 $(patsubst %,tests/test-shortgo-%.tex,$(LANG_shortgo)):tests/test-shortgo-%.tex: $(SAMPLE_DIR)/fc-samp.tex \
 		echo_shortgo tests/.dir
-	awk '/^ *\\documentclass/ { sub(/\[[^]]*/,"&,$*")}; $(TEX4HT_BUG200_PATCH) {print}' $< > $@
+	awk '/^ *\\documentclass/ { sub(/\[[^]]*/,"&,$*")}; $(PRINTROW_$*) $(TEX4HT_BUG200_PATCH) {print}' $< > $@
 
 # language loaded via prior usepackage of babel
 #------------------------------------------------------------------------------------------------------------
 $(patsubst %,tests/test-shortbab-%.tex,$(LANG_shortbab)):tests/test-shortbab-%.tex: \
 		$(SAMPLE_DIR)/fc-samp.tex echo_shortbab tests/.dir
-	awk '/^ *\\usepackage/ { $$0="\\usepackage[$*]{babel}\n" $$0}; $(TEX4HT_BUG200_PATCH) {print}' $< > $@
+	awk '/^ *\\usepackage/ { $$0="\\usepackage[$*]{babel}\n" $$0}; $(PRINTROW_$*) $(TEX4HT_BUG200_PATCH) {print}' $< > $@
 
 # AWK script to normalize the HTML output for short number test
 # replace shortgo/shortbab by short in the header source & css reference
@@ -123,9 +143,9 @@ $(1).log: $$(patsubst %,tests/test-$(1)-%-nodate.html,$$(LANG_$(1)))
 		if [ $$$$? -ne 0 ]; then diff_count=$$$$diff_count+1; fi; \
 	done; \
 	echo "Total failure count = $$$${diff_count}" >> $$@
-	@echo '=================================================================================================='
+	@echo $(DASHES)
 	@echo '== End target $(1)'
-	@echo '=================================================================================================='
+	@echo $(DASHES)
 
 tests/test-$(1)-%.html: tests/test-$(1)-%.tex
 	cd tests; htlatex $$(patsubst tests/%,%,$$<)
@@ -136,9 +156,10 @@ tests/test-$(1)-%-nodate.html: tests/test-$(1)-%.html
 
 .PHONY: echo_$(1)
 echo_$(1):
-	@echo '=================================================================================================='
+	rm -f $(1).log
+	@echo $(DASHES)
 	@echo '== Begin target $(1)'
-	@echo '=================================================================================================='
+	@echo $(DASHES)
 endef
 
 $(foreach SHORTTYPE,$(LOGS_SHORT),$(eval $(call SHORTTYPE_RULE,$(SHORTTYPE))))

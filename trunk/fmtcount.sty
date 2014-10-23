@@ -347,14 +347,24 @@ italian}
 {%
 }
 %    \end{macrocode}
+%\begin{macro}{\fmtcount@loaded@by@option@lang@list}
+% \changes{3.01}{2014-10-15}{Declare language option so that actual loading happens after \cs{ProcessOptions},
+% and the \cs{ProcessOption} only registers the language for loading.}
+%    \begin{macrocode}
+\newcommand*{\fmtcount@loaded@by@option@lang@list}{}
+%    \end{macrocode}
+%\end{macro}
 %\begin{option}{\meta{language}}
+%Option \meta{language} causes language \meta{language} to be registered for loading. 
 %    \begin{macrocode}
 \newcommand*\@fc@declare@language@option[1]{%
   \DeclareOption{#1}{%
-    \@FC@iflangloaded{#1}{}{%
-      \fmtcount@language@optiontrue
-      \FCloadlang{#1}%
-     }}}%
+    \ifx\fmtcount@loaded@by@option@lang@list\@empty
+       \def\fmtcount@loaded@by@option@lang@list{#1}%
+    \else
+       \edef\fmtcount@loaded@by@option@lang@list{\fmtcount@loaded@by@option@lang@list,#1}%
+    \fi
+  }}%
 \fc@iterate@on@languages\@fc@declare@language@option
 %    \end{macrocode}
 %\end{option}
@@ -375,6 +385,18 @@ italian}
 % \changes{3.00}{2014-07-18}{Add \cs{relax} after \cs{ProcessOptions} like shown in \texttt{clsguide.pdf}}
 %    \begin{macrocode}
 \ProcessOptions\relax
+%    \end{macrocode}
+% \changes{3.01}{2014-10-15}{Load languages that have been registered for loading by package option.}
+% Now we do the loading of all languages that have been set by option to be loaded.
+%    \begin{macrocode}
+\ifx\fmtcount@loaded@by@option@lang@list\@empty\else
+\def\fc@iterate@on@languages@body#1{%
+    \@FC@iflangloaded{#1}{}{%
+      \fmtcount@language@optiontrue
+      \FCloadlang{#1}%
+     }}
+\expandafter\@fc@iterate@on@languages\fmtcount@loaded@by@option@lang@list,\@nil,%
+\fi
 %    \end{macrocode}
 %\begin{macro}{\@FCmodulo}
 %\begin{definition}
