@@ -212,7 +212,7 @@
 \let\fc@case\fc@CaseIden
 
 %    \end{macrocode}
-% \DescribeMacro\@ordinalMfrench
+% \DescribeMacro{\@ordinalMfrench}
 %    \begin{macrocode}
 \newcommand*{\@ordinalMfrench}[2]{%
 \iffmtord@abbrv
@@ -225,7 +225,7 @@
   \fi
 \fi}
 %    \end{macrocode}
-% \DescribeMacro\@ordinalFfrench
+% \DescribeMacro{\@ordinalFfrench}
 %    \begin{macrocode}
 \newcommand*{\@ordinalFfrench}[2]{%
 \iffmtord@abbrv
@@ -242,7 +242,7 @@
 %    \begin{macrocode}
 \let\@ordinalNfrench\@ordinalMfrench
 %    \end{macrocode}
-% \DescribeMacro\@@unitstringfrench
+% \DescribeMacro{\@@unitstringfrench}
 %    \begin{macrocode}
 \newcommand*{\@@unitstringfrench}[1]{%
 \noexpand\fc@case
@@ -261,7 +261,7 @@ z\'ero%
 \noexpand\@nil
 }
 %    \end{macrocode}
-% \DescribeMacro\@@tenstringfrench
+% \DescribeMacro{\@@tenstringfrench}
 %    \begin{macrocode}
 \newcommand*{\@@tenstringfrench}[1]{%
 \noexpand\fc@case
@@ -280,7 +280,7 @@ z\'ero%
 \noexpand\@nil
 }
 %    \end{macrocode}
-% \DescribeMacro\@@teenstringfrench
+% \DescribeMacro{\@@teenstringfrench}
 %    \begin{macrocode}
 \newcommand*{\@@teenstringfrench}[1]{%
 \noexpand\fc@case
@@ -299,7 +299,7 @@ z\'ero%
 \noexpand\@nil
 }
 %    \end{macrocode}
-% \DescribeMacro\@@seventiesfrench
+% \DescribeMacro{\@@seventiesfrench}
 %    \begin{macrocode}
 \newcommand*{\@@seventiesfrench}[1]{%
 \@tenstring{6}%
@@ -311,7 +311,7 @@ z\'ero%
 \@teenstring{#1}%
 }
 %    \end{macrocode}
-% \DescribeMacro\@@eightiesfrench Macro \cs{@@eightiesfrench} is used to format numbers in the interval
+% \DescribeMacro{\@@eightiesfrench}Macro \cs{@@eightiesfrench} is used to format numbers in the interval
 % \([80\intv 89]\). Argument as follows:\newline
 % \begin{tabularx}{\linewidth}{@{}>{\raggedleft\arraybackslash\ttfamily}rX@{}}
 %   \#1&digit \(d_{w}\) such that the number to be formatted is \(80 + d_{w}\)\\
@@ -394,7 +394,7 @@ z\'ero%
 \ifnum#1>0 \@unitstring{#1}\fi
 }
 %    \end{macrocode}
-% \DescribeMacro\fc@french@common Macro \cs{fc@french@common} does all the preliminary settings common to all
+% \DescribeMacro{\fc@french@common}Macro \cs{fc@french@common} does all the preliminary settings common to all
 % French dialects \& formatting options.
 %    \begin{macrocode}
 \newcommand*\fc@french@common{%
@@ -636,7 +636,7 @@ z\'ero%
 \let\@OrdinalstringFfrench=\@OrdinalstringFfrenchfrance
 \let\@OrdinalstringNfrench\@OrdinalstringMfrench
 %    \end{macrocode}
-% \DescribeMacro\fc@@do@plural@mark Macro \cs{fc@@do@plural@mark} will expand to the plural mark of
+% \DescribeMacro{\fc@@do@plural@mark}Macro \cs{fc@@do@plural@mark} will expand to the plural mark of
 % \meta{$n$}illiard, \meta{$n$}illion, mil, cent or vingt, whichever is applicable. First check that the macro
 % is not yet defined.
 %    \begin{macrocode}
@@ -698,14 +698,14 @@ z\'ero%
   \fi
 }
 %    \end{macrocode}
-% \DescribeMacro\fc@@nbrstr@Fpreamble Macro \cs{fc@@nbrstr@Fpreamble} do the necessary preliminaries before
+% \DescribeMacro{\fc@@nbrstr@Fpreamble}Macro \cs{fc@@nbrstr@Fpreamble} do the necessary preliminaries before
 % formatting a cardinal with feminine gender.
 %    \begin{macrocode}
 \ifcsundef{fc@@nbrstr@Fpreamble}{}{%
   \PackageError{fmtcount}{Duplicate definition}{Redefinition of macro
     `fc@@nbrstr@Fpreamble'}}
 %    \end{macrocode}
-% \DescribeMacro\fc@@nbrstr@Fpreamble
+% \DescribeMacro{\fc@@nbrstr@Fpreamble}
 %    \begin{macrocode}
 \def\fc@@nbrstr@Fpreamble{%
   \fc@read@unit{\count1}{0}%
@@ -717,7 +717,7 @@ z\'ero%
   \fi
 }
 %    \end{macrocode}
-% \DescribeMacro\fc@@nbrstr@Fpostamble
+% \DescribeMacro{\fc@@nbrstr@Fpostamble}
 %    \begin{macrocode}
 \def\fc@@nbrstr@Fpostamble{%
   \let\fc@case\fc@case@save
@@ -729,7 +729,7 @@ z\'ero%
   \fi
 }
 %    \end{macrocode}
-% \DescribeMacro\fc@@pot@longscalefrench Macro \cs{fc@@pot@longscalefrench} is used to produce
+% \DescribeMacro{\fc@@pot@longscalefrench}Macro \cs{fc@@pot@longscalefrench} is used to produce
 % powers of ten with long scale convention. The long scale convention is correct for French and elsewhere in
 % Europe. First we check that the macro is not yet defined.
 %    \begin{macrocode}
@@ -876,7 +876,7 @@ z\'ero%
   }\@tempa
 }
 %    \end{macrocode}
-% \DescribeMacro\fc@@pot@shortscalefrench Macro \cs{fc@@pot@shortscalefrench} is used to produce
+% \DescribeMacro{\fc@@pot@shortscalefrench}Macro \cs{fc@@pot@shortscalefrench} is used to produce
 % powers of ten with short scale convention. This convention is the US convention and is not correct for
 % French and elsewhere in Europe. First we check that the macro is not yet defined.
 %    \begin{macrocode}
@@ -955,7 +955,7 @@ z\'ero%
   }\@tempa
 }
 %    \end{macrocode}
-% \DescribeMacro\fc@@pot@recursivefrench Macro \cs{fc@@pot@recursivefrench} is used to produce
+% \DescribeMacro{\fc@@pot@recursivefrench}Macro \cs{fc@@pot@recursivefrench} is used to produce
 % power of tens that are of the form ``million de milliards de milliards'' for \(10^{24}\). First we check
 % that the macro is not yet defined.
 %    \begin{macrocode}
@@ -1072,7 +1072,7 @@ z\'ero%
   }\@tempa
 }
 %    \end{macrocode}
-% \DescribeMacro\fc@muladdfrench Macro \cs{fc@muladdfrench} is used to format the sum of a number \(a\) and
+% \DescribeMacro{\fc@muladdfrench}Macro \cs{fc@muladdfrench} is used to format the sum of a number \(a\) and
 % the product of a number \(d\) by a power of ten \(10^w\). Number \(d\) is made of three consecutive digits
 % \(d_{w+2}d_{w+1}d_w\) of respective weights \(w+2\), \(w+1\), and \(w\), while number \(a\) is made of all
 % digits with weight \(w' > w+2\) that have already been formatted. First check that the macro is not yet
@@ -1169,7 +1169,7 @@ z\'ero%
   }\@tempa
 }%
 %    \end{macrocode}
-% \DescribeMacro\fc@lthundredstringfrench Macro \cs{fc@lthundredstringfrench} is used to format a number in
+% \DescribeMacro{\fc@lthundredstringfrench}Macro \cs{fc@lthundredstringfrench} is used to format a number in
 % interval \([0 \intv 99]\). First we check that it is not already defined.
 %    \begin{macrocode}
 \ifcsundef{fc@lthundredstringfrench}{}{%
@@ -1272,7 +1272,7 @@ z\'ero%
   }\@tempa
 }
 %    \end{macrocode}
-% \DescribeMacro\fc@ltthousandstringfrench Macro \cs{fc@ltthousandstringfrench} is used to format a number in
+% \DescribeMacro{\fc@ltthousandstringfrench}Macro \cs{fc@ltthousandstringfrench} is used to format a number in
 % interval \([0 \intv 999]\). First we check that it is not already defined.
 %    \begin{macrocode}
 \ifcsundef{fc@ltthousandstringfrench}{}{%
@@ -1353,7 +1353,7 @@ z\'ero%
   }\@tempa
 }
 %    \end{macrocode}
-% \DescribeMacro\@@numberstringfrench Macro \cs{@@numberstringfrench} is the main engine for formatting
+% \DescribeMacro{\@@numberstringfrench}Macro \cs{@@numberstringfrench} is the main engine for formatting
 % cadinal numbers in French. First we check that the control sequence is not yet defined.
 %    \begin{macrocode}
 \ifcsundef{@@numberstringfrench}{}{%
@@ -1395,7 +1395,7 @@ z\'ero%
   }\@tempa
 }
 %    \end{macrocode}
-% \DescribeMacro\fc@@nbrstrfrench@inner Common part of \cs{@@numberstringfrench} and \cs
+% \DescribeMacro{\fc@@nbrstrfrench@inner}Common part of \cs{@@numberstringfrench} and \cs
 % {@@ordinalstringfrench}. Arguments are as follows:\newline\noindent
 % \begin{tabularx}{\linewidth}{@{}>{\raggedleft\arraybackslash\ttfamily}rX@{}}
 % \cs{@tempa}&input/output, macro to which the result is to be aggregated, initially empty or contains the
@@ -1452,7 +1452,7 @@ z\'ero%
     \repeat
 }
 %    \end{macrocode}
-% \DescribeMacro\@@ordinalstringfrench Macro \cs{@@ordinalstringfrench} is the main engine for formatting
+% \DescribeMacro{\@@ordinalstringfrench}Macro \cs{@@ordinalstringfrench} is the main engine for formatting
 % ordinal numbers in French. First check it is not yet defined.
 %    \begin{macrocode}
 \ifcsundef{@@ordinalstringfrench}{}{%
