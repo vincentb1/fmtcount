@@ -42,7 +42,8 @@ fmtcount.zip	: fmtcount.tds.zip
 $(STYFILES):%: fmtcount.dtx fmtcount.ins
 		latex fmtcount.ins
 
-fmtcount.pdf	: fmtcount.dtx 
+fmtcount.pdf	: fmtcount.dtx
+		-latex fmtcount.ins
 		pdflatex fmtcount.dtx
 		makeindex -s gind.ist fmtcount.idx
 		makeindex -s gglo.ist -o fmtcount.gls fmtcount.glo
@@ -65,7 +66,7 @@ clean	:
 	command rm -f *.{css,4ct,4tc,aux,dvi,glo,idv,idx,lg,log,tmp,xref,ind,out,toc,4dx,4ix,ilg}
 	command rm -f idxmake.{log,dvi}
 
-squeaky	:
+squeaky	: clean
 	command rm -f fmtcount.{dtx,ins,pdf,perl}
 	command rm -f fmtcount-manual.{html,tex}
 	command rm -f fmtcount-manual*.png
