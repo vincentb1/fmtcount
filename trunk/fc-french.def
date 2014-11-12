@@ -226,15 +226,17 @@
 \fi}
 %    \end{macrocode}
 % \DescribeMacro{\@ordinalFfrench}
+% \changes{3.01}{2014-11-10}{Protect \cs{`}, for solving
+% \uref{http://github.com/nlct/fmtcount/issues/15}{Issue \#15}}
 %    \begin{macrocode}
 \newcommand*{\@ordinalFfrench}[2]{%
 \iffmtord@abbrv
   \edef#2{\number#1\relax\noexpand\fmtord{e}}%
 \else
   \ifnum#1=1 %
-     \edef#2{\number#1\relax\noexpand\fmtord{i\`ere}}%
+     \edef#2{\number#1\relax\noexpand\fmtord{i\protect\`ere}}%
   \else
-     \edef#2{\number#1\relax\noexpand\fmtord{i\`eme}}%
+     \edef#2{\number#1\relax\noexpand\fmtord{i\protect\`eme}}%
   \fi
 \fi}
 %    \end{macrocode}
@@ -530,7 +532,11 @@ z\'ero%
 \@@ordinalstringfrench{#1}{#2}%
 }
 \newcommand*\fc@@firstfrench{premier}
-\newcommand*\fc@@firstFfrench{premi\`ere}
+%    \end{macrocode}
+% \changes{3.01}{2014-11-10}{Protect \cs{`}, for solving
+% \uref{http://github.com/nlct/fmtcount/issues/15}{Issue \#15}}
+%    \begin{macrocode}
+\newcommand*\fc@@firstFfrench{premi\protect\`ere}
 \DeclareRobustCommand{\@ordinalstringMfrenchfrance}[2]{%
 \let\fc@case\fc@CaseIden
 \let\fc@first=\fc@@firstfrench
@@ -1494,7 +1500,11 @@ z\'ero%
       \count0=0 % 
     \fi
     \ifnum\count0=1 %
-      \edef\@tempa{\expandafter\fc@case\fc@first\@nil}%
+%    \end{macrocode}
+% \changes{3.01}{2014-11-10}{Protect \cs{`}, for solving
+% \uref{http://github.com/nlct/fmtcount/issues/15}{Issue \#15}}
+%    \begin{macrocode}
+      \protected@edef\@tempa{\expandafter\fc@case\fc@first\@nil}%
     \else
 %    \end{macrocode}
 % Now we tamper a little bit with the plural handling options to ensure that there is no final plural mark.
@@ -1540,22 +1550,24 @@ z\'ero%
      \let\fc@case\fc@case@save
 %    \end{macrocode}
 % Now we add the ``i\`eme'' ending
+% \changes{3.01}{2014-11-10}{Protect \cs{`}, for solving
+% \uref{http://github.com/nlct/fmtcount/issues/15}{Issue \#15}}
 %    \begin{macrocode}
       \expandafter\fc@get@last@word\expandafter{\@tempa}\@tempb\@tempc
       \expandafter\fc@get@last@letter\expandafter{\@tempc}\@tempd\@tempe
       \def\@tempf{e}%
       \ifx\@tempe\@tempf
-        \edef\@tempa{\@tempb\expandafter\fc@case\@tempd i\`eme\@nil}%
+        \protected@edef\@tempa{\@tempb\expandafter\fc@case\@tempd i\protect\`eme\@nil}%
       \else
         \def\@tempf{q}%
         \ifx\@tempe\@tempf
-          \edef\@tempa{\@tempb\expandafter\fc@case\@tempd qui\`eme\@nil}%
+          \protected@edef\@tempa{\@tempb\expandafter\fc@case\@tempd qui\protect\`eme\@nil}%
         \else
           \def\@tempf{f}%
           \ifx\@tempe\@tempf
-            \edef\@tempa{\@tempb\expandafter\fc@case\@tempd vi\`eme\@nil}%
+            \protected@edef\@tempa{\@tempb\expandafter\fc@case\@tempd vi\protect\`eme\@nil}%
           \else
-            \edef\@tempa{\@tempb\expandafter\fc@case\@tempc i\`eme\@nil}%
+            \protected@edef\@tempa{\@tempb\expandafter\fc@case\@tempc i\protect\`eme\@nil}%
           \fi
         \fi
       \fi

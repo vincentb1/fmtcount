@@ -6,7 +6,19 @@
 \usepackage{fmtcount}
 
 %\FCloadlang{french}
+\newcounter{cnt}
 
 \begin{document}
 \numberstringnum{10}
+\setcounter{cnt}{1}
+\ORDINALstring{cnt}[f]
+\setcounter{cnt}{2}
+\ORDINALstring{cnt}
+\setcounter{cnt}{19}
+\ORDINALstring{cnt}
+
 \end{document}
+
+% Local Variables:
+% TeX-command-default: "XeLaTeX"
+% End:
