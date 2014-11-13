@@ -44,7 +44,7 @@
             pdftitle={fmtcount.sty: Displaying the Values of LaTeX Counters},
             pdfkeywords={LaTeX,counter}]{hyperref}
 
-\CheckSum{9831}
+\CheckSum{9848}
 
 \doxitem{Option}{option}{options}
 
@@ -546,9 +546,9 @@ L'option générale \texttt{abbr} permet de changer l'effet de
 \cs{ordinal}. Selon \meta{boolean} on a:\newline
 \begin{tabularx}{\linewidth}{@{}lX@{}}
   \pkgopt{true}& pour produire des ordinaux de la forme
-  2\textsuperscript{e}, ou\\
+  {\def\languagename{french}\csname fmtord@abbrvtrue\endcsname\ordinalnum{2}} (par défaut), ou\\
   \pkgopt{false}& pour produire des ordinaux de la forme
-  2\textsuperscript{eme} (par defaut)\\
+  {\def\languagename{french}\csname fmtord@abbrvfalse\endcsname\ordinalnum{2}} \\
 \end{tabularx}
 
 \begin{definition}[\DescribeOption{vingt plural}]

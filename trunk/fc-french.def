@@ -216,12 +216,16 @@
 %    \begin{macrocode}
 \newcommand*{\@ordinalMfrench}[2]{%
 \iffmtord@abbrv
-  \edef#2{\number#1\relax\noexpand\fmtord{e}}%
-\else
-  \ifnum#1=1\relax
+  \ifnum#1=1 %
     \edef#2{\number#1\relax\noexpand\fmtord{er}}%
   \else
-    \edef#2{\number#1\relax\noexpand\fmtord{eme}}%
+    \edef#2{\number#1\relax\noexpand\fmtord{e}}%
+  \fi
+\else
+  \ifnum#1=1 %
+    \edef#2{\number#1\relax\noexpand\fmtord{ier}}%
+  \else
+    \protected@edef#2{\number#1\relax\noexpand\fmtord{i\protect\`eme}}%
   \fi
 \fi}
 %    \end{macrocode}
@@ -231,12 +235,16 @@
 %    \begin{macrocode}
 \newcommand*{\@ordinalFfrench}[2]{%
 \iffmtord@abbrv
-  \edef#2{\number#1\relax\noexpand\fmtord{e}}%
+  \ifnum#1=1 %
+     \edef#2{\number#1\relax\noexpand\fmtord{re}}%
+  \else
+     \edef#2{\number#1\relax\noexpand\fmtord{e}}%
+  \fi
 \else
   \ifnum#1=1 %
-     \edef#2{\number#1\relax\noexpand\fmtord{i\protect\`ere}}%
+     \protected@edef#2{\number#1\relax\noexpand\fmtord{i\protect\`ere}}%
   \else
-     \edef#2{\number#1\relax\noexpand\fmtord{i\protect\`eme}}%
+     \protected@edef#2{\number#1\relax\noexpand\fmtord{i\protect\`eme}}%
   \fi
 \fi}
 %    \end{macrocode}

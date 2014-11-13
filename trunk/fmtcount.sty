@@ -267,11 +267,18 @@ italian}
 %    \end{macrocode}
 %\end{option}
 %\begin{macro}{\iffmtord@abbrv}
-% Key to determine whether the ordinal should be abbreviated
-% (language dependent, currently only affects French ordinals.)
+%  Key to determine whether the ordinal superscript should be
+%  abbreviated (language dependent, currently only affects French
+%  ordinals, non-abbreviated French ordinals ending --- i.e. `ier' and
+%  `i\`eme' --- are considered faulty.)
 %    \begin{macrocode}
 \newif\iffmtord@abbrv
-\fmtord@abbrvfalse
+%    \end{macrocode}
+% \changes{3.01}{2014-11-12}{Make `true' the default for option
+% `abbr', as in French this is the correct behaviour, and currently
+% only French uses that}
+%    \begin{macrocode}
+\fmtord@abbrvtrue
 \define@key{fmtcount}{abbrv}[true]{%
   \ifthenelse{\equal{#1}{true}\or\equal{#1}{false}}%
   {%
@@ -280,7 +287,7 @@ italian}
   {%
     \PackageError{fmtcount}%
     {Invalid value `#1' to fmtord key}%
-    {Option `fmtord' can only take the values `true' or
+    {Option `abbrv' can only take the values `true' or
      `false'}%
   }%
 }
