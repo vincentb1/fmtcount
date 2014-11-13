@@ -14,8 +14,7 @@ dist	: README CHANGES fmtcount-manual.tex \
 
 ../dist/fmtcount.dtx	: $(DTX_DEPENDANCIES)
 	makedtx -author "Nicola Talbot and Vincent Belaïche" \
-		-src "(.+)\.(sty)=>\1.\2" \
-		-src "(.+)\.(def)=>\1.\2" \
+		-src "(.+)\.(sty|def)$$=>\1.\2" \
 		-doc fmtcount-manual.tex fmtcount
 	./mv2dist -f fmtcount.sty fmtcount.{dtx,ins} ../dist
 
