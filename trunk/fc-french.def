@@ -213,6 +213,12 @@
 
 %    \end{macrocode}
 % \DescribeMacro{\@ordinalMfrench}
+% \changes{3.01}{2014-11-12}{Protect \cs{`}, for solving
+%   \uref{http://github.com/nlct/fmtcount/issues/15}{Issue \#15}, and
+%   correct non abbreviated ordinal finals}
+% \changes{3.01}{2014-11-20}{Add a package warning about non
+%   abbreviated ordinals in French being incorrect. Change ``i\`eme''
+%   to ``\`eme'' which is the most frequent non abbreviated form.}
 %    \begin{macrocode}
 \newcommand*{\@ordinalMfrench}[2]{%
 \iffmtord@abbrv
@@ -222,16 +228,21 @@
     \edef#2{\number#1\relax\noexpand\fmtord{e}}%
   \fi
 \else
+  \PackageWarning{fmtcount}{Non abbreviated ordinal finals (`eme) are
+    considered incorrect in French.}%
   \ifnum#1=1 %
-    \edef#2{\number#1\relax\noexpand\fmtord{ier}}%
+    \edef#2{\number#1\relax\noexpand\fmtord{er}}%
   \else
-    \protected@edef#2{\number#1\relax\noexpand\fmtord{i\protect\`eme}}%
+    \protected@edef#2{\number#1\relax\noexpand\fmtord{\protect\`eme}}%
   \fi
 \fi}
 %    \end{macrocode}
 % \DescribeMacro{\@ordinalFfrench}
 % \changes{3.01}{2014-11-10}{Protect \cs{`}, for solving
 % \uref{http://github.com/nlct/fmtcount/issues/15}{Issue \#15}}
+% \changes{3.01}{2014-11-20}{Add a package warning about non
+%   abbreviated ordinals in French being incorrect. Change ``i\`eme''
+%   to ``\`eme'' which is the most frequent non abbreviated form.}
 %    \begin{macrocode}
 \newcommand*{\@ordinalFfrench}[2]{%
 \iffmtord@abbrv
@@ -241,10 +252,12 @@
      \edef#2{\number#1\relax\noexpand\fmtord{e}}%
   \fi
 \else
+  \PackageWarning{fmtcount}{Non abbreviated ordinal finals (i`eme) are
+    considered incorrect in French.}%
   \ifnum#1=1 %
-     \protected@edef#2{\number#1\relax\noexpand\fmtord{i\protect\`ere}}%
+     \protected@edef#2{\number#1\relax\noexpand\fmtord{\protect\`ere}}%
   \else
-     \protected@edef#2{\number#1\relax\noexpand\fmtord{i\protect\`eme}}%
+     \protected@edef#2{\number#1\relax\noexpand\fmtord{\protect\`eme}}%
   \fi
 \fi}
 %    \end{macrocode}
