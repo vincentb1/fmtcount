@@ -252,7 +252,7 @@
      \edef#2{\number#1\relax\noexpand\fmtord{e}}%
   \fi
 \else
-  \PackageWarning{fmtcount}{Non abbreviated ordinal finals (i`eme) are
+  \PackageWarning{fmtcount}{Non abbreviated ordinal finals (`eme) are
     considered incorrect in French.}%
   \ifnum#1=1 %
      \protected@edef#2{\number#1\relax\noexpand\fmtord{\protect\`ere}}%
