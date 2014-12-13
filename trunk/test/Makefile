@@ -93,18 +93,25 @@ echo_pdftest:
 	@echo '== Begin target pdftests'
 	@echo $(DASHES)
 
-$(patsubst %,pdftests/%.pdf,$(LATEX_TESTS)):pdftests/%.pdf:../%.tex $(patsubst %,pdftests/%,$(STYFILES)) echo_pdftest pdftests/.dir
-	cd pdftests; if latexmk -pdf ../$<; \
-	then echo "Test $*: ok" >> ../pdftests.log; \
+define PDF_ACTIONS
+	cd pdftests; \
+	if latexmk $(1) ../$<; \
+	then \
+		pdftotext $*.pdf  $*.txt; \
+		if [ diff -abs $*.txt ../reference/$*.txt ]; then \
+			echo "Test $*: failed" >> ../pdftests.log; \
+		else echo "Test $*: ok" >> ../pdftests.log; \
+		fi; \
 	else echo "Test $*: failed" >> ../pdftests.log; \
 	fi
+endef
+
+$(patsubst %,pdftests/%.pdf,$(LATEX_TESTS)):pdftests/%.pdf:../%.tex $(patsubst %,pdftests/%,$(STYFILES)) echo_pdftest pdftests/.dir
+	$(call PDF_ACTIONS,-pdf)
 
 $(patsubst %,pdftests/%.pdf,$(XELATEX_TESTS)):pdftests/%.pdf:../%.tex $(patsubst %,pdftests/%,$(STYFILES)) \
 		echo_pdftest pdftests/.dir
-	cd pdftests; if latexmk -r ../xelatex_latexmkrc ../$<; \
-	then echo "Test $*: ok" >> ../pdftests.log; \
-	else echo "Test $*: failed" >> ../pdftests.log; \
-	fi
+	$(call PDF_ACTIONS,-r ../xelatex_latexmkrc)
 
 # language loaded via FCLoadLang
 #------------------------------------------------------------------------------------------------------------

@@ -1,0 +1,27 @@
+1st Displaying the value of a counter
+
+decimal 00000 00001 00002 00003 00004 00005 00006 00007 00008 00009 00010 00011 00012 00013 00014 00015 00016 00017 00018 00019 00020 00021 00022 00023 00024 00025 00030 00040 00050 00060 00070 00071 00075 00080 00081 00085 00090 00091 00095 00100 00101 00110 00125 00150 00170 00180 00190
+
+hexadecimal 00000 00001 00002 00003 00004 00005 00006 00007 00008 00009 0000a 0000b 0000c 0000d 0000e 0000f 00010 00011 00012 00013 00014 00015 00016 00017 00018 00019 0001e 00028 00032 0003c 00046 00047 0004b 00050 00051 00055 0005a 0005b 0005f 00064 00065 0006e 0007d 00096 000aa 000b4 000be
+
+ordinal 0th 1st 2nd 3rd 4th 5th 6th 7th 8th 9th
+10th 11th 12th 13th 14th 15th 16th 17th 18th 19th 20th 21st 22nd 23rd 24th 25th 30th 40th 50th 60th 70th 71st 75th 80th 81st 85th 90th 91st 95th 100th 101st 110th 125th 150th 170th 180th 190th
+
+numberstring zero one two three four five six seven eight nine ten eleven twelve thirteen fourteen fifteen sixteen seventeen eighteen nineteen twenty twenty-one twenty-two twenty-three twenty-four twenty-five thirty forty fifty sixty seventy seventy-one seventy-five eighty eighty-one eighty-five ninety ninety-one ninety-five one hundred one hundred and one one hundred and ten one hundred and twenty-five one hundred and fifty one hundred and seventy one hundred and eighty one hundred and ninety
+
+1
+
+00200 00250 00300 00400 00500 00600 00700 00800 00900 01000 99999
+
+000c8 000fa 0012c 00190 001f4 00258 002bc 00320 00384 003e8 1869f
+
+200th 250th 300th 400th 500th 600th 700th 800th 900th 1000th 99999th
+
+two hundred two hundred and fifty three hundred four hundred five hundred six hundred seven hundred eight hundred nine hundred one thousand ninety-nine thousand nine hundred and ninety-nine
+
+2nd Cross-Referencing
+Referencing a label: 1st. Passing numbers explicitly: 10th, Ten, TEN, Tenth, TENTH.
+
+2
+
+
