@@ -24,6 +24,9 @@ LANG_shortgo:=english french italian
 # french before :;!?, see https://puszcza.gnu.org.ua/bugs/?213.
 LANG_shortbab:=english german
 
+# dummy
+LANG_fmtord:=l
+
 # Tests with pdflatex test engine
 #------------------------------------------------------------------------------------------------------------
 LATEX_TESTS:=fc-samp fc-frlargenum
@@ -49,7 +52,7 @@ PRINTROW_italian:=/^\\printrow/ { match($$0,/\{([0-9]+)\}/,a); n=strtonum(a[1]);
 # italian => does not support 999999
 # portuges => does not support 0
 
-LOGS_SHORT:=short shortgo shortbab
+LOGS_SHORT:=short shortgo shortbab fmtord
 TEX4HT_LOGS:=$(LOGS_SHORT)
 LOGS:=pdftests $(TEX4HT_LOGS) 
 
@@ -146,7 +149,8 @@ $(1).log: $$(patsubst %,tests/test-$(1)-%-nodate.html,$$(LANG_$(1)))
 	declare -i diff_count=0; \
 	for w in $$(LANG_$(1)); do \
 		echo "Test $(1)-$$$$w:" >> $$@; \
-		diff -abs tests/test-$(1)-$$$$w-nodate.html reference/test-short-$$$$w.html >> $$@; \
+		test=$$$$(echo $(1) | sed 's/\(go\|bab\)$$$$//1'); \
+		diff -abs tests/test-$(1)-$$$$w-nodate.html reference/test-$$$$test-$$$$w.html >> $$@; \
 		if [ $$$$? -ne 0 ]; then diff_count=$$$$diff_count+1; fi; \
 	done; \
 	echo "Total failure count = $$$${diff_count}" >> $$@
@@ -168,6 +172,9 @@ echo_$(1):
 	@echo '== Begin target $(1)'
 	@echo $(DASHES)
 endef
+
+tests/test-fmtord-l.tex: sample-fmtord.tex
+	cp $< $@
 
 $(foreach SHORTTYPE,$(LOGS_SHORT),$(eval $(call SHORTTYPE_RULE,$(SHORTTYPE))))
 

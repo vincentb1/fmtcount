@@ -178,6 +178,11 @@
 }%
 \@tempa{france}\@tempa{swiss}\@tempa{belgian}%
 %    \end{macrocode}
+% Make `\texttt{france}' the default dialect for `\texttt{french}' language
+% \changes{3.01}{2014-12-18}{Move French specific stuff from \styfmt{fmtcount.sty} to \styfmt{fc-french.def}.}
+%    \begin{macrocode}
+\def\fmtcount@french{france}%
+%    \end{macrocode}
 % Now, option `\texttt{dialect}' is now defined so that `\texttt{france}', `\texttt{swiss}' and
 % `\texttt{belgian}' can also be used as key values, which is more conventional although less concise.
 %    \begin{macrocode}
@@ -1615,6 +1620,18 @@ z\'ero%
   \def\fc@frenchoptions@mil@plural@mark{le}%
 }
 \fc@frenchoptions@setdefaults
+%    \end{macrocode}
+% Make some indirection to call the current French dialect corresponding macro.
+% \changes{3.01}{2014-12-18}{Move French specific stuff from \styfmt{fmtcount.sty} to \styfmt{fc-french.def}.}
+%    \begin{macrocode}
+\def\@ordinalstringMfrench{\csuse{@ordinalstringMfrench\fmtcount@french}}%
+\def\@ordinalstringFfrench{\csuse{@ordinalstringFfrench\fmtcount@french}}%
+\def\@OrdinalstringMfrench{\csuse{@OrdinalstringMfrench\fmtcount@french}}%
+\def\@OrdinalstringFfrench{\csuse{@OrdinalstringFfrench\fmtcount@french}}%
+\def\@numberstringMfrench{\csuse{@numberstringMfrench\fmtcount@french}}%
+\def\@numberstringFfrench{\csuse{@numberstringFfrench\fmtcount@french}}%
+\def\@NumberstringMfrench{\csuse{@NumberstringMfrench\fmtcount@french}}%
+\def\@NumberstringFfrench{\csuse{@NumberstringFfrench\fmtcount@french}}%
 %    \end{macrocode}
 \iffalse Local variables: \fi
 \iffalse mode: docTeX     \fi

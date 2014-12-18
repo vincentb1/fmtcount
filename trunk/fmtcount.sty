@@ -4,7 +4,11 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesPackage{fmtcount}[2014/07/18 v3.00]
 \RequirePackage{ifthen}
-\RequirePackage{keyval}
+%    \end{macrocode}
+% \changes{3.01}{2014-12-18}{Use \styfmt{xkeyval} instead of \styfmt{keyval}, so that we do not get in trouble
+% with bracket spurious removals}
+%    \begin{macrocode}
+\RequirePackage{xkeyval}
 \RequirePackage{etoolbox}
 \RequirePackage{fcprefix}
 %    \end{macrocode}
@@ -27,9 +31,30 @@
 %
 % Define the macro to format the |st|, |nd|, |rd| or |th| of an 
 % ordinal.
-%\begin{macro}{\fmtord}
+% \changes{3.01}{2014-12-18}{Make \cs{fmtord} language dependent.}
+%\begin{macro}{\fc@orddef@ult}
 %    \begin{macrocode}
-\providecommand*{\fmtord}[1]{\textsuperscript{#1}}
+\providecommand*{\fc@orddef@ult}[1]{\textsuperscript{#1}}
+%    \end{macrocode}
+%\end{macro}
+%\begin{macro}{\fc@ord@multiling}
+%    \begin{macrocode}
+\providecommand*{\fc@ord@multiling}[1]{%
+  \ifcsundef{fc@\languagename @alias@of}{%
+%    \end{macrocode}
+% Not a supported language, just use the default setting:
+%    \begin{macrocode}
+  \fc@orddef@ult{#1}}{%
+  \expandafter\let\expandafter\@tempa\csname fc@\languagename @alias@of\endcsname
+  \ifcsundef{fc@ord@\@tempa}{%
+%    \end{macrocode}
+% Not language specfic setting, just use the default setting:
+%    \begin{macrocode}
+    \fc@orddef@ult{#1}}{%
+%    \end{macrocode}
+% Language with specific setting, use that setting:
+%    \begin{macrocode}
+\csname fc@ord@\@tempa\endcsname{#1}}}}
 %    \end{macrocode}
 %\end{macro}
 %\begin{macro}{\padzeroes}
@@ -118,8 +143,10 @@
 %    \end{macrocode}
 %\begin{macro}{\fc@supported@language@list}
 %    Declare list of supported languages, as a comma separated list. No space, no empty items. Each item is a
-%    language for which fmtcount is able to load language specific definitions. The raison d'\^etre of this
-%    list is to commonalize iteration on languages for the two following purposes:
+%    language for which fmtcount is able to load language specific definitions. \texttt{Aliases but be
+%    \textit{after} their meaning, for instance `american' being an alias of `USenglish', it has to appear
+%    after it in the list}. The raison d'\^etre of this list is to commonalize iteration on languages for the
+%    two following purposes:
 %    \begin{itemize}
 %    \item loading language definition as a result of the language being used by
 %      \styfmt{babel}/\styfmt{polyglossia}
@@ -222,46 +249,92 @@ italian}
 %\changes{2.0}{2012-06-18}{changed check for \cs{l@}\meta{language} 
 % to check for \cs{date}\meta{language}}
 %\changes{3.00}{2014-07-18}{use iterator rather than doing it flat on each language}
+%\changes{3.01}{2014-12-18}{Define language aliases to \cs{fmtord}
+%   option dependent on ``true'' language .}
 %    \begin{macrocode}
 \fc@iterate@on@languages\@fc@loadifbabelorpolyglossialdf
 %    \end{macrocode}
-%\begin{macro}{\fmtcount@french}
-%  Define keys for use with |\fmtcountsetoptions|.  Key to switch French dialects (Does \styfmt{babel} store
-%  this kind of information?)
+% By default all languages are unique --- i.e. aliases not yet defined.
 %    \begin{macrocode}
-\def\fmtcount@french{france}
+\def\fc@iterate@on@languages@body#1{%
+  \expandafter\def\csname fc@#1@alias@of\endcsname{#1}}
+\expandafter\@fc@iterate@on@languages\fc@supported@language@list,\@nil,%
 %    \end{macrocode}
-%\end{macro}
-%\begin{option}{french}
+% Now define those languages that are aliases of another
+% language. This is done with: \cs{@tempa}\marg{alias}\marg{language}
 %    \begin{macrocode}
-\define@key{fmtcount}{french}[france]{%
-  \@FC@iflangloaded{french}%
-  {%
-    \setkeys{fcfrench}{#1}%
+\def\@tempa#1#2{%
+  \expandafter\def\csname fc@#1@alias@of\endcsname{#2}%
+}%
+\@tempa{frenchb}{french}
+\@tempa{francais}{french}
+\@tempa{germanb}{german}
+\@tempa{ngermanb}{german}
+\@tempa{ngerman}{german}
+\@tempa{british}{english}
+\@tempa{american}{USenglish}
+%    \end{macrocode}
+% Now, thanks to the aliases, we are going to define one option for each language, so that each language can
+% have its own settings.
+%    \begin{macrocode}
+\def\fc@iterate@on@languages@body#1{%
+  \define@key{fmtcount}{#1}[]{%
+    \@FC@iflangloaded{#1}%
+    {%
+      \setkeys{fc\csname fc@#1@alias@of\endcsname}{##1}%
+    }{%
+      \PackageError{fmtcount}%
+      {Language `#1' not defined}%
+      {You need to load \ifxetex polyglossia\else babel\fi\space before loading fmtcount}%
+    }%
   }%
-  {%
-    \PackageError{fmtcount}%
-    {Language `french' not defined}%
-    {You need to load babel before loading fmtcount}%
+  \ifthenelse{\equal{\csname fc@#1@alias@of\endcsname}{#1}}{%
+    \define@key{fc\csname fc@#1@alias@of\endcsname}{fmtord}{%
+      \ifthenelse{\equal{##1}{raise}\or\equal{##1}{level}}{%
+        \expandafter\let\expandafter\@tempa\csname fc@set@ord@as@##1\endcsname
+        \expandafter\@tempa\csname fc@ord@#1\endcsname
+      }{%
+        \ifthenelse{\equal{##1}{undefine}}{%
+          \expandafter\let\csname fc@ord@#1\endcsname\undefined
+        }{%
+          \PackageError{fmtcount}%
+          {Invalid value `##1' to fmtord key}%
+          {Option `fmtord' can only take the values `level', `raise'
+            or `undefine'}%
+        }}
+    }%
+  }{%
+%    \end{macrocode}
+% When the language \#1 is an alias, do the same as the language of which it is an alias:
+%    \begin{macrocode}
+    \expandafter\let\expandafter\@tempa\csname KV@\csname fc@#1@alias@of\endcsname @fmtord\endcsname
+    \expandafter\let\csname KV@#1@fmtord\endcsname\@tempa
   }%
 }
+\expandafter\@fc@iterate@on@languages\fc@supported@language@list,\@nil,%
 %    \end{macrocode}
-%\end{option}
 %\begin{option}{fmtord}
 % Key to determine how to display the ordinal
+% \changes{3.01}{2014-12-18}{Apply option directly, rather than doing a border effect on \cs{fmtcount@fmtord},
+% and then postprocessing depending on \cs{fmtcount@fmtord} at the end of \cs{fmtcountsetoptions}}
 %    \begin{macrocode}
+\def\fc@set@ord@as@level#1{%
+  \def#1##1{##1}%
+}
+\def\fc@set@ord@as@raise#1{%
+  \let#1\textsuperscript
+}
 \define@key{fmtcount}{fmtord}{%
   \ifthenelse{\equal{#1}{level}
-           \or\equal{#1}{raise}
-           \or\equal{#1}{user}}%
+           \or\equal{#1}{raise}}%
   {%
+    \csname fc@set@ord@as@#1\endcsname\fc@orddef@ult
     \def\fmtcount@fmtord{#1}%
   }%
   {%
     \PackageError{fmtcount}%
     {Invalid value `#1' to fmtord key}%
-    {Option `fmtord' can only take the values `level', `raise'
-     or `user'}%
+    {Option `fmtord' can only take the values `level' or `raise'}%
   }%
 }
 %    \end{macrocode}
@@ -304,42 +377,11 @@ italian}
 %\end{option}
 %\begin{macro}{\fmtcountsetoptions}
 % Define command to set options.
+% \changes{3.01}{2014-12-18}{ Move French specific stuff to \styfmt{french.def}.}
 %    \begin{macrocode}
-\newcommand*{\fmtcountsetoptions}[1]{%
+\def\fmtcountsetoptions{%
   \def\fmtcount@fmtord{}%
-  \setkeys{fmtcount}{#1}%
-  \@FC@iflangloaded{french}{\ifcsundef{@ordinalstringMfrench}%
-  {%
-    \edef\@ordinalstringMfrench{\noexpand
-      \csname @ordinalstringMfrench\fmtcount@french\noexpand\endcsname}%
-    \edef\@ordinalstringFfrench{\noexpand
-      \csname @ordinalstringFfrench\fmtcount@french\noexpand\endcsname}%
-    \edef\@OrdinalstringMfrench{\noexpand
-      \csname @OrdinalstringMfrench\fmtcount@french\noexpand\endcsname}%
-    \edef\@OrdinalstringFfrench{\noexpand
-      \csname @OrdinalstringFfrench\fmtcount@french\noexpand\endcsname}%
-    \edef\@numberstringMfrench{\noexpand
-      \csname @numberstringMfrench\fmtcount@french\noexpand\endcsname}%
-    \edef\@numberstringFfrench{\noexpand
-      \csname @numberstringFfrench\fmtcount@french\noexpand\endcsname}%
-    \edef\@NumberstringMfrench{\noexpand
-      \csname @NumberstringMfrench\fmtcount@french\noexpand\endcsname}%
-    \edef\@NumberstringFfrench{\noexpand
-      \csname @NumberstringFfrench\fmtcount@french\noexpand\endcsname}%
-  }{}}{}%
-  \ifthenelse{\equal{\fmtcount@fmtord}{level}}%
-  {%
-    \renewcommand{\fmtord}[1]{##1}%
-  }%
-  {%
-    \ifthenelse{\equal{\fmtcount@fmtord}{raise}}%
-    {%
-      \renewcommand{\fmtord}[1]{\textsuperscript{##1}}%
-    }%
-    {%
-    }%
-  }
-}
+  \setkeys{fmtcount}}%
 %    \end{macrocode}
 %\end{macro}
 % Load configuration file if it exists.  This needs to be done
@@ -379,13 +421,13 @@ italian}
 %\begin{option}{level}
 %    \begin{macrocode}
 \DeclareOption{level}{\def\fmtcount@fmtord{level}%
-  \def\fmtord#1{#1}}
+  \def\fc@orddef@ult#1{#1}}
 %    \end{macrocode}
 %\end{option}
 %\begin{option}{raise}
 %    \begin{macrocode}
 \DeclareOption{raise}{\def\fmtcount@fmtord{raise}%
-  \def\fmtord#1{\textsuperscript{#1}}}
+  \def\fc@orddef@ult#1{\textsuperscript{#1}}}
 %    \end{macrocode}
 %\end{option}
 % Process package options 
@@ -1608,6 +1650,7 @@ italian}
   \def\@ordinalM{\@ordinalMenglish}%
   \let\@ordinalF=\@ordinalM
   \let\@ordinalN=\@ordinalM
+  \let\fmtord\fc@orddef@ult
 }
 %    \end{macrocode}
 %\end{macro}
@@ -1751,6 +1794,11 @@ italian}
   \def\@OrdinalstringN{%
     \fc@multiling{Ordinalstring}{N}%
   }%
+%    \end{macrocode}
+% Make \cs{fmtord} language dependent:
+% \changes{3.01}{2014-12-18}{Make \cs{fmtord} language dependent.}
+%    \begin{macrocode}
+  \let\fmtord\fc@ord@multiling
 }
 %    \end{macrocode}
 %\end{macro}

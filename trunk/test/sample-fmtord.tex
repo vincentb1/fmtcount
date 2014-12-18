@@ -1,0 +1,47 @@
+\documentclass{article}
+
+\usepackage[french,english,american]{fmtcount}
+
+\begin{document}
+
+
+\fmtcountsetoptions{%
+  fmtord=level,
+  french={fmtord=raise},
+  american={fmtord=level}
+}
+
+
+\textbf{french/raise}:
+\def\languagename{french}
+\ordinalnum{1}, \ordinalnum{2}, \ordinalnum{3}
+
+\textbf{frenchb=french}:
+\def\languagename{frenchb}
+\ordinalnum{1}, \ordinalnum{2}, \ordinalnum{3}
+
+
+\textbf{french/undefine=level}:
+\fmtcountsetoptions{%
+  french={fmtord=undefine}
+}
+\def\languagename{french}
+\ordinalnum{1}, \ordinalnum{2}, \ordinalnum{3}
+
+
+\textbf{english/undefine=level}:
+\def\languagename{english}
+\ordinalnum{1}, \ordinalnum{2}, \ordinalnum{3}
+
+\fmtcountsetoptions{%
+  fmtord=raise}
+\textbf{english/undefine=raise}:
+\def\languagename{english}
+\ordinalnum{1}, \ordinalnum{2}, \ordinalnum{3}
+
+
+\textbf{american/level}:
+\def\languagename{american}
+\ordinalnum{1}, \ordinalnum{2}, \ordinalnum{3}
+
+\end{document}

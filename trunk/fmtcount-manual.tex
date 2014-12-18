@@ -44,7 +44,7 @@
             pdftitle={fmtcount.sty: Displaying the Values of LaTeX Counters},
             pdfkeywords={LaTeX,counter}]{hyperref}
 
-\CheckSum{9850}
+\CheckSum{9922}
 
 \doxitem{Option}{option}{options}
 
@@ -431,8 +431,8 @@ The following options can be passed to this package:
 \begin{definition}[\DescribeMacro{\fmtcountsetoptions}]
 \cs{fmtcountsetoptions}\verb"{fmtord="\meta{type}\verb'}'
 \end{definition}
-where \meta{type} is either \texttt{level} or 
-\texttt{raise}.
+where \meta{type} is either \texttt{level} or \texttt{raise}. Since version~3.01 of \sty{fmtcount}, it is also
+possible to set \meta{type} on a language by language basis, see~\S~\ref{sec:multilingual-support}.
 
 \section{Multilingual Support}
 \label{sec:multilingual-support}
@@ -485,6 +485,31 @@ to happen in English, let alone other languages with which I'm not so
 familiar.) If you want to add support for another language,
 you will need to let me know how to form the numbers and ordinals 
 from~0 to~99999 in that language for each gender.
+
+\subsection{Options for setting ordinal ending position raise/level}
+\label{sec:options-fmtord}
+
+\begin{definition}[\DescribeMacro{\fmtcountsetoptions}]
+\cs{fmtcountsetoptions}\verb"{"\meta{language}\verb"={fmtord="\meta{type}\verb'}}'
+\end{definition}
+where \meta{language} is one of the supported language \meta{type} is either \texttt{level} or \texttt{raise}
+or \texttt{undefine}. If the value is \texttt{level} or \texttt{raise}, then that will set the \texttt{fmtord}
+option accordingly\footnote{see~\S~\ref{sec:package-options}} only for that language \meta{language}. If the
+value is \texttt{undefine}, then the non-language specific behaviour is followed.
+
+Some \meta{language} are synonyms, here is a table:
+
+\begin{center}
+  \begin{tabular}{|l|l|}\hline
+    \textbf{language}& \textbf{alias(es)}\\\hline
+    english& british\\\hline
+    french&frenchb\\\hline
+            &germanb\\
+    german&ngerman\\
+            &ngermanb\\\hline
+    USenglish&american\\\hline
+  \end{tabular}
+\end{center}
 
 \subsection{Options for French}
 \label{sec:options-french}
