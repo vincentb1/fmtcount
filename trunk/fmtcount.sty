@@ -32,9 +32,12 @@
 % Define the macro to format the |st|, |nd|, |rd| or |th| of an 
 % ordinal.
 % \changes{3.01}{2014-12-18}{Make \cs{fmtord} language dependent.}
+% \changes{3.01}{2014-12-21}{Substitute \cs{textsuperscript} for \cs{fc@textsuperscript}, and define
+% \cs{fc@textsuperscript} as \cs{fup} when defined at beginning of document, or as \cs{textsuperscript}
+% otherwise}
 %\begin{macro}{\fc@orddef@ult}
 %    \begin{macrocode}
-\providecommand*{\fc@orddef@ult}[1]{\textsuperscript{#1}}
+\providecommand*{\fc@orddef@ult}[1]{\fc@textsuperscript{#1}}
 %    \end{macrocode}
 %\end{macro}
 %\begin{macro}{\fc@ord@multiling}
@@ -322,7 +325,7 @@ italian}
   \def#1##1{##1}%
 }
 \def\fc@set@ord@as@raise#1{%
-  \let#1\textsuperscript
+  \let#1\fc@textsuperscript
 }
 \define@key{fmtcount}{fmtord}{%
   \ifthenelse{\equal{#1}{level}
@@ -427,7 +430,7 @@ italian}
 %\begin{option}{raise}
 %    \begin{macrocode}
 \DeclareOption{raise}{\def\fmtcount@fmtord{raise}%
-  \def\fc@orddef@ult#1{\textsuperscript{#1}}}
+  \def\fc@orddef@ult#1{\fc@textsuperscript{#1}}}
 %    \end{macrocode}
 %\end{option}
 % Process package options 
@@ -1855,6 +1858,14 @@ italian}
        \@setdef@ultfmtcount
     \fi
   }%
+}
+%    \end{macrocode}
+% \changes{3.01}{2014-12-21}{Substitute \cs{textsuperscript} for \cs{fc@textsuperscript}, and define
+% \cs{fc@textsuperscript} as \cs{fup} when defined at beginning of document, or as \cs{textsuperscript}
+% otherwise}
+%    \begin{macrocode}
+\AtBeginDocument{%
+   \ifcsundef{fup}{\let\fc@textsuperscript\textsuperscript}{\let\fc@textsuperscript\fup}%
 }
 %    \end{macrocode}
 % Backwards compatibility:
