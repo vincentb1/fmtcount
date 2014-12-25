@@ -205,6 +205,9 @@ pdftests/.dir:
 	mkdir -p pdftests
 	echo "" > $@
 
+.PHONY: squeaky realclean
+squeaky realclean:%: clean
+
 .PHONY: clean
 clean: cleanpdf cleantex4ht
 
