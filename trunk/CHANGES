@@ -1,5 +1,27 @@
 fmtcount package versions:
 
+Version 3.01:
+
+ * Make fmtord option language dependant
+
+ * Support language as a documentclass option
+
+ * Some improvements in code documentation and testing
+
+ * Use xkeyval instead of keyval for option processing, so as to avoid
+   trouble with option de-bracketting
+
+ * Solve issue #15: protect \' for accent in French ordinal
+
+ * Make 1er/1re, 2e the default for French abbreviated ordinals, and
+   make abbreviated ordinals the default --- as opposed to
+   non-abbreviated like 2\`eme.
+
+ * Solve issue #16: (use of superscript font for ordinals when
+   available and xelatex is used)
+	
+Version 3.00:
+
 Version 2.04:
 
  * Renamed \@modulo to \@FCmodulo to avoid conflict with other
