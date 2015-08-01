@@ -792,10 +792,12 @@ italian}
 % argument is omitted.
 % Version 1.04 changed \cs{ordinal} to \cs{FCordinal}
 % to prevent it clashing with the memoir class. 
+% \changes{3.02}{2015-08-01}{Suppress useless \cs{expandafter}'s and and use \cs{value} instead tweaking with
+% \cs{csname}. Do not use any longer \cs{protect} as \cs{ordinalnum} is made robust.}
 %    \begin{macrocode}
 \newcommand{\FCordinal}[1]{%
-  \expandafter\protect\expandafter\ordinalnum{%
-    \expandafter\the\csname c@#1\endcsname}%
+  \ordinalnum{%
+    \the\value{#1}}%
 }
 %    \end{macrocode}
 %\end{macro}
@@ -820,8 +822,9 @@ italian}
 % count register instead of a counter:
 %\changes{1.31}{2009/10/02}{replaced \cs{@ifnextchar} with
 %\cs{new@ifnextchar}}
+% \changes{3.02}{2015-08-01}{Make \cs{ordinalnum} robust.}
 %    \begin{macrocode}
-\newcommand*{\ordinalnum}[1]{%
+\DeclareRobustCommand*{\ordinalnum}[1]{%
   \new@ifnextchar[%
   {\@ordinalnum{#1}}%
   {\@ordinalnum{#1}[m]}%
@@ -864,10 +867,12 @@ italian}
 %\begin{macro}{\storeordinal}
 % Store the ordinal (first argument
 % is identifying name, second argument is a counter.)
+% \changes{3.02}{2015-08-01}{Suppress useless \cs{expandafter}'s and and use \cs{value} instead tweaking with
+% \cs{csname}. Do not use any longer \cs{protect} as \cs{storeordinalnum} is made robust.}
 %    \begin{macrocode}
 \newcommand*{\storeordinal}[2]{%
-  \expandafter\protect\expandafter\storeordinalnum{#1}{%
-    \expandafter\the\csname c@#2\endcsname}%
+  \storeordinalnum{#1}{%
+    \the\value{#2}}%
 }
 %    \end{macrocode}
 %\end{macro}
@@ -875,8 +880,9 @@ italian}
 % Store ordinal (first argument
 % is identifying name, second argument is a number or
 % count register.)
+% \changes{3.02}{2015-08-01}{Make \cs{storeordinalnum} robust.}
 %    \begin{macrocode}
-\newcommand*{\storeordinalnum}[2]{%
+\DeclareRobustCommand*{\storeordinalnum}[2]{%
   \@ifnextchar[%
   {\@storeordinalnum{#1}{#2}}%
   {\@storeordinalnum{#1}{#2}[m]}%
