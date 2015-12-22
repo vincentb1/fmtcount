@@ -101,7 +101,7 @@ define PDF_ACTIONS
 	if latexmk $(1) ../$<; \
 	then \
 		pdftotext $*.pdf  $*.txt; \
-		if [ diff -abs $*.txt ../reference/$*.txt ]; then \
+		if diff -abs $*.txt ../reference/$*.txt; then \
 			echo "Test $*: failed" >> ../pdftests.log; \
 		else echo "Test $*: ok" >> ../pdftests.log; \
 		fi; \
@@ -110,7 +110,7 @@ define PDF_ACTIONS
 endef
 
 $(patsubst %,pdftests/%.pdf,$(LATEX_TESTS)):pdftests/%.pdf:../%.tex $(patsubst %,pdftests/%,$(STYFILES)) echo_pdftest pdftests/.dir
-	$(call PDF_ACTIONS,-pdf)
+	$(call PDF_ACTIONS,-pdf -interaction=nonstopmode)
 
 $(patsubst %,pdftests/%.pdf,$(XELATEX_TESTS)):pdftests/%.pdf:../%.tex $(patsubst %,pdftests/%,$(STYFILES)) \
 		echo_pdftest pdftests/.dir
