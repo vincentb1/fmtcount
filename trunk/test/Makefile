@@ -139,7 +139,7 @@ $(patsubst %,tests/test-shortbab-%.tex,$(LANG_shortbab)):tests/test-shortbab-%.t
 define SHORT_NODATE_AWK
 /<meta name="src"/ || /<link rel="stylesheet"/ { sub(/"test-short(go|bab)-/,"\"test-short-")};\
 /<html/ {sub(/xml:lang=".." */,"")}; \
-!/<meta name="date"/ { gsub(/<!--l\. [0-9]+-->/,""); gsub(/>  +</,"> <"); print}
+!/<meta name="date"/ && !/^ *$$$$/ { gsub(/<!--l\. [0-9]+-->/,""); gsub(/>  +</,"> <");  print}
 endef
 # "
 
