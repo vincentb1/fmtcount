@@ -1,6 +1,7 @@
  % This file is public domain
 \documentclass{article}
 \usepackage{xunicode,polyglossia}
+\DeclareTextCommandDefault{\nobreakspace}{\leavevmode\nobreak\ } 
 
 \setmainlanguage{french}
 \usepackage{fmtcount}
@@ -9,6 +10,11 @@
 \newcounter{cnt}
 
 \begin{document}
+\setcounter{cnt}{18}
+\tableofcontents
+\section{\textbackslash FCordinal in a title: \FCordinal{cnt}}
+\section{\textbackslash numberstring in a title: \numberstring{cnt}}
+
 \numberstringnum{10}
 \setcounter{cnt}{1}
 \ORDINALstring{cnt}[f]

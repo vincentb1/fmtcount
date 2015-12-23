@@ -48,6 +48,16 @@ PRINTROW_italian:=/^\\printrow/ { match($$0,/\{([0-9]+)\}/,a); n=strtonum(a[1]);
   $$0=="\\Ordinalstringnum{10}," { sub(/,/,".")} ;   \
   $$0=="\\ORDINALstringnum{10}." { $$0 = "%- " $$0} ; 
 
+$(foreach LANG,$(LANG_short),$(eval CONTENTSNAME_$(LANG):=))
+
+define DEF_CONTENTSNAME
+$(eval CONTENTSNAME_$(1):=\n\\def\\contentsname{$(2)}\n)
+endef
+$(call DEF_CONTENTSNAME,german,Inhaltsverzeichnis)
+$(call DEF_CONTENTSNAME,germanb,Inhaltsverzeichnis)
+$(call DEF_CONTENTSNAME,ngerman,Inhaltsverzeichnis)
+$(call DEF_CONTENTSNAME,ngermanb,Inhaltsverzeichnis)
+
 
 # italian => does not support 999999
 # portuges => does not support 0
@@ -102,8 +112,8 @@ define PDF_ACTIONS
 	then \
 		pdftotext $*.pdf  $*.txt; \
 		if diff -abs $*.txt ../reference/$*.txt; then \
-			echo "Test $*: failed" >> ../pdftests.log; \
-		else echo "Test $*: ok" >> ../pdftests.log; \
+			echo "Test $*: ok" >> ../pdftests.log; \
+		else echo "Test $*: failed" >> ../pdftests.log; \
 		fi; \
 	else echo "Test $*: failed" >> ../pdftests.log; \
 	fi
@@ -119,7 +129,7 @@ $(patsubst %,pdftests/%.pdf,$(XELATEX_TESTS)):pdftests/%.pdf:../%.tex $(patsubst
 # language loaded via FCLoadLang
 #------------------------------------------------------------------------------------------------------------
 $(patsubst %,tests/test-short-%.tex,$(LANG_short)):tests/test-short-%.tex: echo_short tests/.dir
-	awk '/^% FCloadlang/ { $$0="\\FCloadlang{$*}\\def\\languagename{$*}\\makeatletter\n\\@set@mulitling@fmtcount\\makeatother"}; $(PRINTROW_$*) $(TEX4HT_BUG200_PATCH) {print}' $(SAMPLE_DIR)/fc-samp.tex > $@
+	awk '/^% FCloadlang/ { $$0="\\FCloadlang{$*}\\def\\languagename{$*}\\makeatletter\n\\@set@mulitling@fmtcount\\makeatother$(CONTENTSNAME_$*)"}; $(PRINTROW_$*) $(TEX4HT_BUG200_PATCH) {print}' $(SAMPLE_DIR)/fc-samp.tex > $@
 
 # language loaded via global option
 #------------------------------------------------------------------------------------------------------------

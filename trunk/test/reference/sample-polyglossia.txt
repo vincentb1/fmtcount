@@ -1,3 +1,10 @@
-dix PREMIE`RE DEUXIE`ME DIX-NEUVIE`ME 1
+Table des matières
+1 \FCordinal in a title : 18e 2 \numberstring in a title : dix-huit
+1 \FCordinal in a title : 18e 2 \numberstring in a title : dix-huit
+dix PREMIE`RE DEUXIE`ME DIX-NEUVIE`ME
+
+1 1
+
+1
 
 
