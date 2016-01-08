@@ -1,6 +1,6 @@
 include ../fc-makedefinitions.mak
 TESTS:= fc-samp sample-polyglossia
-SAMPLE_DIR:=..
+SAMPLE_DIR:=.
 DASHES:='=================================================================================================='
 
 # Tests with TEX4HT test engine
@@ -119,10 +119,10 @@ define PDF_ACTIONS
 	fi
 endef
 
-$(patsubst %,pdftests/%.pdf,$(LATEX_TESTS)):pdftests/%.pdf:../%.tex $(patsubst %,pdftests/%,$(STYFILES)) echo_pdftest pdftests/.dir
+$(patsubst %,pdftests/%.pdf,$(LATEX_TESTS)):pdftests/%.pdf:$(SAMPLE_DIR)/%.tex $(patsubst %,pdftests/%,$(STYFILES)) echo_pdftest pdftests/.dir
 	$(call PDF_ACTIONS,-pdf -interaction=nonstopmode)
 
-$(patsubst %,pdftests/%.pdf,$(XELATEX_TESTS)):pdftests/%.pdf:../%.tex $(patsubst %,pdftests/%,$(STYFILES)) \
+$(patsubst %,pdftests/%.pdf,$(XELATEX_TESTS)):pdftests/%.pdf:$(SAMPLE_DIR)/%.tex $(patsubst %,pdftests/%,$(STYFILES)) \
 		echo_pdftest pdftests/.dir
 	$(call PDF_ACTIONS,-r ../xelatex_latexmkrc)
 
