@@ -1,0 +1,6 @@
+PREMIER Sample
+Test cross-reference to section DEUXIE`ME.
+DEUXIE`ME Test
+1
+
+

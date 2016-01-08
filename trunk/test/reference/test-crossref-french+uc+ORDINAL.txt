@@ -1,0 +1,6 @@
+section Sample
+Test cross-reference to section section.
+section Test
+1
+
+

@@ -1,0 +1,11 @@
+\documentclass[a4paper]{article}
+\usepackage{fmtcount}
+
+\renewcommand*{\thesection}{\numberstring{section}}
+
+\begin{document}
+\section{Sample}
+Test cross-reference to section~\ref{sec:test}.
+\section{Test}
+\label{sec:test}
+\end{document}

@@ -27,9 +27,19 @@ LANG_shortbab:=english german
 # dummy
 LANG_fmtord:=l
 
+# Cross referencing tests (for these tests we used global option language loading)
+# The lc+ ucf+ uc+ are needed because on MSWindows filenames are case insenstive
+# lc = lower case, ucf = upper case first, uc = upper case
+LANG_crossref:=french german
+CROSSREF:=lc+numberstring ucf+Numberstring uc+NUMBERstring\
+	lc+ordinalstring ucf+Ordinalstring uc+ORDINALstring\
+	lc+ordinal
+
+CROSSREF_TESTS:=$(patsubst %, test-crossref-%,$(foreach LANG,$(LANG_crossref),$(addprefix $(LANG)+,$(CROSSREF))))
+
 # Tests with pdflatex test engine
 #------------------------------------------------------------------------------------------------------------
-LATEX_TESTS:=fc-samp fc-frlargenum
+LATEX_TESTS:=fc-samp fc-frlargenum $(CROSSREF_TESTS)
 
 # Tests with xelatex sample-polyglossia
 #------------------------------------------------------------------------------------------------------------
@@ -122,6 +132,13 @@ endef
 $(patsubst %,pdftests/%.pdf,$(LATEX_TESTS)):pdftests/%.pdf:$(SAMPLE_DIR)/%.tex $(patsubst %,pdftests/%,$(STYFILES)) echo_pdftest pdftests/.dir
 	$(call PDF_ACTIONS,-pdf -interaction=nonstopmode)
 
+# Cross referencing tests
+#------------------------------------------------------------------------------------------------------------
+$(patsubst %,$(SAMPLE_DIR)/%.tex,$(CROSSREF_TESTS)):$(SAMPLE_DIR)/%.tex: $(SAMPLE_DIR)/sample-crossref.tex \
+		pdftests/.dir
+	awk 'BEGIN { split("$*",a,"+"); split(a[1],b,"-"); lang=b[3]; macro=a[3];} ; /^ *\\documentclass/ { sub(/\[[^]]*/,"&," lang)}; /renewcommand/ { sub(/numberstring/,macro);}; {print}' $< > $@
+
+
 $(patsubst %,pdftests/%.pdf,$(XELATEX_TESTS)):pdftests/%.pdf:$(SAMPLE_DIR)/%.tex $(patsubst %,pdftests/%,$(STYFILES)) \
 		echo_pdftest pdftests/.dir
 	$(call PDF_ACTIONS,-r ../xelatex_latexmkrc)
@@ -142,6 +159,8 @@ $(patsubst %,tests/test-shortgo-%.tex,$(LANG_shortgo)):tests/test-shortgo-%.tex:
 $(patsubst %,tests/test-shortbab-%.tex,$(LANG_shortbab)):tests/test-shortbab-%.tex: \
 		$(SAMPLE_DIR)/fc-samp.tex echo_shortbab tests/.dir
 	awk '/^ *\\usepackage/ { $$0="\\usepackage[$*]{babel}\n" $$0}; $(PRINTROW_$*) $(TEX4HT_BUG200_PATCH) {print}' $< > $@
+
+
 
 # AWK script to normalize the HTML output for short number test
 # replace shortgo/shortbab by short in the header source & css reference
@@ -225,6 +244,7 @@ clean: cleanpdf cleantex4ht
 cleanpdf:
 	rm -fr pdftests
 	rm -f pdftests.log
+	echo $(patsubst %,$(SAMPLE_DIR)/%.tex,$(CROSSREF_TESTS)) | xargs rm -f
 
 .PHONY: cleantex4ht
 cleantex4ht:
