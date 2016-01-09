@@ -35,7 +35,13 @@ CROSSREF:=lc+numberstring ucf+Numberstring uc+NUMBERstring\
 	lc+ordinalstring ucf+Ordinalstring uc+ORDINALstring\
 	lc+ordinal
 
-CROSSREF_TESTS:=$(patsubst %, test-crossref-%,$(foreach LANG,$(LANG_crossref),$(addprefix $(LANG)+,$(CROSSREF))))
+# Cross referencing tests non language dependent
+CROSSREF2:=na+binary na+octal na+decimal \
+	uc+Hexadecimal lc+hexadecimal \
+	uc+AAAlph lc+aaalph
+
+CROSSREF_TESTS:=$(patsubst %, test-crossref-%,$(foreach LANG,$(LANG_crossref),$(addprefix $(LANG)+,$(CROSSREF)))) \
+	$(addprefix test-crossref-,$(CROSSREF2))
 
 # Tests with pdflatex test engine
 #------------------------------------------------------------------------------------------------------------
@@ -136,7 +142,7 @@ $(patsubst %,pdftests/%.pdf,$(LATEX_TESTS)):pdftests/%.pdf:$(SAMPLE_DIR)/%.tex $
 #------------------------------------------------------------------------------------------------------------
 $(patsubst %,$(SAMPLE_DIR)/%.tex,$(CROSSREF_TESTS)):$(SAMPLE_DIR)/%.tex: $(SAMPLE_DIR)/sample-crossref.tex \
 		pdftests/.dir
-	awk 'BEGIN { split("$*",a,"+"); split(a[1],b,"-"); lang=b[3]; macro=a[3];} ; /^ *\\documentclass/ { sub(/\[[^]]*/,"&," lang)}; /renewcommand/ { sub(/numberstring/,macro);}; {print}' $< > $@
+	awk 'BEGIN { n=split("$*",a,"+"); if( n == 3){ split(a[1],b,"-"); lang=b[3]; macro=a[3];} else { macro = a[2]; }} ; /^ *\\documentclass/ && n == 3 { sub(/\[[^]]*/,"&," lang)}; /renewcommand/ { sub(/numberstring/,macro);}; {print}' $< > $@
 
 
 $(patsubst %,pdftests/%.pdf,$(XELATEX_TESTS)):pdftests/%.pdf:$(SAMPLE_DIR)/%.tex $(patsubst %,pdftests/%,$(STYFILES)) \

@@ -1,0 +1,6 @@
+a Sample
+Test cross-reference to section b.
+b Test
+1
+
+
