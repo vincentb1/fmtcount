@@ -486,8 +486,9 @@ italian}
 %    \end{macrocode}
 %\begin{macro}{\binarynum}
 % Converts a decimal number to binary, and display.
+%\changes{3.02}{2016-01-08}{Made robust using \texttt{etoolbox} \cs{newrobustcmd}}
 %    \begin{macrocode}
-\newcommand*{\@binary}[1]{%
+\newrobustcmd*{\@binary}[1]{%
   \@DT@padzeroestrue
   \@DT@loopN=17\relax
   \@strctr=\@DT@loopN
@@ -517,8 +518,9 @@ italian}
 %\end{macro}
 %\begin{macro}{\octalnum}
 % Converts a decimal number to octal, and displays.
+%\changes{3.02}{2016-01-08}{Made robust using \texttt{etoolbox} \cs{newrobustcmd}}
 %    \begin{macrocode}
-\newcommand*{\@octal}[1]{%
+\newrobustcmd*{\@octal}[1]{%
   \ifnum#1>32768
     \PackageError{fmtcount}%
     {Value of counter too large for \protect\@octal}
@@ -562,8 +564,9 @@ italian}
 %\begin{macro}{\hexadecimalnum}
 % Converts a decimal number to a lowercase hexadecimal number, 
 % and displays it.
+%\changes{3.02}{2016-01-08}{Made robust using \texttt{etoolbox} \cs{newrobustcmd}}
 %    \begin{macrocode}
-\newcommand*{\@hexadecimal}[1]{%
+\newrobustcmd*{\@hexadecimal}[1]{%
   \@DT@padzeroestrue
   \@DT@loopN=5\relax
   \@strctr=\@DT@loopN
@@ -600,8 +603,9 @@ italian}
 %\end{macro}
 %\begin{macro}{\Hexadecimalnum}
 % Uppercase hexadecimal
+%\changes{3.02}{2016-01-08}{Made robust using \texttt{etoolbox} \cs{newrobustcmd}}
 %    \begin{macrocode}
-\newcommand*{\@Hexadecimal}[1]{%
+\newrobustcmd*{\@Hexadecimal}[1]{%
   \@DT@padzeroestrue
   \@DT@loopN=5\relax
   \@strctr=\@DT@loopN
@@ -630,8 +634,9 @@ italian}
 %\end{macro}
 %\begin{macro}{\aaalphnum}
 % Lowercase alphabetical representation (a \ldots\ z aa \ldots\ zz)
+%\changes{3.02}{2016-01-08}{Made robust using \texttt{etoolbox} \cs{newrobustcmd}}
 %    \begin{macrocode}
-\newcommand*{\@aaalph}[1]{%
+\newrobustcmd*{\@aaalph}[1]{%
   \@DT@loopN=#1\relax
   \advance\@DT@loopN by -1\relax
   \divide\@DT@loopN by 26\relax
@@ -654,8 +659,9 @@ italian}
 %\end{macro}
 %\begin{macro}{\AAAlphnum}
 % Uppercase alphabetical representation (a \ldots\ z aa \ldots\ zz)
+%\changes{3.02}{2016-01-08}{Made robust using \texttt{etoolbox} \cs{newrobustcmd}}
 %    \begin{macrocode}
-\newcommand*{\@AAAlph}[1]{%
+\newrobustcmd*{\@AAAlph}[1]{%
   \@DT@loopN=#1\relax
   \advance\@DT@loopN by -1\relax
   \divide\@DT@loopN by 26\relax
@@ -678,8 +684,9 @@ italian}
 %\end{macro}
 %\begin{macro}{\abalphnum}
 % Lowercase alphabetical representation
+%\changes{3.02}{2016-01-08}{Made robust using \texttt{etoolbox} \cs{newrobustcmd}}
 %    \begin{macrocode}
-\newcommand*{\@abalph}[1]{%
+\newrobustcmd*{\@abalph}[1]{%
   \ifnum#1>17576\relax
     \PackageError{fmtcount}%
     {Value of counter too large for \protect\@abalph}%
@@ -711,8 +718,9 @@ italian}
 %\end{macro}
 %\begin{macro}{\ABAlphnum}
 % Uppercase alphabetical representation
+%\changes{3.02}{2016-01-08}{Made robust using \texttt{etoolbox} \cs{newrobustcmd}}
 %    \begin{macrocode}
-\newcommand*{\@ABAlph}[1]{%
+\newrobustcmd*{\@ABAlph}[1]{%
   \ifnum#1>17576\relax
     \PackageError{fmtcount}%
    {Value of counter too large for \protect\@ABAlph}%
@@ -757,8 +765,9 @@ italian}
 %\begin{macro}{\@decimal}
 %\changes{1.31}{2009/10/02}{fixed unwanted space.}
 % Format number as a decimal, possibly padded with zeroes in front.
+%\changes{3.02}{2016-01-08}{Made robust using \texttt{etoolbox} \cs{newrobustcmd}}
 %    \begin{macrocode}
-\newcommand{\@decimal}[1]{%
+\newrobustcmd*{\@decimal}[1]{%
   \@strctr=0\relax
   \expandafter\@fmtc@count\number#1\relax
   \@DT@loopN=\c@padzeroesN
@@ -869,9 +878,13 @@ italian}
 % is identifying name, second argument is a counter.)
 % \changes{3.02}{2015-08-01}{Suppress useless \cs{expandafter}'s and and use \cs{value} instead tweaking with
 % \cs{csname}. Do not use any longer \cs{protect} as \cs{storeordinalnum} is made robust.}
+% \changes{3.02}{2016-01-08}{Expand \cs{the}\cs{value}\texttt{\{\#2\}} once before passing to \cs{storeordinalnum}}
 %    \begin{macrocode}
 \newcommand*{\storeordinal}[2]{%
-  \storeordinalnum{#1}{%
+  {%
+    \toks0{\storeordinalnum{#1}}%
+    \expandafter
+   }\the\toks0\expandafter{%
     \the\value{#2}}%
 }
 %    \end{macrocode}
@@ -880,9 +893,9 @@ italian}
 % Store ordinal (first argument
 % is identifying name, second argument is a number or
 % count register.)
-% \changes{3.02}{2015-08-01}{Make \cs{storeordinalnum} robust.}
+% \changes{3.02}{2016-01-08}{Make \cs{storeordinalnum} robust with etoolbox \cs{newrobustcmd}.}
 %    \begin{macrocode}
-\DeclareRobustCommand*{\storeordinalnum}[2]{%
+\newrobustcmd*{\storeordinalnum}[2]{%
   \@ifnextchar[%
   {\@storeordinalnum{#1}{#2}}%
   {\@storeordinalnum{#1}{#2}[m]}%
@@ -924,11 +937,16 @@ italian}
 %    \end{macrocode}
 %\end{macro}
 %\begin{macro}{\ordinalstring}
-% Display ordinal as a string (argument is a counter)
+%  Display ordinal as a string (argument is a counter)
+%  \changes{3.02}{2016-01-08}{Suppress useless \cs{expandafter}'s and
+%  and use \cs{value} instead tweaking with \cs{csname}. Do not use
+%  any longer \cs{protect} as \cs{ordinalstringnum} is made
+%  robust. Expand \cs{the}\cs{value}\texttt{\{\#1\}} once before
+%  passing to \cs{ordinalstringnum}}
 %    \begin{macrocode}
 \newcommand*{\ordinalstring}[1]{%
-  \expandafter\protect\expandafter\ordinalstringnum{%
-    \expandafter\the\csname c@#1\endcsname}%
+  \expandafter\ordinalstringnum\expandafter{%
+    \the\value{#1}}%
 }
 %    \end{macrocode}
 %\end{macro}
@@ -938,8 +956,9 @@ italian}
 %\changes{1.31}{2009/10/02}{replaced \cs{@ifnextchar} with
 %\cs{new@ifnextchar}}
 %\changes{1.33}{2009/10/15}{Made robust}
+%\changes{3.02}{2016-01-08}{Made robust using \texttt{etoolbox} \cs{newrobustcmd}}
 %    \begin{macrocode}
-\newcommand{\ordinalstringnum}[1]{%
+\newrobustcmd*{\ordinalstringnum}[1]{%
   \new@ifnextchar[%
   {\@ordinal@string{#1}}%
   {\@ordinal@string{#1}[m]}%
@@ -983,18 +1002,26 @@ italian}
 % Store textual representation of number. First argument is 
 % identifying name, second argument is the counter set to the 
 % required number.
+% \changes{3.02}{2016-01-08}{Suppress useless \cs{expandafter}'s and
+% and use \cs{value} instead tweaking with \cs{csname}. Do not use any
+% longer \cs{protect} as \cs{storeordinalstringnum} is made
+% robust. Expand \cs{the}\cs{value}\texttt{\{\#2\}} once before
+% passing to \cs{storeordinalstringnum}}
 %    \begin{macrocode}
 \newcommand*{\storeordinalstring}[2]{%
-  \expandafter\protect\expandafter\storeordinalstringnum{#1}{%
-    \expandafter\the\csname c@#2\endcsname}%
+  {%
+    \toks0{\storeordinalstringnum{#1}}%
+    \expandafter
+  }\the\toks0\expandafter{\the\value{#2}}%
 }
 %    \end{macrocode}
 %\end{macro}
 %\begin{macro}{\storeordinalstringnum}
 % Store textual representation of number. First argument is 
 % identifying name, second argument is a count register or number.
+%\changes{3.02}{2016-01-08}{Made robust using \texttt{etoolbox} \cs{newrobustcmd}}
 %    \begin{macrocode}
-\newcommand*{\storeordinalstringnum}[2]{%
+\newrobustcmd*{\storeordinalstringnum}[2]{%
   \@ifnextchar[%
   {\@store@ordinal@string{#1}{#2}}%
   {\@store@ordinal@string{#1}{#2}[m]}%
@@ -1034,10 +1061,15 @@ italian}
 %\begin{macro}{\Ordinalstring}
 % Display ordinal as a string with initial letters in upper case
 % (argument is a counter)
+% \changes{3.02}{2016-01-08}{Suppress useless \cs{expandafter}'s and
+% and use \cs{value} instead tweaking with \cs{csname}. Do not use any
+% longer \cs{protect} as \cs{Ordinalstringnum} is made
+% robust. Expand \cs{the}\cs{value}\texttt{\{\#1\}} once before
+% passing to \cs{Ordinalstringnum}}
 %    \begin{macrocode}
 \newcommand*{\Ordinalstring}[1]{%
-  \expandafter\protect\expandafter\Ordinalstringnum{%
-    \expandafter\the\csname c@#1\endcsname}%
+  \expandafter\Ordinalstringnum\expandafter{%
+    \the\value{#1}}%
 }
 %    \end{macrocode}
 %\end{macro}
@@ -1046,8 +1078,9 @@ italian}
 % (argument is a number or count register)
 %\changes{1.31}{2009/10/02}{replaced \cs{@ifnextchar} with
 %\cs{new@ifnextchar}}
+%\changes{3.02}{2016-01-08}{Made robust using \texttt{etoolbox} \cs{newrobustcmd}}
 %    \begin{macrocode}
-\newcommand*{\Ordinalstringnum}[1]{%
+\newrobustcmd*{\Ordinalstringnum}[1]{%
   \new@ifnextchar[%
   {\@Ordinal@string{#1}}%
   {\@Ordinal@string{#1}[m]}%
@@ -1090,10 +1123,17 @@ italian}
 % upper case. First argument is identifying name, second argument 
 % is the counter set to the 
 % required number.
+% \changes{3.02}{2016-01-08}{Suppress useless \cs{expandafter}'s and
+% and use \cs{value} instead tweaking with \cs{csname}. Do not use any
+% longer \cs{protect} as \cs{storeOrdinalstringnum} is made
+% robust. Expand \cs{the}\cs{value}\texttt{\{\#1\}} once before
+% passing to \cs{storeOrdinalstringnum}}
 %    \begin{macrocode}
 \newcommand*{\storeOrdinalstring}[2]{%
-  \expandafter\protect\expandafter\storeOrdinalstringnum{#1}{%
-    \expandafter\the\csname c@#2\endcsname}%
+  {%
+    \toks0{\storeOrdinalstringnum{#1}}%
+    \expandafter
+  }\the\toks0\expandafter{\the\value{#2}}%
 }
 %    \end{macrocode}
 %\end{macro}
@@ -1101,8 +1141,9 @@ italian}
 % Store textual representation of number, with initial letters in 
 % upper case. First argument is identifying name, second argument 
 % is a count register or number.
+%\changes{3.02}{2016-01-08}{Made robust using \texttt{etoolbox} \cs{newrobustcmd}}
 %    \begin{macrocode}
-\newcommand*{\storeOrdinalstringnum}[2]{%
+\newrobustcmd*{\storeOrdinalstringnum}[2]{%
   \@ifnextchar[%
   {\@store@Ordinal@string{#1}{#2}}%
   {\@store@Ordinal@string{#1}{#2}[m]}%
@@ -1142,18 +1183,26 @@ italian}
 %\begin{macro}{\storeORDINALstring}
 % Store upper case textual representation of ordinal. The first 
 % argument is identifying name, the second argument is a counter.
+% \changes{3.02}{2016-01-08}{Suppress useless \cs{expandafter}'s and
+% and use \cs{value} instead tweaking with \cs{csname}. Do not use any
+% longer \cs{protect} as \cs{storeORDINALstringnum} is made
+% robust. Expand \cs{the}\cs{value}\texttt{\{\#2\}} once before
+% passing to \cs{storeORDINALstringnum}.}
 %    \begin{macrocode}
 \newcommand*{\storeORDINALstring}[2]{%
-  \expandafter\protect\expandafter\storeORDINALstringnum{#1}{%
-    \expandafter\the\csname c@#2\endcsname}%
+  {%
+    \toks0{\storeORDINALstringnum{#1}}%
+    \expandafter
+  }\the\toks0\expandafter{\the\value{#2}}%
 }
 %    \end{macrocode}
 %\end{macro}
 %\begin{macro}{\storeORDINALstringnum}
 % As above, but the second argument is a count register or a
 % number.
+%\changes{3.02}{2016-01-08}{Made robust using \texttt{etoolbox} \cs{newrobustcmd}}
 %    \begin{macrocode}
-\newcommand*{\storeORDINALstringnum}[2]{%
+\newrobustcmd*{\storeORDINALstringnum}[2]{%
   \@ifnextchar[%
   {\@store@ORDINAL@string{#1}{#2}}%
   {\@store@ORDINAL@string{#1}{#2}[m]}%
@@ -1196,10 +1245,15 @@ italian}
 %\begin{macro}{\ORDINALstring}
 % Display upper case textual representation of an ordinal. The
 % argument must be a counter.
+% \changes{3.02}{2016-01-08}{Suppress useless \cs{expandafter}'s and
+% and use \cs{value} instead tweaking with \cs{csname}. Do not use any
+% longer \cs{protect} as \cs{ORDINALstringnum} is made
+% robust. Expand \cs{the}\cs{value}\texttt{\{\#1\}} once before
+% passing to \cs{ORDINALstringnum}}
 %    \begin{macrocode}
 \newcommand*{\ORDINALstring}[1]{%
-  \expandafter\protect\expandafter\ORDINALstringnum{%
-    \expandafter\the\csname c@#1\endcsname
+  \expandafter\ORDINALstringnum\expandafter{%
+    \the\value{#1}%
   }%
 }
 %    \end{macrocode}
@@ -1208,8 +1262,9 @@ italian}
 % As above, but the argument is a count register or a number.
 %\changes{1.31}{2009/10/02}{replaced \cs{@ifnextchar} with
 %\cs{new@ifnextchar}}
+%\changes{3.02}{2016-01-08}{Made robust using \texttt{etoolbox} \cs{newrobustcmd}}
 %    \begin{macrocode}
-\newcommand*{\ORDINALstringnum}[1]{%
+\newrobustcmd*{\ORDINALstringnum}[1]{%
   \new@ifnextchar[%
   {\@ORDINAL@string{#1}}%
   {\@ORDINAL@string{#1}[m]}%
@@ -1250,10 +1305,15 @@ italian}
 % Convert number to textual respresentation, and store. First 
 % argument is the identifying name, second argument is a counter 
 % containing the number.
+% \changes{3.02}{2016-01-08}{Suppress useless \cs{expandafter}'s and
+% and use \cs{value} instead tweaking with \cs{csname}. Do not use any
+% longer \cs{protect} as \cs{storenumberstringnum} is made
+% robust. Expand \cs{the}\cs{value}\texttt{\{\#2\}} once before
+% passing to \cs{storenumberstringnum}}
 %    \begin{macrocode}
 \newcommand*{\storenumberstring}[2]{%
   \expandafter\protect\expandafter\storenumberstringnum{#1}{%
-    \expandafter\the\csname c@#2\endcsname}%
+    \expandafter\the\value{#2}}%
 }
 %    \end{macrocode}
 %\end{macro}
@@ -1298,10 +1358,15 @@ italian}
 %\begin{macro}{\numberstring}
 % Display textual representation of a number. The argument
 % must be a counter.
+% \changes{3.02}{2016-01-08}{Suppress useless \cs{expandafter}'s and
+% and use \cs{value} instead tweaking with \cs{csname}. Do not use any
+% longer \cs{protect} as \cs{numberstringnum} is made
+% robust. Expand \cs{the}\cs{value}\texttt{\{\#1\}} once before
+% passing to \cs{numberstringnum}}
 %    \begin{macrocode}
 \newcommand*{\numberstring}[1]{%
-  \expandafter\protect\expandafter\numberstringnum{%
-    \expandafter\the\csname c@#1\endcsname}%
+  \expandafter\numberstringnum\expandafter{%
+    \the\value{#1}}%
 }
 %    \end{macrocode}
 %\end{macro}
@@ -1309,8 +1374,9 @@ italian}
 % As above, but the argument is a count register or a number.
 %\changes{1.31}{2009/10/02}{replaced \cs{@ifnextchar} with
 %\cs{new@ifnextchar}}
+%\changes{3.02}{2016-01-08}{Made robust using \texttt{etoolbox} \cs{newrobustcmd}}
 %    \begin{macrocode}
-\newcommand*{\numberstringnum}[1]{%
+\newrobustcmd*{\numberstringnum}[1]{%
   \new@ifnextchar[%
   {\@number@string{#1}}%
   {\@number@string{#1}[m]}%
@@ -1351,10 +1417,17 @@ italian}
 %\begin{macro}{\storeNumberstring}
 % Store textual representation of number. First argument is 
 % identifying name, second argument is a counter.
+% \changes{3.02}{2016-01-08}{Suppress useless \cs{expandafter}'s and
+% and use \cs{value} instead tweaking with \cs{csname}. Do not use any
+% longer \cs{protect} as \cs{storeNumberstringnum} is made
+% robust. Expand \cs{the}\cs{value}\texttt{\{\#2\}} once before
+% passing to \cs{storeNumberstringnum}}
 %    \begin{macrocode}
 \newcommand*{\storeNumberstring}[2]{%
-  \expandafter\protect\expandafter\storeNumberstringnum{#1}{%
-    \expandafter\the\csname c@#2\endcsname}%
+  {%
+    \toks0{\storeNumberstringnum{#1}}%
+    \expandafter
+  }\the\toks0\expandafter{\the\value{#2}}%
 }
 %    \end{macrocode}
 %\end{macro}
@@ -1399,10 +1472,15 @@ italian}
 %\begin{macro}{\Numberstring}
 % Display textual representation of number. The argument must be
 % a counter. 
+% \changes{3.02}{2016-01-08}{Suppress useless \cs{expandafter}'s and
+% and use \cs{value} instead tweaking with \cs{csname}. Do not use any
+% longer \cs{protect} as \cs{Numberstringnum} is made
+% robust. Expand \cs{the}\cs{value}\texttt{\{\#1\}} once before
+% passing to \cs{Numberstringnum}}
 %    \begin{macrocode}
 \newcommand*{\Numberstring}[1]{%
-  \expandafter\protect\expandafter\Numberstringnum{%
-    \expandafter\the\csname c@#1\endcsname}%
+  \expandafter\Numberstringnum\expandafter{%
+    \the\value{#1}}%
 }
 %    \end{macrocode}
 %\end{macro}
@@ -1410,8 +1488,9 @@ italian}
 % As above, but the argument is a count register or number.
 %\changes{1.31}{2009/10/02}{replaced \cs{@ifnextchar} with
 %\cs{new@ifnextchar}}
+%\changes{3.02}{2016-01-08}{Made robust using \texttt{etoolbox} \cs{newrobustcmd}}
 %    \begin{macrocode}
-\newcommand*{\Numberstringnum}[1]{%
+\newrobustcmd*{\Numberstringnum}[1]{%
   \new@ifnextchar[%
   {\@Number@string{#1}}%
   {\@Number@string{#1}[m]}%
@@ -1451,10 +1530,17 @@ italian}
 %\begin{macro}{\storeNUMBERstring}
 % Store upper case textual representation of number. The first 
 % argument is identifying name, the second argument is a counter.
+% \changes{3.02}{2016-01-08}{Suppress useless \cs{expandafter}'s and
+% and use \cs{value} instead tweaking with \cs{csname}. Do not use any
+% longer \cs{protect} as \cs{storeNUMBERstringnum} is made
+% robust. Expand \cs{the}\cs{value}\texttt{\{\#2\}} once before
+% passing to \cs{storeNUMBERstringnum}.}
 %    \begin{macrocode}
 \newcommand{\storeNUMBERstring}[2]{%
-  \expandafter\protect\expandafter\storeNUMBERstringnum{#1}{%
-    \expandafter\the\csname c@#2\endcsname}%
+  {%
+    \toks0{\storeNUMBERstringnum{#1}}%
+    \expandafter
+    }\the\toks0\expandafter{\the\value{#2}}%
 }
 %    \end{macrocode}
 %\end{macro}
@@ -1502,10 +1588,15 @@ italian}
 %\begin{macro}{\NUMBERstring}
 % Display upper case textual representation of a number. The
 % argument must be a counter.
+% \changes{3.02}{2016-01-08}{Suppress useless \cs{expandafter}'s and
+% and use \cs{value} instead tweaking with \cs{csname}. Do not use any
+% longer \cs{protect} as \cs{NUMBERstringnum} is made
+% robust. Expand \cs{the}\cs{value}\texttt{\{\#1\}} once before
+% passing to \cs{NUMBERstringnum}.}
 %    \begin{macrocode}
 \newcommand*{\NUMBERstring}[1]{%
-  \expandafter\protect\expandafter\NUMBERstringnum{%
-    \expandafter\the\csname c@#1\endcsname}%
+  \expandafter\NUMBERstringnum\expandafter{%
+    \the\value{#1}}%
 }
 %    \end{macrocode}
 %\end{macro}
@@ -1513,8 +1604,9 @@ italian}
 % As above, but the argument is a count register or a number.
 %\changes{1.31}{2009/10/02}{replaced \cs{@ifnextchar} with
 %\cs{new@ifnextchar}}
+%\changes{3.02}{2016-01-08}{Made robust using \texttt{etoolbox} \cs{newrobustcmd}}
 %    \begin{macrocode}
-\newcommand*{\NUMBERstringnum}[1]{%
+\newrobustcmd*{\NUMBERstringnum}[1]{%
   \new@ifnextchar[%
   {\@NUMBER@string{#1}}%
   {\@NUMBER@string{#1}[m]}%
@@ -1553,84 +1645,138 @@ italian}
 %\end{macro}
 %\begin{macro}{\binary}
 % Number representations in other bases. Binary:
+% \changes{3.02}{2016-01-08}{Suppress useless \cs{expandafter}'s and
+% and use \cs{value} instead tweaking with \cs{csname}. Do not use any
+% longer \cs{protect} as \cs{@binary} is made
+% robust. Expand \cs{the}\cs{value}\texttt{\{\#1\}} once before
+% passing to \cs{@binary}}
 %    \begin{macrocode}
 \providecommand*{\binary}[1]{%
-  \expandafter\protect\expandafter\@binary{%
-    \expandafter\the\csname c@#1\endcsname}%
+  \expandafter\@binary
+  \expandafter{%
+    \the\value{#1}}%
 }
 %    \end{macrocode}
 %\end{macro}
 %\begin{macro}{\aaalph}
 % Like \ics{alph}, but goes beyond 26.
 % (a \ldots\ z aa \ldots zz \ldots)
+% \changes{3.02}{2016-01-08}{Suppress useless \cs{expandafter}'s and
+% and use \cs{value} instead tweaking with \cs{csname}. Do not use any
+% longer \cs{protect} as \cs{@aaalph} is made
+% robust. Expand \cs{the}\cs{value}\texttt{\{\#1\}} once before
+% passing to \cs{@aaalph}.}
 %    \begin{macrocode}
 \providecommand*{\aaalph}[1]{%
-  \expandafter\protect\expandafter\@aaalph{%
-    \expandafter\the\csname c@#1\endcsname}%
+  \expandafter\@aaalph
+  \expandafter{%
+    \the\value{#1}}%
 }
 %    \end{macrocode}
 %\end{macro}
 %\begin{macro}{\AAAlph}
 % As before, but upper case.
+% \changes{3.02}{2016-01-08}{Suppress useless \cs{expandafter}'s and
+% and use \cs{value} instead tweaking with \cs{csname}. Do not use any
+% longer \cs{protect} as \cs{@AAAlph} is made
+% robust. Expand \cs{the}\cs{value}\texttt{\{\#1\}} once before
+% passing to \cs{@AAAlph}}
 %    \begin{macrocode}
 \providecommand*{\AAAlph}[1]{%
-  \expandafter\protect\expandafter\@AAAlph{%
-    \expandafter\the\csname c@#1\endcsname}%
+  \expandafter\@AAAlph
+  \expandafter{%
+    \the\value{#1}}%
 }
 %    \end{macrocode}
 %\end{macro}
 %\begin{macro}{\abalph}
 % Like \ics{alph}, but goes beyond 26. 
 % (a \ldots\ z ab \ldots az \ldots)
+% \changes{3.02}{2016-01-08}{Suppress useless \cs{expandafter}'s and
+% and use \cs{value} instead tweaking with \cs{csname}. Do not use any
+% longer \cs{protect} as \cs{@abalph} is made
+% robust. Expand \cs{the}\cs{value}\texttt{\{\#1\}} once before
+% passing to \cs{@abalph}}
 %    \begin{macrocode}
 \providecommand*{\abalph}[1]{%
-  \expandafter\protect\expandafter\@abalph{%
-    \expandafter\the\csname c@#1\endcsname}%
+  \expandafter\@abalph
+  \expandafter{%
+    \the\value{#1}}%
 }
 %    \end{macrocode}
 %\end{macro}
 %\begin{macro}{\ABAlph}
 % As above, but upper case.
+% \changes{3.02}{2016-01-08}{Suppress useless \cs{expandafter}'s and
+% and use \cs{value} instead tweaking with \cs{csname}. Do not use any
+% longer \cs{protect} as \cs{@ABAlph} is made
+% robust. Expand \cs{the}\cs{value}\texttt{\{\#1\}} once before
+% passing to \cs{@ABAlph}.
 %    \begin{macrocode}
 \providecommand*{\ABAlph}[1]{%
-  \expandafter\protect\expandafter\@ABAlph{%
-    \expandafter\the\csname c@#1\endcsname}%
+  \expandafter\@ABAlph
+  \expandafter{%
+    \the\value{#1}}%
 }
 %    \end{macrocode}
 %\end{macro}
 %\begin{macro}{\hexadecimal}
 % Hexadecimal:
+% \changes{3.02}{2016-01-08}{Suppress useless \cs{expandafter}'s and
+% and use \cs{value} instead tweaking with \cs{csname}. Do not use any
+% longer \cs{protect} as \cs{@hexadecimal} is made
+% robust. Expand \cs{the}\cs{value}\texttt{\{\#1\}} once before
+% passing to \cs{@hexadecimal}.}
 %    \begin{macrocode}
 \providecommand*{\hexadecimal}[1]{%
-  \expandafter\protect\expandafter\@hexadecimal{%
-    \expandafter\the\csname c@#1\endcsname}%
+  \expandafter\@hexadecimal
+  \expandafter{%
+    \the\value{#1}}%
 }
 %    \end{macrocode}
 %\end{macro}
 %\begin{macro}{\Hexadecimal}
 % As above, but in upper case.
+% \changes{3.02}{2016-01-08}{Suppress useless \cs{expandafter}'s and
+% and use \cs{value} instead tweaking with \cs{csname}. Do not use any
+% longer \cs{protect} as \cs{@Hexadecimal} is made
+% robust. Expand \cs{the}\cs{value}\texttt{\{\#1\}} once before
+% passing to \cs{@Hexadecimal}}
 %    \begin{macrocode}
 \providecommand*{\Hexadecimal}[1]{%
-  \expandafter\protect\expandafter\@Hexadecimal{%
-    \expandafter\the\csname c@#1\endcsname}%
+  \expandafter\@Hexadecimal
+  \expandafter{%
+    \the\value{#1}}%
 }
 %    \end{macrocode}
 %\end{macro}
 %\begin{macro}{\octal}
 % Octal:
+% \changes{3.02}{2016-01-08}{Suppress useless \cs{expandafter}'s and
+% and use \cs{value} instead tweaking with \cs{csname}. Do not use any
+% longer \cs{protect} as \css{@octal} is made
+% robust. Expand \cs{the}\cs{value}\texttt{\{\#1\}} once before
+% passing to \cs{@octal}}
 %    \begin{macrocode}
 \providecommand*{\octal}[1]{%
-  \expandafter\protect\expandafter\@octal{%
-    \expandafter\the\csname c@#1\endcsname}%
+  \expandafter\@octal
+  \expandafter{%
+    \the\value{#1}}%
 }
 %    \end{macrocode}
 %\end{macro}
 %\begin{macro}{\decimal}
 % Decimal:
+% \changes{3.02}{2016-01-08}{Suppress useless \cs{expandafter}'s and
+% and use \cs{value} instead tweaking with \cs{csname}. Do not use any
+% longer \cs{protect} as \cs{@decimal} is made
+% robust. Expand \cs{the}\cs{value}\texttt{\{\#1\}} once before
+% passing to \cs{@decimal}}
 %    \begin{macrocode}
 \providecommand*{\decimal}[1]{%
-  \expandafter\protect\expandafter\@decimal{%
-    \expandafter\the\csname c@#1\endcsname}%
+  \expandafter\@decimal
+  \expandafter{%
+    \the\value{#1}}%
 }
 %    \end{macrocode}
 %\end{macro}
