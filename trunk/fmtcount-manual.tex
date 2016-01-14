@@ -15,20 +15,19 @@
 \newcommand*{\LanguagePackageOptionList}{{%
  \def\@tempf##1{\texttt{##1}}% how to format each option
  % we don't use \cs{newtoks} because anyway this is within a group
- \toks0{}%
- \def\@tempd{\toks0}% token in which we accumulate result
- \def\@tempc{\toks1}% token in which we place next dialect
+ \toks0{}% token in which we accumulate result
+ %  \toks1 token in which we place next dialect
  \count0 0 % to distinguish first and second iteration, we need to do tricks because we want to insert `and'
            % before the last item in the list.
  \def\@tempb##1{%
    \ifnum\count0=0 %
    \else\ifnum\count0=1 %
-     \expandafter\@tempd\expandafter{\the\toks1}%
+     \toks0\toks1 %
    \else
      \edef\@tempa{\the\toks0, \the\toks1}%
-     \expandafter\@tempd\expandafter{\@tempa}%
+     \toks0\expandafter{\@tempa}%
    \fi\fi
-   \expandafter\@tempc\expandafter{\@tempf{##1}}%
+   \toks1\expandafter{\@tempf{##1}}%
    \advance\count0 by 1 %
  }%
  \fc@iterate@on@languages\@tempb
@@ -44,7 +43,7 @@
             pdftitle={fmtcount.sty: Displaying the Values of LaTeX Counters},
             pdfkeywords={LaTeX,counter}]{hyperref}
 
-\CheckSum{9920}
+\CheckSum{10138}
 
 \doxitem{Option}{option}{options}
 

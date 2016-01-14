@@ -1,7 +1,7 @@
 % \subsubsection{fc-portuges.def}
 % Portuguse definitions
 %    \begin{macrocode}
-\ProvidesFCLanguage{portuges}[2014/06/09]%
+\ProvidesFCLanguage{portuges}[2016/01/12]%
 %    \end{macrocode}
 % Define macro that converts a number or count register (first
 % argument) to an ordinal, and stores the result in the second
@@ -253,8 +253,15 @@
 % anything. Since it only affects internal macros, it shouldn't
 % affect documents created with older versions. (These internal
 % macros are not meant for use in documents.)
+% \changes{3.02}{2016/01/12}{Replace \cs{DeclareRobustCommand} by %
+\cs{newcommand*} as robustness is handled now at top level in %
+\texttt{fmtcount.sty}, and we don't need \cs{long} macros. Concerned %
+macros are \cs{@numberstringMportuges}, \cs{@numberstringFportuges},
+\cs{@NumberstringMportuges}, \cs{@NumberstringFportuges},
+\cs{@ordinalstringMportuges}, \cs{@ordinalstringFportuges},
+\cs{@OrdinalstringMportuges}, and \cs{@OrdinalstringFportuges}.}
 %    \begin{macrocode}
-\DeclareRobustCommand{\@numberstringMportuges}[2]{%
+\newcommand*{\@numberstringMportuges}[2]{%
   \let\@unitstring=\@@unitstringportuges
   \let\@teenstring=\@@teenstringportuges
   \let\@tenstring=\@@tenstringportuges
@@ -267,7 +274,7 @@
 %    \end{macrocode}
 % As above, but feminine form:
 %    \begin{macrocode}
-\DeclareRobustCommand{\@numberstringFportuges}[2]{%
+\newcommand*{\@numberstringFportuges}[2]{%
   \let\@unitstring=\@@unitstringFportuges
   \let\@teenstring=\@@teenstringportuges
   \let\@tenstring=\@@tenstringportuges
@@ -284,7 +291,7 @@
 %    \end{macrocode}
 % As above, but initial letters in upper case:
 %    \begin{macrocode}
-\DeclareRobustCommand{\@NumberstringMportuges}[2]{%
+\newcommand*{\@NumberstringMportuges}[2]{%
   \let\@unitstring=\@@Unitstringportuges
   \let\@teenstring=\@@Teenstringportuges
   \let\@tenstring=\@@Tenstringportuges
@@ -297,7 +304,7 @@
 %    \end{macrocode}
 % As above, but feminine form:
 %    \begin{macrocode}
-\DeclareRobustCommand{\@NumberstringFportuges}[2]{%
+\newcommand*{\@NumberstringFportuges}[2]{%
   \let\@unitstring=\@@UnitstringFportuges
   \let\@teenstring=\@@Teenstringportuges
   \let\@tenstring=\@@Tenstringportuges
@@ -314,7 +321,7 @@
 %    \end{macrocode}
 % As above, but for ordinals.
 %    \begin{macrocode}
-\DeclareRobustCommand{\@ordinalstringMportuges}[2]{%
+\newcommand*{\@ordinalstringMportuges}[2]{%
   \let\@unitthstring=\@@unitthstringportuges
   \let\@unitstring=\@@unitstringportuges
   \let\@teenthstring=\@@teenthstringportuges
@@ -327,7 +334,7 @@
 %    \end{macrocode}
 % Feminine form:
 %    \begin{macrocode}
-\DeclareRobustCommand{\@ordinalstringFportuges}[2]{%
+\newcommand*{\@ordinalstringFportuges}[2]{%
   \let\@unitthstring=\@@unitthstringFportuges
   \let\@unitstring=\@@unitstringFportuges
   \let\@teenthstring=\@@teenthstringportuges
@@ -344,7 +351,7 @@
 %    \end{macrocode}
 % As above, but initial letters in upper case (masculine):
 %    \begin{macrocode}
-\DeclareRobustCommand{\@OrdinalstringMportuges}[2]{%
+\newcommand*{\@OrdinalstringMportuges}[2]{%
   \let\@unitthstring=\@@Unitthstringportuges
   \let\@unitstring=\@@Unitstringportuges
   \let\@teenthstring=\@@teenthstringportuges
@@ -357,7 +364,7 @@
 %    \end{macrocode}
 % Feminine form:
 %    \begin{macrocode}
-\DeclareRobustCommand{\@OrdinalstringFportuges}[2]{%
+\newcommand*{\@OrdinalstringFportuges}[2]{%
   \let\@unitthstring=\@@UnitthstringFportuges
   \let\@unitstring=\@@UnitstringFportuges
   \let\@teenthstring=\@@teenthstringportuges
@@ -798,3 +805,6 @@ this number}%
 }%
 \global\let\@@ordinalstringportuges\@@ordinalstringportuges
 %    \end{macrocode}
+\iffalse Local variables: \fi
+\iffalse mode: docTeX     \fi
+\iffalse End:             \fi

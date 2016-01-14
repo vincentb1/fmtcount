@@ -2,7 +2,7 @@
 % German definitions (thank you to K. H. Fricke for supplying
 % this information)
 %    \begin{macrocode}
-\ProvidesFCLanguage{german}[2014/06/09]%
+\ProvidesFCLanguage{german}[2016/01/12]%
 %    \end{macrocode}
 % Define macro that converts a number or count register (first
 % argument) to an ordinal, and stores the result in the
@@ -94,10 +94,17 @@
 }%
 \global\let\@@teenstringgerman\@@teenstringgerman
 %    \end{macrocode}
-% The results are stored in the second argument, but doesn't 
-% display anything.
+% The results are stored in the second argument, but doesn't display
+% anything.%
+% \changes{3.02}{2016/01/12}{Replace \cs{DeclareRobustCommand} by
+% \cs{newcommand*} as robustness is handled now at top level in
+% \texttt{fmtcount.sty}, and we don't need \cs{long} macros. Concerned
+% macros are \cs{@numberstringMgerman}, \cs{@NumberstringMgerman},
+% \cs{@ordinalstringMgerman}, \cs{@ordinalstringFgerman},
+% \cs{@ordinalstringNgerman}, \cs{@OrdinalstringMgerman},
+% \cs{@OrdinalstringFgerman}, and \cs{@OrdinalstringNgerman}.}
 %    \begin{macrocode}
-\DeclareRobustCommand{\@numberstringMgerman}[2]{%
+\newcommand*{\@numberstringMgerman}[2]{%
   \let\@unitstring=\@@unitstringgerman
   \let\@teenstring=\@@teenstringgerman
   \let\@tenstring=\@@tenstringgerman
@@ -112,7 +119,7 @@
 %    \end{macrocode}
 % As above, but initial letters in upper case:
 %    \begin{macrocode}
-\DeclareRobustCommand{\@NumberstringMgerman}[2]{%
+\newcommand*{\@NumberstringMgerman}[2]{%
   \@numberstringMgerman{#1}{\@@num@str}%
   \edef#2{\noexpand\MakeUppercase\expandonce\@@num@str}%
 }%
@@ -125,7 +132,7 @@
 %    \end{macrocode}
 % As above, but for ordinals.
 %    \begin{macrocode}
-\DeclareRobustCommand{\@ordinalstringMgerman}[2]{%
+\newcommand*{\@ordinalstringMgerman}[2]{%
   \let\@unitthstring=\@@unitthstringMgerman
   \let\@teenthstring=\@@teenthstringMgerman
   \let\@tenthstring=\@@tenthstringMgerman
@@ -140,7 +147,7 @@
 %    \end{macrocode}
 % Feminine form:
 %    \begin{macrocode}
-\DeclareRobustCommand{\@ordinalstringFgerman}[2]{%
+\newcommand*{\@ordinalstringFgerman}[2]{%
   \let\@unitthstring=\@@unitthstringFgerman
   \let\@teenthstring=\@@teenthstringFgerman
   \let\@tenthstring=\@@tenthstringFgerman
@@ -155,7 +162,7 @@
 %    \end{macrocode}
 % Neuter form:
 %    \begin{macrocode}
-\DeclareRobustCommand{\@ordinalstringNgerman}[2]{%
+\newcommand*{\@ordinalstringNgerman}[2]{%
   \let\@unitthstring=\@@unitthstringNgerman
   \let\@teenthstring=\@@teenthstringNgerman
   \let\@tenthstring=\@@tenthstringNgerman
@@ -170,7 +177,7 @@
 %    \end{macrocode}
 % As above, but with initial letters in upper case.
 %    \begin{macrocode}
-\DeclareRobustCommand{\@OrdinalstringMgerman}[2]{%
+\newcommand*{\@OrdinalstringMgerman}[2]{%
  \@ordinalstringMgerman{#1}{\@@num@str}%
  \edef#2{\noexpand\MakeUppercase\expandonce\@@num@str}%
 }%
@@ -178,7 +185,7 @@
 %    \end{macrocode}
 % Feminine form:
 %    \begin{macrocode}
-\DeclareRobustCommand{\@OrdinalstringFgerman}[2]{%
+\newcommand*{\@OrdinalstringFgerman}[2]{%
  \@ordinalstringFgerman{#1}{\@@num@str}%
  \edef#2{\noexpand\MakeUppercase\expandonce\@@num@str}%
 }%
@@ -186,7 +193,7 @@
 %    \end{macrocode}
 % Neuter form:
 %    \begin{macrocode}
-\DeclareRobustCommand{\@OrdinalstringNgerman}[2]{%
+\newcommand*{\@OrdinalstringNgerman}[2]{%
  \@ordinalstringNgerman{#1}{\@@num@str}%
  \edef#2{\noexpand\MakeUppercase\expandonce\@@num@str}%
 }%
@@ -569,4 +576,6 @@
 %    \begin{macrocode}
 \FCloadlang{germanb}%
 %    \end{macrocode}
-
+\iffalse Local variables: \fi
+\iffalse mode: docTeX     \fi
+\iffalse End:             \fi

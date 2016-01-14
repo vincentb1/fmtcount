@@ -1,7 +1,7 @@
 % \subsubsection{fc-english.def}
 % English definitions
 %    \begin{macrocode}
-\ProvidesFCLanguage{english}[2013/08/17]%
+\ProvidesFCLanguage{english}[2016/01/12]%
 %    \end{macrocode}
 % Define macro that converts a number or count register (first 
 % argument) to an ordinal, and stores the result in the 
@@ -246,10 +246,15 @@ this number}%
 }%
 \global\let\@@numberstringenglish\@@numberstringenglish
 %    \end{macrocode}
-% All lower case version, the second argument must be a 
-% control sequence.
+% All lower case version, the second argument must be a control
+% sequence.%
+% \changes{3.02}{2016/01/12}{Replace \cs{DeclareRobustCommand} by
+% \cs{newcommand*} as robustness is handled now at top level in
+% \texttt{fmtcount.sty}, and we don't need \cs{long} macros. Concerned
+% macros are \cs{@numberstringMenglish}, \cs{@ordinalstringMenglish},
+% and \cs{@OrdinalstringMenglish}}
 %    \begin{macrocode}
-\DeclareRobustCommand{\@numberstringMenglish}[2]{%
+\newcommand*{\@numberstringMenglish}[2]{%
   \let\@unitstring=\@@unitstringenglish
   \let\@teenstring=\@@teenstringenglish
   \let\@tenstring=\@@tenstringenglish
@@ -518,7 +523,7 @@ this number}%
 % All lower case version. Again, the second argument must be a
 % control sequence in which the resulting text is stored.
 %    \begin{macrocode}
-\DeclareRobustCommand{\@ordinalstringMenglish}[2]{%
+\newcommand*{\@ordinalstringMenglish}[2]{%
   \let\@unitthstring=\@@unitthstringenglish
   \let\@teenthstring=\@@teenthstringenglish
   \let\@tenthstring=\@@tenthstringenglish
@@ -540,7 +545,7 @@ this number}%
 %    \end{macrocode}
 % First letter of each word in upper case:
 %    \begin{macrocode}
-\DeclareRobustCommand{\@OrdinalstringMenglish}[2]{%
+\newcommand*{\@OrdinalstringMenglish}[2]{%
   \let\@unitthstring=\@@Unitthstringenglish
   \let\@teenthstring=\@@Teenthstringenglish
   \let\@tenthstring=\@@Tenthstringenglish
@@ -560,3 +565,6 @@ this number}%
 \global\let\@OrdinalstringFenglish=\@OrdinalstringMenglish
 \global\let\@OrdinalstringNenglish=\@OrdinalstringMenglish
 %    \end{macrocode}
+\iffalse Local variables: \fi
+\iffalse mode: docTeX     \fi
+\iffalse End:             \fi

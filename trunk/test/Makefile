@@ -19,7 +19,15 @@ LANG_short:=UKenglish\
 	 ngermanb\
 	 italian\
 	 spanish
+
+LANG_shortenc:=	 english\
+	 french\
+	 german\
+	 portuges\
+	 spanish
+
 LANG_shortgo:=english french italian
+
 # note: french cannot be tested with babel + tex4ht engine due to tex4ht problem with babel thin space used in
 # french before :;!?, see https://puszcza.gnu.org.ua/bugs/?213.
 LANG_shortbab:=english german
@@ -78,7 +86,7 @@ $(call DEF_CONTENTSNAME,ngermanb,Inhaltsverzeichnis)
 # italian => does not support 999999
 # portuges => does not support 0
 
-LOGS_SHORT:=short shortgo shortbab fmtord
+LOGS_SHORT:=short shortenc shortgo shortbab fmtord
 TEX4HT_LOGS:=$(LOGS_SHORT)
 LOGS:=pdftests $(TEX4HT_LOGS) 
 
@@ -151,19 +159,24 @@ $(patsubst %,pdftests/%.pdf,$(XELATEX_TESTS)):pdftests/%.pdf:$(SAMPLE_DIR)/%.tex
 
 # language loaded via FCLoadLang
 #------------------------------------------------------------------------------------------------------------
-$(patsubst %,tests/test-short-%.tex,$(LANG_short)):tests/test-short-%.tex: echo_short tests/.dir
+$(patsubst %,tests/test-short-%.tex,$(LANG_short)):tests/test-short-%.tex: echo_short
 	awk '/^% FCloadlang/ { $$0="\\FCloadlang{$*}\\def\\languagename{$*}\\makeatletter\n\\@set@mulitling@fmtcount\\makeatother$(CONTENTSNAME_$*)"}; $(PRINTROW_$*) $(TEX4HT_BUG200_PATCH) {print}' $(SAMPLE_DIR)/fc-samp.tex > $@
+
+# language loaded via FCLoadLang, with FCLoadLang encapsulated in a group
+#------------------------------------------------------------------------------------------------------------
+$(patsubst %,tests/test-shortenc-%.tex,$(LANG_shortenc)):tests/test-shortenc-%.tex: echo_shortenc
+	awk '/^% FCloadlang/ { $$0="{\\FCloadlang{$*}}\\def\\languagename{$*}\\makeatletter\n\\@set@mulitling@fmtcount\\makeatother$(CONTENTSNAME_$*)"}; $(PRINTROW_$*) $(TEX4HT_BUG200_PATCH) {print}' $(SAMPLE_DIR)/fc-samp.tex > $@
 
 # language loaded via global option
 #------------------------------------------------------------------------------------------------------------
 $(patsubst %,tests/test-shortgo-%.tex,$(LANG_shortgo)):tests/test-shortgo-%.tex: $(SAMPLE_DIR)/fc-samp.tex \
-		echo_shortgo tests/.dir
+		echo_shortgo
 	awk '/^ *\\documentclass/ { sub(/\[[^]]*/,"&,$*")}; $(PRINTROW_$*) $(TEX4HT_BUG200_PATCH) {print}' $< > $@
 
 # language loaded via prior usepackage of babel
 #------------------------------------------------------------------------------------------------------------
 $(patsubst %,tests/test-shortbab-%.tex,$(LANG_shortbab)):tests/test-shortbab-%.tex: \
-		$(SAMPLE_DIR)/fc-samp.tex echo_shortbab tests/.dir
+		$(SAMPLE_DIR)/fc-samp.tex echo_shortbab
 	awk '/^ *\\usepackage/ { $$0="\\usepackage[$*]{babel}\n" $$0}; $(PRINTROW_$*) $(TEX4HT_BUG200_PATCH) {print}' $< > $@
 
 
@@ -172,7 +185,7 @@ $(patsubst %,tests/test-shortbab-%.tex,$(LANG_shortbab)):tests/test-shortbab-%.t
 # replace shortgo/shortbab by short in the header source & css reference
 # remove xml:lang language specification (when babel used) from <html> attributes
 define SHORT_NODATE_AWK
-/<meta name="src"/ || /<link rel="stylesheet"/ { sub(/"test-short(go|bab)-/,"\"test-short-")};\
+/<meta name="src"/ || /<link rel="stylesheet"/ { sub(/"test-short(go|bab|enc)-/,"\"test-short-")};\
 /<html/ {sub(/xml:lang=".." */,"")}; \
 !/<meta name="date"/ && !/^ *$$$$/ { gsub(/<!--l\. [0-9]+-->/,""); gsub(/>  +</,"> <");  print}
 endef
@@ -184,7 +197,7 @@ $(1).log: $$(patsubst %,tests/test-$(1)-%-nodate.html,$$(LANG_$(1)))
 	declare -i diff_count=0; \
 	for w in $$(LANG_$(1)); do \
 		echo "Test $(1)-$$$$w:" >> $$@; \
-		test=$$$$(echo $(1) | sed 's/\(go\|bab\)$$$$//1'); \
+		test=$$$$(echo $(1) | sed 's/\(go\|bab\|enc\)$$$$//1'); \
 		diff -abs tests/test-$(1)-$$$$w-nodate.html reference/test-$$$$test-$$$$w.html >> $$@; \
 		if [ $$$$? -ne 0 ]; then diff_count=$$$$diff_count+1; fi; \
 	done; \
@@ -201,7 +214,7 @@ tests/test-$(1)-%-nodate.html: tests/test-$(1)-%.html
 	awk '$(SHORT_NODATE_AWK)' $$< > $$@
 
 .PHONY: echo_$(1)
-echo_$(1):
+echo_$(1): makesubdir_t4ht
 	rm -f $(1).log
 	@echo $(DASHES)
 	@echo '== Begin target $(1)'
@@ -213,8 +226,8 @@ tests/test-fmtord-l.tex: sample-fmtord.tex
 
 $(foreach SHORTTYPE,$(LOGS_SHORT),$(eval $(call SHORTTYPE_RULE,$(SHORTTYPE))))
 
-.PHONY: makesubdir
-makesubdir: $(patsubst %,tests/%,$(STYFILES))
+.PHONY: makesubdir_t4ht
+makesubdir_t4ht: $(patsubst %,tests/%,$(STYFILES)) tests/.dir
 
 # Docstrip of the poor --- supposedly faster than real docstrip... but I need to check that.
 # Does not contain any rule like: /^ *%\^\^A/ { sub(/%\^\^A/,"%"); print }

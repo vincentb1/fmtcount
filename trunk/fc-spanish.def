@@ -1,7 +1,7 @@
 % \subsubsection{fc-spanish.def}
 % Spanish definitions
 %    \begin{macrocode}
-\ProvidesFCLanguage{spanish}[2013/08/17]%
+\ProvidesFCLanguage{spanish}[2016/01/12]%
 %    \end{macrocode}
 % Define macro that converts a number or count register (first
 % argument) to an ordinal, and stores the result in the
@@ -319,8 +319,15 @@
 % Since it only affects internal macros, it shouldn't affect
 % documents created with older versions. (These internal macros
 % are not meant for use in documents.)
+% \changes{3.02}{2016/01/12}{Replace \cs{DeclareRobustCommand} by
+% \cs{newcommand*} as robustness is handled now at top level in
+% \texttt{fmtcount.sty}, and we don't need \cs{long} macros. Concerned
+% macros as \cs{@numberstringMspanish}, \cs{@numberstringFspanish},
+% \cs{@NumberstringFspanish}, \cs{@ordinalstringMspanish},
+% \cs{@ordinalstringFspanish}, \cs{@OrdinalstringMspanish}, and
+% \cs{@OrdinalstringFspanish}.}
 %    \begin{macrocode}
-\DeclareRobustCommand{\@numberstringMspanish}[2]{%
+\newcommand*{\@numberstringMspanish}[2]{%
   \let\@unitstring=\@@unitstringspanish
   \let\@teenstring=\@@teenstringspanish
   \let\@tenstring=\@@tenstringspanish
@@ -336,7 +343,7 @@
 %\changes{2.0}{2012-06-18}{changed andname to `b' (correction
 %provided by Fernando Maldonado)}
 %    \begin{macrocode}
-\DeclareRobustCommand{\@numberstringFspanish}[2]{%
+\newcommand*{\@numberstringFspanish}[2]{%
   \let\@unitstring=\@@unitstringFspanish
   \let\@teenstring=\@@teenstringspanish
   \let\@tenstring=\@@tenstringspanish
@@ -354,7 +361,7 @@
 %    \end{macrocode}
 % As above, but initial letters in upper case:
 %    \begin{macrocode}
-\DeclareRobustCommand{\@NumberstringMspanish}[2]{%
+\newcommand*{\@NumberstringMspanish}[2]{%
   \let\@unitstring=\@@Unitstringspanish
   \let\@teenstring=\@@Teenstringspanish
   \let\@tenstring=\@@Tenstringspanish
@@ -370,7 +377,7 @@
 %\changes{2.0}{2012-06-18}{changed andname to `b' (correction
 %provided by Fernando Maldonado)}
 %    \begin{macrocode}
-\DeclareRobustCommand{\@NumberstringFspanish}[2]{%
+\newcommand*{\@NumberstringFspanish}[2]{%
   \let\@unitstring=\@@UnitstringFspanish
   \let\@teenstring=\@@Teenstringspanish
   \let\@tenstring=\@@Tenstringspanish
@@ -388,7 +395,7 @@
 %    \end{macrocode}
 % As above, but for ordinals.
 %    \begin{macrocode}
-\DeclareRobustCommand{\@ordinalstringMspanish}[2]{%
+\newcommand*{\@ordinalstringMspanish}[2]{%
   \let\@unitthstring=\@@unitthstringspanish
   \let\@unitstring=\@@unitstringspanish
   \let\@teenthstring=\@@teenthstringspanish
@@ -401,7 +408,7 @@
 %    \end{macrocode}
 % Feminine form:
 %    \begin{macrocode}
-\DeclareRobustCommand{\@ordinalstringFspanish}[2]{%
+\newcommand*{\@ordinalstringFspanish}[2]{%
   \let\@unitthstring=\@@unitthstringFspanish
   \let\@unitstring=\@@unitstringFspanish
   \let\@teenthstring=\@@teenthstringFspanish
@@ -418,7 +425,7 @@
 %    \end{macrocode}
 % As above, but with initial letters in upper case.
 %    \begin{macrocode}
-\DeclareRobustCommand{\@OrdinalstringMspanish}[2]{%
+\newcommand*{\@OrdinalstringMspanish}[2]{%
   \let\@unitthstring=\@@Unitthstringspanish
   \let\@unitstring=\@@Unitstringspanish
   \let\@teenthstring=\@@Teenthstringspanish
@@ -431,7 +438,7 @@
 %    \end{macrocode}
 % Feminine form:
 %    \begin{macrocode}
-\DeclareRobustCommand{\@OrdinalstringFspanish}[2]{%
+\newcommand*{\@OrdinalstringFspanish}[2]{%
   \let\@unitthstring=\@@UnitthstringFspanish
   \let\@unitstring=\@@UnitstringFspanish
   \let\@teenthstring=\@@TeenthstringFspanish
@@ -940,4 +947,6 @@ this number}%
 }%
 \global\let\@@ordinalstringspanish\@@ordinalstringspanish
 %    \end{macrocode}
-
+\iffalse Local variables: \fi
+\iffalse mode: docTeX     \fi
+\iffalse End:             \fi

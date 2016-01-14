@@ -3,10 +3,35 @@
 %    \begin{macrocode}
 \ProvidesFCLanguage{french}[2012/10/24]%
 %    \end{macrocode}
-% Package \styfmt{fcprefix} is needed to format the prefix \meta{$n$} in \meta{$n$}illion or
-% \meta{$n$}illiard.  Big numbers were developped based on reference:
-% \uref{http://www.alain.be/boece/noms\_de\_nombre.html}
-% (Package now loaded by \styfmt{fmtcount})
+% Package \styfmt{fcprefix} is needed to format the prefix \meta{$n$}
+% in \meta{$n$}illion or \meta{$n$}illiard.  Big numbers were
+% developped based on reference: \uref
+% {http://www.alain.be/boece/noms\_de\_nombre.html}. Package \styfmt
+% {fcprefix} is now loaded by \styfmt{fmtcount}.
+%
+% First of all we define two macros \cs{fc@gl@let} and \cs{fc@gl@def}
+% used in place of \cs{let} and \cs{def} within options setting
+% macros. This way we can control from outside these macros whether
+% the respective \cs{let} or \cs{def} is group-local or global. By
+% default they are defined to be group-local.
+% \changes{3.02}{2016/01/12}{First of all, make command definitions, as well as
+% options initial setting global. That is mainly a matter of:
+% \protect\begin{itemize}
+% \protect\item using \cs{gdef} instead of \cs{def},
+% \protect\item using \cs{global}\cs{let} instead of \cs{let}, and
+% \protect\item following \cs{newcommand*}\cs{\meta{foo}} by \cs{global}\cs{let}\cs{\meta{foo}}\cs{\meta{foo}}.
+% \protect\item using \cs{fc@gl@let} and \cs{fc@gl@def} in place of \cs{let}
+% \protect\item and \cs{def} within options setting macros in order to make intial
+% \protect\item setting global.
+% \protect\end{itemize}
+% Second, replace any \cs{DeclareRobustCommand} by \cs{newcommand*}
+% }
+%    \begin{macrocode}
+\ifcsundef{fc@gl@let}{\global\let\fc@gl@let\let}{\PackageError{fmtcount}{Command already defined}{Command
+\protect\fc@gl@let\space already defined.}}
+\ifcsundef{fc@gl@def}{\global\let\fc@gl@def\def}{\PackageError{fmtcount}{Command already defined}{Command
+\protect\fc@gl@def\space already defined.}}
+%    \end{macrocode}
 %
 % Options for controlling plural mark. First of all we define some temporary macro \cs{fc@french@set@plural}
 % in order to factorize code that defines an plural mark option:\newline\noindent
@@ -19,45 +44,45 @@
 % \#6&configuration index for `\texttt{traditional o}'.
 % \end{tabularx}
 %    \begin{macrocode}
-\def\fc@french@set@plural#1#2#3#4#5#6{%
+\gdef\fc@french@set@plural#1#2#3#4#5#6{%
   \ifthenelse{\equal{#2}{reformed}}{%
-    \expandafter\def\csname fc@frenchoptions@#1@plural\endcsname{#3}%
+    \expandafter\fc@gl@def\csname fc@frenchoptions@#1@plural\endcsname{#3}%
   }{%
     \ifthenelse{\equal{#2}{traditional}}{%
-      \expandafter\def\csname fc@frenchoptions@#1@plural\endcsname{#4}%
+      \expandafter\fc@gl@def\csname fc@frenchoptions@#1@plural\endcsname{#4}%
     }{%
       \ifthenelse{\equal{#2}{reformed o}}{%
-        \expandafter\def\csname fc@frenchoptions@#1@plural\endcsname{#5}%
+        \expandafter\fc@gl@def\csname fc@frenchoptions@#1@plural\endcsname{#5}%
       }{%
         \ifthenelse{\equal{#2}{traditional o}}{%
-          \expandafter\def\csname fc@frenchoptions@#1@plural\endcsname{#6}%
+          \expandafter\fc@gl@def\csname fc@frenchoptions@#1@plural\endcsname{#6}%
         }{%
           \ifthenelse{\equal{#2}{always}}{%
-            \expandafter\def\csname fc@frenchoptions@#1@plural\endcsname{0}%
+            \expandafter\fc@gl@def\csname fc@frenchoptions@#1@plural\endcsname{0}%
           }{%
             \ifthenelse{\equal{#2}{never}}{%
-              \expandafter\def\csname fc@frenchoptions@#1@plural\endcsname{1}%
+              \expandafter\fc@gl@def\csname fc@frenchoptions@#1@plural\endcsname{1}%
             }{%
               \ifthenelse{\equal{#2}{multiple}}{%
-                \expandafter\def\csname fc@frenchoptions@#1@plural\endcsname{2}%
+                \expandafter\fc@gl@def\csname fc@frenchoptions@#1@plural\endcsname{2}%
               }{%
                 \ifthenelse{\equal{#2}{multiple g-last}}{%
-                  \expandafter\def\csname fc@frenchoptions@#1@plural\endcsname{3}%
+                  \expandafter\fc@gl@def\csname fc@frenchoptions@#1@plural\endcsname{3}%
                 }{%
                   \ifthenelse{\equal{#2}{multiple l-last}}{%
-                    \expandafter\def\csname fc@frenchoptions@#1@plural\endcsname{4}%
+                    \expandafter\fc@gl@def\csname fc@frenchoptions@#1@plural\endcsname{4}%
                   }{%
                     \ifthenelse{\equal{#2}{multiple lng-last}}{%
-                      \expandafter\def\csname fc@frenchoptions@#1@plural\endcsname{5}%
+                      \expandafter\fc@gl@def\csname fc@frenchoptions@#1@plural\endcsname{5}%
                     }{%
                       \ifthenelse{\equal{#2}{multiple ng-last}}{%
-                        \expandafter\def\csname fc@frenchoptions@#1@plural\endcsname{6}%
+                        \expandafter\fc@gl@def\csname fc@frenchoptions@#1@plural\endcsname{6}%
                       }{%
                         \PackageError{fmtcount}{Unexpected argument}{%
                           `#2' was unexpected: french option `#1 plural' expects `reformed', `traditional',
                           `reformed o', `traditional o', `always', `never', `multiple', `multiple g-last',
                           `multiple l-last', `multiple lng-last', or `multiple ng-last'.%
-                        }}}}}}}}}}}}}
+                        }}}}}}}}}}}}}%
 %    \end{macrocode}
 % Now a shorthand \cs{@tempa} is defined just to define all the options controlling plural mark. This
 % shorthand takes into account that `\texttt{reformed}' and `\texttt{traditional}' have the same effect, and
@@ -67,7 +92,17 @@
   \define@key{fcfrench}{#1 plural}[reformed]{%
     \fc@french@set@plural{#1}{##1}{#2}{#2}{#3}{#3}%
   }%
-}
+%    \end{macrocode}
+% Macro \cs{@tempb} takes a macro as argument, and makes its current
+% definition global. Like here it is useful when the macro name
+% contains non-letters, and we have to resort to the
+% \cs{csname}\ldots\cs{endcsname} construct.
+%    \begin{macrocode}
+  \expandafter\@tempb\csname KV@fcfrench@#1 plural\endcsname
+}%
+\def\@tempb#1{%
+  \global\let#1#1
+}%
 \@tempa{vingt}{4}{5}
 \@tempa{cent}{4}{5}
 \@tempa{mil}{0}{0}
@@ -83,7 +118,8 @@
   \csname KV@fcfrench@mil plural\endcsname{#1}%
   \csname KV@fcfrench@n-illion plural\endcsname{#1}%
   \csname KV@fcfrench@n-illiard plural\endcsname{#1}%
-}
+}%
+\expandafter\@tempb\csname KV@fcfrench@all plural\endcsname
 %    \end{macrocode}
 % Now options `\texttt{dash or space}', we have three possible key values:\newline\noindent
 % \begin{tabularx}{\linewidth}{@{}>{\raggedleft\arraybackslash\ttfamily}rX@{}}
@@ -112,7 +148,7 @@
       }%
     }%
   }%
-}
+}%
 %    \end{macrocode}
 % Option `\texttt{scale}', can take 3 possible values:\newline\noindent
 % \begin{tabularx}{\linewidth}{@{}>{\raggedleft\arraybackslash\ttfamily}rX@{}}
@@ -139,7 +175,7 @@
       }%
     }%
   }%
-}
+}%
 %    \end{macrocode}
 % Option `\texttt{n-illiard upto}' is ignored if `\texttt{scale}' is different from `\texttt{long}'. It can
 % take the following values:\newline\noindent
@@ -164,7 +200,7 @@
       \fi
       \def\fc@longscale@nilliard@upto{#1}%
     }}%
-}
+}%
 %    \end{macrocode}
 % Now, the options `\texttt{france}', `\texttt{swiss}' and `\texttt{belgian}' are defined to select the
 % dialect to use. Macro \cs{@tempa} is just a local shorthand to define each one of this option.
@@ -173,15 +209,15 @@
   \define@key{fcfrench}{#1}[]{%
     \PackageError{fmtcount}{Unexpected argument}{French option with key `#1' does not take
       any value}}%
-  \expandafter\def\csname KV@fcfrench@#1@default\endcsname{%
-    \def\fmtcount@french{#1}}%
+  \csgdef{KV@fcfrench@#1@default}{%
+    \fc@gl@def\fmtcount@french{#1}}%
 }%
 \@tempa{france}\@tempa{swiss}\@tempa{belgian}%
 %    \end{macrocode}
 % Make `\texttt{france}' the default dialect for `\texttt{french}' language
 % \changes{3.01}{2014-12-18}{Move French specific stuff from \styfmt{fmtcount.sty} to \styfmt{fc-french.def}.}
 %    \begin{macrocode}
-\def\fmtcount@french{france}%
+\gdef\fmtcount@french{france}%
 %    \end{macrocode}
 % Now, option `\texttt{dialect}' is now defined so that `\texttt{france}', `\texttt{swiss}' and
 % `\texttt{belgian}' can also be used as key values, which is more conventional although less concise.
@@ -193,29 +229,29 @@
     \def\fmtcount@french{#1}}{%
     \PackageError{fmtcount}{Invalid value `#1' to french option dialect key}
     {Option `french' can only take the values `france',
-      `belgian' or `swiss'}}}
+      `belgian' or `swiss'}}}%
+\expandafter\@tempb\csname KV@fcfrench@dialect\endcsname
 %    \end{macrocode}
 % The option \texttt{mil plural mark} allows to make the plural of \texttt{mil} to be regular,
 % i.e. \texttt{mils}, instead of \texttt{mille}. By default it is `\texttt{le}'.
 %    \begin{macrocode}
 \define@key{fcfrench}{mil plural mark}[le]{%
   \def\fc@frenchoptions@mil@plural@mark{#1}}
+\expandafter\@tempb\csname KV@fcfrench@mil plural mark\endcsname
 %    \end{macrocode}
 % Definition of case handling macros. This should be moved somewhere else to be commonalized between all
 % languages.
 %    \begin{macrocode}
-\def\fc@UpperCaseFirstLetter#1#2\@nil{%
+\gdef\fc@UpperCaseFirstLetter#1#2\@nil{%
   \uppercase{#1}#2}
 
-\def\fc@CaseIden#1\@nil{%
+\gdef\fc@CaseIden#1\@nil{%
   #1%
-}
-\def\fc@UpperCaseAll#1\@nil{%
+}%
+\gdef\fc@UpperCaseAll#1\@nil{%
   \uppercase{#1}%
-}
-
-\let\fc@case\fc@CaseIden
-
+}%
+\global\let\fc@case\fc@CaseIden
 %    \end{macrocode}
 % \DescribeMacro{\@ordinalMfrench}
 % \changes{3.01}{2014-11-12}{Protect \cs{`}, for solving
@@ -241,6 +277,7 @@
     \protected@edef#2{\number#1\relax\noexpand\fmtord{\protect\`eme}}%
   \fi
 \fi}
+\global\let\@ordinalMfrench\@ordinalMfrench
 %    \end{macrocode}
 % \DescribeMacro{\@ordinalFfrench}
 % \changes{3.01}{2014-11-10}{Protect \cs{`}, for solving
@@ -265,10 +302,11 @@
      \protected@edef#2{\number#1\relax\noexpand\fmtord{\protect\`eme}}%
   \fi
 \fi}
+\global\let\@ordinalFfrench\@ordinalFfrench
 %    \end{macrocode}
 % In French neutral gender and masculine gender are formally identical.
 %    \begin{macrocode}
-\let\@ordinalNfrench\@ordinalMfrench
+\global\let\@ordinalNfrench\@ordinalMfrench
 %    \end{macrocode}
 % \DescribeMacro{\@@unitstringfrench}
 %    \begin{macrocode}
@@ -287,7 +325,8 @@ z\'ero%
 \or neuf%
 \fi
 \noexpand\@nil
-}
+}%
+\global\let\@@unitstringfrench\@@unitstringfrench
 %    \end{macrocode}
 % \DescribeMacro{\@@tenstringfrench}
 %    \begin{macrocode}
@@ -306,7 +345,8 @@ z\'ero%
 \or cent%
 \fi
 \noexpand\@nil
-}
+}%
+\global\let\@@tenstringfrench\@@tenstringfrench
 %    \end{macrocode}
 % \DescribeMacro{\@@teenstringfrench}
 %    \begin{macrocode}
@@ -325,7 +365,8 @@ z\'ero%
 \or dix\noexpand\@nil-\noexpand\fc@case neuf%
 \fi
 \noexpand\@nil
-}
+}%
+\global\let\@@teenstringfrench\@@teenstringfrench
 %    \end{macrocode}
 % \DescribeMacro{\@@seventiesfrench}
 %    \begin{macrocode}
@@ -337,7 +378,8 @@ z\'ero%
 -%
 \fi
 \@teenstring{#1}%
-}
+}%
+\global\let\@@seventiesfrench\@@seventiesfrench
 %    \end{macrocode}
 % \DescribeMacro{\@@eightiesfrench}Macro \cs{@@eightiesfrench} is used to format numbers in the interval
 % \([80\intv 89]\). Argument as follows:\newline
@@ -394,7 +436,8 @@ z\'ero%
   \fi
   \noexpand\@nil
 \fi
-}
+}%
+\global\let\@@eightiesfrench\@@eightiesfrench
 \newcommand*{\@@ninetiesfrench}[1]{%
 \fc@case quatre\@nil-\noexpand\fc@case vingt%
 \ifnum\fc@frenchoptions@vingt@plural=0 % vingt plural=always
@@ -402,25 +445,29 @@ z\'ero%
 \fi
 \noexpand\@nil
 -\@teenstring{#1}%
-}
+}%
+\global\let\@@ninetiesfrench\@@ninetiesfrench
 \newcommand*{\@@seventiesfrenchswiss}[1]{%
 \@tenstring{7}%
 \ifnum#1=1\ \@andname\ \fi
 \ifnum#1>1-\fi
 \ifnum#1>0 \@unitstring{#1}\fi
-}
+}%
+\global\let\@@seventiesfrenchswiss\@@seventiesfrenchswiss
 \newcommand*{\@@eightiesfrenchswiss}[1]{%
 \@tenstring{8}%
 \ifnum#1=1\ \@andname\ \fi
 \ifnum#1>1-\fi
 \ifnum#1>0 \@unitstring{#1}\fi
-}
+}%
+\global\let\@@eightiesfrenchswiss\@@eightiesfrenchswiss
 \newcommand*{\@@ninetiesfrenchswiss}[1]{%
 \@tenstring{9}%
 \ifnum#1=1\ \@andname\ \fi
 \ifnum#1>1-\fi
 \ifnum#1>0 \@unitstring{#1}\fi
-}
+}%
+\global\let\@@ninetiesfrenchswiss\@@ninetiesfrenchswiss
 %    \end{macrocode}
 % \DescribeMacro{\fc@french@common}Macro \cs{fc@french@common} does all the preliminary settings common to all
 % French dialects \& formatting options.
@@ -431,10 +478,11 @@ z\'ero%
   \let\@tenstring=\@@tenstringfrench
   \def\@hundred{cent}%
   \def\@andname{et}%
-}
+}%
+\global\let\fc@french@common\fc@french@common
 %    \end{macrocode}
 %    \begin{macrocode}
-\DeclareRobustCommand{\@numberstringMfrenchswiss}[2]{%
+\newcommand*{\@numberstringMfrenchswiss}[2]{%
 \let\fc@case\fc@CaseIden
 \fc@french@common
 \let\@seventies=\@@seventiesfrenchswiss
@@ -443,7 +491,8 @@ z\'ero%
 \let\fc@nbrstr@preamble\@empty
 \let\fc@nbrstr@postamble\@empty
 \@@numberstringfrench{#1}{#2}}
-\DeclareRobustCommand{\@numberstringMfrenchfrance}[2]{%
+\global\let\@numberstringMfrenchswiss\@numberstringMfrenchswiss
+\newcommand*{\@numberstringMfrenchfrance}[2]{%
 \let\fc@case\fc@CaseIden
 \fc@french@common
 \let\@seventies=\@@seventiesfrench
@@ -452,7 +501,8 @@ z\'ero%
 \let\fc@nbrstr@preamble\@empty
 \let\fc@nbrstr@postamble\@empty
 \@@numberstringfrench{#1}{#2}}
-\DeclareRobustCommand{\@numberstringMfrenchbelgian}[2]{%
+\global\let\@numberstringMfrenchfrance\@numberstringMfrenchfrance
+\newcommand*{\@numberstringMfrenchbelgian}[2]{%
 \let\fc@case\fc@CaseIden
 \fc@french@common
 \let\@seventies=\@@seventiesfrenchswiss
@@ -461,8 +511,9 @@ z\'ero%
 \let\fc@nbrstr@preamble\@empty
 \let\fc@nbrstr@postamble\@empty
 \@@numberstringfrench{#1}{#2}}
+\global\let\@numberstringMfrenchbelgian\@numberstringMfrenchbelgian
 \let\@numberstringMfrench=\@numberstringMfrenchfrance
-\DeclareRobustCommand{\@numberstringFfrenchswiss}[2]{%
+\newcommand*{\@numberstringFfrenchswiss}[2]{%
 \let\fc@case\fc@CaseIden
 \fc@french@common
 \let\@seventies=\@@seventiesfrenchswiss
@@ -471,7 +522,8 @@ z\'ero%
 \let\fc@nbrstr@preamble\fc@@nbrstr@Fpreamble
 \let\fc@nbrstr@postamble\@empty
 \@@numberstringfrench{#1}{#2}}
-\DeclareRobustCommand{\@numberstringFfrenchfrance}[2]{%
+\global\let\@numberstringFfrenchswiss\@numberstringFfrenchswiss
+\newcommand*{\@numberstringFfrenchfrance}[2]{%
 \let\fc@case\fc@CaseIden
 \fc@french@common
 \let\@seventies=\@@seventiesfrench
@@ -480,7 +532,8 @@ z\'ero%
 \let\fc@nbrstr@preamble\fc@@nbrstr@Fpreamble
 \let\fc@nbrstr@postamble\@empty
 \@@numberstringfrench{#1}{#2}}
-\DeclareRobustCommand{\@numberstringFfrenchbelgian}[2]{%
+\global\let\@numberstringFfrenchfrance\@numberstringFfrenchfrance
+\newcommand*{\@numberstringFfrenchbelgian}[2]{%
 \let\fc@case\fc@CaseIden
 \fc@french@common
 \let\@seventies=\@@seventiesfrenchswiss
@@ -489,9 +542,10 @@ z\'ero%
 \let\fc@nbrstr@preamble\fc@@nbrstr@Fpreamble
 \let\fc@nbrstr@postamble\@empty
 \@@numberstringfrench{#1}{#2}}
-\let\@numberstringFfrench=\@numberstringFfrenchfrance
-\let\@ordinalstringNfrench\@ordinalstringMfrench
-\DeclareRobustCommand{\@NumberstringMfrenchswiss}[2]{%
+\global\let\@numberstringFfrenchbelgian\@numberstringFfrenchbelgian
+\global\let\@numberstringFfrench=\@numberstringFfrenchfrance
+\global\let\@ordinalstringNfrench\@ordinalstringMfrench
+\newcommand*{\@NumberstringMfrenchswiss}[2]{%
 \let\fc@case\fc@UpperCaseFirstLetter
 \fc@french@common
 \let\@seventies=\@@seventiesfrenchswiss
@@ -500,7 +554,8 @@ z\'ero%
 \let\fc@nbrstr@preamble\@empty
 \let\fc@nbrstr@postamble\@empty
 \@@numberstringfrench{#1}{#2}}
-\DeclareRobustCommand{\@NumberstringMfrenchfrance}[2]{%
+\global\let\@NumberstringMfrenchswiss\@NumberstringMfrenchswiss
+\newcommand*{\@NumberstringMfrenchfrance}[2]{%
 \let\fc@case\fc@UpperCaseFirstLetter
 \fc@french@common
 \let\@seventies=\@@seventiesfrench
@@ -509,7 +564,8 @@ z\'ero%
 \let\fc@nbrstr@preamble\@empty
 \let\fc@nbrstr@postamble\@empty
 \@@numberstringfrench{#1}{#2}}
-\DeclareRobustCommand{\@NumberstringMfrenchbelgian}[2]{%
+\global\let\@NumberstringMfrenchfrance\@NumberstringMfrenchfrance
+\newcommand*{\@NumberstringMfrenchbelgian}[2]{%
 \let\fc@case\fc@UpperCaseFirstLetter
 \fc@french@common
 \let\@seventies=\@@seventiesfrenchswiss
@@ -518,8 +574,9 @@ z\'ero%
 \let\fc@nbrstr@preamble\@empty
 \let\fc@nbrstr@postamble\@empty
 \@@numberstringfrench{#1}{#2}}
-\let\@NumberstringMfrench=\@NumberstringMfrenchfrance
-\DeclareRobustCommand{\@NumberstringFfrenchswiss}[2]{%
+\global\let\@NumberstringMfrenchbelgian\@NumberstringMfrenchbelgian
+\global\let\@NumberstringMfrench=\@NumberstringMfrenchfrance
+\newcommand*{\@NumberstringFfrenchswiss}[2]{%
 \let\fc@case\fc@UpperCaseFirstLetter
 \fc@french@common
 \let\@seventies=\@@seventiesfrenchswiss
@@ -528,7 +585,8 @@ z\'ero%
 \let\fc@nbrstr@preamble\fc@@nbrstr@Fpreamble
 \let\fc@nbrstr@postamble\@empty
 \@@numberstringfrench{#1}{#2}}
-\DeclareRobustCommand{\@NumberstringFfrenchfrance}[2]{%
+\global\let\@NumberstringFfrenchswiss\@NumberstringFfrenchswiss
+\newcommand*{\@NumberstringFfrenchfrance}[2]{%
 \let\fc@case\fc@UpperCaseFirstLetter
 \fc@french@common
 \let\@seventies=\@@seventiesfrench
@@ -537,7 +595,8 @@ z\'ero%
 \let\fc@nbrstr@preamble\fc@@nbrstr@Fpreamble
 \let\fc@nbrstr@postamble\@empty
 \@@numberstringfrench{#1}{#2}}
-\DeclareRobustCommand{\@NumberstringFfrenchbelgian}[2]{%
+\global\let\@NumberstringFfrenchfrance\@NumberstringFfrenchfrance
+\newcommand*{\@NumberstringFfrenchbelgian}[2]{%
 \let\fc@case\fc@UpperCaseFirstLetter
 \fc@french@common
 \let\@seventies=\@@seventiesfrenchswiss
@@ -546,9 +605,10 @@ z\'ero%
 \let\fc@nbrstr@preamble\fc@@nbrstr@Fpreamble
 \let\fc@nbrstr@postamble\@empty
 \@@numberstringfrench{#1}{#2}}
-\let\@NumberstringFfrench=\@NumberstringFfrenchfrance
-\let\@NumberstringNfrench\@NumberstringMfrench
-\DeclareRobustCommand{\@ordinalstringMfrenchswiss}[2]{%
+\global\let\@NumberstringFfrenchbelgian\@NumberstringFfrenchbelgian
+\global\let\@NumberstringFfrench=\@NumberstringFfrenchfrance
+\global\let\@NumberstringNfrench\@NumberstringMfrench
+\newcommand*{\@ordinalstringMfrenchswiss}[2]{%
 \let\fc@case\fc@CaseIden
 \let\fc@first=\fc@@firstfrench
 \fc@french@common
@@ -556,14 +616,17 @@ z\'ero%
 \let\@eighties=\@@eightiesfrenchswiss
 \let\@nineties=\@@ninetiesfrenchswiss
 \@@ordinalstringfrench{#1}{#2}%
-}
+}%
+\global\let\@ordinalstringMfrenchswiss\@ordinalstringMfrenchswiss
 \newcommand*\fc@@firstfrench{premier}
+\global\let\fc@@firstfrench\fc@@firstfrench
 %    \end{macrocode}
 % \changes{3.01}{2014-11-10}{Protect \cs{`}, for solving
 % \uref{http://github.com/nlct/fmtcount/issues/15}{Issue \#15}}
 %    \begin{macrocode}
 \newcommand*\fc@@firstFfrench{premi\protect\`ere}
-\DeclareRobustCommand{\@ordinalstringMfrenchfrance}[2]{%
+\global\let\fc@@firstFfrench\fc@@firstFfrench
+\newcommand*{\@ordinalstringMfrenchfrance}[2]{%
 \let\fc@case\fc@CaseIden
 \let\fc@first=\fc@@firstfrench
 \fc@french@common
@@ -571,7 +634,8 @@ z\'ero%
 \let\@eighties=\@@eightiesfrench
 \let\@nineties=\@@ninetiesfrench
 \@@ordinalstringfrench{#1}{#2}}
-\DeclareRobustCommand{\@ordinalstringMfrenchbelgian}[2]{%
+\global\let\@ordinalstringMfrenchfrance\@ordinalstringMfrenchfrance
+\newcommand*{\@ordinalstringMfrenchbelgian}[2]{%
 \let\fc@case\fc@CaseIden
 \let\fc@first=\fc@@firstfrench
 \fc@french@common
@@ -579,9 +643,10 @@ z\'ero%
 \let\@eighties=\@@eightiesfrench
 \let\@nineties=\@@ninetiesfrench
 \@@ordinalstringfrench{#1}{#2}%
-}
-\let\@ordinalstringMfrench=\@ordinalstringMfrenchfrance
-\DeclareRobustCommand{\@ordinalstringFfrenchswiss}[2]{%
+}%
+\global\let\@ordinalstringMfrenchbelgian\@ordinalstringMfrenchbelgian
+\global\let\@ordinalstringMfrench=\@ordinalstringMfrenchfrance
+\newcommand*{\@ordinalstringFfrenchswiss}[2]{%
 \let\fc@case\fc@CaseIden
 \let\fc@first=\fc@@firstFfrench
 \fc@french@common
@@ -589,8 +654,9 @@ z\'ero%
 \let\@eighties=\@@eightiesfrenchswiss
 \let\@nineties=\@@ninetiesfrenchswiss
 \@@ordinalstringfrench{#1}{#2}%
-}
-\DeclareRobustCommand{\@ordinalstringFfrenchfrance}[2]{%
+}%
+\global\let\@ordinalstringFfrenchswiss\@ordinalstringFfrenchswiss
+\newcommand*{\@ordinalstringFfrenchfrance}[2]{%
 \let\fc@case\fc@CaseIden
 \let\fc@first=\fc@@firstFfrench
 \fc@french@common
@@ -598,8 +664,9 @@ z\'ero%
 \let\@eighties=\@@eightiesfrench
 \let\@nineties=\@@ninetiesfrench
 \@@ordinalstringfrench{#1}{#2}%
-}
-\DeclareRobustCommand{\@ordinalstringFfrenchbelgian}[2]{%
+}%
+\global\let\@ordinalstringFfrenchfrance\@ordinalstringFfrenchfrance
+\newcommand*{\@ordinalstringFfrenchbelgian}[2]{%
 \let\fc@case\fc@CaseIden
 \let\fc@first=\fc@@firstFfrench
 \fc@french@common
@@ -607,10 +674,11 @@ z\'ero%
 \let\@eighties=\@@eightiesfrench
 \let\@nineties=\@@ninetiesfrench
 \@@ordinalstringfrench{#1}{#2}%
-}
-\let\@ordinalstringFfrench=\@ordinalstringFfrenchfrance
-\let\@ordinalstringNfrench\@ordinalstringMfrench
-\DeclareRobustCommand{\@OrdinalstringMfrenchswiss}[2]{%
+}%
+\global\let\@ordinalstringFfrenchbelgian\@ordinalstringFfrenchbelgian
+\global\let\@ordinalstringFfrench=\@ordinalstringFfrenchfrance
+\global\let\@ordinalstringNfrench\@ordinalstringMfrench
+\newcommand*{\@OrdinalstringMfrenchswiss}[2]{%
 \let\fc@case\fc@UpperCaseFirstLetter
 \let\fc@first=\fc@@firstfrench
 \fc@french@common
@@ -618,8 +686,9 @@ z\'ero%
 \let\@eighties=\@@eightiesfrenchswiss
 \let\@nineties=\@@ninetiesfrenchswiss
 \@@ordinalstringfrench{#1}{#2}%
-}
-\DeclareRobustCommand{\@OrdinalstringMfrenchfrance}[2]{%
+}%
+\global\let\@OrdinalstringMfrenchswiss\@OrdinalstringMfrenchswiss
+\newcommand*{\@OrdinalstringMfrenchfrance}[2]{%
 \let\fc@case\fc@UpperCaseFirstLetter
 \let\fc@first=\fc@@firstfrench
 \fc@french@common
@@ -627,8 +696,9 @@ z\'ero%
 \let\@eighties=\@@eightiesfrench
 \let\@nineties=\@@ninetiesfrench
 \@@ordinalstringfrench{#1}{#2}%
-}
-\DeclareRobustCommand{\@OrdinalstringMfrenchbelgian}[2]{%
+}%
+\global\let\@OrdinalstringMfrenchfrance\@OrdinalstringMfrenchfrance
+\newcommand*{\@OrdinalstringMfrenchbelgian}[2]{%
 \let\fc@case\fc@UpperCaseFirstLetter
 \let\fc@first=\fc@@firstfrench
 \fc@french@common
@@ -636,9 +706,10 @@ z\'ero%
 \let\@eighties=\@@eightiesfrench
 \let\@nineties=\@@ninetiesfrench
 \@@ordinalstringfrench{#1}{#2}%
-}
-\let\@OrdinalstringMfrench=\@OrdinalstringMfrenchfrance
-\DeclareRobustCommand{\@OrdinalstringFfrenchswiss}[2]{%
+}%
+\global\let\@OrdinalstringMfrenchbelgian\@OrdinalstringMfrenchbelgian
+\global\let\@OrdinalstringMfrench=\@OrdinalstringMfrenchfrance
+\newcommand*{\@OrdinalstringFfrenchswiss}[2]{%
 \let\fc@case\fc@UpperCaseFirstLetter
 \let\fc@first=\fc@@firstfrench
 \fc@french@common
@@ -646,8 +717,9 @@ z\'ero%
 \let\@eighties=\@@eightiesfrenchswiss
 \let\@nineties=\@@ninetiesfrenchswiss
 \@@ordinalstringfrench{#1}{#2}%
-}
-\DeclareRobustCommand{\@OrdinalstringFfrenchfrance}[2]{%
+}%
+\global\let\@OrdinalstringFfrenchswiss\@OrdinalstringFfrenchswiss
+\newcommand*{\@OrdinalstringFfrenchfrance}[2]{%
 \let\fc@case\fc@UpperCaseFirstLetter
 \let\fc@first=\fc@@firstFfrench
 \fc@french@common
@@ -655,8 +727,9 @@ z\'ero%
 \let\@eighties=\@@eightiesfrench
 \let\@nineties=\@@ninetiesfrench
 \@@ordinalstringfrench{#1}{#2}%
-}
-\DeclareRobustCommand{\@OrdinalstringFfrenchbelgian}[2]{%
+}%
+\global\let\@OrdinalstringFfrenchfrance\@OrdinalstringFfrenchfrance
+\newcommand*{\@OrdinalstringFfrenchbelgian}[2]{%
 \let\fc@case\fc@UpperCaseFirstLetter
 \let\fc@first=\fc@@firstFfrench
 \fc@french@common
@@ -664,9 +737,10 @@ z\'ero%
 \let\@eighties=\@@eightiesfrench
 \let\@nineties=\@@ninetiesfrench
 \@@ordinalstringfrench{#1}{#2}%
-}
-\let\@OrdinalstringFfrench=\@OrdinalstringFfrenchfrance
-\let\@OrdinalstringNfrench\@OrdinalstringMfrench
+}%
+\global\let\@OrdinalstringFfrenchbelgian\@OrdinalstringFfrenchbelgian
+\global\let\@OrdinalstringFfrench=\@OrdinalstringFfrenchfrance
+\global\let\@OrdinalstringNfrench\@OrdinalstringMfrench
 %    \end{macrocode}
 % \DescribeMacro{\fc@@do@plural@mark}Macro \cs{fc@@do@plural@mark} will expand to the plural mark of
 % \meta{$n$}illiard, \meta{$n$}illion, mil, cent or vingt, whichever is applicable. First check that the macro
@@ -728,7 +802,8 @@ z\'ero%
        \fi
      \fi
   \fi
-}
+}%
+\global\let\fc@@do@plural@mark\fc@@do@plural@mark
 %    \end{macrocode}
 % \DescribeMacro{\fc@@nbrstr@Fpreamble}Macro \cs{fc@@nbrstr@Fpreamble} do the necessary preliminaries before
 % formatting a cardinal with feminine gender.
@@ -747,7 +822,8 @@ z\'ero%
       \def\@nil{\noexpand\@nil}%
      \let\fc@nbrstr@postamble\fc@@nbrstr@Fpostamble
   \fi
-}
+}%
+\global\let\fc@@nbrstr@Fpreamble\fc@@nbrstr@Fpreamble
 %    \end{macrocode}
 % \DescribeMacro{\fc@@nbrstr@Fpostamble}
 %    \begin{macrocode}
@@ -759,7 +835,8 @@ z\'ero%
     \let\@tempc\@tempa
     \edef\@tempa{\@tempb\fc@case une\@nil}%
   \fi
-}
+}%
+\global\let\fc@@nbrstr@Fpostamble\fc@@nbrstr@Fpostamble
 %    \end{macrocode}
 % \DescribeMacro{\fc@@pot@longscalefrench}Macro \cs{fc@@pot@longscalefrench} is used to produce
 % powers of ten with long scale convention. The long scale convention is correct for French and elsewhere in
@@ -906,7 +983,8 @@ z\'ero%
     \edef\@tempa{\the\toks0 \@temph \def\noexpand#3{\the\toks1}}%
     \expandafter
   }\@tempa
-}
+}%
+\global\let\fc@@pot@longscalefrench\fc@@pot@longscalefrench
 %    \end{macrocode}
 % \DescribeMacro{\fc@@pot@shortscalefrench}Macro \cs{fc@@pot@shortscalefrench} is used to produce
 % powers of ten with short scale convention. This convention is the US convention and is not correct for
@@ -985,7 +1063,8 @@ z\'ero%
     \edef\@tempa{\the\toks0 \@temph \def\noexpand#3{\the\toks1}}%
     \expandafter
   }\@tempa
-}
+}%
+\global\let\fc@@pot@shortscalefrench\fc@@pot@shortscalefrench
 %    \end{macrocode}
 % \DescribeMacro{\fc@@pot@recursivefrench}Macro \cs{fc@@pot@recursivefrench} is used to produce
 % power of tens that are of the form ``million de milliards de milliards'' for \(10^{24}\). First we check
@@ -1102,7 +1181,8 @@ z\'ero%
     \edef\@tempa{\the\toks0 \@temph \def\noexpand#3{\the\toks1}}%
     \expandafter
   }\@tempa
-}
+}%
+\global\let\fc@@pot@recursivefrench\fc@@pot@recursivefrench
 %    \end{macrocode}
 % \DescribeMacro{\fc@muladdfrench}Macro \cs{fc@muladdfrench} is used to format the sum of a number \(a\) and
 % the product of a number \(d\) by a power of ten \(10^w\). Number \(d\) is made of three consecutive digits
@@ -1200,6 +1280,7 @@ z\'ero%
     \expandafter
   }\@tempa
 }%
+\global\let\fc@muladdfrench\fc@muladdfrench
 %    \end{macrocode}
 % \DescribeMacro{\fc@lthundredstringfrench}Macro \cs{fc@lthundredstringfrench} is used to format a number in
 % interval \([0 \intv 99]\). First we check that it is not already defined.
@@ -1302,7 +1383,8 @@ z\'ero%
     \expandafter\@tempb\expandafter{\@tempa}%
     \expandafter
   }\@tempa
-}
+}%
+\global\let\fc@lthundredstringfrench\fc@lthundredstringfrench
 %    \end{macrocode}
 % \DescribeMacro{\fc@ltthousandstringfrench}Macro \cs{fc@ltthousandstringfrench} is used to format a number in
 % interval \([0 \intv 999]\). First we check that it is not already defined.
@@ -1383,7 +1465,8 @@ z\'ero%
     \expandafter\@tempb\expandafter{\@tempa}%
     \expandafter
   }\@tempa
-}
+}%
+\global\let\fc@ltthousandstringfrench\fc@ltthousandstringfrench
 %    \end{macrocode}
 % \DescribeMacro{\@@numberstringfrench}Macro \cs{@@numberstringfrench} is the main engine for formatting
 % cadinal numbers in French. First we check that the control sequence is not yet defined.
@@ -1425,7 +1508,8 @@ z\'ero%
     \expandafter\@tempb\expandafter{\@tempa}%
     \expandafter
   }\@tempa
-}
+}%
+\global\let\@@numberstringfrench\@@numberstringfrench
 %    \end{macrocode}
 % \DescribeMacro{\fc@@nbrstrfrench@inner}Common part of \cs{@@numberstringfrench} and \cs
 % {@@ordinalstringfrench}. Arguments are as follows:\newline\noindent
@@ -1482,7 +1566,8 @@ z\'ero%
        \advance\count0 by -3 %
        \ifnum\count6>\count0 \else
     \repeat
-}
+}%
+\global\let\fc@@nbrstrfrench@inner\fc@@nbrstrfrench@inner
 %    \end{macrocode}
 % \DescribeMacro{\@@ordinalstringfrench}Macro \cs{@@ordinalstringfrench} is the main engine for formatting
 % ordinal numbers in French. First check it is not yet defined.
@@ -1605,33 +1690,39 @@ z\'ero%
     \expandafter\@tempb\expandafter{\@tempa}%
     \expandafter
   }\@tempa
-}
+}%
+\global\let\@@ordinalstringfrench\@@ordinalstringfrench
 %    \end{macrocode}
 % Macro \cs{fc@frenchoptions@setdefaults} allows to set all options to default for the French.
 %    \begin{macrocode}
 \newcommand*\fc@frenchoptions@setdefaults{%
   \csname KV@fcfrench@all plural\endcsname{reformed}%
-  \def\fc@frenchoptions@submillion@dos{-}%
-  \let\fc@frenchoptions@supermillion@dos\space
-  \let\fc@u@in@duo\@empty% Could be `u'
-  % \let\fc@poweroften\fc@@pot@longscalefrench
-  \let\fc@poweroften\fc@@pot@recursivefrench
-  \def\fc@longscale@nilliard@upto{0}% infinity
-  \def\fc@frenchoptions@mil@plural@mark{le}%
-}
-\fc@frenchoptions@setdefaults
+  \fc@gl@def\fc@frenchoptions@submillion@dos{-}%
+  \fc@gl@let\fc@frenchoptions@supermillion@dos\space
+  \fc@gl@let\fc@u@in@duo\@empty% Could be `u'
+  % \fc@gl@let\fc@poweroften\fc@@pot@longscalefrench
+  \fc@gl@let\fc@poweroften\fc@@pot@recursivefrench
+  \fc@gl@def\fc@longscale@nilliard@upto{0}% infinity
+  \fc@gl@def\fc@frenchoptions@mil@plural@mark{le}%
+}%
+\global\let\fc@frenchoptions@setdefaults\fc@frenchoptions@setdefaults
+{%
+  \let\fc@gl@def\gdef
+  \def\fc@gl@let{\global\let}%
+  \fc@frenchoptions@setdefaults
+}%
 %    \end{macrocode}
 % Make some indirection to call the current French dialect corresponding macro.
 % \changes{3.01}{2014-12-18}{Move French specific stuff from \styfmt{fmtcount.sty} to \styfmt{fc-french.def}.}
 %    \begin{macrocode}
-\def\@ordinalstringMfrench{\csuse{@ordinalstringMfrench\fmtcount@french}}%
-\def\@ordinalstringFfrench{\csuse{@ordinalstringFfrench\fmtcount@french}}%
-\def\@OrdinalstringMfrench{\csuse{@OrdinalstringMfrench\fmtcount@french}}%
-\def\@OrdinalstringFfrench{\csuse{@OrdinalstringFfrench\fmtcount@french}}%
-\def\@numberstringMfrench{\csuse{@numberstringMfrench\fmtcount@french}}%
-\def\@numberstringFfrench{\csuse{@numberstringFfrench\fmtcount@french}}%
-\def\@NumberstringMfrench{\csuse{@NumberstringMfrench\fmtcount@french}}%
-\def\@NumberstringFfrench{\csuse{@NumberstringFfrench\fmtcount@french}}%
+\gdef\@ordinalstringMfrench{\csuse{@ordinalstringMfrench\fmtcount@french}}%
+\gdef\@ordinalstringFfrench{\csuse{@ordinalstringFfrench\fmtcount@french}}%
+\gdef\@OrdinalstringMfrench{\csuse{@OrdinalstringMfrench\fmtcount@french}}%
+\gdef\@OrdinalstringFfrench{\csuse{@OrdinalstringFfrench\fmtcount@french}}%
+\gdef\@numberstringMfrench{\csuse{@numberstringMfrench\fmtcount@french}}%
+\gdef\@numberstringFfrench{\csuse{@numberstringFfrench\fmtcount@french}}%
+\gdef\@NumberstringMfrench{\csuse{@NumberstringMfrench\fmtcount@french}}%
+\gdef\@NumberstringFfrench{\csuse{@NumberstringFfrench\fmtcount@french}}%
 %    \end{macrocode}
 \iffalse Local variables: \fi
 \iffalse mode: docTeX     \fi

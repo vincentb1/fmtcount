@@ -1,3 +1,4 @@
+% \subsection{Language definition files}
 % \subsubsection{fc-american.def}
 % American English definitions
 %    \begin{macrocode}
@@ -8,7 +9,7 @@
 \FCloadlang{USenglish}%
 %    \end{macrocode}
 % These are all just synonyms for the commands provided by
-% fc-USenglish.def.
+% \styfmt{fc-USenglish.def}.
 %    \begin{macrocode}
 \global\let\@ordinalMamerican\@ordinalMUSenglish
 \global\let\@ordinalFamerican\@ordinalMUSenglish
@@ -26,3 +27,6 @@
 \global\let\@OrdinalstringFamerican\@OrdinalstringMUSenglish
 \global\let\@OrdinalstringNamerican\@OrdinalstringMUSenglish
 %    \end{macrocode}
+\iffalse Local variables: \fi
+\iffalse mode: docTeX     \fi
+\iffalse End:             \fi
