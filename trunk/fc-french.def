@@ -251,7 +251,7 @@
 \gdef\fc@UpperCaseAll#1\@nil{%
   \uppercase{#1}%
 }%
-\global\let\fc@case\fc@CaseIden
+\global\let\fc@wcase\fc@CaseIden
 %    \end{macrocode}
 % \DescribeMacro{\@ordinalMfrench}
 % \changes{3.01}{2014-11-12}{Protect \cs{`}, for solving
@@ -311,7 +311,7 @@
 % \DescribeMacro{\@@unitstringfrench}
 %    \begin{macrocode}
 \newcommand*{\@@unitstringfrench}[1]{%
-\noexpand\fc@case
+\noexpand\fc@wcase
 \ifcase#1 %
 z\'ero%
 \or un%
@@ -331,7 +331,7 @@ z\'ero%
 % \DescribeMacro{\@@tenstringfrench}
 %    \begin{macrocode}
 \newcommand*{\@@tenstringfrench}[1]{%
-\noexpand\fc@case
+\noexpand\fc@wcase
 \ifcase#1 %
 \or dix%
 \or vingt%
@@ -351,7 +351,7 @@ z\'ero%
 % \DescribeMacro{\@@teenstringfrench}
 %    \begin{macrocode}
 \newcommand*{\@@teenstringfrench}[1]{%
-\noexpand\fc@case
+\noexpand\fc@wcase
 \ifcase#1 %
     dix%
 \or onze%
@@ -360,9 +360,9 @@ z\'ero%
 \or quatorze%
 \or quinze%
 \or seize%
-\or dix\noexpand\@nil-\noexpand\fc@case sept%
-\or dix\noexpand\@nil-\noexpand\fc@case huit%
-\or dix\noexpand\@nil-\noexpand\fc@case neuf%
+\or dix\noexpand\@nil-\noexpand\fc@wcase sept%
+\or dix\noexpand\@nil-\noexpand\fc@wcase huit%
+\or dix\noexpand\@nil-\noexpand\fc@wcase neuf%
 \fi
 \noexpand\@nil
 }%
@@ -397,7 +397,7 @@ z\'ero%
 % \end{tabularx}
 %    \begin{macrocode}
 \newcommand*\@@eightiesfrench[1]{%
-\fc@case quatre\@nil-\noexpand\fc@case vingt%
+\fc@wcase quatre\@nil-\noexpand\fc@wcase vingt%
 \ifnum#1>0 %
   \ifnum\fc@frenchoptions@vingt@plural=0 % vingt plural=always
   s%
@@ -439,7 +439,7 @@ z\'ero%
 }%
 \global\let\@@eightiesfrench\@@eightiesfrench
 \newcommand*{\@@ninetiesfrench}[1]{%
-\fc@case quatre\@nil-\noexpand\fc@case vingt%
+\fc@wcase quatre\@nil-\noexpand\fc@wcase vingt%
 \ifnum\fc@frenchoptions@vingt@plural=0 % vingt plural=always
   s%
 \fi
@@ -483,7 +483,7 @@ z\'ero%
 %    \end{macrocode}
 %    \begin{macrocode}
 \newcommand*{\@numberstringMfrenchswiss}[2]{%
-\let\fc@case\fc@CaseIden
+\let\fc@wcase\fc@CaseIden
 \fc@french@common
 \let\@seventies=\@@seventiesfrenchswiss
 \let\@eighties=\@@eightiesfrenchswiss
@@ -493,7 +493,7 @@ z\'ero%
 \@@numberstringfrench{#1}{#2}}
 \global\let\@numberstringMfrenchswiss\@numberstringMfrenchswiss
 \newcommand*{\@numberstringMfrenchfrance}[2]{%
-\let\fc@case\fc@CaseIden
+\let\fc@wcase\fc@CaseIden
 \fc@french@common
 \let\@seventies=\@@seventiesfrench
 \let\@eighties=\@@eightiesfrench
@@ -503,7 +503,7 @@ z\'ero%
 \@@numberstringfrench{#1}{#2}}
 \global\let\@numberstringMfrenchfrance\@numberstringMfrenchfrance
 \newcommand*{\@numberstringMfrenchbelgian}[2]{%
-\let\fc@case\fc@CaseIden
+\let\fc@wcase\fc@CaseIden
 \fc@french@common
 \let\@seventies=\@@seventiesfrenchswiss
 \let\@eighties=\@@eightiesfrench
@@ -514,7 +514,7 @@ z\'ero%
 \global\let\@numberstringMfrenchbelgian\@numberstringMfrenchbelgian
 \let\@numberstringMfrench=\@numberstringMfrenchfrance
 \newcommand*{\@numberstringFfrenchswiss}[2]{%
-\let\fc@case\fc@CaseIden
+\let\fc@wcase\fc@CaseIden
 \fc@french@common
 \let\@seventies=\@@seventiesfrenchswiss
 \let\@eighties=\@@eightiesfrenchswiss
@@ -524,7 +524,7 @@ z\'ero%
 \@@numberstringfrench{#1}{#2}}
 \global\let\@numberstringFfrenchswiss\@numberstringFfrenchswiss
 \newcommand*{\@numberstringFfrenchfrance}[2]{%
-\let\fc@case\fc@CaseIden
+\let\fc@wcase\fc@CaseIden
 \fc@french@common
 \let\@seventies=\@@seventiesfrench
 \let\@eighties=\@@eightiesfrench
@@ -534,7 +534,7 @@ z\'ero%
 \@@numberstringfrench{#1}{#2}}
 \global\let\@numberstringFfrenchfrance\@numberstringFfrenchfrance
 \newcommand*{\@numberstringFfrenchbelgian}[2]{%
-\let\fc@case\fc@CaseIden
+\let\fc@wcase\fc@CaseIden
 \fc@french@common
 \let\@seventies=\@@seventiesfrenchswiss
 \let\@eighties=\@@eightiesfrench
@@ -546,7 +546,7 @@ z\'ero%
 \global\let\@numberstringFfrench=\@numberstringFfrenchfrance
 \global\let\@ordinalstringNfrench\@ordinalstringMfrench
 \newcommand*{\@NumberstringMfrenchswiss}[2]{%
-\let\fc@case\fc@UpperCaseFirstLetter
+\let\fc@wcase\fc@UpperCaseFirstLetter
 \fc@french@common
 \let\@seventies=\@@seventiesfrenchswiss
 \let\@eighties=\@@eightiesfrenchswiss
@@ -556,7 +556,7 @@ z\'ero%
 \@@numberstringfrench{#1}{#2}}
 \global\let\@NumberstringMfrenchswiss\@NumberstringMfrenchswiss
 \newcommand*{\@NumberstringMfrenchfrance}[2]{%
-\let\fc@case\fc@UpperCaseFirstLetter
+\let\fc@wcase\fc@UpperCaseFirstLetter
 \fc@french@common
 \let\@seventies=\@@seventiesfrench
 \let\@eighties=\@@eightiesfrench
@@ -566,7 +566,7 @@ z\'ero%
 \@@numberstringfrench{#1}{#2}}
 \global\let\@NumberstringMfrenchfrance\@NumberstringMfrenchfrance
 \newcommand*{\@NumberstringMfrenchbelgian}[2]{%
-\let\fc@case\fc@UpperCaseFirstLetter
+\let\fc@wcase\fc@UpperCaseFirstLetter
 \fc@french@common
 \let\@seventies=\@@seventiesfrenchswiss
 \let\@eighties=\@@eightiesfrench
@@ -577,7 +577,7 @@ z\'ero%
 \global\let\@NumberstringMfrenchbelgian\@NumberstringMfrenchbelgian
 \global\let\@NumberstringMfrench=\@NumberstringMfrenchfrance
 \newcommand*{\@NumberstringFfrenchswiss}[2]{%
-\let\fc@case\fc@UpperCaseFirstLetter
+\let\fc@wcase\fc@UpperCaseFirstLetter
 \fc@french@common
 \let\@seventies=\@@seventiesfrenchswiss
 \let\@eighties=\@@eightiesfrenchswiss
@@ -587,7 +587,7 @@ z\'ero%
 \@@numberstringfrench{#1}{#2}}
 \global\let\@NumberstringFfrenchswiss\@NumberstringFfrenchswiss
 \newcommand*{\@NumberstringFfrenchfrance}[2]{%
-\let\fc@case\fc@UpperCaseFirstLetter
+\let\fc@wcase\fc@UpperCaseFirstLetter
 \fc@french@common
 \let\@seventies=\@@seventiesfrench
 \let\@eighties=\@@eightiesfrench
@@ -597,7 +597,7 @@ z\'ero%
 \@@numberstringfrench{#1}{#2}}
 \global\let\@NumberstringFfrenchfrance\@NumberstringFfrenchfrance
 \newcommand*{\@NumberstringFfrenchbelgian}[2]{%
-\let\fc@case\fc@UpperCaseFirstLetter
+\let\fc@wcase\fc@UpperCaseFirstLetter
 \fc@french@common
 \let\@seventies=\@@seventiesfrenchswiss
 \let\@eighties=\@@eightiesfrench
@@ -609,7 +609,7 @@ z\'ero%
 \global\let\@NumberstringFfrench=\@NumberstringFfrenchfrance
 \global\let\@NumberstringNfrench\@NumberstringMfrench
 \newcommand*{\@ordinalstringMfrenchswiss}[2]{%
-\let\fc@case\fc@CaseIden
+\let\fc@wcase\fc@CaseIden
 \let\fc@first=\fc@@firstfrench
 \fc@french@common
 \let\@seventies=\@@seventiesfrenchswiss
@@ -627,7 +627,7 @@ z\'ero%
 \newcommand*\fc@@firstFfrench{premi\protect\`ere}
 \global\let\fc@@firstFfrench\fc@@firstFfrench
 \newcommand*{\@ordinalstringMfrenchfrance}[2]{%
-\let\fc@case\fc@CaseIden
+\let\fc@wcase\fc@CaseIden
 \let\fc@first=\fc@@firstfrench
 \fc@french@common
 \let\@seventies=\@@seventiesfrench
@@ -636,7 +636,7 @@ z\'ero%
 \@@ordinalstringfrench{#1}{#2}}
 \global\let\@ordinalstringMfrenchfrance\@ordinalstringMfrenchfrance
 \newcommand*{\@ordinalstringMfrenchbelgian}[2]{%
-\let\fc@case\fc@CaseIden
+\let\fc@wcase\fc@CaseIden
 \let\fc@first=\fc@@firstfrench
 \fc@french@common
 \let\@seventies=\@@seventiesfrench
@@ -647,7 +647,7 @@ z\'ero%
 \global\let\@ordinalstringMfrenchbelgian\@ordinalstringMfrenchbelgian
 \global\let\@ordinalstringMfrench=\@ordinalstringMfrenchfrance
 \newcommand*{\@ordinalstringFfrenchswiss}[2]{%
-\let\fc@case\fc@CaseIden
+\let\fc@wcase\fc@CaseIden
 \let\fc@first=\fc@@firstFfrench
 \fc@french@common
 \let\@seventies=\@@seventiesfrenchswiss
@@ -657,7 +657,7 @@ z\'ero%
 }%
 \global\let\@ordinalstringFfrenchswiss\@ordinalstringFfrenchswiss
 \newcommand*{\@ordinalstringFfrenchfrance}[2]{%
-\let\fc@case\fc@CaseIden
+\let\fc@wcase\fc@CaseIden
 \let\fc@first=\fc@@firstFfrench
 \fc@french@common
 \let\@seventies=\@@seventiesfrench
@@ -667,7 +667,7 @@ z\'ero%
 }%
 \global\let\@ordinalstringFfrenchfrance\@ordinalstringFfrenchfrance
 \newcommand*{\@ordinalstringFfrenchbelgian}[2]{%
-\let\fc@case\fc@CaseIden
+\let\fc@wcase\fc@CaseIden
 \let\fc@first=\fc@@firstFfrench
 \fc@french@common
 \let\@seventies=\@@seventiesfrench
@@ -679,7 +679,7 @@ z\'ero%
 \global\let\@ordinalstringFfrench=\@ordinalstringFfrenchfrance
 \global\let\@ordinalstringNfrench\@ordinalstringMfrench
 \newcommand*{\@OrdinalstringMfrenchswiss}[2]{%
-\let\fc@case\fc@UpperCaseFirstLetter
+\let\fc@wcase\fc@UpperCaseFirstLetter
 \let\fc@first=\fc@@firstfrench
 \fc@french@common
 \let\@seventies=\@@seventiesfrenchswiss
@@ -689,7 +689,7 @@ z\'ero%
 }%
 \global\let\@OrdinalstringMfrenchswiss\@OrdinalstringMfrenchswiss
 \newcommand*{\@OrdinalstringMfrenchfrance}[2]{%
-\let\fc@case\fc@UpperCaseFirstLetter
+\let\fc@wcase\fc@UpperCaseFirstLetter
 \let\fc@first=\fc@@firstfrench
 \fc@french@common
 \let\@seventies=\@@seventiesfrench
@@ -699,7 +699,7 @@ z\'ero%
 }%
 \global\let\@OrdinalstringMfrenchfrance\@OrdinalstringMfrenchfrance
 \newcommand*{\@OrdinalstringMfrenchbelgian}[2]{%
-\let\fc@case\fc@UpperCaseFirstLetter
+\let\fc@wcase\fc@UpperCaseFirstLetter
 \let\fc@first=\fc@@firstfrench
 \fc@french@common
 \let\@seventies=\@@seventiesfrench
@@ -710,7 +710,7 @@ z\'ero%
 \global\let\@OrdinalstringMfrenchbelgian\@OrdinalstringMfrenchbelgian
 \global\let\@OrdinalstringMfrench=\@OrdinalstringMfrenchfrance
 \newcommand*{\@OrdinalstringFfrenchswiss}[2]{%
-\let\fc@case\fc@UpperCaseFirstLetter
+\let\fc@wcase\fc@UpperCaseFirstLetter
 \let\fc@first=\fc@@firstfrench
 \fc@french@common
 \let\@seventies=\@@seventiesfrenchswiss
@@ -720,7 +720,7 @@ z\'ero%
 }%
 \global\let\@OrdinalstringFfrenchswiss\@OrdinalstringFfrenchswiss
 \newcommand*{\@OrdinalstringFfrenchfrance}[2]{%
-\let\fc@case\fc@UpperCaseFirstLetter
+\let\fc@wcase\fc@UpperCaseFirstLetter
 \let\fc@first=\fc@@firstFfrench
 \fc@french@common
 \let\@seventies=\@@seventiesfrench
@@ -730,7 +730,7 @@ z\'ero%
 }%
 \global\let\@OrdinalstringFfrenchfrance\@OrdinalstringFfrenchfrance
 \newcommand*{\@OrdinalstringFfrenchbelgian}[2]{%
-\let\fc@case\fc@UpperCaseFirstLetter
+\let\fc@wcase\fc@UpperCaseFirstLetter
 \let\fc@first=\fc@@firstFfrench
 \fc@french@common
 \let\@seventies=\@@seventiesfrench
@@ -817,8 +817,8 @@ z\'ero%
 \def\fc@@nbrstr@Fpreamble{%
   \fc@read@unit{\count1}{0}%
   \ifnum\count1=1 %
-      \let\fc@case@save\fc@case
-      \def\fc@case{\noexpand\fc@case}%
+      \let\fc@wcase@save\fc@wcase
+      \def\fc@wcase{\noexpand\fc@wcase}%
       \def\@nil{\noexpand\@nil}%
      \let\fc@nbrstr@postamble\fc@@nbrstr@Fpostamble
   \fi
@@ -828,12 +828,12 @@ z\'ero%
 % \DescribeMacro{\fc@@nbrstr@Fpostamble}
 %    \begin{macrocode}
 \def\fc@@nbrstr@Fpostamble{%
-  \let\fc@case\fc@case@save
+  \let\fc@wcase\fc@wcase@save
   \expandafter\fc@get@last@word\expandafter{\@tempa}\@tempb\@tempc
   \def\@tempd{un}%
   \ifx\@tempc\@tempd
     \let\@tempc\@tempa
-    \edef\@tempa{\@tempb\fc@case une\@nil}%
+    \edef\@tempa{\@tempb\fc@wcase une\@nil}%
   \fi
 }%
 \global\let\fc@@nbrstr@Fpostamble\fc@@nbrstr@Fpostamble
@@ -935,7 +935,7 @@ z\'ero%
 %    \begin{macrocode}
           \count10=\fc@frenchoptions@mil@plural\space
           \edef\@tempe{%
-            \noexpand\fc@case
+            \noexpand\fc@wcase
              mil%
              \fc@@do@plural@mark\fc@frenchoptions@mil@plural@mark
             \noexpand\@nil
@@ -952,7 +952,7 @@ z\'ero%
              \count10=\csname fc@frenchoptions@n-illion@plural\endcsname\space
           \fi
           \edef\@tempe{%
-            \noexpand\fc@case
+            \noexpand\fc@wcase
             \@tempg
             \the\toks10 %
             \fc@@do@plural@mark s%
@@ -1034,7 +1034,7 @@ z\'ero%
            \expandafter\fc@@latin@cardinal@pefix\expandafter{\the\count2}\@tempg
            \count10=\csname fc@frenchoptions@n-illion@plural\endcsname\space
            \edef\@tempe{%
-             \noexpand\fc@case
+             \noexpand\fc@wcase
              \@tempg
              illion%
              \fc@@do@plural@mark s%
@@ -1098,7 +1098,7 @@ z\'ero%
       \advance\count2 by -1 %
       \let\@tempe\@empty
       \edef\@tempf{\fc@frenchoptions@supermillion@dos
-        de\fc@frenchoptions@supermillion@dos\fc@case milliards\@nil}%
+        de\fc@frenchoptions@supermillion@dos\fc@wcase milliards\@nil}%
       \count11\count0 %
       \ifnum\count2>0 %
         \count3\count2 %
@@ -1155,16 +1155,16 @@ z\'ero%
         \or
           mil\fc@@do@plural@mark\fc@frenchoptions@mil@plural@mark
           \noexpand\@nil\fc@frenchoptions@supermillion@dos
-          \noexpand\fc@case milliards% 4
+          \noexpand\fc@wcase milliards% 4
         \or
           million\fc@@do@plural@mark s%
           \noexpand\@nil\fc@frenchoptions@supermillion@dos
-          de\fc@frenchoptions@supermillion@dos\noexpand\fc@case  milliards% 5
+          de\fc@frenchoptions@supermillion@dos\noexpand\fc@wcase  milliards% 5
         \fi
       }%
       \edef\@tempe{%
         \ifx\@tempf\@empty\else
-         \expandafter\fc@case\@tempf\@nil
+         \expandafter\fc@wcase\@tempf\@nil
         \fi
         \@tempg
       }%
@@ -1448,10 +1448,10 @@ z\'ero%
        \ifnum\count2=0 %
        \else
          \ifnum\count2=1 %
-           \expandafter\fc@case\@hundred\@nil
+           \expandafter\fc@wcase\@hundred\@nil
          \else
            \@unitstring{\count2}\fc@frenchoptions@submillion@dos
-           \noexpand\fc@case\@hundred\@temps\noexpand\@nil
+           \noexpand\fc@wcase\@hundred\@temps\noexpand\@nil
          \fi
          \@tempb
        \fi
@@ -1497,7 +1497,7 @@ z\'ero%
 % \cs{fc@sign@case} expands to `\texttt{0}', then \cs{@tempa} is defined to `' (i.e. empty) rather than to
 % `\cs{relax}'.
 %    \begin{macrocode}
-    \edef\@tempa{\ifcase\fc@sign@case\space\or\fc@case plus\@nil\or\fc@case moins\@nil\fi}%
+    \edef\@tempa{\ifcase\fc@sign@case\space\or\fc@wcase plus\@nil\or\fc@wcase moins\@nil\fi}%
     \fc@nbrstr@preamble
     \fc@@nbrstrfrench@inner
     \fc@nbrstr@postamble
@@ -1615,7 +1615,7 @@ z\'ero%
 % \changes{3.01}{2014-11-10}{Protect \cs{`}, for solving
 % \uref{http://github.com/nlct/fmtcount/issues/15}{Issue \#15}}
 %    \begin{macrocode}
-      \protected@edef\@tempa{\expandafter\fc@case\fc@first\@nil}%
+      \protected@edef\@tempa{\expandafter\fc@wcase\fc@first\@nil}%
     \else
 %    \end{macrocode}
 % Now we tamper a little bit with the plural handling options to ensure that there is no final plural mark.
@@ -1647,8 +1647,8 @@ z\'ero%
 %    \end{macrocode}
 % Now make \cs{fc@case} and \cs{@nil} non expandable
 %    \begin{macrocode}
-      \let\fc@case@save\fc@case
-      \def\fc@case{\noexpand\fc@case}%
+      \let\fc@wcase@save\fc@wcase
+      \def\fc@wcase{\noexpand\fc@wcase}%
       \def\@nil{\noexpand\@nil}%
 %    \end{macrocode}
 % In the sequel, \cs{@tempa} is used to accumulate the formatted number.
@@ -1658,7 +1658,7 @@ z\'ero%
 %    \end{macrocode}
 % Now restore \cs{fc@case}
 %    \begin{macrocode}
-     \let\fc@case\fc@case@save
+     \let\fc@wcase\fc@wcase@save
 %    \end{macrocode}
 % Now we add the ``i\`eme'' ending
 % \changes{3.01}{2014-11-10}{Protect \cs{`}, for solving
@@ -1668,17 +1668,17 @@ z\'ero%
       \expandafter\fc@get@last@letter\expandafter{\@tempc}\@tempd\@tempe
       \def\@tempf{e}%
       \ifx\@tempe\@tempf
-        \protected@edef\@tempa{\@tempb\expandafter\fc@case\@tempd i\protect\`eme\@nil}%
+        \protected@edef\@tempa{\@tempb\expandafter\fc@wcase\@tempd i\protect\`eme\@nil}%
       \else
         \def\@tempf{q}%
         \ifx\@tempe\@tempf
-          \protected@edef\@tempa{\@tempb\expandafter\fc@case\@tempd qui\protect\`eme\@nil}%
+          \protected@edef\@tempa{\@tempb\expandafter\fc@wcase\@tempd qui\protect\`eme\@nil}%
         \else
           \def\@tempf{f}%
           \ifx\@tempe\@tempf
-            \protected@edef\@tempa{\@tempb\expandafter\fc@case\@tempd vi\protect\`eme\@nil}%
+            \protected@edef\@tempa{\@tempb\expandafter\fc@wcase\@tempd vi\protect\`eme\@nil}%
           \else
-            \protected@edef\@tempa{\@tempb\expandafter\fc@case\@tempc i\protect\`eme\@nil}%
+            \protected@edef\@tempa{\@tempb\expandafter\fc@wcase\@tempc i\protect\`eme\@nil}%
           \fi
         \fi
       \fi

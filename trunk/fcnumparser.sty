@@ -477,13 +477,13 @@
 % First we split \texttt{\#1} into two parts: everything that is upto \cs{fc@case} exclusive goes to
 % \cs{toks0}, and evrything from \cs{fc@case} exclusive upto the final \cs{@nil} exclusive goes to \cs{toks1}.
 %    \begin{macrocode}
-    \def\@tempa##1\fc@case##2\@nil\fc@end{%
+    \def\@tempa##1\fc@wcase##2\@nil\fc@end{%
       \toks0{##1}%
 %    \end{macrocode}
 % Actually a dummy \cs{fc@case} is appended to \cs{toks1}, because that makes easier further checking that it
 % does not contains any other \cs{fc@case}.
 %    \begin{macrocode}
-      \toks1{##2\fc@case}%
+      \toks1{##2\fc@wcase}%
     }%
     \@tempa#1\fc@end
 %    \end{macrocode}
@@ -493,7 +493,7 @@
 % contains some \cs{fc@case}. First we define \cs{@tempa} to split \cs{the}\cs{toks1} between parts before and
 % after some potential \cs{fc@case}.
 %    \begin{macrocode}
-    \def\@tempa##1\fc@case##2\fc@end{%
+    \def\@tempa##1\fc@wcase##2\fc@end{%
       \toks2{##1}%
       \def\@tempb{##2}%
       \toks3{##2}%
@@ -520,7 +520,7 @@
          \expandafter\expandafter\expandafter\@tempt
          \expandafter\expandafter\expandafter{%
            \expandafter\the\expandafter\@tempt
-           \expandafter\fc@case\the\toks2}%
+           \expandafter\fc@wcase\the\toks2}%
          \toks1\toks3 %
       \fi
       \next
