@@ -240,17 +240,31 @@
 \expandafter\@tempb\csname KV@fcfrench@mil plural mark\endcsname
 %    \end{macrocode}
 % Definition of case handling macros. This should be moved somewhere else to be commonalized between all
-% languages.
+% languages.\newline
+% \DescribeMacro{\fc@UpperCaseFirstLetter}The macro \cs{fc@UpperCaseFirstLetter} is such that
+% \cs{fc@UpperCaseFirstLetter}\meta{word}\cs{@nil} expands to \cs{word} with first letter capitalized and
+% remainder unchanged.
 %    \begin{macrocode}
 \gdef\fc@UpperCaseFirstLetter#1#2\@nil{%
   \uppercase{#1}#2}
-
+%    \end{macrocode}
+% \DescribeMacro{\fc@CaseIden}The macro \cs{fc@CaseIden} is such that \cs{fc@CaseIden}\meta{word}\cs{@nil}
+% expands to \cs{word} unchanged.
+%    \begin{macrocode}
 \gdef\fc@CaseIden#1\@nil{%
   #1%
 }%
+%    \end{macrocode}
+% \DescribeMacro{\fc@UpperCaseAll}The macro \cs{fc@UpperCaseAll} is such that \cs{fc@UpperCaseAll}\meta{word}\cs{@nil}
+% expands to \cs{word} all capitalized.
+%    \begin{macrocode}
 \gdef\fc@UpperCaseAll#1\@nil{%
   \uppercase{#1}%
 }%
+%    \end{macrocode}
+% \DescribeMacro{\fc@wcase}The macro \cs{fc@wcase} is the capitalizing macro for word-by-word
+% capitalization. By default we set it to identity, ie.\ no capitalization.
+%    \begin{macrocode}
 \global\let\fc@wcase\fc@CaseIden
 %    \end{macrocode}
 % \DescribeMacro{\@ordinalMfrench}
@@ -1173,7 +1187,7 @@ z\'ero%
        \let\@tempe\@empty
     \fi
 %    \end{macrocode}
-% now place into \@cs{@tempa} the assignment of results \cs{@temph} and \cs{@tempe} to to \texttt{\#2} and
+% Now place into \@cs{@tempa} the assignment of results \cs{@temph} and \cs{@tempe} to \texttt{\#2} and
 % \texttt{\#3} for further propagation after closing brace.
 %    \begin{macrocode}
     \expandafter\toks\expandafter1\expandafter{\@tempe}%
@@ -1645,7 +1659,7 @@ z\'ero%
       \@tempa{n-illion}%
       \@tempa{n-illiard}%
 %    \end{macrocode}
-% Now make \cs{fc@case} and \cs{@nil} non expandable
+% Now make \cs{fc@wcase} and \cs{@nil} non expandable
 %    \begin{macrocode}
       \let\fc@wcase@save\fc@wcase
       \def\fc@wcase{\noexpand\fc@wcase}%
@@ -1656,7 +1670,7 @@ z\'ero%
       \let\@tempa\@empty
       \fc@@nbrstrfrench@inner
 %    \end{macrocode}
-% Now restore \cs{fc@case}
+% Now restore \cs{fc@wcase}
 %    \begin{macrocode}
      \let\fc@wcase\fc@wcase@save
 %    \end{macrocode}
