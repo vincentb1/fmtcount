@@ -474,24 +474,24 @@
 \def\fc@get@last@word#1#2#3{%
   {%
 %    \end{macrocode}
-% First we split \texttt{\#1} into two parts: everything that is upto \cs{fc@case} exclusive goes to
-% \cs{toks0}, and evrything from \cs{fc@case} exclusive upto the final \cs{@nil} exclusive goes to \cs{toks1}.
+% First we split \texttt{\#1} into two parts: everything that is upto \cs{fc@wcase} exclusive goes to
+% \cs{toks0}, and evrything from \cs{fc@wcase} exclusive upto the final \cs{@nil} exclusive goes to \cs{toks1}.
 %    \begin{macrocode}
     \def\@tempa##1\fc@wcase##2\@nil\fc@end{%
       \toks0{##1}%
 %    \end{macrocode}
-% Actually a dummy \cs{fc@case} is appended to \cs{toks1}, because that makes easier further checking that it
-% does not contains any other \cs{fc@case}.
+% Actually a dummy \cs{fc@wcase} is appended to \cs{toks1}, because that makes easier further checking that it
+% does not contains any other \cs{fc@wcase}.
 %    \begin{macrocode}
       \toks1{##2\fc@wcase}%
     }%
     \@tempa#1\fc@end
 %    \end{macrocode}
 % Now leading part upto last word should be in \cs{toks0}, and last word should be in \cs{toks1}. However we
-% need to check that this is really the last word, i.e. we need to check that there is no \cs{fc@case} inside
+% need to check that this is really the last word, i.e. we need to check that there is no \cs{fc@wcase} inside
 % \cs{toks1} other than the tailing dummy one. To that purpose we will loop while we find that \cs{toks1}
-% contains some \cs{fc@case}. First we define \cs{@tempa} to split \cs{the}\cs{toks1} between parts before and
-% after some potential \cs{fc@case}.
+% contains some \cs{fc@wcase}. First we define \cs{@tempa} to split \cs{the}\cs{toks1} between parts before and
+% after some potential \cs{fc@wcase}.
 %    \begin{macrocode}
     \def\@tempa##1\fc@wcase##2\fc@end{%
       \toks2{##1}%
@@ -509,7 +509,7 @@
       \expandafter\@tempa\the\toks1 \fc@end
       \ifx\@tempb\@empty
 %    \end{macrocode}
-% \cs{@tempb} empty means that the only \cs{fc@case} found in \cs{the}\cs{toks1} is the dummy one. So we end
+% \cs{@tempb} empty means that the only \cs{fc@wcase} found in \cs{the}\cs{toks1} is the dummy one. So we end
 % the loop here, \cs{toks2} contains the last word.
 %    \begin{macrocode}
         \let\next\relax

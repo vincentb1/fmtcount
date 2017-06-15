@@ -114,7 +114,9 @@ END   { print "\nTotal failure count = " failcount}
 endef
 
 
-pdftests.log:  $(patsubst %,pdftests/%.pdf,$(LATEX_TESTS) $(XELATEX_TESTS)) total_pdftests
+pdftests.log:  $(patsubst %,pdftests/%.pdf,$(LATEX_TESTS) $(XELATEX_TESTS)) \
+	$(patsubst %,pdftests/%,$(STYFILES)) \
+	total_pdftests
 
 .PHONY: total_pdftests
 total_pdftests: $(patsubst %,pdftests/%.pdf,$(LATEX_TESTS) $(XELATEX_TESTS))
@@ -271,7 +273,7 @@ cleantex4ht:
 	for w in $(TEX4HT_LOGS); do rm -f $$w.log; done
 
 .PHONY: overwrite
-overwrite: overwrite_short
+overwrite: overwrite_short overwrite_pdftests
 
 
 .PHONY: overwrite_short
@@ -305,3 +307,32 @@ overwrite_short:
 	done
 
 
+.PHONY: overwrite_pdftests
+overwrite_pdftests:
+	o=no; \
+	function overwrite(){ \
+		echo "Overwriting reference of test $$1"; \
+		cp -f pdftests/$$1.pdf reference/$$1.pdf; \
+		cp -f pdftests/$$1.txt reference/$$1.txt; \
+	}; \
+	for w in $(LATEX_TESTS) $(XELATEX_TESTS); do \
+		if diff -abs pdftests/$$w.txt reference/$$w.txt > /dev/null; \
+		then echo "Test $$w ok"; else \
+			if [ $$o == no ]; then \
+				echo "Overwrite reference of test $$w ?"; \
+				select o in yes no all; do \
+					case $$o in \
+					yes) \
+						o=no; \
+						overwrite $$w;; \
+					all) \
+						overwrite $$w;; \
+					no) ;; \
+					esac; \
+					break; \
+				done; \
+			else \
+				overwrite $$w; \
+			fi ; \
+		fi ; \
+	done

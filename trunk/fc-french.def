@@ -267,6 +267,24 @@
 %    \begin{macrocode}
 \global\let\fc@wcase\fc@CaseIden
 %    \end{macrocode}
+% \DescribeMacro{\fc@gcase}The macro \cs{fc@gcase} is the capitalizing macro for global (the completed number)
+% capitalization.  By default we set it to identity, ie.\ no capitalization.
+% \changes{3.02}{2017/06/15}{Create new macro \cs{fc@gcase} for solving
+% \uref{http://github.com/nlct/fmtcount/issues/24}{Issue \#24} about capitalization in French.}
+%    \begin{macrocode}
+\global\let\fc@gcase\fc@CaseIden
+%    \end{macrocode}
+% \DescribeMacro{\fc@apply@gcase}The macro \cs{fc@apply@gcase} simply applies \cs{fc@gcase} to \cs{@tempa},
+% knowing that \cs{@tempa} is the macro containing the result of formatting.
+%    \begin{macrocode}
+\gdef\fc@apply@gcase{%
+%    \end{macrocode}
+% First of all we expand whatever \cs{fc@wcase}\ldots\cs{@nil} found within \cs{@tempa}.
+%    \begin{macrocode}
+  \protected@edef\@tempa{\@tempa}%
+  \protected@edef\@tempa{\expandafter\fc@gcase\@tempa\@nil}%
+}
+%    \end{macrocode}
 % \DescribeMacro{\@ordinalMfrench}
 % \changes{3.01}{2014-11-12}{Protect \cs{`}, for solving
 %   \uref{http://github.com/nlct/fmtcount/issues/15}{Issue \#15}, and
@@ -487,6 +505,7 @@ z\'ero%
 % French dialects \& formatting options.
 %    \begin{macrocode}
 \newcommand*\fc@french@common{%
+  \let\fc@wcase\fc@CaseIden
   \let\@unitstring=\@@unitstringfrench
   \let\@teenstring=\@@teenstringfrench
   \let\@tenstring=\@@tenstringfrench
@@ -497,8 +516,8 @@ z\'ero%
 %    \end{macrocode}
 %    \begin{macrocode}
 \newcommand*{\@numberstringMfrenchswiss}[2]{%
-\let\fc@wcase\fc@CaseIden
 \fc@french@common
+\let\fc@gcase\fc@CaseIden
 \let\@seventies=\@@seventiesfrenchswiss
 \let\@eighties=\@@eightiesfrenchswiss
 \let\@nineties=\@@ninetiesfrenchswiss
@@ -507,8 +526,8 @@ z\'ero%
 \@@numberstringfrench{#1}{#2}}
 \global\let\@numberstringMfrenchswiss\@numberstringMfrenchswiss
 \newcommand*{\@numberstringMfrenchfrance}[2]{%
-\let\fc@wcase\fc@CaseIden
 \fc@french@common
+\let\fc@gcase\fc@CaseIden
 \let\@seventies=\@@seventiesfrench
 \let\@eighties=\@@eightiesfrench
 \let\@nineties=\@@ninetiesfrench
@@ -517,8 +536,8 @@ z\'ero%
 \@@numberstringfrench{#1}{#2}}
 \global\let\@numberstringMfrenchfrance\@numberstringMfrenchfrance
 \newcommand*{\@numberstringMfrenchbelgian}[2]{%
-\let\fc@wcase\fc@CaseIden
 \fc@french@common
+\let\fc@gcase\fc@CaseIden
 \let\@seventies=\@@seventiesfrenchswiss
 \let\@eighties=\@@eightiesfrench
 \let\@nineties=\@@ninetiesfrench
@@ -528,8 +547,8 @@ z\'ero%
 \global\let\@numberstringMfrenchbelgian\@numberstringMfrenchbelgian
 \let\@numberstringMfrench=\@numberstringMfrenchfrance
 \newcommand*{\@numberstringFfrenchswiss}[2]{%
-\let\fc@wcase\fc@CaseIden
 \fc@french@common
+\let\fc@gcase\fc@CaseIden
 \let\@seventies=\@@seventiesfrenchswiss
 \let\@eighties=\@@eightiesfrenchswiss
 \let\@nineties=\@@ninetiesfrenchswiss
@@ -538,8 +557,8 @@ z\'ero%
 \@@numberstringfrench{#1}{#2}}
 \global\let\@numberstringFfrenchswiss\@numberstringFfrenchswiss
 \newcommand*{\@numberstringFfrenchfrance}[2]{%
-\let\fc@wcase\fc@CaseIden
 \fc@french@common
+\let\fc@gcase\fc@CaseIden
 \let\@seventies=\@@seventiesfrench
 \let\@eighties=\@@eightiesfrench
 \let\@nineties=\@@ninetiesfrench
@@ -548,8 +567,8 @@ z\'ero%
 \@@numberstringfrench{#1}{#2}}
 \global\let\@numberstringFfrenchfrance\@numberstringFfrenchfrance
 \newcommand*{\@numberstringFfrenchbelgian}[2]{%
-\let\fc@wcase\fc@CaseIden
 \fc@french@common
+\let\fc@gcase\fc@CaseIden
 \let\@seventies=\@@seventiesfrenchswiss
 \let\@eighties=\@@eightiesfrench
 \let\@nineties=\@@ninetiesfrench
@@ -560,72 +579,72 @@ z\'ero%
 \global\let\@numberstringFfrench=\@numberstringFfrenchfrance
 \global\let\@ordinalstringNfrench\@ordinalstringMfrench
 \newcommand*{\@NumberstringMfrenchswiss}[2]{%
-\let\fc@wcase\fc@UpperCaseFirstLetter
 \fc@french@common
+\let\fc@gcase\fc@UpperCaseFirstLetter
 \let\@seventies=\@@seventiesfrenchswiss
 \let\@eighties=\@@eightiesfrenchswiss
 \let\@nineties=\@@ninetiesfrenchswiss
 \let\fc@nbrstr@preamble\@empty
-\let\fc@nbrstr@postamble\@empty
+\let\fc@nbrstr@postamble\fc@apply@gcase
 \@@numberstringfrench{#1}{#2}}
 \global\let\@NumberstringMfrenchswiss\@NumberstringMfrenchswiss
 \newcommand*{\@NumberstringMfrenchfrance}[2]{%
-\let\fc@wcase\fc@UpperCaseFirstLetter
 \fc@french@common
+\let\fc@gcase\fc@UpperCaseFirstLetter
 \let\@seventies=\@@seventiesfrench
 \let\@eighties=\@@eightiesfrench
 \let\@nineties=\@@ninetiesfrench
 \let\fc@nbrstr@preamble\@empty
-\let\fc@nbrstr@postamble\@empty
+\let\fc@nbrstr@postamble\fc@apply@gcase
 \@@numberstringfrench{#1}{#2}}
 \global\let\@NumberstringMfrenchfrance\@NumberstringMfrenchfrance
 \newcommand*{\@NumberstringMfrenchbelgian}[2]{%
-\let\fc@wcase\fc@UpperCaseFirstLetter
 \fc@french@common
+\let\fc@gcase\fc@UpperCaseFirstLetter
 \let\@seventies=\@@seventiesfrenchswiss
 \let\@eighties=\@@eightiesfrench
 \let\@nineties=\@@ninetiesfrench
 \let\fc@nbrstr@preamble\@empty
-\let\fc@nbrstr@postamble\@empty
+\let\fc@nbrstr@postamble\fc@apply@gcase
 \@@numberstringfrench{#1}{#2}}
 \global\let\@NumberstringMfrenchbelgian\@NumberstringMfrenchbelgian
 \global\let\@NumberstringMfrench=\@NumberstringMfrenchfrance
 \newcommand*{\@NumberstringFfrenchswiss}[2]{%
-\let\fc@wcase\fc@UpperCaseFirstLetter
 \fc@french@common
+\let\fc@gcase\fc@UpperCaseFirstLetter
 \let\@seventies=\@@seventiesfrenchswiss
 \let\@eighties=\@@eightiesfrenchswiss
 \let\@nineties=\@@ninetiesfrenchswiss
 \let\fc@nbrstr@preamble\fc@@nbrstr@Fpreamble
-\let\fc@nbrstr@postamble\@empty
+\let\fc@nbrstr@postamble\fc@apply@gcase
 \@@numberstringfrench{#1}{#2}}
 \global\let\@NumberstringFfrenchswiss\@NumberstringFfrenchswiss
 \newcommand*{\@NumberstringFfrenchfrance}[2]{%
-\let\fc@wcase\fc@UpperCaseFirstLetter
 \fc@french@common
+\let\fc@gcase\fc@UpperCaseFirstLetter
 \let\@seventies=\@@seventiesfrench
 \let\@eighties=\@@eightiesfrench
 \let\@nineties=\@@ninetiesfrench
 \let\fc@nbrstr@preamble\fc@@nbrstr@Fpreamble
-\let\fc@nbrstr@postamble\@empty
+\let\fc@nbrstr@postamble\fc@apply@gcase
 \@@numberstringfrench{#1}{#2}}
 \global\let\@NumberstringFfrenchfrance\@NumberstringFfrenchfrance
 \newcommand*{\@NumberstringFfrenchbelgian}[2]{%
-\let\fc@wcase\fc@UpperCaseFirstLetter
 \fc@french@common
+\let\fc@gcase\fc@UpperCaseFirstLetter
 \let\@seventies=\@@seventiesfrenchswiss
 \let\@eighties=\@@eightiesfrench
 \let\@nineties=\@@ninetiesfrench
 \let\fc@nbrstr@preamble\fc@@nbrstr@Fpreamble
-\let\fc@nbrstr@postamble\@empty
+\let\fc@nbrstr@postamble\fc@apply@gcase
 \@@numberstringfrench{#1}{#2}}
 \global\let\@NumberstringFfrenchbelgian\@NumberstringFfrenchbelgian
 \global\let\@NumberstringFfrench=\@NumberstringFfrenchfrance
 \global\let\@NumberstringNfrench\@NumberstringMfrench
 \newcommand*{\@ordinalstringMfrenchswiss}[2]{%
-\let\fc@wcase\fc@CaseIden
-\let\fc@first=\fc@@firstfrench
 \fc@french@common
+\let\fc@gcase\fc@CaseIden
+\let\fc@first\fc@@firstfrench
 \let\@seventies=\@@seventiesfrenchswiss
 \let\@eighties=\@@eightiesfrenchswiss
 \let\@nineties=\@@ninetiesfrenchswiss
@@ -641,18 +660,18 @@ z\'ero%
 \newcommand*\fc@@firstFfrench{premi\protect\`ere}
 \global\let\fc@@firstFfrench\fc@@firstFfrench
 \newcommand*{\@ordinalstringMfrenchfrance}[2]{%
-\let\fc@wcase\fc@CaseIden
-\let\fc@first=\fc@@firstfrench
 \fc@french@common
+\let\fc@gcase\fc@CaseIden
+\let\fc@first=\fc@@firstfrench
 \let\@seventies=\@@seventiesfrench
 \let\@eighties=\@@eightiesfrench
 \let\@nineties=\@@ninetiesfrench
 \@@ordinalstringfrench{#1}{#2}}
 \global\let\@ordinalstringMfrenchfrance\@ordinalstringMfrenchfrance
 \newcommand*{\@ordinalstringMfrenchbelgian}[2]{%
-\let\fc@wcase\fc@CaseIden
-\let\fc@first=\fc@@firstfrench
 \fc@french@common
+\let\fc@gcase\fc@CaseIden
+\let\fc@first=\fc@@firstfrench
 \let\@seventies=\@@seventiesfrench
 \let\@eighties=\@@eightiesfrench
 \let\@nineties=\@@ninetiesfrench
@@ -661,9 +680,9 @@ z\'ero%
 \global\let\@ordinalstringMfrenchbelgian\@ordinalstringMfrenchbelgian
 \global\let\@ordinalstringMfrench=\@ordinalstringMfrenchfrance
 \newcommand*{\@ordinalstringFfrenchswiss}[2]{%
-\let\fc@wcase\fc@CaseIden
-\let\fc@first=\fc@@firstFfrench
 \fc@french@common
+\let\fc@gcase\fc@CaseIden
+\let\fc@first\fc@@firstFfrench
 \let\@seventies=\@@seventiesfrenchswiss
 \let\@eighties=\@@eightiesfrenchswiss
 \let\@nineties=\@@ninetiesfrenchswiss
@@ -671,9 +690,9 @@ z\'ero%
 }%
 \global\let\@ordinalstringFfrenchswiss\@ordinalstringFfrenchswiss
 \newcommand*{\@ordinalstringFfrenchfrance}[2]{%
-\let\fc@wcase\fc@CaseIden
-\let\fc@first=\fc@@firstFfrench
 \fc@french@common
+\let\fc@gcase\fc@CaseIden
+\let\fc@first=\fc@@firstFfrench
 \let\@seventies=\@@seventiesfrench
 \let\@eighties=\@@eightiesfrench
 \let\@nineties=\@@ninetiesfrench
@@ -681,9 +700,9 @@ z\'ero%
 }%
 \global\let\@ordinalstringFfrenchfrance\@ordinalstringFfrenchfrance
 \newcommand*{\@ordinalstringFfrenchbelgian}[2]{%
-\let\fc@wcase\fc@CaseIden
-\let\fc@first=\fc@@firstFfrench
 \fc@french@common
+\let\fc@gcase\fc@CaseIden
+\let\fc@first=\fc@@firstFfrench
 \let\@seventies=\@@seventiesfrench
 \let\@eighties=\@@eightiesfrench
 \let\@nineties=\@@ninetiesfrench
@@ -693,9 +712,9 @@ z\'ero%
 \global\let\@ordinalstringFfrench=\@ordinalstringFfrenchfrance
 \global\let\@ordinalstringNfrench\@ordinalstringMfrench
 \newcommand*{\@OrdinalstringMfrenchswiss}[2]{%
-\let\fc@wcase\fc@UpperCaseFirstLetter
-\let\fc@first=\fc@@firstfrench
 \fc@french@common
+\let\fc@gcase\fc@UpperCaseFirstLetter
+\let\fc@first=\fc@@firstfrench
 \let\@seventies=\@@seventiesfrenchswiss
 \let\@eighties=\@@eightiesfrenchswiss
 \let\@nineties=\@@ninetiesfrenchswiss
@@ -703,9 +722,9 @@ z\'ero%
 }%
 \global\let\@OrdinalstringMfrenchswiss\@OrdinalstringMfrenchswiss
 \newcommand*{\@OrdinalstringMfrenchfrance}[2]{%
-\let\fc@wcase\fc@UpperCaseFirstLetter
-\let\fc@first=\fc@@firstfrench
 \fc@french@common
+\let\fc@gcase\fc@UpperCaseFirstLetter
+\let\fc@first\fc@@firstfrench
 \let\@seventies=\@@seventiesfrench
 \let\@eighties=\@@eightiesfrench
 \let\@nineties=\@@ninetiesfrench
@@ -713,9 +732,9 @@ z\'ero%
 }%
 \global\let\@OrdinalstringMfrenchfrance\@OrdinalstringMfrenchfrance
 \newcommand*{\@OrdinalstringMfrenchbelgian}[2]{%
-\let\fc@wcase\fc@UpperCaseFirstLetter
-\let\fc@first=\fc@@firstfrench
 \fc@french@common
+\let\fc@gcase\fc@UpperCaseFirstLetter
+\let\fc@first\fc@@firstfrench
 \let\@seventies=\@@seventiesfrench
 \let\@eighties=\@@eightiesfrench
 \let\@nineties=\@@ninetiesfrench
@@ -724,9 +743,9 @@ z\'ero%
 \global\let\@OrdinalstringMfrenchbelgian\@OrdinalstringMfrenchbelgian
 \global\let\@OrdinalstringMfrench=\@OrdinalstringMfrenchfrance
 \newcommand*{\@OrdinalstringFfrenchswiss}[2]{%
-\let\fc@wcase\fc@UpperCaseFirstLetter
-\let\fc@first=\fc@@firstfrench
 \fc@french@common
+\let\fc@gcase\fc@UpperCaseFirstLetter
+\let\fc@first\fc@@firstfrench
 \let\@seventies=\@@seventiesfrenchswiss
 \let\@eighties=\@@eightiesfrenchswiss
 \let\@nineties=\@@ninetiesfrenchswiss
@@ -734,9 +753,9 @@ z\'ero%
 }%
 \global\let\@OrdinalstringFfrenchswiss\@OrdinalstringFfrenchswiss
 \newcommand*{\@OrdinalstringFfrenchfrance}[2]{%
-\let\fc@wcase\fc@UpperCaseFirstLetter
-\let\fc@first=\fc@@firstFfrench
 \fc@french@common
+\let\fc@gcase\fc@UpperCaseFirstLetter
+\let\fc@first\fc@@firstFfrench
 \let\@seventies=\@@seventiesfrench
 \let\@eighties=\@@eightiesfrench
 \let\@nineties=\@@ninetiesfrench
@@ -744,9 +763,9 @@ z\'ero%
 }%
 \global\let\@OrdinalstringFfrenchfrance\@OrdinalstringFfrenchfrance
 \newcommand*{\@OrdinalstringFfrenchbelgian}[2]{%
-\let\fc@wcase\fc@UpperCaseFirstLetter
-\let\fc@first=\fc@@firstFfrench
 \fc@french@common
+\let\fc@gcase\fc@UpperCaseFirstLetter
+\let\fc@first\fc@@firstFfrench
 \let\@seventies=\@@seventiesfrench
 \let\@eighties=\@@eightiesfrench
 \let\@nineties=\@@ninetiesfrench
@@ -1697,6 +1716,10 @@ z\'ero%
         \fi
       \fi
     \fi
+%    \end{macrocode}
+% Apply \cs{fc@gcase} to the result.
+%    \begin{macrocode}
+    \fc@apply@gcase
 %    \end{macrocode}
 % Propagate the result --- i.e. expansion of \cs{@tempa} --- into macro \texttt{\#2} after closing brace.
 %    \begin{macrocode}
