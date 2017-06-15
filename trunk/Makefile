@@ -27,6 +27,9 @@ dist	: README CHANGES fmtcount-manual.tex \
 ../dist/fmtcount-manual.html	: ../dist/fmtcount-manual.tex 
 	$(MAKE) -C ../dist fmtcount-manual.html
 
+.PHONY: doc
+doc: html pdf
+
 .PHONY: html
 html	: ../dist/fmtcount-manual.html
 

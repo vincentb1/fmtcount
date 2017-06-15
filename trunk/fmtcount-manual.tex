@@ -48,6 +48,14 @@
 \doxitem{Option}{option}{options}
 
 \newlength{\tabcolwidth}
+\newlength{\coliwidth}
+\newcommand*\cnab{\centering\arraybackslash}
+\newcommand*\ColIRI[1]{}
+\csname @ifpackageloaded\endcsname{tex4ht}{%
+\newcommand*\ColIRII[1]{\parbox{\coliwidth}{\cnab #1}}
+}{%
+\newcommand*\ColIRII[1]{\multirow{-2}{\coliwidth}{\cnab #1}}
+}
 
 \begin{document}
 \RecordChanges
@@ -673,24 +681,24 @@ L'effet des paramètres \texttt{traditional}, \texttt{traditional o}, \texttt{re
 \setlength{\tabcolwidth}{\linewidth}
 \addtolength{\tabcolwidth}{-10\tabcolsep}
 \addtolength{\tabcolwidth}{-6\arrayrulewidth}
+\setlength{\coliwidth}{0.398\tabcolwidth}
+\addtolength{\coliwidth}{\arrayrulewidth}
+\addtolength{\coliwidth}{2\tabcolsep}
 \noindent\begin{tabular*}{\linewidth}{|%
     >{\centering\arraybackslash\ttfamily}p{\dimexpr0.204\tabcolwidth-\arrayrulewidth-\doublerulesep}||%
     *{4}{>{\centering\arraybackslash\ttfamily}p{0.199\tabcolwidth}|}}\hline
   \textrm{\meta{x} dans ``\meta{x} }plural\textrm{''}&traditional&reformed&traditional o&reformed o\\\hline
   \hline
-  vingt&\multicolumn{2}{c|}{}&\multicolumn{2}{c|}{}\\\cline{1-1}
+  vingt&\multicolumn{2}{c|}{\ColIRI{multiple l-last}}&\multicolumn{2}{c|}{\ColIRI{multiple lng-last}}\\\cline{1-1}
   cent&%
-  \multicolumn{2}{c|}{\multirow{-2}{\dimexpr0.398\tabcolwidth+\arrayrulewidth+2\tabcolsep}{\centering 
-      multiple l-last}}&%
-  \multicolumn{2}{c|}{\multirow{-2}{\dimexpr0.398\tabcolwidth+\arrayrulewidth+2\tabcolsep}{\centering 
-      multiple lng-last}}\\\hline
+  \multicolumn{2}{c|}{\ColIRII{multiple l-last}}&%
+  \multicolumn{2}{c|}{\ColIRII{multiple lng-last}}\\\hline
   mil&\multicolumn{4}{c|}{always}\\\hline
-  n-illion&\multicolumn{2}{c|}{}&\multicolumn{2}{c|}{}\\\cline{1-1}
+  n-illion&\multicolumn{2}{c|}{\ColIRI{multiple}}&%
+           \multicolumn{2}{c|}{\ColIRI{multiple ng-last}}\\\cline{1-1}
   n-illiard&%
-  \multicolumn{2}{c|}{\multirow{-2}{\dimexpr0.398\tabcolwidth+\arrayrulewidth+2\tabcolsep}{\centering 
-      multiple}}&%
-  \multicolumn{2}{c|}{\multirow{-2}{\dimexpr0.398\tabcolwidth+\arrayrulewidth+2\tabcolsep}{\centering 
-      multiple ng-last}}\\\hline
+  \multicolumn{2}{c|}{\ColIRII{multiple}}&%
+  \multicolumn{2}{c|}{\ColIRII{multiple ng-last}}\\\hline
 \end{tabular*}
 
 Les configurations qui respectent les règles d'orthographe sont les suivantes~:

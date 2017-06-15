@@ -53,7 +53,7 @@ fmtcount.pdf	: fmtcount.dtx
 fmtcount.dtx: $(patsubst %,../trunk/%,$(DTX_DEPENDANCIES))
 	$(MAKE) -C ../trunk dist
 
-fmtcount-manual.html	: fmtcount-manual.tex ../../nlctdoc/nlctdoc.cls
+fmtcount-manual.html	: fmtcount-manual.tex
 			ht latex fmtcount-manual
 			tex '\def\filename{{fmtcount-manual}{idx}{4dx}{ind}} \input idxmake.4ht'
 			makeindex -s gind.ist -o fmtcount-manual.ind fmtcount-manual.4dx
