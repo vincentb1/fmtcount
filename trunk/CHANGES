@@ -1,5 +1,18 @@
 fmtcount package versions:
 
+Version 3.02:
+
+* Fix issue #24 (Capitalization in French).
+
+* Fix issue #11 (Make lang definition .def files loadable from within
+  a group).
+	
+* Fix issue #18 (no impact for end user, code optimization for
+  \storeordinal definition).
+	
+* Make robust \FCordinal, \storeordinal, \ordinalnum, and
+  \storeordinalnum
+	
 Version 3.01:
 
  * Make fmtord option language dependant

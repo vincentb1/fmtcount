@@ -1,7 +1,7 @@
 % \subsubsection{fc-french.def}
 % Definitions for French.
 %    \begin{macrocode}
-\ProvidesFCLanguage{french}[2012/10/24]%
+\ProvidesFCLanguage{french}[2017/06/15]%
 %    \end{macrocode}
 % Package \styfmt{fcprefix} is needed to format the prefix \meta{$n$}
 % in \meta{$n$}illion or \meta{$n$}illiard.  Big numbers were

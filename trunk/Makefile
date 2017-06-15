@@ -36,8 +36,8 @@ html	: ../dist/fmtcount-manual.html
 .PHONY: pdf
 pdf	: ../dist/fmtcount.pdf
 
-.PHONY: squeaky
-squeaky	:
+.PHONY: squeaky realclean
+squeaky	realclean:%: clean
 	$(MAKE) -C ../dist squeaky clean
 
 .PHONY: clean

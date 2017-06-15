@@ -2,7 +2,7 @@
 % \subsubsection{fc-american.def}
 % American English definitions
 %    \begin{macrocode}
-\ProvidesFCLanguage{american}[2013/08/17]%
+\ProvidesFCLanguage{american}[2016/01/12]%
 %    \end{macrocode}
 % Loaded fc-USenglish.def if not already loaded
 %    \begin{macrocode}
