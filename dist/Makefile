@@ -66,7 +66,8 @@ clean	:
 	command rm -f *.{css,4ct,4tc,aux,dvi,glo,idv,idx,lg,log,tmp,xref,ind,out,toc,4dx,4ix,ilg}
 	command rm -f idxmake.{log,dvi}
 
-squeaky	: clean
+.PHONY: realclean squeaky
+realclean squeaky:%: clean
 	command rm -f fmtcount.{dtx,ins,pdf,perl}
 	command rm -f fmtcount-manual.{html,tex}
 	command rm -f fmtcount-manual*.png

@@ -9,7 +9,7 @@ dist	: README CHANGES fmtcount-manual.tex \
 	  fmtcount.perl $(STYFILES) \
 	  ../dist/fmtcount.dtx
 	command cp CHANGES ../dist
-	./cp2dist -f fmtcount.sty README fmtcount-manual.tex ../dist
+	./cp2dist $(addprefix -f$(SPACE),$(STYFILES)) README fmtcount-manual.tex ../dist
 	$(MAKE) -C ../dist
 
 ../dist/fmtcount.dtx	: $(DTX_DEPENDANCIES)

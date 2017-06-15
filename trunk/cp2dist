@@ -3,9 +3,13 @@
 use strict;
 use Getopt::Long;
 
-my %optctl = ();
+my $optperlversion;
+my @optfileversion;
+my $optverbose;
 
-&GetOptions(\%optctl, "v", "f=s", "p=s");
+&GetOptions("v" => \$optverbose,
+           "f=s" => \@optfileversion, 
+	    "p=s" =>\$optperlversion);
 
 if ($#ARGV < 1)
 {
@@ -36,9 +40,9 @@ if (-d $outfile)
 
 my $perlversion = '??';
 
-if ($optctl{'p'})
+if ($optperlversion)
 {
-   open PFD, $optctl{'p'} or die "Can't read '$optctl{p}' $!\n";
+   open PFD, $optperlversion or die "Can't read '$optperlversion' $!\n";
 
    while (<PFD>)
    {
@@ -51,64 +55,77 @@ if ($optctl{'p'})
 
    close PFD;
 }
-
-my $versionFile = "version";
-
-if ($optctl{'f'})
-{
-  $versionFile = $optctl{'f'};
-}
-
-open VFD, $versionFile or die "Can't read '$versionFile' $!\n";
-
-my $date;
+my $date = "0000-00-00";
 my $version = "1.0";
 
-if ($versionFile=~/\.sty$/)
-{
-   while (<VFD>)
-   {
-      if (/\\ProvidesPackage{[^}]+}\[(\d\d\d\d)\/(\d\d)\/(\d\d)\s+v?\s*([\d\.]+)/)
-      {
-         $date = join('-', $1, $2, $3);
-         $version = $4;
-         &message("Date: $date\nVersion: $version\n");
-         last;
-      }
-   }
+for my $versionFile (@optfileversion){
+
+  open VFD, $versionFile or die "Can't read '$versionFile' $!\n";
+  
+  my $newdate;
+  
+  if ($versionFile=~/\.sty$/)
+  {
+     while (<VFD>)
+     {
+        if (/\\ProvidesPackage{[^}]+}\[(\d\d\d\d)\/(\d\d)\/(\d\d)\s+v?\s*([\d\.]+)/)
+        {
+           $newdate = join('-', $1, $2, $3);
+           if ($newdate gt $date) { $date = $newdate; }
+           $version = $4;
+           &message("Date: $date\nVersion: $version\n");
+           last;
+        }
+     }
+  }
+  elsif ($versionFile=~/\.cls$/)
+  {
+     while (<VFD>)
+     {
+        if (/\\ProvidesClass{[^}]+}\[(\d\d\d\d)\/(\d\d)\/(\d\d)\s+v?\s*([\d\.]+)/)
+        {
+           $newdate = join('-', $1, $2, $3);
+           if ($newdate gt $date) { $date = $newdate; }
+           $version = $4;
+           &message("Date: $date\nVersion: $version\n");
+           last;
+        }
+     }
+  }
+  elsif ($versionFile=~/\.def$/)
+  {
+     while (<VFD>)
+     {
+        if (/\\ProvidesFCLanguage{[^}]+}\[(\d\d\d\d)\/(\d\d)\/(\d\d)\]/)
+        {
+           $newdate = join('-', $1, $2, $3);
+           if ($newdate gt $date) { $date = $newdate; }
+           &message("Date: $date\nVersion: $version\n");
+           last;
+        }
+     }
+  }
+  else
+  {
+  
+    $_ = <VFD>;
+  
+    chomp;
+  
+    $version = $_;
+  
+    $_ = <VFD>;
+  
+    chomp;
+  
+    $newdate = $_;
+    if ($newdate gt $date){ $date = $newdate; }
+  }
+  
+  close VFD;
+
 }
-elsif ($versionFile=~/\.cls$/)
-{
-   while (<VFD>)
-   {
-      if (/\\ProvidesClass{[^}]+}\[(\d\d\d\d)\/(\d\d)\/(\d\d)\s+v?\s*([\d\.]+)/)
-      {
-         $date = join('-', $1, $2, $3);
-         $version = $4;
-         &message("Date: $date\nVersion: $version\n");
-         last;
-      }
-   }
-}
-else
-{
-
-  $_ = <VFD>;
-
-  chomp;
-
-  $version = $_;
-
-  $_ = <VFD>;
-
-  chomp;
-
-  $date = $_;
-}
-
-close VFD;
-
-unless ($date)
+if ($date eq "0000-00-00")
 {
   my ($sec, $min, $hour, $mday, $mon, $year) = localtime(time);
 
@@ -163,7 +180,7 @@ foreach my $infile (@ARGV)
 sub message{
   my $mess = shift;
 
-  if ($optctl{'v'})
+  if ($optverbose)
   {
      print $mess;
   }
