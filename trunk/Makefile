@@ -16,13 +16,13 @@ dist	: README CHANGES fmtcount-manual.tex \
 	makedtx -author "Nicola Talbot and Vincent Belaïche" \
 		-src "(.+)\.(sty|def)$$=>\1.\2" \
 		-doc fmtcount-manual.tex fmtcount
-	./mv2dist -f fmtcount.sty fmtcount.{dtx,ins} ../dist
+	./cp2dist -m $(addprefix -f$(SPACE),$(STYFILES)) fmtcount.{dtx,ins} ../dist
 
 ../dist/fmtcount.pdf	: ../dist/fmtcount.dtx 
 			$(MAKE) -C ../dist fmtcount.pdf
 
 ../dist/fmtcount-manual.tex	: fmtcount-manual.tex
-	./cp2dist -f fmtcount.sty fmtcount-manual.tex ../dist
+	./cp2dist $(addprefix -f$(SPACE),$(STYFILES)) fmtcount-manual.tex ../dist
 
 ../dist/fmtcount-manual.html	: ../dist/fmtcount-manual.tex 
 	$(MAKE) -C ../dist fmtcount-manual.html

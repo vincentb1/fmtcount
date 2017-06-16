@@ -4,10 +4,12 @@ use strict;
 use Getopt::Long;
 
 my $optperlversion;
+my $optmovefile;
 my @optfileversion;
 my $optverbose;
 
 &GetOptions("v" => \$optverbose,
+	    "v" => \$optmovefile,
            "f=s" => \@optfileversion, 
 	    "p=s" =>\$optperlversion);
 
@@ -175,6 +177,8 @@ foreach my $infile (@ARGV)
   close OUTFD;
 
   close INFD;
+
+  if($optmovefile) {   unlink($infile); }
 }
 
 sub message{
