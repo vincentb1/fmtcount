@@ -253,13 +253,13 @@
 % anything. Since it only affects internal macros, it shouldn't
 % affect documents created with older versions. (These internal
 % macros are not meant for use in documents.)
-% \changes{3.02}{2016/01/12}{Replace \cs{DeclareRobustCommand} by %
-\cs{newcommand*} as robustness is handled now at top level in %
-\texttt{fmtcount.sty}, and we don't need \cs{long} macros. Concerned %
-macros are \cs{@numberstringMportuges}, \cs{@numberstringFportuges},
-\cs{@NumberstringMportuges}, \cs{@NumberstringFportuges},
-\cs{@ordinalstringMportuges}, \cs{@ordinalstringFportuges},
-\cs{@OrdinalstringMportuges}, and \cs{@OrdinalstringFportuges}.}
+% \changes{3.02}{2016/01/12}{Replace \cs{DeclareRobustCommand} by
+% \cs{newcommand*} as robustness is handled now at top level in
+% \texttt{fmtcount.sty}, and we don't need \cs{long} macros. Concerned macros
+% are \cs{@numberstringMportuges}, \cs{@numberstringFportuges},
+% \cs{@NumberstringMportuges}, \cs{@NumberstringFportuges},
+% \cs{@ordinalstringMportuges}, \cs{@ordinalstringFportuges},
+% \cs{@OrdinalstringMportuges}, and \cs{@OrdinalstringFportuges}.}
 %    \begin{macrocode}
 \newcommand*{\@numberstringMportuges}[2]{%
   \let\@unitstring=\@@unitstringportuges
