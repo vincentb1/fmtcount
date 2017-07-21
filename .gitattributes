@@ -2,6 +2,7 @@
 *.dtx    text eol=lf
 *.html   text eol=lf
 *.ins    text eol=lf
+*.mak    text eol=lf
 *.pdf    -text
 *.perl   text eol=lf		
 *.sty    text eol=lf
