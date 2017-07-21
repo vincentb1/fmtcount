@@ -1,10 +1,12 @@
 *.def    text eol=lf
 *.dtx    text eol=lf
+*.html   text eol=lf
 *.ins    text eol=lf
 *.pdf    -text
 *.perl   text eol=lf		
 *.sty    text eol=lf
 *.tex    text eol=lf
+*.txt    text eol=lf
 CHANGES	 text eol=lf
 Makefile text eol=lf	
 README   text eol=lf
