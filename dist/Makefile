@@ -39,18 +39,18 @@ fmtcount.zip	: fmtcount.tds.zip
 	command cp $(SRC)/fmtcount.perl fmtcount/
 	zip -r fmtcount.zip fmtcount/ fmtcount.tds.zip
 
-$(STYFILES):%: fmtcount.dtx fmtcount.ins
-		latex fmtcount.ins
+$(STYFILES):%: $(DOCSTRIP)
+		latex $<
 
-fmtcount.pdf	: fmtcount.dtx
-		-latex fmtcount.ins
+fmtcount.pdf	: $(DOCSTRIP)
+		-latex $<
 		pdflatex fmtcount.dtx
 		makeindex -s gind.ist fmtcount.idx
 		makeindex -s gglo.ist -o fmtcount.gls fmtcount.glo
 		pdflatex fmtcount.dtx
 		pdflatex fmtcount.dtx
 
-fmtcount.dtx: $(patsubst %,../trunk/%,$(DTX_DEPENDANCIES))
+$(DOCSTRIP):%: $(patsubst %,../trunk/%,$(DTX_DEPENDANCIES))
 	$(MAKE) -C ../trunk dist
 
 fmtcount-manual.html	: fmtcount-manual.tex

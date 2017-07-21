@@ -88,7 +88,18 @@ $(call DEF_CONTENTSNAME,ngermanb,Inhaltsverzeichnis)
 
 LOGS_SHORT:=short shortenc shortgo shortbab fmtord
 TEX4HT_LOGS:=$(LOGS_SHORT)
-LOGS:=pdftests $(TEX4HT_LOGS) 
+LOGS:=pdftests $(TEX4HT_LOGS)
+
+DIST:=../../dist
+
+# set to yes awk or no
+USE_DOCSTRIP?=yes
+
+ifeq ($(USE_DOCSTRIP),yes)
+DOCSTRIP:=$(addprefix $(DIST)/,$(DOCSTRIP))
+else
+DOCSTRIP:=
+endif
 
 .PHONY: all
 all: $(addsuffix .log,$(LOGS))
@@ -223,7 +234,7 @@ echo_$(1): makesubdir_t4ht
 	@echo $(DASHES)
 endef
 
-tests/test-fmtord-l.tex: sample-fmtord.tex
+tests/test-fmtord-l.tex: sample-fmtord.tex tests/.dir echo_fmtord
 	cp $< $@
 
 $(foreach SHORTTYPE,$(LOGS_SHORT),$(eval $(call SHORTTYPE_RULE,$(SHORTTYPE))))
@@ -241,8 +252,35 @@ printenb == 1              { print };\
 /^%    \\begin{macrocode}/ { printenb = 1; }
 endef
 
-$(patsubst %,tests/%,$(STYFILES)):tests/%:../% tests/.dir
+ifeq ($(USE_DOCSTRIP),yes)
+$(addprefix tests/,$(STYFILES)):tests/%:$(DIST)/% tests/.dir
+	cd tests; ln -s ../$< $(notdir $@)
+
+$(addprefix $(DIST)/,$(STYFILES)):%:$(DOCSTRIP)
+	$(MAKE) -C $(dir $@) $(notdir $@)
+
+
+$(DOCSTRIP):%:$(addprefix ../,$(DTX_DEPENDANCIES))
+	$(MAKE) -C $(dir $@) $(notdir $@)
+else ifeq ($(USE_DOCSTRIP),awk)
+$(addprefix tests/,$(STYFILES)):tests/%:../% tests/.dir
 	awk '$(DOCSTRIP_AWK)' $< > $@
+else ifeq ($(USE_DOCSTRIP),no)
+$(addprefix tests/,$(STYFILES)):tests/%:../% tests/.dir
+	cd tests; ln -s ../$< $(notdir $@)
+else
+$(error $(error USE_DOCSTRIP flag shall be set to one of yes no awk)
+endif
+
+# trigger regeneration of the STYFILES with the USE_DOCSTRIP variable
+# content is changed
+.PHONY: docstrip_check
+docstrip_check: tests/docstrip_check
+	if [ ! "`cat $<`"==$(USE_DOCSTRIP) ]; then echo -n $(USE_DOCSTRIP) > $<; fi
+
+tests/docstrip_check: tests/.dir
+	echo -n $(USE_DOCSTRIP) > $@
+
 
 $(patsubst %,pdftests/%,$(STYFILES)):pdftests/%:tests/% pdftests/.dir
 	cp -u $< -T $@
@@ -257,6 +295,9 @@ pdftests/.dir:
 
 .PHONY: squeaky realclean
 squeaky realclean:%: clean
+ifeq ($(USE_DOCSTRIP),yes)
+	$(MAKE) -C $(dir $(firstword $(DOCSTRIP))) $@
+endif
 
 .PHONY: clean
 clean: cleanpdf cleantex4ht
