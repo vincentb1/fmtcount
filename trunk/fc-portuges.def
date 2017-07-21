@@ -260,6 +260,8 @@
 % \cs{@NumberstringMportuges}, \cs{@NumberstringFportuges},
 % \cs{@ordinalstringMportuges}, \cs{@ordinalstringFportuges},
 % \cs{@OrdinalstringMportuges}, and \cs{@OrdinalstringFportuges}.}
+% \changes{3.03}{2017/07/21}{Fix bug
+% \#\href{https://github.com/nlct/fmtcount/issues/25}{25}.}
 %    \begin{macrocode}
 \newcommand*{\@numberstringMportuges}[2]{%
   \let\@unitstring=\@@unitstringportuges
