@@ -1,9 +1,20 @@
-Table des matières
-1 \FCordinal in a title : 18e 2 \numberstring in a title : dix-huit
-1 \FCordinal in a title : 18e 2 \numberstring in a title : dix-huit
-dix PREMIÈRE DEUXIÈME DIX-NEUVIÈME
+Table des matiÃ¨res
+1 \FCordinal in a title : 18e
 
-1 1
+1
+
+2 \numberstring in a title : dix-huit
+
+1
+
+1
+
+\FCordinal in a title : 18e
+
+2
+
+\numberstring in a title : dix-huit
+dix PREMIÃˆRE DEUXIÃˆME DIX-NEUVIÃˆME
 
 1
 

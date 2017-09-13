@@ -1,800 +1,1451 @@
 1 \numberstringnum{#1}
-
 \fmtsetoptions{french={all plural}}
-1 un
-
-2 deux
-
-3 trois
-
-4 quatre
-
-5 cinq
-
-6 six
-
-7 sept
-
-8 huit
-
-9 neuf
-
-10 dix
-
-11 onze
-
-12 douze
-
-13 treize
-
-14 quatorze
-
-15 quinze
-
-16 seize
-
-17 dix-sept
-
-18 dix-huit
-
-19 dix-neuf
-
-20 vingt
-21 vingt··et··un
-
-22 vingt-deux
-
-29 vingt-neuf
-\fmtsetoptions{french={scale=long}}
-1 000 000 000 000 000 un sextilliard
-000 000 000 000 000
-000 000 000
-\fmtsetoptions{french={scale=short}}
-1 000 000 000 000 000 un dodecillion
-000 000 000 000 000
-000 000 000
-\fmtsetoptions{french={scale=recursive}}
-1 000 000 000 000 000 mille milliards de milliards de milliards -
-000 000 000 000 000 de milliards
-000 000 000
-
-1 000 000 000 000 000 000 000 000 000 000 000 000
-
-un milliard de milliards de milliards de milliards
-
 1
-
-1 000 000 000 000 000 un million de milliards de milliards de -
-
-000 000 000 000 000
-
-milliards
-
-000
-
-1 000 000 000 000 000 mille milliards de milliards de milliards
-
-000 000 000 000 000
+iunh
+2
+ideuxh
+3
+itroish
+4
+iquatreh
+5
+icinqh
+6
+isixh
+7
+isepth
+8
+ihuith
+9
+ineufh
+10
+idixh
+11
+ionzeh
+12
+idouzeh
+13
+itreizeh
+14
+iquatorzeh
+15
+iquinzeh
+16
+iseizeh
+17
+idix-septh
+18
+idix-huith
+19
+idix-neufh
+20
+ivingth
+21
+ivingtâ€¢â€¢etâ€¢â€¢unh
+22
+ivingt-deuxh
+29
+ivingt-neufh
 \fmtsetoptions{french={scale=long}}
-
-2 000 000 000 000 000 deux sextilliards
-
+iun??sextilliardh
+1 000 000 000 000 000
 000 000 000 000 000
-
 000 000 000
+
 \fmtsetoptions{french={scale=short}}
-
-2 000 000 000 000 000 deux dodecillions
-
+1 000 000 000 000 000
+iun??dodecillionh
 000 000 000 000 000
-
-000 000 000
-\fmtsetoptions{french={scale=recursive}} 2 000 000 000 000 000 deux··mille milliards de milliards de -
-
-000 000 000 000 000
-
-milliards de milliards
-
 000 000 000
 
-2 000 000 000 000 000 deux milliards de milliards de milliards -
-
+\fmtsetoptions{french={scale=recursive}}
+1 000 000 000 000 000
+imille??milliards??de??milliards??de??milliards?000 000 000 000 000
+?de??milliardsh
+000 000 000
+1 000 000 000 000 000
 000 000 000 000 000
 
-de milliards
+iun??milliard??de??milliards??de??milliards??de??milliardsh
 
 000 000
 
-2 000 000 000 000 000 deux millions de milliards de milliards de -
+1
 
-000 000 000 000 000 milliards
+1 000 000 000 000 000
+000 000 000 000 000
 
-000 2 000 000 000 000 000
+iun??million??de??milliards??de??milliards??de??milliardsh
 
-deux··mille milliards de milliards de -
+000
+1 000 000 000 000 000
 
-000 000 000 000 000 156 404 724 555 428 769 499 217 321 941
+imille??milliards??de??milliards??de??milliardsh
 
-milliards
-cent··cinquante-six milliards de milliards de milliards quatre··cent··quatre millions de milliards de milliards sept··cent··vingtquatre··mille milliards de milliards··cinq··cent··cinquante-cinq milliards de milliards quatre··cent··vingt-huit millions de milliards sept··cent··soixante-neuf··mille milliards··quatre··cent··quatre-vingt-dix-neuf milliards deux··cent··dix-sept millions trois··cent··vingt··et··un··mille··neuf··cent··quarante··et··un
+000 000 000 000 000
+
+\fmtsetoptions{french={scale=long}}
+2 000 000 000 000 000
+ideux??sextilliardsh
+000 000 000 000 000
+000 000 000
+
+\fmtsetoptions{french={scale=short}}
+2 000 000 000 000 000
+ideux??dodecillionsh
+000 000 000 000 000
+000 000 000
+
+\fmtsetoptions{french={scale=recursive}}
+ideuxâ€¢â€¢mille??milliards??de??milliards??de?2 000 000 000 000 000
+?milliards??de??milliardsh
+000 000 000 000 000
+000 000 000
+2 000 000 000 000 000
+000 000 000 000 000
+
+ideux??milliards??de??milliards??de??milliards??de??milliardsh
+
+000 000
+2 000 000 000 000 000
+000 000 000 000 000
+
+ideux??millions??de??milliards??de??milliards??de??milliardsh
+
+000
+2 000 000 000 000 000
+000 000 000 000 000
+156 404 724 555 428
+769 499 217 321 941
+
+ideuxâ€¢â€¢mille??milliards??de??milliards??de??milliardsh
+icentâ€¢â€¢cinquante-six??milliards??de??milliards??de??milliards??quatreâ€¢â€¢centâ€¢â€¢quatre??millions??de??milliards??de??milliards??septâ€¢â€¢centâ€¢â€¢vingtquatreâ€¢â€¢mille??milliards??de??milliardsâ€¢â€¢cinqâ€¢â€¢centâ€¢â€¢cinquante-cinq??milliards??de??milliards??quatreâ€¢â€¢centâ€¢â€¢vingt-huit??millions??de??milliards??septâ€¢â€¢centâ€¢â€¢soixante-neufâ€¢â€¢mille??milliardsâ€¢â€¢quatreâ€¢â€¢centâ€¢â€¢quatre-vingt-dix-neuf??milliards??deuxâ€¢â€¢centâ€¢â€¢dix-sept??millions??troisâ€¢â€¢centâ€¢â€¢vingtâ€¢â€¢etâ€¢â€¢unâ€¢â€¢milleâ€¢â€¢neufâ€¢â€¢centâ€¢â€¢quaranteâ€¢â€¢etâ€¢â€¢unh
 
 2
 
-4 171 764 135 702 262 349 567 001 574 584
-97 415 427 916 562 250 398 973 107 371
-704
-
-quatre··mille milliards de milliards de milliards··cent··soixante··et··onze milliards de milliards de milliards sept··cent··soixante-quatre millions de milliards de milliards cent··trente-cinq··mille milliards de milliards··sept··cent··deux milliards de milliards deux··cent··soixante-deux millions de milliards trois··cent··quarante-neuf··mille milliards··cinq··cent··soixante-sept milliards un million cinq··cent··soixante-quatorze··mille··cinq··cent··quatre-vingt-quatre
-quatre-vingt-dix-sept··mille milliards de milliards de milliards··quatre··cent··quinze milliards de milliards de milliards quatre··cent··vingt-sept millions de milliards de milliards neuf··cent··seize··mille milliards de milliards··cinq··cent··soixante-deux milliards de milliards deux··cent··cinquante millions de milliards trois··cent··quatre-vingtdix-huit··mille milliards··neuf··cent··soixantetreize milliards cent··sept millions trois··cent··soixante··et··onze··mille··sept··cent··quatre
-
-80 quatre-vingts
-
-81 21 31 200 201 200 000 200 000 000 201 000 000 80 000
-
-quatre-vingt-un
-vingt··et··un trente··et··un deux··cents deux··cent··un deux··cent··mille deux··cents millions deux··cent··un millions quatre-vingt··mille
-
-80 000 000 81 000
-
-quatre-vingts millions
-quatre-vingt-un··mille
-
-81 000 000 quatre-vingt-un millions
+iquatreâ€¢â€¢mille??milliards??de??milliards??de??milliardsâ€¢â€¢centâ€¢â€¢soixanteâ€¢â€¢etâ€¢â€¢onze??milliards??de??milliards??de??milliards??septâ€¢â€¢centâ€¢â€¢soixante-quatre??millions??de??milliards??de??milliards??centâ€¢â€¢trente-cinqâ€¢â€¢mille??milliards??de??milliardsâ€¢â€¢septâ€¢â€¢centâ€¢â€¢deux??milliards??de??milliards??deuxâ€¢â€¢centâ€¢â€¢soixante-deux??millions??de??milliards??troisâ€¢â€¢centâ€¢â€¢quarante-neufâ€¢â€¢mille??milliardsâ€¢â€¢cinqâ€¢â€¢centâ€¢â€¢soixante-sept??milliards??un??million??cinqâ€¢â€¢centâ€¢â€¢soixante-quatorzeâ€¢â€¢milleâ€¢â€¢cinqâ€¢â€¢centâ€¢â€¢quatre-vingt-quatreh
+97 415 427 916 562
+iquatre-vingt-dix-septâ€¢â€¢mille??milliards??de?250 398 973 107 371
+?milliards??de??milliardsâ€¢â€¢quatreâ€¢â€¢centâ€¢â€¢quinze?704
+?milliards??de??milliards??de??milliards??quatreâ€¢â€¢centâ€¢â€¢vingt-sept??millions??de??milliards??de??milliards??neufâ€¢â€¢centâ€¢â€¢seizeâ€¢â€¢mille??milliards??de??milliardsâ€¢â€¢cinqâ€¢â€¢centâ€¢â€¢soixante-deux??milliards??de??milliards??deuxâ€¢â€¢centâ€¢â€¢cinquante??millions??de??milliards??troisâ€¢â€¢centâ€¢â€¢quatre-vingtdix-huitâ€¢â€¢mille??milliardsâ€¢â€¢neufâ€¢â€¢centâ€¢â€¢soixantetreize??milliards??centâ€¢â€¢sept??millions??troisâ€¢â€¢centâ€¢â€¢soixanteâ€¢â€¢etâ€¢â€¢onzeâ€¢â€¢milleâ€¢â€¢septâ€¢â€¢centâ€¢â€¢quatreh
+80
+iquatre-vingtsh
+81
+iquatre-vingt-unh
+21
+ivingtâ€¢â€¢etâ€¢â€¢unh
+31
+itrenteâ€¢â€¢etâ€¢â€¢unh
+200
+ideuxâ€¢â€¢centsh
+201
+ideuxâ€¢â€¢centâ€¢â€¢unh
+200 000
+ideuxâ€¢â€¢centâ€¢â€¢milleh
+200 000 000
+ideuxâ€¢â€¢cents??millionsh
+201 000 000
+ideuxâ€¢â€¢centâ€¢â€¢un??millionsh
+80 000
+iquatre-vingtâ€¢â€¢milleh
+80 000 000
+iquatre-vingts??millionsh
+81 000
+iquatre-vingt-unâ€¢â€¢milleh
+81 000 000
+iquatre-vingt-un??millionsh
 \fmtsetoptions{french={all plural,mil plural=multiple}}
+1000
+imilh
+2000
+ideuxâ€¢â€¢milleh
+1001
+imilâ€¢â€¢unh
+2001
+ideuxâ€¢â€¢milleâ€¢â€¢unh
+1900
+imilâ€¢â€¢neufâ€¢â€¢centsh
+2012
+ideuxâ€¢â€¢milleâ€¢â€¢douzeh
+4 171 764 135 702 262
 
-1000 2000 1001 2001 1900 2012
-
-mil
-deux··mille mil··un deux··mille··un mil··neuf··cents deux··mille··douze
+349 567 001 574 584
 
 3
 
-900 neuf··cents \fmtsetoptions{french={all plural,mil plural=multiple,mil plural mark=s}}
-2000 deux··mils
+900
+ineufâ€¢â€¢centsh
+\fmtsetoptions{french={all plural,mil plural=multiple,mil plural mark=s}}
+2000
+ideuxâ€¢â€¢milsh
+
 2 \numberstringnum{#1}[f]
 \fmtsetoptions{french={all plural}}
-1 une 2 deux 3 trois 4 quatre 5 cinq 6 six 7 sept 8 huit 9 neuf 10 dix 11 onze 12 douze 13 treize 14 quatorze 15 quinze 16 seize 17 dix-sept 18 dix-huit 19 dix-neuf 20 vingt
-21 vingt··et··une
-22 vingt-deux 29 vingt-neuf
+1
+iuneh
+2
+ideuxh
+3
+itroish
+4
+iquatreh
+5
+icinqh
+6
+isixh
+7
+isepth
+8
+ihuith
+9
+ineufh
+10
+idixh
+11
+ionzeh
+12
+idouzeh
+13
+itreizeh
+14
+iquatorzeh
+15
+iquinzeh
+16
+iseizeh
+17
+idix-septh
+18
+idix-huith
+19
+idix-neufh
+20
+ivingth
+21
+ivingtâ€¢â€¢etâ€¢â€¢uneh
+22
+ivingt-deuxh
+29
+ivingt-neufh
 \fmtsetoptions{french={scale=long}}
-1 000 000 000 000 000 un sextilliard 000 000 000 000 000 000 000 000
+1 000 000 000 000 000
+iun??sextilliardh
+000 000 000 000 000
+000 000 000
+
 \fmtsetoptions{french={scale=short}}
-1 000 000 000 000 000 un dodecillion 000 000 000 000 000 000 000 000
+1 000 000 000 000 000
+iun??dodecillionh
+000 000 000 000 000
+000 000 000
+
 \fmtsetoptions{french={scale=recursive}}
-1 000 000 000 000 000 mils milliards de milliards de milliards de 000 000 000 000 000 milliards 000 000 000
+1 000 000 000 000 000
+imils??milliards??de??milliards??de??milliards??de?000 000 000 000 000
+?milliardsh
+000 000 000
+
 4
 
-1 000 000 000 000 000 000 000 000 000 000 000 000
+1 000 000 000 000 000
+000 000 000 000 000
 
-un milliard de milliards de milliards de milliards
+iun??milliard??de??milliards??de??milliards??de??milliardsh
 
-1 000 000 000 000 000 000 000 000 000 000 000
+000 000
+1 000 000 000 000 000
+000 000 000 000 000
 
-un million de milliards de milliards de milliards
+iun??million??de??milliards??de??milliards??de??milliardsh
 
-1 000 000 000 000 000 mils milliards de milliards de milliards
+000
+1 000 000 000 000 000
+
+imils??milliards??de??milliards??de??milliardsh
 
 000 000 000 000 000
+
 \fmtsetoptions{french={scale=long}}
-
-2 000 000 000 000 000 deux sextilliards
-
+2 000 000 000 000 000
+ideux??sextilliardsh
 000 000 000 000 000
-
 000 000 000
+
 \fmtsetoptions{french={scale=short}}
-
-2 000 000 000 000 000 deux dodecillions
-
+2 000 000 000 000 000
+ideux??dodecillionsh
 000 000 000 000 000
-
-000 000 000
-\fmtsetoptions{french={scale=recursive}} 2 000 000 000 000 000 deux··mils milliards de milliards de -
-
-000 000 000 000 000
-
-milliards de milliards
-
 000 000 000
 
-2 000 000 000 000 000 000 000 000 000 000 000 000
+\fmtsetoptions{french={scale=recursive}}
+ideuxâ€¢â€¢mils??milliards??de??milliards??de?2 000 000 000 000 000
+?milliards??de??milliardsh
+000 000 000 000 000
+000 000 000
+2 000 000 000 000 000
+000 000 000 000 000
 
-deux milliards de milliards de milliards de milliards
+ideux??milliards??de??milliards??de??milliards??de??milliardsh
 
-2 000 000 000 000 000 000 000 000 000 000 000
-2 000 000 000 000 000 000 000 000 000 000 156 404 724 555 428 769 499 217 321 941
+000 000
+2 000 000 000 000 000
+000 000 000 000 000
 
-deux millions de milliards de milliards de -
-milliards
-deux··mils milliards de milliards de -
-milliards
-cent··cinquante-six milliards de milliards de milliards quatre··cent··quatre millions de milliards de milliards sept··cent··vingtquatre··mils milliards de milliards··cinq··cent··cinquante-cinq milliards de milliards quatre··cent··vingt-huit millions de milliards sept··cent··soixante-neuf··mils milliards··quatre··cent··quatre-vingt-dix-neuf milliards deux··cent··dix-sept millions trois··cent··vingt··et··un··mils··neuf··cent··quarante··et··une
+ideux??millions??de??milliards??de??milliards??de??milliardsh
+
+000
+2 000 000 000 000 000
+000 000 000 000 000
+156 404 724 555 428
+769 499 217 321 941
+
+ideuxâ€¢â€¢mils??milliards??de??milliards??de??milliardsh
+icentâ€¢â€¢cinquante-six??milliards??de??milliards??de??milliards??quatreâ€¢â€¢centâ€¢â€¢quatre??millions??de??milliards??de??milliards??septâ€¢â€¢centâ€¢â€¢vingtquatreâ€¢â€¢mils??milliards??de??milliardsâ€¢â€¢cinqâ€¢â€¢centâ€¢â€¢cinquante-cinq??milliards??de??milliards??quatreâ€¢â€¢centâ€¢â€¢vingt-huit??millions??de??milliards??septâ€¢â€¢centâ€¢â€¢soixante-neufâ€¢â€¢mils??milliardsâ€¢â€¢quatreâ€¢â€¢centâ€¢â€¢quatre-vingt-dix-neuf??milliards??deuxâ€¢â€¢centâ€¢â€¢dix-sept??millions??troisâ€¢â€¢centâ€¢â€¢vingtâ€¢â€¢etâ€¢â€¢unâ€¢â€¢milsâ€¢â€¢neufâ€¢â€¢centâ€¢â€¢quaranteâ€¢â€¢etâ€¢â€¢uneh
 
 5
 
-4 171 764 135 702 262 349 567 001 574 584
-97 415 427 916 562 250 398 973 107 371
-704
-
-quatre··mils milliards de milliards de milliards··cent··soixante··et··onze milliards de milliards de milliards sept··cent··soixante-quatre millions de milliards de milliards cent··trente-cinq··mils milliards de milliards··sept··cent··deux milliards de milliards deux··cent··soixante-deux millions de milliards trois··cent··quarante-neuf··mils milliards··cinq··cent··soixante-sept milliards un million cinq··cent··soixante-quatorze··mils··cinq··cent··quatre-vingt-quatre
-quatre-vingt-dix-sept··mils milliards de milliards de milliards··quatre··cent··quinze milliards de milliards de milliards quatre··cent··vingt-sept millions de milliards de milliards neuf··cent··seize··mils milliards de milliards··cinq··cent··soixante-deux milliards de milliards deux··cent··cinquante millions de milliards trois··cent··quatre-vingt-dix-huit··mils milliards··neuf··cent··soixante-treize milliards cent··sept millions trois··cent··soixante··et··onze··mils··sept··cent··quatre
-
-80 quatre-vingts
-
-81 21 31 200 201 200 000 200 000 000 201 000 000 80 000
-
-quatre-vingt-une
-vingt··et··une trente··et··une deux··cents deux··cent··une deux··cent··mils deux··cents millions deux··cent··un millions quatre-vingt··mils
-
-80 000 000 81 000
-
-quatre-vingts millions
-quatre-vingt-un··mils
-
-81 000 000 quatre-vingt-un millions
+iquatreâ€¢â€¢mils??milliards??de??milliards??de??milliardsâ€¢â€¢centâ€¢â€¢soixanteâ€¢â€¢etâ€¢â€¢onze??milliards??de??milliards??de??milliards??septâ€¢â€¢centâ€¢â€¢soixante-quatre??millions??de??milliards??de??milliards??centâ€¢â€¢trente-cinqâ€¢â€¢mils??milliards??de??milliardsâ€¢â€¢septâ€¢â€¢centâ€¢â€¢deux??milliards??de??milliards??deuxâ€¢â€¢centâ€¢â€¢soixante-deux??millions??de??milliards??troisâ€¢â€¢centâ€¢â€¢quarante-neufâ€¢â€¢mils??milliardsâ€¢â€¢cinqâ€¢â€¢centâ€¢â€¢soixante-sept??milliards??un??million??cinqâ€¢â€¢centâ€¢â€¢soixante-quatorzeâ€¢â€¢milsâ€¢â€¢cinqâ€¢â€¢centâ€¢â€¢quatre-vingt-quatreh
+97 415 427 916 562
+iquatre-vingt-dix-septâ€¢â€¢mils??milliards??de?250 398 973 107 371
+?milliards??de??milliardsâ€¢â€¢quatreâ€¢â€¢centâ€¢â€¢quinze?704
+?milliards??de??milliards??de??milliards??quatreâ€¢â€¢centâ€¢â€¢vingt-sept??millions??de??milliards??de??milliards??neufâ€¢â€¢centâ€¢â€¢seizeâ€¢â€¢mils??milliards??de??milliardsâ€¢â€¢cinqâ€¢â€¢centâ€¢â€¢soixante-deux??milliards??de??milliards??deuxâ€¢â€¢centâ€¢â€¢cinquante??millions??de??milliards??troisâ€¢â€¢centâ€¢â€¢quatre-vingt-dix-huitâ€¢â€¢mils??milliardsâ€¢â€¢neufâ€¢â€¢centâ€¢â€¢soixante-treize??milliards??centâ€¢â€¢sept??millions??troisâ€¢â€¢centâ€¢â€¢soixanteâ€¢â€¢etâ€¢â€¢onzeâ€¢â€¢milsâ€¢â€¢septâ€¢â€¢centâ€¢â€¢quatreh
+80
+iquatre-vingtsh
+81
+iquatre-vingt-uneh
+21
+ivingtâ€¢â€¢etâ€¢â€¢uneh
+31
+itrenteâ€¢â€¢etâ€¢â€¢uneh
+200
+ideuxâ€¢â€¢centsh
+201
+ideuxâ€¢â€¢centâ€¢â€¢uneh
+200 000
+ideuxâ€¢â€¢centâ€¢â€¢milsh
+200 000 000
+ideuxâ€¢â€¢cents??millionsh
+201 000 000
+ideuxâ€¢â€¢centâ€¢â€¢un??millionsh
+80 000
+iquatre-vingtâ€¢â€¢milsh
+80 000 000
+iquatre-vingts??millionsh
+81 000
+iquatre-vingt-unâ€¢â€¢milsh
+81 000 000
+iquatre-vingt-un??millionsh
 \fmtsetoptions{french={all plural,mil plural=multiple}}
-
-1000 2000 1001 2001 1900 2012
+1000
+imilh
+2000
+ideuxâ€¢â€¢milsh
+1001
+imilâ€¢â€¢uneh
+2001
+ideuxâ€¢â€¢milsâ€¢â€¢uneh
+1900
+imilâ€¢â€¢neufâ€¢â€¢centsh
+2012
+ideuxâ€¢â€¢milsâ€¢â€¢douzeh
 900
+ineufâ€¢â€¢centsh
+4 171 764 135 702 262
 
-mil
-deux··mils mil··une deux··mils··une mil··neuf··cents deux··mils··douze neuf··cents
+349 567 001 574 584
 
 6
 
-\fmtsetoptions{french={all plural,mil plural=multiple,mil plural mark=s}} 2000 deux··mils
+\fmtsetoptions{french={all plural,mil plural=multiple,mil plural mark=s}}
+2000
+ideuxâ€¢â€¢milsh
+
 3 \ordinalstringnum{#1}
 \fmtsetoptions{french={all plural}}
-1 premier 2 deuxième 3 troisième 4 quatrième 5 cinquième 6 sixième 7 septième 8 huitième 9 neuvième 10 dixième 11 onzième 12 douzième 13 treizième 14 quatorzième 15 quinzième 16 seizième 17 dix-septième 18 dix-huitième 19 dix-neuvième 20 vingtième
-21 vingt··et··unième
-22 vingt-deuxième 29 vingt-neuvième
+1
+ipremierh
+2
+ideuxiÃ¨meh
+3
+itroisiÃ¨meh
+4
+iquatriÃ¨meh
+5
+icinquiÃ¨meh
+6
+isixiÃ¨meh
+7
+iseptiÃ¨meh
+8
+ihuitiÃ¨meh
+9
+ineuviÃ¨meh
+10
+idixiÃ¨meh
+11
+ionziÃ¨meh
+12
+idouziÃ¨meh
+13
+itreiziÃ¨meh
+14
+iquatorziÃ¨meh
+15
+iquinziÃ¨meh
+16
+iseiziÃ¨meh
+17
+idix-septiÃ¨meh
+18
+idix-huitiÃ¨meh
+19
+idix-neuviÃ¨meh
+20
+ivingtiÃ¨meh
+21
+ivingtâ€¢â€¢etâ€¢â€¢uniÃ¨meh
+22
+ivingt-deuxiÃ¨meh
+29
+ivingt-neuviÃ¨meh
 \fmtsetoptions{french={scale=long}}
-1 000 000 000 000 000 un sextilliardième 000 000 000 000 000 000 000 000
+1 000 000 000 000 000
+iun??sextilliardiÃ¨meh
+000 000 000 000 000
+000 000 000
+
 \fmtsetoptions{french={scale=short}}
-1 000 000 000 000 000 un dodecillionième 000 000 000 000 000 000 000 000
+1 000 000 000 000 000
+iun??dodecillioniÃ¨meh
+000 000 000 000 000
+000 000 000
+
 \fmtsetoptions{french={scale=recursive}}
-1 000 000 000 000 000 mils milliards de milliards de milliards de 000 000 000 000 000 milliardsième 000 000 000
+1 000 000 000 000 000
+imils??milliards??de??milliards??de??milliards??de?000 000 000 000 000
+?milliardsiÃ¨meh
+000 000 000
+
 7
 
-1 000 000 000 000 000 000 000 000 000 000 000 000
+1 000 000 000 000 000
+000 000 000 000 000
 
-un milliard de milliards de milliards de milliardsième
+iun??milliard??de??milliards??de??milliards??de??milliardsiÃ¨meh
 
-1 000 000 000 000 000 000 000 000 000 000 000
+000 000
+1 000 000 000 000 000
+000 000 000 000 000
 
-un million de milliards de milliards de milliardsième
+iun??million??de??milliards??de??milliards??de??milliardsiÃ¨meh
 
-1 000 000 000 000 000 mils milliards de milliards de milliardsième
+000
+1 000 000 000 000 000
+
+imils??milliards??de??milliards??de??milliardsiÃ¨meh
 
 000 000 000 000 000
+
 \fmtsetoptions{french={scale=long}}
-
-2 000 000 000 000 000 deux sextilliardième
-
+2 000 000 000 000 000
+ideux??sextilliardiÃ¨meh
 000 000 000 000 000
-
 000 000 000
+
 \fmtsetoptions{french={scale=short}}
-
-2 000 000 000 000 000 deux dodecillionième
-
+2 000 000 000 000 000
+ideux??dodecillioniÃ¨meh
 000 000 000 000 000
-
-000 000 000
-\fmtsetoptions{french={scale=recursive}} 2 000 000 000 000 000 deux··mils milliards de milliards de -
-
-000 000 000 000 000
-
-milliards de milliardsième
-
 000 000 000
 
-2 000 000 000 000 000 000 000 000 000 000 000 000
+\fmtsetoptions{french={scale=recursive}}
+ideuxâ€¢â€¢mils??milliards??de??milliards??de?2 000 000 000 000 000
+?milliards??de??milliardsiÃ¨meh
+000 000 000 000 000
+000 000 000
+2 000 000 000 000 000
+000 000 000 000 000
 
-deux milliard de milliards de milliards de milliardsième
+ideux??milliard??de??milliards??de??milliards??de??milliardsiÃ¨meh
 
-2 000 000 000 000 000 000 000 000 000 000 000
-2 000 000 000 000 000 000 000 000 000 000 156 404 724 555 428 769 499 217 321 941
+000 000
+2 000 000 000 000 000
+000 000 000 000 000
 
-deux million de milliards de milliards de -
-milliardsième
-deux··mils milliards de milliards de -
-milliardsième
-cent··cinquante-six milliards de milliards de milliards quatre··cent··quatre millions de milliards de milliards sept··cent··vingtquatre··mils milliards de milliards··cinq··cent··cinquante-cinq milliards de milliards quatre··cent··vingt-huit millions de milliards sept··cent··soixante-neuf··mils milliards··quatre··cent··quatre-vingt-dix-neuf milliards deux··cent··dix-sept millions trois··cent··vingt··et··un··mils··neuf··cent··quarante··et··unième
+ideux??million??de??milliards??de??milliards??de??milliardsiÃ¨meh
+
+000
+2 000 000 000 000 000
+000 000 000 000 000
+156 404 724 555 428
+769 499 217 321 941
+
+ideuxâ€¢â€¢mils??milliards??de??milliards??de??milliardsiÃ¨meh
+icentâ€¢â€¢cinquante-six??milliards??de??milliards??de??milliards??quatreâ€¢â€¢centâ€¢â€¢quatre??millions??de??milliards??de??milliards??septâ€¢â€¢centâ€¢â€¢vingtquatreâ€¢â€¢mils??milliards??de??milliardsâ€¢â€¢cinqâ€¢â€¢centâ€¢â€¢cinquante-cinq??milliards??de??milliards??quatreâ€¢â€¢centâ€¢â€¢vingt-huit??millions??de??milliards??septâ€¢â€¢centâ€¢â€¢soixante-neufâ€¢â€¢mils??milliardsâ€¢â€¢quatreâ€¢â€¢centâ€¢â€¢quatre-vingt-dix-neuf??milliards??deuxâ€¢â€¢centâ€¢â€¢dix-sept??millions??troisâ€¢â€¢centâ€¢â€¢vingtâ€¢â€¢etâ€¢â€¢unâ€¢â€¢milsâ€¢â€¢neufâ€¢â€¢centâ€¢â€¢quaranteâ€¢â€¢etâ€¢â€¢uniÃ¨meh
 
 8
 
-4 171 764 135 702 262 349 567 001 574 584
-97 415 427 916 562 250 398 973 107 371
-704
-
-quatre··mils milliards de milliards de milliards··cent··soixante··et··onze milliards de milliards de milliards sept··cent··soixante-quatre millions de milliards de milliards cent··trente-cinq··mils milliards de milliards··sept··cent··deux milliards de milliards deux··cent··soixante-deux millions de milliards trois··cent··quarante-neuf··mils milliards··cinq··cent··soixante-sept milliards un million cinq··cent··soixante-quatorze··mils··cinq··cent··quatre-vingt-quatrième
-quatre-vingt-dix-sept··mils milliards de milliards de milliards··quatre··cent··quinze milliards de milliards de milliards quatre··cent··vingt-sept millions de milliards de milliards neuf··cent··seize··mils milliards de milliards··cinq··cent··soixante-deux milliards de milliards deux··cent··cinquante millions de milliards trois··cent··quatre-vingt-dix-huit··mils milliards··neuf··cent··soixante-treize milliards cent··sept millions trois··cent··soixante··et··onze··mils··sept··cent··quatrième
-
-80 quatre-vingtième
-
-81 21 31 200 201 200 000 200 000 000 201 000 000 80 000
-
-quatre-vingt-unième
-vingt··et··unième trente··et··unième deux··centième deux··cent··unième deux··cent··milsième deux··cent millionième deux··cent··un millionième quatre-vingt··milsième
-
-80 000 000 81 000
-
-quatre-vingts millionième
-quatre-vingt-un··milsième
-
-81 000 000 quatre-vingt-un millionième
+iquatreâ€¢â€¢mils??milliards??de??milliards??de??milliardsâ€¢â€¢centâ€¢â€¢soixanteâ€¢â€¢etâ€¢â€¢onze??milliards??de??milliards??de??milliards??septâ€¢â€¢centâ€¢â€¢soixante-quatre??millions??de??milliards??de??milliards??centâ€¢â€¢trente-cinqâ€¢â€¢mils??milliards??de??milliardsâ€¢â€¢septâ€¢â€¢centâ€¢â€¢deux??milliards??de??milliards??deuxâ€¢â€¢centâ€¢â€¢soixante-deux??millions??de??milliards??troisâ€¢â€¢centâ€¢â€¢quarante-neufâ€¢â€¢mils??milliardsâ€¢â€¢cinqâ€¢â€¢centâ€¢â€¢soixante-sept??milliards??un??million??cinqâ€¢â€¢centâ€¢â€¢soixante-quatorzeâ€¢â€¢milsâ€¢â€¢cinqâ€¢â€¢centâ€¢â€¢quatre-vingt-quatriÃ¨meh
+97 415 427 916 562
+iquatre-vingt-dix-septâ€¢â€¢mils??milliards??de?250 398 973 107 371
+?milliards??de??milliardsâ€¢â€¢quatreâ€¢â€¢centâ€¢â€¢quinze?704
+?milliards??de??milliards??de??milliards??quatreâ€¢â€¢centâ€¢â€¢vingt-sept??millions??de??milliards??de??milliards??neufâ€¢â€¢centâ€¢â€¢seizeâ€¢â€¢mils??milliards??de??milliardsâ€¢â€¢cinqâ€¢â€¢centâ€¢â€¢soixante-deux??milliards??de??milliards??deuxâ€¢â€¢centâ€¢â€¢cinquante??millions??de??milliards??troisâ€¢â€¢centâ€¢â€¢quatre-vingt-dix-huitâ€¢â€¢mils??milliardsâ€¢â€¢neufâ€¢â€¢centâ€¢â€¢soixante-treize??milliards??centâ€¢â€¢sept??millions??troisâ€¢â€¢centâ€¢â€¢soixanteâ€¢â€¢etâ€¢â€¢onzeâ€¢â€¢milsâ€¢â€¢septâ€¢â€¢centâ€¢â€¢quatriÃ¨meh
+80
+iquatre-vingtiÃ¨meh
+81
+iquatre-vingt-uniÃ¨meh
+21
+ivingtâ€¢â€¢etâ€¢â€¢uniÃ¨meh
+31
+itrenteâ€¢â€¢etâ€¢â€¢uniÃ¨meh
+200
+ideuxâ€¢â€¢centiÃ¨meh
+201
+ideuxâ€¢â€¢centâ€¢â€¢uniÃ¨meh
+200 000
+ideuxâ€¢â€¢centâ€¢â€¢milsiÃ¨meh
+200 000 000
+ideuxâ€¢â€¢cent??millioniÃ¨meh
+201 000 000
+ideuxâ€¢â€¢centâ€¢â€¢un??millioniÃ¨meh
+80 000
+iquatre-vingtâ€¢â€¢milsiÃ¨meh
+80 000 000
+iquatre-vingts??millioniÃ¨meh
+81 000
+iquatre-vingt-unâ€¢â€¢milsiÃ¨meh
+81 000 000
+iquatre-vingt-un??millioniÃ¨meh
 \fmtsetoptions{french={all plural,mil plural=multiple}}
-
-1000 2000 1001 2001 1900 2012
+1000
+imiliÃ¨meh
+2000
+ideuxâ€¢â€¢miliÃ¨meh
+1001
+imilâ€¢â€¢uniÃ¨meh
+2001
+ideuxâ€¢â€¢milsâ€¢â€¢uniÃ¨meh
+1900
+imilâ€¢â€¢neufâ€¢â€¢centiÃ¨meh
+2012
+ideuxâ€¢â€¢milsâ€¢â€¢douziÃ¨meh
 900
+ineufâ€¢â€¢centiÃ¨meh
+4 171 764 135 702 262
 
-milième
-deux··milième mil··unième deux··mils··unième mil··neuf··centième deux··mils··douzième neuf··centième
+349 567 001 574 584
 
 9
 
-\fmtsetoptions{french={all plural,mil plural=multiple,mil plural mark=s}} 2000 deux··milième
+\fmtsetoptions{french={all plural,mil plural=multiple,mil plural mark=s}}
+2000
+ideuxâ€¢â€¢miliÃ¨meh
+
 4 \ordinalstringnum{#1}[f]
 \fmtsetoptions{french={all plural}}
-1 première 2 deuxième 3 troisième 4 quatrième 5 cinquième 6 sixième 7 septième 8 huitième 9 neuvième 10 dixième 11 onzième 12 douzième 13 treizième 14 quatorzième 15 quinzième 16 seizième 17 dix-septième 18 dix-huitième 19 dix-neuvième 20 vingtième
-21 vingt··et··unième
-22 vingt-deuxième 29 vingt-neuvième
+1
+ipremiÃ¨reh
+2
+ideuxiÃ¨meh
+3
+itroisiÃ¨meh
+4
+iquatriÃ¨meh
+5
+icinquiÃ¨meh
+6
+isixiÃ¨meh
+7
+iseptiÃ¨meh
+8
+ihuitiÃ¨meh
+9
+ineuviÃ¨meh
+10
+idixiÃ¨meh
+11
+ionziÃ¨meh
+12
+idouziÃ¨meh
+13
+itreiziÃ¨meh
+14
+iquatorziÃ¨meh
+15
+iquinziÃ¨meh
+16
+iseiziÃ¨meh
+17
+idix-septiÃ¨meh
+18
+idix-huitiÃ¨meh
+19
+idix-neuviÃ¨meh
+20
+ivingtiÃ¨meh
+21
+ivingtâ€¢â€¢etâ€¢â€¢uniÃ¨meh
+22
+ivingt-deuxiÃ¨meh
+29
+ivingt-neuviÃ¨meh
 \fmtsetoptions{french={scale=long}}
-1 000 000 000 000 000 un sextilliardième 000 000 000 000 000 000 000 000
+1 000 000 000 000 000
+iun??sextilliardiÃ¨meh
+000 000 000 000 000
+000 000 000
+
 \fmtsetoptions{french={scale=short}}
-1 000 000 000 000 000 un dodecillionième 000 000 000 000 000 000 000 000
+1 000 000 000 000 000
+iun??dodecillioniÃ¨meh
+000 000 000 000 000
+000 000 000
+
 \fmtsetoptions{french={scale=recursive}}
-1 000 000 000 000 000 mils milliards de milliards de milliards de 000 000 000 000 000 milliardsième 000 000 000
+1 000 000 000 000 000
+imils??milliards??de??milliards??de??milliards??de?000 000 000 000 000
+?milliardsiÃ¨meh
+000 000 000
+
 10
 
-1 000 000 000 000 000 000 000 000 000 000 000 000
+1 000 000 000 000 000
+000 000 000 000 000
 
-un milliard de milliards de milliards de milliardsième
+iun??milliard??de??milliards??de??milliards??de??milliardsiÃ¨meh
 
-1 000 000 000 000 000 000 000 000 000 000 000
+000 000
+1 000 000 000 000 000
+000 000 000 000 000
 
-un million de milliards de milliards de milliardsième
+iun??million??de??milliards??de??milliards??de??milliardsiÃ¨meh
 
-1 000 000 000 000 000 mils milliards de milliards de milliardsième
+000
+1 000 000 000 000 000
+
+imils??milliards??de??milliards??de??milliardsiÃ¨meh
 
 000 000 000 000 000
+
 \fmtsetoptions{french={scale=long}}
-
-2 000 000 000 000 000 deux sextilliardième
-
+2 000 000 000 000 000
+ideux??sextilliardiÃ¨meh
 000 000 000 000 000
-
 000 000 000
+
 \fmtsetoptions{french={scale=short}}
-
-2 000 000 000 000 000 deux dodecillionième
-
+2 000 000 000 000 000
+ideux??dodecillioniÃ¨meh
 000 000 000 000 000
-
-000 000 000
-\fmtsetoptions{french={scale=recursive}} 2 000 000 000 000 000 deux··mils milliards de milliards de -
-
-000 000 000 000 000
-
-milliards de milliardsième
-
 000 000 000
 
-2 000 000 000 000 000 000 000 000 000 000 000 000
+\fmtsetoptions{french={scale=recursive}}
+ideuxâ€¢â€¢mils??milliards??de??milliards??de?2 000 000 000 000 000
+?milliards??de??milliardsiÃ¨meh
+000 000 000 000 000
+000 000 000
+2 000 000 000 000 000
+000 000 000 000 000
 
-deux milliard de milliards de milliards de milliardsième
+ideux??milliard??de??milliards??de??milliards??de??milliardsiÃ¨meh
 
-2 000 000 000 000 000 000 000 000 000 000 000
-2 000 000 000 000 000 000 000 000 000 000 156 404 724 555 428 769 499 217 321 941
+000 000
+2 000 000 000 000 000
+000 000 000 000 000
 
-deux million de milliards de milliards de -
-milliardsième
-deux··mils milliards de milliards de -
-milliardsième
-cent··cinquante-six milliards de milliards de milliards quatre··cent··quatre millions de milliards de milliards sept··cent··vingtquatre··mils milliards de milliards··cinq··cent··cinquante-cinq milliards de milliards quatre··cent··vingt-huit millions de milliards sept··cent··soixante-neuf··mils milliards··quatre··cent··quatre-vingt-dix-neuf milliards deux··cent··dix-sept millions trois··cent··vingt··et··un··mils··neuf··cent··quarante··et··unième
+ideux??million??de??milliards??de??milliards??de??milliardsiÃ¨meh
+
+000
+2 000 000 000 000 000
+000 000 000 000 000
+156 404 724 555 428
+769 499 217 321 941
+
+ideuxâ€¢â€¢mils??milliards??de??milliards??de??milliardsiÃ¨meh
+icentâ€¢â€¢cinquante-six??milliards??de??milliards??de??milliards??quatreâ€¢â€¢centâ€¢â€¢quatre??millions??de??milliards??de??milliards??septâ€¢â€¢centâ€¢â€¢vingtquatreâ€¢â€¢mils??milliards??de??milliardsâ€¢â€¢cinqâ€¢â€¢centâ€¢â€¢cinquante-cinq??milliards??de??milliards??quatreâ€¢â€¢centâ€¢â€¢vingt-huit??millions??de??milliards??septâ€¢â€¢centâ€¢â€¢soixante-neufâ€¢â€¢mils??milliardsâ€¢â€¢quatreâ€¢â€¢centâ€¢â€¢quatre-vingt-dix-neuf??milliards??deuxâ€¢â€¢centâ€¢â€¢dix-sept??millions??troisâ€¢â€¢centâ€¢â€¢vingtâ€¢â€¢etâ€¢â€¢unâ€¢â€¢milsâ€¢â€¢neufâ€¢â€¢centâ€¢â€¢quaranteâ€¢â€¢etâ€¢â€¢uniÃ¨meh
 
 11
 
-4 171 764 135 702 262 349 567 001 574 584
-97 415 427 916 562 250 398 973 107 371
-704
-
-quatre··mils milliards de milliards de milliards··cent··soixante··et··onze milliards de milliards de milliards sept··cent··soixante-quatre millions de milliards de milliards cent··trente-cinq··mils milliards de milliards··sept··cent··deux milliards de milliards deux··cent··soixante-deux millions de milliards trois··cent··quarante-neuf··mils milliards··cinq··cent··soixante-sept milliards un million cinq··cent··soixante-quatorze··mils··cinq··cent··quatre-vingt-quatrième
-quatre-vingt-dix-sept··mils milliards de milliards de milliards··quatre··cent··quinze milliards de milliards de milliards quatre··cent··vingt-sept millions de milliards de milliards neuf··cent··seize··mils milliards de milliards··cinq··cent··soixante-deux milliards de milliards deux··cent··cinquante millions de milliards trois··cent··quatre-vingt-dix-huit··mils milliards··neuf··cent··soixante-treize milliards cent··sept millions trois··cent··soixante··et··onze··mils··sept··cent··quatrième
-
-80 quatre-vingtième
-
-81 21 31 200 201 200 000 200 000 000 201 000 000 80 000
-
-quatre-vingt-unième
-vingt··et··unième trente··et··unième deux··centième deux··cent··unième deux··cent··milsième deux··cent millionième deux··cent··un millionième quatre-vingt··milsième
-
-80 000 000 81 000
-
-quatre-vingts millionième
-quatre-vingt-un··milsième
-
-81 000 000 quatre-vingt-un millionième
+iquatreâ€¢â€¢mils??milliards??de??milliards??de??milliardsâ€¢â€¢centâ€¢â€¢soixanteâ€¢â€¢etâ€¢â€¢onze??milliards??de??milliards??de??milliards??septâ€¢â€¢centâ€¢â€¢soixante-quatre??millions??de??milliards??de??milliards??centâ€¢â€¢trente-cinqâ€¢â€¢mils??milliards??de??milliardsâ€¢â€¢septâ€¢â€¢centâ€¢â€¢deux??milliards??de??milliards??deuxâ€¢â€¢centâ€¢â€¢soixante-deux??millions??de??milliards??troisâ€¢â€¢centâ€¢â€¢quarante-neufâ€¢â€¢mils??milliardsâ€¢â€¢cinqâ€¢â€¢centâ€¢â€¢soixante-sept??milliards??un??million??cinqâ€¢â€¢centâ€¢â€¢soixante-quatorzeâ€¢â€¢milsâ€¢â€¢cinqâ€¢â€¢centâ€¢â€¢quatre-vingt-quatriÃ¨meh
+97 415 427 916 562
+iquatre-vingt-dix-septâ€¢â€¢mils??milliards??de?250 398 973 107 371
+?milliards??de??milliardsâ€¢â€¢quatreâ€¢â€¢centâ€¢â€¢quinze?704
+?milliards??de??milliards??de??milliards??quatreâ€¢â€¢centâ€¢â€¢vingt-sept??millions??de??milliards??de??milliards??neufâ€¢â€¢centâ€¢â€¢seizeâ€¢â€¢mils??milliards??de??milliardsâ€¢â€¢cinqâ€¢â€¢centâ€¢â€¢soixante-deux??milliards??de??milliards??deuxâ€¢â€¢centâ€¢â€¢cinquante??millions??de??milliards??troisâ€¢â€¢centâ€¢â€¢quatre-vingt-dix-huitâ€¢â€¢mils??milliardsâ€¢â€¢neufâ€¢â€¢centâ€¢â€¢soixante-treize??milliards??centâ€¢â€¢sept??millions??troisâ€¢â€¢centâ€¢â€¢soixanteâ€¢â€¢etâ€¢â€¢onzeâ€¢â€¢milsâ€¢â€¢septâ€¢â€¢centâ€¢â€¢quatriÃ¨meh
+80
+iquatre-vingtiÃ¨meh
+81
+iquatre-vingt-uniÃ¨meh
+21
+ivingtâ€¢â€¢etâ€¢â€¢uniÃ¨meh
+31
+itrenteâ€¢â€¢etâ€¢â€¢uniÃ¨meh
+200
+ideuxâ€¢â€¢centiÃ¨meh
+201
+ideuxâ€¢â€¢centâ€¢â€¢uniÃ¨meh
+200 000
+ideuxâ€¢â€¢centâ€¢â€¢milsiÃ¨meh
+200 000 000
+ideuxâ€¢â€¢cent??millioniÃ¨meh
+201 000 000
+ideuxâ€¢â€¢centâ€¢â€¢un??millioniÃ¨meh
+80 000
+iquatre-vingtâ€¢â€¢milsiÃ¨meh
+80 000 000
+iquatre-vingts??millioniÃ¨meh
+81 000
+iquatre-vingt-unâ€¢â€¢milsiÃ¨meh
+81 000 000
+iquatre-vingt-un??millioniÃ¨meh
 \fmtsetoptions{french={all plural,mil plural=multiple}}
-
-1000 2000 1001 2001 1900 2012
+1000
+imiliÃ¨meh
+2000
+ideuxâ€¢â€¢miliÃ¨meh
+1001
+imilâ€¢â€¢uniÃ¨meh
+2001
+ideuxâ€¢â€¢milsâ€¢â€¢uniÃ¨meh
+1900
+imilâ€¢â€¢neufâ€¢â€¢centiÃ¨meh
+2012
+ideuxâ€¢â€¢milsâ€¢â€¢douziÃ¨meh
 900
+ineufâ€¢â€¢centiÃ¨meh
+4 171 764 135 702 262
 
-milième
-deux··milième mil··unième deux··mils··unième mil··neuf··centième deux··mils··douzième neuf··centième
+349 567 001 574 584
 
 12
 
-\fmtsetoptions{french={all plural,mil plural=multiple,mil plural mark=s}} 2000 deux··milième
+\fmtsetoptions{french={all plural,mil plural=multiple,mil plural mark=s}}
+2000
+ideuxâ€¢â€¢miliÃ¨meh
+
 5 \Numberstringnum{#1}
 \fmtsetoptions{french={all plural}}
-1 Un 2 Deux 3 Trois 4 Quatre 5 Cinq 6 Six 7 Sept 8 Huit 9 Neuf 10 Dix 11 Onze 12 Douze 13 Treize 14 Quatorze 15 Quinze 16 Seize 17 Dix-sept 18 Dix-huit 19 Dix-neuf 20 Vingt
-21 Vingt··et··un
-22 Vingt-deux 29 Vingt-neuf
+1
+iUnh
+2
+iDeuxh
+3
+iTroish
+4
+iQuatreh
+5
+iCinqh
+6
+iSixh
+7
+iSepth
+8
+iHuith
+9
+iNeufh
+10
+iDixh
+11
+iOnzeh
+12
+iDouzeh
+13
+iTreizeh
+14
+iQuatorzeh
+15
+iQuinzeh
+16
+iSeizeh
+17
+iDix-septh
+18
+iDix-huith
+19
+iDix-neufh
+20
+iVingth
+21
+iVingtâ€¢â€¢etâ€¢â€¢unh
+22
+iVingt-deuxh
+29
+iVingt-neufh
 \fmtsetoptions{french={scale=long}}
-1 000 000 000 000 000 Un sextilliard 000 000 000 000 000 000 000 000
+1 000 000 000 000 000
+iUn??sextilliardh
+000 000 000 000 000
+000 000 000
+
 \fmtsetoptions{french={scale=short}}
-1 000 000 000 000 000 Un dodecillion 000 000 000 000 000 000 000 000
+1 000 000 000 000 000
+iUn??dodecillionh
+000 000 000 000 000
+000 000 000
+
 \fmtsetoptions{french={scale=recursive}}
-1 000 000 000 000 000 Mils milliards de milliards de milliards de 000 000 000 000 000 milliards 000 000 000
+1 000 000 000 000 000
+iMils??milliards??de??milliards??de??milliards??de?000 000 000 000 000
+?milliardsh
+000 000 000
+
 13
 
-1 000 000 000 000 000 000 000 000 000 000 000 000
+1 000 000 000 000 000
+000 000 000 000 000
 
-Un milliard de milliards de milliards de milliards
+iUn??milliard??de??milliards??de??milliards??de??milliardsh
 
-1 000 000 000 000 000 000 000 000 000 000 000
+000 000
+1 000 000 000 000 000
+000 000 000 000 000
 
-Un million de milliards de milliards de milliards
+iUn??million??de??milliards??de??milliards??de??milliardsh
 
-1 000 000 000 000 000 Mils milliards de milliards de milliards
+000
+1 000 000 000 000 000
+
+iMils??milliards??de??milliards??de??milliardsh
 
 000 000 000 000 000
+
 \fmtsetoptions{french={scale=long}}
-
-2 000 000 000 000 000 Deux sextilliards
-
+2 000 000 000 000 000
+iDeux??sextilliardsh
 000 000 000 000 000
-
 000 000 000
+
 \fmtsetoptions{french={scale=short}}
-
-2 000 000 000 000 000 Deux dodecillions
-
+2 000 000 000 000 000
+iDeux??dodecillionsh
 000 000 000 000 000
-
-000 000 000
-\fmtsetoptions{french={scale=recursive}} 2 000 000 000 000 000 Deux··mils milliards de milliards de -
-
-000 000 000 000 000
-
-milliards de milliards
-
 000 000 000
 
-2 000 000 000 000 000 000 000 000 000 000 000 000
+\fmtsetoptions{french={scale=recursive}}
+iDeuxâ€¢â€¢mils??milliards??de??milliards??de?2 000 000 000 000 000
+?milliards??de??milliardsh
+000 000 000 000 000
+000 000 000
+2 000 000 000 000 000
+000 000 000 000 000
 
-Deux milliards de milliards de milliards de milliards
+iDeux??milliards??de??milliards??de??milliards??de??milliardsh
 
-2 000 000 000 000 000 000 000 000 000 000 000
-2 000 000 000 000 000 000 000 000 000 000 156 404 724 555 428 769 499 217 321 941
+000 000
+2 000 000 000 000 000
+000 000 000 000 000
 
-Deux millions de milliards de milliards de -
-milliards
-Deux··mils milliards de milliards de -
-milliards
-Cent··cinquante-six milliards de milliards de milliards quatre··cent··quatre millions de milliards de milliards sept··cent··vingtquatre··mils milliards de milliards··cinq··cent··cinquante-cinq milliards de milliards quatre··cent··vingt-huit millions de milliards sept··cent··soixante-neuf··mils milliards··quatre··cent··quatre-vingt-dix-neuf milliards deux··cent··dix-sept millions trois··cent··vingt··et··un··mils··neuf··cent··quarante··et··un
+iDeux??millions??de??milliards??de??milliards??de??milliardsh
+
+000
+2 000 000 000 000 000
+000 000 000 000 000
+156 404 724 555 428
+769 499 217 321 941
+
+iDeuxâ€¢â€¢mils??milliards??de??milliards??de??milliardsh
+iCentâ€¢â€¢cinquante-six??milliards??de??milliards??de??milliards??quatreâ€¢â€¢centâ€¢â€¢quatre??millions??de??milliards??de??milliards??septâ€¢â€¢centâ€¢â€¢vingtquatreâ€¢â€¢mils??milliards??de??milliardsâ€¢â€¢cinqâ€¢â€¢centâ€¢â€¢cinquante-cinq??milliards??de??milliards??quatreâ€¢â€¢centâ€¢â€¢vingt-huit??millions??de??milliards??septâ€¢â€¢centâ€¢â€¢soixante-neufâ€¢â€¢mils??milliardsâ€¢â€¢quatreâ€¢â€¢centâ€¢â€¢quatre-vingt-dix-neuf??milliards??deuxâ€¢â€¢centâ€¢â€¢dix-sept??millions??troisâ€¢â€¢centâ€¢â€¢vingtâ€¢â€¢etâ€¢â€¢unâ€¢â€¢milsâ€¢â€¢neufâ€¢â€¢centâ€¢â€¢quaranteâ€¢â€¢etâ€¢â€¢unh
 
 14
 
-4 171 764 135 702 262 349 567 001 574 584
-97 415 427 916 562 250 398 973 107 371
-704
-
-Quatre··mils milliards de milliards de milliards··cent··soixante··et··onze milliards de milliards de milliards sept··cent··soixante-quatre millions de milliards de milliards cent··trente-cinq··mils milliards de milliards··sept··cent··deux milliards de milliards deux··cent··soixante-deux millions de milliards trois··cent··quarante-neuf··mils milliards··cinq··cent··soixante-sept milliards un million cinq··cent··soixante-quatorze··mils··cinq··cent··quatre-vingt-quatre
-Quatre-vingt-dix-sept··mils milliards de milliards de milliards··quatre··cent··quinze milliards de milliards de milliards quatre··cent··vingt-sept millions de milliards de milliards neuf··cent··seize··mils milliards de milliards··cinq··cent··soixante-deux milliards de milliards deux··cent··cinquante millions de milliards trois··cent··quatre-vingt-dix-huit··mils milliards··neuf··cent··soixante-treize milliards cent··sept millions trois··cent··soixante··et··onze··mils··sept··cent··quatre
-
-80 Quatre-vingts
-
-81 21 31 200 201 200 000 200 000 000 201 000 000 80 000
-
-Quatre-vingt-un
-Vingt··et··un Trente··et··un Deux··cents Deux··cent··un Deux··cent··mils Deux··cents millions Deux··cent··un millions Quatre-vingt··mils
-
-80 000 000 81 000
-
-Quatre-vingts millions
-Quatre-vingt-un··mils
-
-81 000 000 Quatre-vingt-un millions
+iQuatreâ€¢â€¢mils??milliards??de??milliards??de??milliardsâ€¢â€¢centâ€¢â€¢soixanteâ€¢â€¢etâ€¢â€¢onze??milliards??de??milliards??de??milliards??septâ€¢â€¢centâ€¢â€¢soixante-quatre??millions??de??milliards??de??milliards??centâ€¢â€¢trente-cinqâ€¢â€¢mils??milliards??de??milliardsâ€¢â€¢septâ€¢â€¢centâ€¢â€¢deux??milliards??de??milliards??deuxâ€¢â€¢centâ€¢â€¢soixante-deux??millions??de??milliards??troisâ€¢â€¢centâ€¢â€¢quarante-neufâ€¢â€¢mils??milliardsâ€¢â€¢cinqâ€¢â€¢centâ€¢â€¢soixante-sept??milliards??un??million??cinqâ€¢â€¢centâ€¢â€¢soixante-quatorzeâ€¢â€¢milsâ€¢â€¢cinqâ€¢â€¢centâ€¢â€¢quatre-vingt-quatreh
+97 415 427 916 562
+iQuatre-vingt-dix-septâ€¢â€¢mils??milliards??de?250 398 973 107 371
+?milliards??de??milliardsâ€¢â€¢quatreâ€¢â€¢centâ€¢â€¢quinze?704
+?milliards??de??milliards??de??milliards??quatreâ€¢â€¢centâ€¢â€¢vingt-sept??millions??de??milliards??de??milliards??neufâ€¢â€¢centâ€¢â€¢seizeâ€¢â€¢mils??milliards??de??milliardsâ€¢â€¢cinqâ€¢â€¢centâ€¢â€¢soixante-deux??milliards??de??milliards??deuxâ€¢â€¢centâ€¢â€¢cinquante??millions??de??milliards??troisâ€¢â€¢centâ€¢â€¢quatre-vingt-dix-huitâ€¢â€¢mils??milliardsâ€¢â€¢neufâ€¢â€¢centâ€¢â€¢soixante-treize??milliards??centâ€¢â€¢sept??millions??troisâ€¢â€¢centâ€¢â€¢soixanteâ€¢â€¢etâ€¢â€¢onzeâ€¢â€¢milsâ€¢â€¢septâ€¢â€¢centâ€¢â€¢quatreh
+80
+iQuatre-vingtsh
+81
+iQuatre-vingt-unh
+21
+iVingtâ€¢â€¢etâ€¢â€¢unh
+31
+iTrenteâ€¢â€¢etâ€¢â€¢unh
+200
+iDeuxâ€¢â€¢centsh
+201
+iDeuxâ€¢â€¢centâ€¢â€¢unh
+200 000
+iDeuxâ€¢â€¢centâ€¢â€¢milsh
+200 000 000
+iDeuxâ€¢â€¢cents??millionsh
+201 000 000
+iDeuxâ€¢â€¢centâ€¢â€¢un??millionsh
+80 000
+iQuatre-vingtâ€¢â€¢milsh
+80 000 000
+iQuatre-vingts??millionsh
+81 000
+iQuatre-vingt-unâ€¢â€¢milsh
+81 000 000
+iQuatre-vingt-un??millionsh
 \fmtsetoptions{french={all plural,mil plural=multiple}}
-
-1000 2000 1001 2001 1900 2012
+1000
+iMilh
+2000
+iDeuxâ€¢â€¢milsh
+1001
+iMilâ€¢â€¢unh
+2001
+iDeuxâ€¢â€¢milsâ€¢â€¢unh
+1900
+iMilâ€¢â€¢neufâ€¢â€¢centsh
+2012
+iDeuxâ€¢â€¢milsâ€¢â€¢douzeh
 900
+iNeufâ€¢â€¢centsh
+4 171 764 135 702 262
 
-Mil
-Deux··mils Mil··un Deux··mils··un Mil··neuf··cents Deux··mils··douze Neuf··cents
+349 567 001 574 584
 
 15
 
-\fmtsetoptions{french={all plural,mil plural=multiple,mil plural mark=s}} 2000 Deux··mils
+\fmtsetoptions{french={all plural,mil plural=multiple,mil plural mark=s}}
+2000
+iDeuxâ€¢â€¢milsh
+
 6 \Numberstringnum{#1}[f]
 \fmtsetoptions{french={all plural}}
-1 une 2 Deux 3 Trois 4 Quatre 5 Cinq 6 Six 7 Sept 8 Huit 9 Neuf 10 Dix 11 onze 12 Douze 13 Treize 14 Quatorze 15 Quinze 16 Seize 17 Dix-sept 18 Dix-huit 19 Dix-neuf 20 Vingt
-21 vingt··et··une
-22 Vingt-deux 29 Vingt-neuf
+1
+iuneh
+2
+iDeuxh
+3
+iTroish
+4
+iQuatreh
+5
+iCinqh
+6
+iSixh
+7
+iSepth
+8
+iHuith
+9
+iNeufh
+10
+iDixh
+11
+ionzeh
+12
+iDouzeh
+13
+iTreizeh
+14
+iQuatorzeh
+15
+iQuinzeh
+16
+iSeizeh
+17
+iDix-septh
+18
+iDix-huith
+19
+iDix-neufh
+20
+iVingth
+21
+ivingtâ€¢â€¢etâ€¢â€¢uneh
+22
+iVingt-deuxh
+29
+iVingt-neufh
 \fmtsetoptions{french={scale=long}}
-1 000 000 000 000 000 Un sextilliard 000 000 000 000 000 000 000 000
+1 000 000 000 000 000
+iUn??sextilliardh
+000 000 000 000 000
+000 000 000
+
 \fmtsetoptions{french={scale=short}}
-1 000 000 000 000 000 Un dodecillion 000 000 000 000 000 000 000 000
+1 000 000 000 000 000
+iUn??dodecillionh
+000 000 000 000 000
+000 000 000
+
 \fmtsetoptions{french={scale=recursive}}
-1 000 000 000 000 000 Mils milliards de milliards de milliards de 000 000 000 000 000 milliards 000 000 000
+1 000 000 000 000 000
+iMils??milliards??de??milliards??de??milliards??de?000 000 000 000 000
+?milliardsh
+000 000 000
+
 16
 
-1 000 000 000 000 000 000 000 000 000 000 000 000
+1 000 000 000 000 000
+000 000 000 000 000
 
-Un milliard de milliards de milliards de milliards
+iUn??milliard??de??milliards??de??milliards??de??milliardsh
 
-1 000 000 000 000 000 000 000 000 000 000 000
+000 000
+1 000 000 000 000 000
+000 000 000 000 000
 
-Un million de milliards de milliards de milliards
+iUn??million??de??milliards??de??milliards??de??milliardsh
 
-1 000 000 000 000 000 Mils milliards de milliards de milliards
+000
+1 000 000 000 000 000
+
+iMils??milliards??de??milliards??de??milliardsh
 
 000 000 000 000 000
+
 \fmtsetoptions{french={scale=long}}
-
-2 000 000 000 000 000 Deux sextilliards
-
+2 000 000 000 000 000
+iDeux??sextilliardsh
 000 000 000 000 000
-
 000 000 000
+
 \fmtsetoptions{french={scale=short}}
-
-2 000 000 000 000 000 Deux dodecillions
-
+2 000 000 000 000 000
+iDeux??dodecillionsh
 000 000 000 000 000
-
-000 000 000
-\fmtsetoptions{french={scale=recursive}} 2 000 000 000 000 000 Deux··mils milliards de milliards de -
-
-000 000 000 000 000
-
-milliards de milliards
-
 000 000 000
 
-2 000 000 000 000 000 000 000 000 000 000 000 000
+\fmtsetoptions{french={scale=recursive}}
+iDeuxâ€¢â€¢mils??milliards??de??milliards??de?2 000 000 000 000 000
+?milliards??de??milliardsh
+000 000 000 000 000
+000 000 000
+2 000 000 000 000 000
+000 000 000 000 000
 
-Deux milliards de milliards de milliards de milliards
+iDeux??milliards??de??milliards??de??milliards??de??milliardsh
 
-2 000 000 000 000 000 000 000 000 000 000 000
-2 000 000 000 000 000 000 000 000 000 000 156 404 724 555 428 769 499 217 321 941
+000 000
+2 000 000 000 000 000
+000 000 000 000 000
 
-Deux millions de milliards de milliards de -
-milliards
-Deux··mils milliards de milliards de -
-milliards
-cent··cinquante-six milliards de milliards de milliards quatre··cent··quatre millions de milliards de milliards sept··cent··vingtquatre··mils milliards de milliards··cinq··cent··cinquante-cinq milliards de milliards quatre··cent··vingt-huit millions de milliards sept··cent··soixante-neuf··mils milliards··quatre··cent··quatre-vingt-dix-neuf milliards deux··cent··dix-sept millions trois··cent··vingt··et··un··mils··neuf··cent··quarante··et··une
+iDeux??millions??de??milliards??de??milliards??de??milliardsh
+
+000
+2 000 000 000 000 000
+000 000 000 000 000
+156 404 724 555 428
+769 499 217 321 941
+
+iDeuxâ€¢â€¢mils??milliards??de??milliards??de??milliardsh
+icentâ€¢â€¢cinquante-six??milliards??de??milliards??de??milliards??quatreâ€¢â€¢centâ€¢â€¢quatre??millions??de??milliards??de??milliards??septâ€¢â€¢centâ€¢â€¢vingtquatreâ€¢â€¢mils??milliards??de??milliardsâ€¢â€¢cinqâ€¢â€¢centâ€¢â€¢cinquante-cinq??milliards??de??milliards??quatreâ€¢â€¢centâ€¢â€¢vingt-huit??millions??de??milliards??septâ€¢â€¢centâ€¢â€¢soixante-neufâ€¢â€¢mils??milliardsâ€¢â€¢quatreâ€¢â€¢centâ€¢â€¢quatre-vingt-dix-neuf??milliards??deuxâ€¢â€¢centâ€¢â€¢dix-sept??millions??troisâ€¢â€¢centâ€¢â€¢vingtâ€¢â€¢etâ€¢â€¢unâ€¢â€¢milsâ€¢â€¢neufâ€¢â€¢centâ€¢â€¢quaranteâ€¢â€¢etâ€¢â€¢uneh
 
 17
 
-4 171 764 135 702 262 349 567 001 574 584
-97 415 427 916 562 250 398 973 107 371
-704
-
-Quatre··mils milliards de milliards de milliards··cent··soixante··et··onze milliards de milliards de milliards sept··cent··soixante-quatre millions de milliards de milliards cent··trente-cinq··mils milliards de milliards··sept··cent··deux milliards de milliards deux··cent··soixante-deux millions de milliards trois··cent··quarante-neuf··mils milliards··cinq··cent··soixante-sept milliards un million cinq··cent··soixante-quatorze··mils··cinq··cent··quatre-vingt-quatre
-Quatre-vingt-dix-sept··mils milliards de milliards de milliards··quatre··cent··quinze milliards de milliards de milliards quatre··cent··vingt-sept millions de milliards de milliards neuf··cent··seize··mils milliards de milliards··cinq··cent··soixante-deux milliards de milliards deux··cent··cinquante millions de milliards trois··cent··quatre-vingt-dix-huit··mils milliards··neuf··cent··soixante-treize milliards cent··sept millions trois··cent··soixante··et··onze··mils··sept··cent··quatre
-
-80 Quatre-vingts
-
-81 21 31 200 201 200 000 200 000 000 201 000 000 80 000
-
-quatre-vingt-une
-vingt··et··une trente··et··une Deux··cents deux··cent··une Deux··cent··mils Deux··cents millions Deux··cent··un millions Quatre-vingt··mils
-
-80 000 000 81 000
-
-Quatre-vingts millions
-Quatre-vingt-un··mils
-
-81 000 000 Quatre-vingt-un millions
+iQuatreâ€¢â€¢mils??milliards??de??milliards??de??milliardsâ€¢â€¢centâ€¢â€¢soixanteâ€¢â€¢etâ€¢â€¢onze??milliards??de??milliards??de??milliards??septâ€¢â€¢centâ€¢â€¢soixante-quatre??millions??de??milliards??de??milliards??centâ€¢â€¢trente-cinqâ€¢â€¢mils??milliards??de??milliardsâ€¢â€¢septâ€¢â€¢centâ€¢â€¢deux??milliards??de??milliards??deuxâ€¢â€¢centâ€¢â€¢soixante-deux??millions??de??milliards??troisâ€¢â€¢centâ€¢â€¢quarante-neufâ€¢â€¢mils??milliardsâ€¢â€¢cinqâ€¢â€¢centâ€¢â€¢soixante-sept??milliards??un??million??cinqâ€¢â€¢centâ€¢â€¢soixante-quatorzeâ€¢â€¢milsâ€¢â€¢cinqâ€¢â€¢centâ€¢â€¢quatre-vingt-quatreh
+97 415 427 916 562
+iQuatre-vingt-dix-septâ€¢â€¢mils??milliards??de?250 398 973 107 371
+?milliards??de??milliardsâ€¢â€¢quatreâ€¢â€¢centâ€¢â€¢quinze?704
+?milliards??de??milliards??de??milliards??quatreâ€¢â€¢centâ€¢â€¢vingt-sept??millions??de??milliards??de??milliards??neufâ€¢â€¢centâ€¢â€¢seizeâ€¢â€¢mils??milliards??de??milliardsâ€¢â€¢cinqâ€¢â€¢centâ€¢â€¢soixante-deux??milliards??de??milliards??deuxâ€¢â€¢centâ€¢â€¢cinquante??millions??de??milliards??troisâ€¢â€¢centâ€¢â€¢quatre-vingt-dix-huitâ€¢â€¢mils??milliardsâ€¢â€¢neufâ€¢â€¢centâ€¢â€¢soixante-treize??milliards??centâ€¢â€¢sept??millions??troisâ€¢â€¢centâ€¢â€¢soixanteâ€¢â€¢etâ€¢â€¢onzeâ€¢â€¢milsâ€¢â€¢septâ€¢â€¢centâ€¢â€¢quatreh
+80
+iQuatre-vingtsh
+81
+iquatre-vingt-uneh
+21
+ivingtâ€¢â€¢etâ€¢â€¢uneh
+31
+itrenteâ€¢â€¢etâ€¢â€¢uneh
+200
+iDeuxâ€¢â€¢centsh
+201
+ideuxâ€¢â€¢centâ€¢â€¢uneh
+200 000
+iDeuxâ€¢â€¢centâ€¢â€¢milsh
+200 000 000
+iDeuxâ€¢â€¢cents??millionsh
+201 000 000
+iDeuxâ€¢â€¢centâ€¢â€¢un??millionsh
+80 000
+iQuatre-vingtâ€¢â€¢milsh
+80 000 000
+iQuatre-vingts??millionsh
+81 000
+iQuatre-vingt-unâ€¢â€¢milsh
+81 000 000
+iQuatre-vingt-un??millionsh
 \fmtsetoptions{french={all plural,mil plural=multiple}}
-
-1000 2000 1001 2001 1900 2012
+1000
+iMilh
+2000
+iDeuxâ€¢â€¢milsh
+1001
+imilâ€¢â€¢uneh
+2001
+ideuxâ€¢â€¢milsâ€¢â€¢uneh
+1900
+iMilâ€¢â€¢neufâ€¢â€¢centsh
+2012
+iDeuxâ€¢â€¢milsâ€¢â€¢douzeh
 900
+iNeufâ€¢â€¢centsh
+4 171 764 135 702 262
 
-Mil
-Deux··mils mil··une deux··mils··une Mil··neuf··cents Deux··mils··douze Neuf··cents
+349 567 001 574 584
 
 18
 
-\fmtsetoptions{french={all plural,mil plural=multiple,mil plural mark=s}} 2000 Deux··mils
+\fmtsetoptions{french={all plural,mil plural=multiple,mil plural mark=s}}
+2000
+iDeuxâ€¢â€¢milsh
+
 7 \Ordinalstringnum{#1}
 \fmtsetoptions{french={all plural}}
-1 Premier 2 Deuxième 3 Troisième 4 Quatrième 5 Cinquième 6 Sixième 7 Septième 8 Huitième 9 Neuvième 10 Dixième 11 Onzième 12 Douzième 13 Treizième 14 Quatorzième 15 Quinzième 16 Seizième 17 Dix-septième 18 Dix-huitième 19 Dix-neuvième 20 Vingtième
-21 Vingt··et··unième
-22 Vingt-deuxième 29 Vingt-neuvième
+1
+iPremierh
+2
+iDeuxiÃ¨meh
+3
+iTroisiÃ¨meh
+4
+iQuatriÃ¨meh
+5
+iCinquiÃ¨meh
+6
+iSixiÃ¨meh
+7
+iSeptiÃ¨meh
+8
+iHuitiÃ¨meh
+9
+iNeuviÃ¨meh
+10
+iDixiÃ¨meh
+11
+iOnziÃ¨meh
+12
+iDouziÃ¨meh
+13
+iTreiziÃ¨meh
+14
+iQuatorziÃ¨meh
+15
+iQuinziÃ¨meh
+16
+iSeiziÃ¨meh
+17
+iDix-septiÃ¨meh
+18
+iDix-huitiÃ¨meh
+19
+iDix-neuviÃ¨meh
+20
+iVingtiÃ¨meh
+21
+iVingtâ€¢â€¢etâ€¢â€¢uniÃ¨meh
+22
+iVingt-deuxiÃ¨meh
+29
+iVingt-neuviÃ¨meh
 \fmtsetoptions{french={scale=long}}
-1 000 000 000 000 000 Un sextilliardième 000 000 000 000 000 000 000 000
+1 000 000 000 000 000
+iUn??sextilliardiÃ¨meh
+000 000 000 000 000
+000 000 000
+
 \fmtsetoptions{french={scale=short}}
-1 000 000 000 000 000 Un dodecillionième 000 000 000 000 000 000 000 000
+1 000 000 000 000 000
+iUn??dodecillioniÃ¨meh
+000 000 000 000 000
+000 000 000
+
 \fmtsetoptions{french={scale=recursive}}
-1 000 000 000 000 000 Mils milliards de milliards de milliards de 000 000 000 000 000 milliardsième 000 000 000
+1 000 000 000 000 000
+iMils??milliards??de??milliards??de??milliards??de?000 000 000 000 000
+?milliardsiÃ¨meh
+000 000 000
+
 19
 
-1 000 000 000 000 000 000 000 000 000 000 000 000
+1 000 000 000 000 000
+000 000 000 000 000
 
-Un milliard de milliards de milliards de milliardsième
+iUn??milliard??de??milliards??de??milliards??de??milliardsiÃ¨meh
 
-1 000 000 000 000 000 000 000 000 000 000 000
+000 000
+1 000 000 000 000 000
+000 000 000 000 000
 
-Un million de milliards de milliards de milliardsième
+iUn??million??de??milliards??de??milliards??de??milliardsiÃ¨meh
 
-1 000 000 000 000 000 Mils milliards de milliards de milliardsième
+000
+1 000 000 000 000 000
+
+iMils??milliards??de??milliards??de??milliardsiÃ¨meh
 
 000 000 000 000 000
+
 \fmtsetoptions{french={scale=long}}
-
-2 000 000 000 000 000 Deux sextilliardième
-
+2 000 000 000 000 000
+iDeux??sextilliardiÃ¨meh
 000 000 000 000 000
-
 000 000 000
+
 \fmtsetoptions{french={scale=short}}
-
-2 000 000 000 000 000 Deux dodecillionième
-
+2 000 000 000 000 000
+iDeux??dodecillioniÃ¨meh
 000 000 000 000 000
-
-000 000 000
-\fmtsetoptions{french={scale=recursive}} 2 000 000 000 000 000 Deux··mils milliards de milliards de -
-
-000 000 000 000 000
-
-milliards de milliardsième
-
 000 000 000
 
-2 000 000 000 000 000 000 000 000 000 000 000 000
+\fmtsetoptions{french={scale=recursive}}
+iDeuxâ€¢â€¢mils??milliards??de??milliards??de?2 000 000 000 000 000
+?milliards??de??milliardsiÃ¨meh
+000 000 000 000 000
+000 000 000
+2 000 000 000 000 000
+000 000 000 000 000
 
-Deux milliard de milliards de milliards de milliardsième
+iDeux??milliard??de??milliards??de??milliards??de??milliardsiÃ¨meh
 
-2 000 000 000 000 000 000 000 000 000 000 000
-2 000 000 000 000 000 000 000 000 000 000 156 404 724 555 428 769 499 217 321 941
+000 000
+2 000 000 000 000 000
+000 000 000 000 000
 
-Deux million de milliards de milliards de -
-milliardsième
-Deux··mils milliards de milliards de -
-milliardsième
-Cent··cinquante-six milliards de milliards de milliards quatre··cent··quatre millions de milliards de milliards sept··cent··vingtquatre··mils milliards de milliards··cinq··cent··cinquante-cinq milliards de milliards quatre··cent··vingt-huit millions de milliards sept··cent··soixante-neuf··mils milliards··quatre··cent··quatre-vingt-dix-neuf milliards deux··cent··dix-sept millions trois··cent··vingt··et··un··mils··neuf··cent··quarante··et··unième
+iDeux??million??de??milliards??de??milliards??de??milliardsiÃ¨meh
+
+000
+2 000 000 000 000 000
+000 000 000 000 000
+156 404 724 555 428
+769 499 217 321 941
+
+iDeuxâ€¢â€¢mils??milliards??de??milliards??de??milliardsiÃ¨meh
+iCentâ€¢â€¢cinquante-six??milliards??de??milliards??de??milliards??quatreâ€¢â€¢centâ€¢â€¢quatre??millions??de??milliards??de??milliards??septâ€¢â€¢centâ€¢â€¢vingtquatreâ€¢â€¢mils??milliards??de??milliardsâ€¢â€¢cinqâ€¢â€¢centâ€¢â€¢cinquante-cinq??milliards??de??milliards??quatreâ€¢â€¢centâ€¢â€¢vingt-huit??millions??de??milliards??septâ€¢â€¢centâ€¢â€¢soixante-neufâ€¢â€¢mils??milliardsâ€¢â€¢quatreâ€¢â€¢centâ€¢â€¢quatre-vingt-dix-neuf??milliards??deuxâ€¢â€¢centâ€¢â€¢dix-sept??millions??troisâ€¢â€¢centâ€¢â€¢vingtâ€¢â€¢etâ€¢â€¢unâ€¢â€¢milsâ€¢â€¢neufâ€¢â€¢centâ€¢â€¢quaranteâ€¢â€¢etâ€¢â€¢uniÃ¨meh
 
 20
 
-4 171 764 135 702 262 349 567 001 574 584
-97 415 427 916 562 250 398 973 107 371
-704
-
-Quatre··mils milliards de milliards de milliards··cent··soixante··et··onze milliards de milliards de milliards sept··cent··soixante-quatre millions de milliards de milliards cent··trente-cinq··mils milliards de milliards··sept··cent··deux milliards de milliards deux··cent··soixante-deux millions de milliards trois··cent··quarante-neuf··mils milliards··cinq··cent··soixante-sept milliards un million cinq··cent··soixante-quatorze··mils··cinq··cent··quatre-vingt-quatrième
-Quatre-vingt-dix-sept··mils milliards de milliards de milliards··quatre··cent··quinze milliards de milliards de milliards quatre··cent··vingt-sept millions de milliards de milliards neuf··cent··seize··mils milliards de milliards··cinq··cent··soixante-deux milliards de milliards deux··cent··cinquante millions de milliards trois··cent··quatre-vingt-dix-huit··mils milliards··neuf··cent··soixante-treize milliards cent··sept millions trois··cent··soixante··et··onze··mils··sept··cent··quatrième
-
-80 Quatre-vingtième
-
-81 21 31 200 201 200 000 200 000 000 201 000 000 80 000
-
-Quatre-vingt-unième
-Vingt··et··unième Trente··et··unième Deux··centième Deux··cent··unième Deux··cent··milsième Deux··cent millionième Deux··cent··un millionième Quatre-vingt··milsième
-
-80 000 000 81 000
-
-Quatre-vingts millionième
-Quatre-vingt-un··milsième
-
-81 000 000 Quatre-vingt-un millionième
+iQuatreâ€¢â€¢mils??milliards??de??milliards??de??milliardsâ€¢â€¢centâ€¢â€¢soixanteâ€¢â€¢etâ€¢â€¢onze??milliards??de??milliards??de??milliards??septâ€¢â€¢centâ€¢â€¢soixante-quatre??millions??de??milliards??de??milliards??centâ€¢â€¢trente-cinqâ€¢â€¢mils??milliards??de??milliardsâ€¢â€¢septâ€¢â€¢centâ€¢â€¢deux??milliards??de??milliards??deuxâ€¢â€¢centâ€¢â€¢soixante-deux??millions??de??milliards??troisâ€¢â€¢centâ€¢â€¢quarante-neufâ€¢â€¢mils??milliardsâ€¢â€¢cinqâ€¢â€¢centâ€¢â€¢soixante-sept??milliards??un??million??cinqâ€¢â€¢centâ€¢â€¢soixante-quatorzeâ€¢â€¢milsâ€¢â€¢cinqâ€¢â€¢centâ€¢â€¢quatre-vingt-quatriÃ¨meh
+97 415 427 916 562
+iQuatre-vingt-dix-septâ€¢â€¢mils??milliards??de?250 398 973 107 371
+?milliards??de??milliardsâ€¢â€¢quatreâ€¢â€¢centâ€¢â€¢quinze?704
+?milliards??de??milliards??de??milliards??quatreâ€¢â€¢centâ€¢â€¢vingt-sept??millions??de??milliards??de??milliards??neufâ€¢â€¢centâ€¢â€¢seizeâ€¢â€¢mils??milliards??de??milliardsâ€¢â€¢cinqâ€¢â€¢centâ€¢â€¢soixante-deux??milliards??de??milliards??deuxâ€¢â€¢centâ€¢â€¢cinquante??millions??de??milliards??troisâ€¢â€¢centâ€¢â€¢quatre-vingt-dix-huitâ€¢â€¢mils??milliardsâ€¢â€¢neufâ€¢â€¢centâ€¢â€¢soixante-treize??milliards??centâ€¢â€¢sept??millions??troisâ€¢â€¢centâ€¢â€¢soixanteâ€¢â€¢etâ€¢â€¢onzeâ€¢â€¢milsâ€¢â€¢septâ€¢â€¢centâ€¢â€¢quatriÃ¨meh
+80
+iQuatre-vingtiÃ¨meh
+81
+iQuatre-vingt-uniÃ¨meh
+21
+iVingtâ€¢â€¢etâ€¢â€¢uniÃ¨meh
+31
+iTrenteâ€¢â€¢etâ€¢â€¢uniÃ¨meh
+200
+iDeuxâ€¢â€¢centiÃ¨meh
+201
+iDeuxâ€¢â€¢centâ€¢â€¢uniÃ¨meh
+200 000
+iDeuxâ€¢â€¢centâ€¢â€¢milsiÃ¨meh
+200 000 000
+iDeuxâ€¢â€¢cent??millioniÃ¨meh
+201 000 000
+iDeuxâ€¢â€¢centâ€¢â€¢un??millioniÃ¨meh
+80 000
+iQuatre-vingtâ€¢â€¢milsiÃ¨meh
+80 000 000
+iQuatre-vingts??millioniÃ¨meh
+81 000
+iQuatre-vingt-unâ€¢â€¢milsiÃ¨meh
+81 000 000
+iQuatre-vingt-un??millioniÃ¨meh
 \fmtsetoptions{french={all plural,mil plural=multiple}}
-
-1000 2000 1001 2001 1900 2012
+1000
+iMiliÃ¨meh
+2000
+iDeuxâ€¢â€¢miliÃ¨meh
+1001
+iMilâ€¢â€¢uniÃ¨meh
+2001
+iDeuxâ€¢â€¢milsâ€¢â€¢uniÃ¨meh
+1900
+iMilâ€¢â€¢neufâ€¢â€¢centiÃ¨meh
+2012
+iDeuxâ€¢â€¢milsâ€¢â€¢douziÃ¨meh
 900
+iNeufâ€¢â€¢centiÃ¨meh
+4 171 764 135 702 262
 
-Milième
-Deux··milième Mil··unième Deux··mils··unième Mil··neuf··centième Deux··mils··douzième Neuf··centième
+349 567 001 574 584
 
 21
 
-\fmtsetoptions{french={all plural,mil plural=multiple,mil plural mark=s}} 2000 Deux··milième
+\fmtsetoptions{french={all plural,mil plural=multiple,mil plural mark=s}}
+2000
+iDeuxâ€¢â€¢miliÃ¨meh
+
 8 \Ordinalstringnum{#1}[f]
 \fmtsetoptions{french={all plural}}
-1 Première 2 Deuxième 3 Troisième 4 Quatrième 5 Cinquième 6 Sixième 7 Septième 8 Huitième 9 Neuvième 10 Dixième 11 Onzième 12 Douzième 13 Treizième 14 Quatorzième 15 Quinzième 16 Seizième 17 Dix-septième 18 Dix-huitième 19 Dix-neuvième 20 Vingtième
-21 Vingt··et··unième
-22 Vingt-deuxième 29 Vingt-neuvième
+1
+iPremiÃ¨reh
+2
+iDeuxiÃ¨meh
+3
+iTroisiÃ¨meh
+4
+iQuatriÃ¨meh
+5
+iCinquiÃ¨meh
+6
+iSixiÃ¨meh
+7
+iSeptiÃ¨meh
+8
+iHuitiÃ¨meh
+9
+iNeuviÃ¨meh
+10
+iDixiÃ¨meh
+11
+iOnziÃ¨meh
+12
+iDouziÃ¨meh
+13
+iTreiziÃ¨meh
+14
+iQuatorziÃ¨meh
+15
+iQuinziÃ¨meh
+16
+iSeiziÃ¨meh
+17
+iDix-septiÃ¨meh
+18
+iDix-huitiÃ¨meh
+19
+iDix-neuviÃ¨meh
+20
+iVingtiÃ¨meh
+21
+iVingtâ€¢â€¢etâ€¢â€¢uniÃ¨meh
+22
+iVingt-deuxiÃ¨meh
+29
+iVingt-neuviÃ¨meh
 \fmtsetoptions{french={scale=long}}
-1 000 000 000 000 000 Un sextilliardième 000 000 000 000 000 000 000 000
+1 000 000 000 000 000
+iUn??sextilliardiÃ¨meh
+000 000 000 000 000
+000 000 000
+
 \fmtsetoptions{french={scale=short}}
-1 000 000 000 000 000 Un dodecillionième 000 000 000 000 000 000 000 000
+1 000 000 000 000 000
+iUn??dodecillioniÃ¨meh
+000 000 000 000 000
+000 000 000
+
 \fmtsetoptions{french={scale=recursive}}
-1 000 000 000 000 000 Mils milliards de milliards de milliards de 000 000 000 000 000 milliardsième 000 000 000
+1 000 000 000 000 000
+iMils??milliards??de??milliards??de??milliards??de?000 000 000 000 000
+?milliardsiÃ¨meh
+000 000 000
+
 22
 
-1 000 000 000 000 000 000 000 000 000 000 000 000
+1 000 000 000 000 000
+000 000 000 000 000
 
-Un milliard de milliards de milliards de milliardsième
+iUn??milliard??de??milliards??de??milliards??de??milliardsiÃ¨meh
 
-1 000 000 000 000 000 000 000 000 000 000 000
+000 000
+1 000 000 000 000 000
+000 000 000 000 000
 
-Un million de milliards de milliards de milliardsième
+iUn??million??de??milliards??de??milliards??de??milliardsiÃ¨meh
 
-1 000 000 000 000 000 Mils milliards de milliards de milliardsième
+000
+1 000 000 000 000 000
+
+iMils??milliards??de??milliards??de??milliardsiÃ¨meh
 
 000 000 000 000 000
+
 \fmtsetoptions{french={scale=long}}
-
-2 000 000 000 000 000 Deux sextilliardième
-
+2 000 000 000 000 000
+iDeux??sextilliardiÃ¨meh
 000 000 000 000 000
-
 000 000 000
+
 \fmtsetoptions{french={scale=short}}
-
-2 000 000 000 000 000 Deux dodecillionième
-
+2 000 000 000 000 000
+iDeux??dodecillioniÃ¨meh
 000 000 000 000 000
-
-000 000 000
-\fmtsetoptions{french={scale=recursive}} 2 000 000 000 000 000 Deux··mils milliards de milliards de -
-
-000 000 000 000 000
-
-milliards de milliardsième
-
 000 000 000
 
-2 000 000 000 000 000 000 000 000 000 000 000 000
+\fmtsetoptions{french={scale=recursive}}
+iDeuxâ€¢â€¢mils??milliards??de??milliards??de?2 000 000 000 000 000
+?milliards??de??milliardsiÃ¨meh
+000 000 000 000 000
+000 000 000
+2 000 000 000 000 000
+000 000 000 000 000
 
-Deux milliard de milliards de milliards de milliardsième
+iDeux??milliard??de??milliards??de??milliards??de??milliardsiÃ¨meh
 
-2 000 000 000 000 000 000 000 000 000 000 000
-2 000 000 000 000 000 000 000 000 000 000 156 404 724 555 428 769 499 217 321 941
+000 000
+2 000 000 000 000 000
+000 000 000 000 000
 
-Deux million de milliards de milliards de -
-milliardsième
-Deux··mils milliards de milliards de -
-milliardsième
-Cent··cinquante-six milliards de milliards de milliards quatre··cent··quatre millions de milliards de milliards sept··cent··vingtquatre··mils milliards de milliards··cinq··cent··cinquante-cinq milliards de milliards quatre··cent··vingt-huit millions de milliards sept··cent··soixante-neuf··mils milliards··quatre··cent··quatre-vingt-dix-neuf milliards deux··cent··dix-sept millions trois··cent··vingt··et··un··mils··neuf··cent··quarante··et··unième
+iDeux??million??de??milliards??de??milliards??de??milliardsiÃ¨meh
+
+000
+2 000 000 000 000 000
+000 000 000 000 000
+156 404 724 555 428
+769 499 217 321 941
+
+iDeuxâ€¢â€¢mils??milliards??de??milliards??de??milliardsiÃ¨meh
+iCentâ€¢â€¢cinquante-six??milliards??de??milliards??de??milliards??quatreâ€¢â€¢centâ€¢â€¢quatre??millions??de??milliards??de??milliards??septâ€¢â€¢centâ€¢â€¢vingtquatreâ€¢â€¢mils??milliards??de??milliardsâ€¢â€¢cinqâ€¢â€¢centâ€¢â€¢cinquante-cinq??milliards??de??milliards??quatreâ€¢â€¢centâ€¢â€¢vingt-huit??millions??de??milliards??septâ€¢â€¢centâ€¢â€¢soixante-neufâ€¢â€¢mils??milliardsâ€¢â€¢quatreâ€¢â€¢centâ€¢â€¢quatre-vingt-dix-neuf??milliards??deuxâ€¢â€¢centâ€¢â€¢dix-sept??millions??troisâ€¢â€¢centâ€¢â€¢vingtâ€¢â€¢etâ€¢â€¢unâ€¢â€¢milsâ€¢â€¢neufâ€¢â€¢centâ€¢â€¢quaranteâ€¢â€¢etâ€¢â€¢uniÃ¨meh
 
 23
 
-4 171 764 135 702 262 349 567 001 574 584
-97 415 427 916 562 250 398 973 107 371
-704
-
-Quatre··mils milliards de milliards de milliards··cent··soixante··et··onze milliards de milliards de milliards sept··cent··soixante-quatre millions de milliards de milliards cent··trente-cinq··mils milliards de milliards··sept··cent··deux milliards de milliards deux··cent··soixante-deux millions de milliards trois··cent··quarante-neuf··mils milliards··cinq··cent··soixante-sept milliards un million cinq··cent··soixante-quatorze··mils··cinq··cent··quatre-vingt-quatrième
-Quatre-vingt-dix-sept··mils milliards de milliards de milliards··quatre··cent··quinze milliards de milliards de milliards quatre··cent··vingt-sept millions de milliards de milliards neuf··cent··seize··mils milliards de milliards··cinq··cent··soixante-deux milliards de milliards deux··cent··cinquante millions de milliards trois··cent··quatre-vingt-dix-huit··mils milliards··neuf··cent··soixante-treize milliards cent··sept millions trois··cent··soixante··et··onze··mils··sept··cent··quatrième
-
-80 Quatre-vingtième
-
-81 21 31 200 201 200 000 200 000 000 201 000 000 80 000
-
-Quatre-vingt-unième
-Vingt··et··unième Trente··et··unième Deux··centième Deux··cent··unième Deux··cent··milsième Deux··cent millionième Deux··cent··un millionième Quatre-vingt··milsième
-
-80 000 000 81 000
-
-Quatre-vingts millionième
-Quatre-vingt-un··milsième
-
-81 000 000 Quatre-vingt-un millionième
+iQuatreâ€¢â€¢mils??milliards??de??milliards??de??milliardsâ€¢â€¢centâ€¢â€¢soixanteâ€¢â€¢etâ€¢â€¢onze??milliards??de??milliards??de??milliards??septâ€¢â€¢centâ€¢â€¢soixante-quatre??millions??de??milliards??de??milliards??centâ€¢â€¢trente-cinqâ€¢â€¢mils??milliards??de??milliardsâ€¢â€¢septâ€¢â€¢centâ€¢â€¢deux??milliards??de??milliards??deuxâ€¢â€¢centâ€¢â€¢soixante-deux??millions??de??milliards??troisâ€¢â€¢centâ€¢â€¢quarante-neufâ€¢â€¢mils??milliardsâ€¢â€¢cinqâ€¢â€¢centâ€¢â€¢soixante-sept??milliards??un??million??cinqâ€¢â€¢centâ€¢â€¢soixante-quatorzeâ€¢â€¢milsâ€¢â€¢cinqâ€¢â€¢centâ€¢â€¢quatre-vingt-quatriÃ¨meh
+97 415 427 916 562
+iQuatre-vingt-dix-septâ€¢â€¢mils??milliards??de?250 398 973 107 371
+?milliards??de??milliardsâ€¢â€¢quatreâ€¢â€¢centâ€¢â€¢quinze?704
+?milliards??de??milliards??de??milliards??quatreâ€¢â€¢centâ€¢â€¢vingt-sept??millions??de??milliards??de??milliards??neufâ€¢â€¢centâ€¢â€¢seizeâ€¢â€¢mils??milliards??de??milliardsâ€¢â€¢cinqâ€¢â€¢centâ€¢â€¢soixante-deux??milliards??de??milliards??deuxâ€¢â€¢centâ€¢â€¢cinquante??millions??de??milliards??troisâ€¢â€¢centâ€¢â€¢quatre-vingt-dix-huitâ€¢â€¢mils??milliardsâ€¢â€¢neufâ€¢â€¢centâ€¢â€¢soixante-treize??milliards??centâ€¢â€¢sept??millions??troisâ€¢â€¢centâ€¢â€¢soixanteâ€¢â€¢etâ€¢â€¢onzeâ€¢â€¢milsâ€¢â€¢septâ€¢â€¢centâ€¢â€¢quatriÃ¨meh
+80
+iQuatre-vingtiÃ¨meh
+81
+iQuatre-vingt-uniÃ¨meh
+21
+iVingtâ€¢â€¢etâ€¢â€¢uniÃ¨meh
+31
+iTrenteâ€¢â€¢etâ€¢â€¢uniÃ¨meh
+200
+iDeuxâ€¢â€¢centiÃ¨meh
+201
+iDeuxâ€¢â€¢centâ€¢â€¢uniÃ¨meh
+200 000
+iDeuxâ€¢â€¢centâ€¢â€¢milsiÃ¨meh
+200 000 000
+iDeuxâ€¢â€¢cent??millioniÃ¨meh
+201 000 000
+iDeuxâ€¢â€¢centâ€¢â€¢un??millioniÃ¨meh
+80 000
+iQuatre-vingtâ€¢â€¢milsiÃ¨meh
+80 000 000
+iQuatre-vingts??millioniÃ¨meh
+81 000
+iQuatre-vingt-unâ€¢â€¢milsiÃ¨meh
+81 000 000
+iQuatre-vingt-un??millioniÃ¨meh
 \fmtsetoptions{french={all plural,mil plural=multiple}}
-
-1000 2000 1001 2001 1900 2012
+1000
+iMiliÃ¨meh
+2000
+iDeuxâ€¢â€¢miliÃ¨meh
+1001
+iMilâ€¢â€¢uniÃ¨meh
+2001
+iDeuxâ€¢â€¢milsâ€¢â€¢uniÃ¨meh
+1900
+iMilâ€¢â€¢neufâ€¢â€¢centiÃ¨meh
+2012
+iDeuxâ€¢â€¢milsâ€¢â€¢douziÃ¨meh
 900
+iNeufâ€¢â€¢centiÃ¨meh
+4 171 764 135 702 262
 
-Milième
-Deux··milième Mil··unième Deux··mils··unième Mil··neuf··centième Deux··mils··douzième Neuf··centième
+349 567 001 574 584
 
 24
 
-\fmtsetoptions{french={all plural,mil plural=multiple,mil plural mark=s}} 2000 Deux··milième
+\fmtsetoptions{french={all plural,mil plural=multiple,mil plural mark=s}}
+2000
+iDeuxâ€¢â€¢miliÃ¨meh
+
 25
 
 
