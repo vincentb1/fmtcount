@@ -9,7 +9,7 @@ my @optfileversion;
 my $optverbose;
 
 &GetOptions("v" => \$optverbose,
-	    "v" => \$optmovefile,
+	    "m" => \$optmovefile,
            "f=s" => \@optfileversion, 
 	    "p=s" =>\$optperlversion);
 

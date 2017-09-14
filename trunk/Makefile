@@ -1,4 +1,5 @@
 include fc-makedefinitions.mak
+DIST:=../dist
 
 .PHONY: test
 test	:
@@ -7,38 +8,39 @@ test	:
 .PHONY: dist
 dist	: README CHANGES fmtcount-manual.tex \
 	  fmtcount.perl $(STYFILES) \
-	  ../dist/fmtcount.dtx
-	command cp CHANGES ../dist
-	./cp2dist $(addprefix -f$(SPACE),$(STYFILES)) README fmtcount-manual.tex ../dist
-	$(MAKE) -C ../dist
+	  $(DIST)/fmtcount.dtx
+	command cp CHANGES $(DIST)
+	./cp2dist $(addprefix -f$(SPACE),$(STYFILES)) README fmtcount-manual.tex $(DIST)
+	$(MAKE) -C $(DIST)
 
-../dist/fmtcount.dtx	: $(DTX_DEPENDANCIES)
+$(addprefix $(DIST)/,$(DOCSTRIP))	: $(DTX_DEPENDANCIES)
 	makedtx -author "Nicola Talbot and Vincent Belaïche" \
 		-src "(.+)\.(sty|def)$$=>\1.\2" \
 		-doc fmtcount-manual.tex fmtcount
-	./cp2dist -m $(addprefix -f$(SPACE),$(STYFILES)) fmtcount.{dtx,ins} ../dist
+	./cp2dist -m $(addprefix -f$(SPACE),$(STYFILES)) fmtcount.{dtx,ins} $(DIST)
 
-../dist/fmtcount.pdf	: ../dist/fmtcount.dtx 
-			$(MAKE) -C ../dist fmtcount.pdf
+$(DIST)/fmtcount.pdf	: $(addprefix $(DIST)/,$(DOCSTRIP))
+			$(MAKE) -C $(DIST) fmtcount.pdf
 
-../dist/fmtcount-manual.tex	: fmtcount-manual.tex
-	./cp2dist $(addprefix -f$(SPACE),$(STYFILES)) fmtcount-manual.tex ../dist
+$(DIST)/fmtcount-manual.tex	: fmtcount-manual.tex
+	./cp2dist $(addprefix -f$(SPACE),$(STYFILES)) fmtcount-manual.tex $(DIST)
 
-../dist/fmtcount-manual.html	: ../dist/fmtcount-manual.tex 
-	$(MAKE) -C ../dist fmtcount-manual.html
+$(DIST)/fmtcount-manual.html	: $(DIST)/fmtcount-manual.tex 
+	$(MAKE) -C $(DIST) fmtcount-manual.html
 
 .PHONY: doc
 doc: html pdf
 
 .PHONY: html
-html	: ../dist/fmtcount-manual.html
+html	: $(DIST)/fmtcount-manual.html
 
 .PHONY: pdf
-pdf	: ../dist/fmtcount.pdf
+pdf	: $(DIST)/fmtcount.pdf
 
 .PHONY: squeaky realclean
 squeaky	realclean:%: clean
-	$(MAKE) -C ../dist squeaky clean
+	$(MAKE) -C $(DIST) squeaky clean
+	$(MAKE) -C test realclean
 
 .PHONY: clean
 clean	:

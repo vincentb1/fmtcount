@@ -50,7 +50,7 @@ fmtcount.pdf	: $(DOCSTRIP)
 		pdflatex fmtcount.dtx
 		pdflatex fmtcount.dtx
 
-$(DOCSTRIP):%: $(patsubst %,../trunk/%,$(DTX_DEPENDANCIES))
+$(DOCSTRIP):%: $(addprefix $(SRC)/,$(DTX_DEPENDANCIES))
 	$(MAKE) -C ../trunk dist
 
 fmtcount-manual.html	: fmtcount-manual.tex

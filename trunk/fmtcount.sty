@@ -3,7 +3,7 @@
 % This section deals with the code for |fmtcount.sty|
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{fmtcount}[2017/07/21 v3.03]
+\ProvidesPackage{fmtcount}[2017/09/14 v3.04]
 \RequirePackage{ifthen}
 %    \end{macrocode}
 % \changes{3.01}{2014-12-18}{Use \styfmt{xkeyval} instead of \styfmt{keyval}, so that we do not get in trouble
@@ -943,10 +943,13 @@ italian}
 %  and use \cs{value} instead tweaking with \cs{csname}. Do not use
 %  any longer \cs{protect} as \cs{ordinalstringnum} is made
 %  robust. Expand \cs{the}\cs{value}\texttt{\{\#1\}} once before
-%  passing to \cs{ordinalstringnum}}
+%  passing to \cs{ordinalstringnum}}%
+% \changes{3.03}{2017/09/14}{Suppress leading \cs{expandafter}'s, they are useless as \cs{ordinalstringnum} is
+% supposed to fully expand its argument, and place 3 \cs{expandafter}'s before \cs{the}\cs{value} for
+% compatibily with \texttt{glossaries}.}
 %    \begin{macrocode}
 \newcommand*{\ordinalstring}[1]{%
-  \expandafter\ordinalstringnum\expandafter{%
+  \ordinalstringnum{\expandafter\expandafter\expandafter
     \the\value{#1}}%
 }
 %    \end{macrocode}
@@ -1067,10 +1070,12 @@ italian}
 % longer \cs{protect} as \cs{Ordinalstringnum} is made
 % robust. Expand \cs{the}\cs{value}\texttt{\{\#1\}} once before
 % passing to \cs{Ordinalstringnum}}
+% \changes{3.03}{2017/09/14}{Suppress leading \cs{expandafter}'s, they are useless as \cs{Ordinalstringnum} is
+% supposed to fully expand its argument, and place 3 \cs{expandafter}'s before \cs{the}\cs{value} for
+% compatibily with \texttt{glossaries}.}
 %    \begin{macrocode}
 \newcommand*{\Ordinalstring}[1]{%
-  \expandafter\Ordinalstringnum\expandafter{%
-    \the\value{#1}}%
+  \Ordinalstringnum{\expandafter\expandafter\expandafter\the\value{#1}}%
 }
 %    \end{macrocode}
 %\end{macro}
@@ -1251,9 +1256,12 @@ italian}
 % longer \cs{protect} as \cs{ORDINALstringnum} is made
 % robust. Expand \cs{the}\cs{value}\texttt{\{\#1\}} once before
 % passing to \cs{ORDINALstringnum}}
+% \changes{3.03}{2017/09/14}{Suppress leading \cs{expandafter}'s, they are useless as \cs{ORDINALstringnum} is
+% supposed to fully expand its argument, and place 3 \cs{expandafter}'s before \cs{the}\cs{value} for
+% compatibily with \texttt{glossaries}.}
 %    \begin{macrocode}
 \newcommand*{\ORDINALstring}[1]{%
-  \expandafter\ORDINALstringnum\expandafter{%
+  \ORDINALstringnum{\expandafter\expandafter\expandafter
     \the\value{#1}%
   }%
 }
@@ -1364,9 +1372,12 @@ italian}
 % longer \cs{protect} as \cs{numberstringnum} is made
 % robust. Expand \cs{the}\cs{value}\texttt{\{\#1\}} once before
 % passing to \cs{numberstringnum}}
+% \changes{3.03}{2017/09/14}{Suppress leading \cs{expandafter}'s, they are useless as \cs{numberstringnum} is
+% supposed to fully expand its argument, and place 3 \cs{expandafter}'s before \cs{the}\cs{value} for
+% compatibily with \texttt{glossaries}.}
 %    \begin{macrocode}
 \newcommand*{\numberstring}[1]{%
-  \expandafter\numberstringnum\expandafter{%
+  \numberstringnum{\expandafter\expandafter\expandafter
     \the\value{#1}}%
 }
 %    \end{macrocode}
@@ -1478,9 +1489,12 @@ italian}
 % longer \cs{protect} as \cs{Numberstringnum} is made
 % robust. Expand \cs{the}\cs{value}\texttt{\{\#1\}} once before
 % passing to \cs{Numberstringnum}}
+% \changes{3.03}{2017/09/14}{Suppress leading \cs{expandafter}'s, they are useless as \cs{Numberstringnum} is
+% supposed to fully expand its argument, and place 3 \cs{expandafter}'s before \cs{the}\cs{value} for
+% compatibily with \texttt{glossaries}.}
 %    \begin{macrocode}
 \newcommand*{\Numberstring}[1]{%
-  \expandafter\Numberstringnum\expandafter{%
+  \Numberstringnum{\expandafter\expandafter\expandafter
     \the\value{#1}}%
 }
 %    \end{macrocode}
@@ -1594,9 +1608,12 @@ italian}
 % longer \cs{protect} as \cs{NUMBERstringnum} is made
 % robust. Expand \cs{the}\cs{value}\texttt{\{\#1\}} once before
 % passing to \cs{NUMBERstringnum}.}
+% \changes{3.03}{2017/09/14}{Suppress leading \cs{expandafter}'s, they are useless as \cs{NUMBERstringnum} is
+% supposed to fully expand its argument, and place 3 \cs{expandafter}'s before \cs{the}\cs{value} for
+% compatibily with \texttt{glossaries}.}
 %    \begin{macrocode}
 \newcommand*{\NUMBERstring}[1]{%
-  \expandafter\NUMBERstringnum\expandafter{%
+  \NUMBERstringnum{\expandafter\expandafter\expandafter
     \the\value{#1}}%
 }
 %    \end{macrocode}
@@ -1651,10 +1668,12 @@ italian}
 % longer \cs{protect} as \cs{@binary} is made
 % robust. Expand \cs{the}\cs{value}\texttt{\{\#1\}} once before
 % passing to \cs{@binary}}
+% \changes{3.03}{2017/09/14}{Suppress leading \cs{expandafter}'s, they are useless as \cs{@binary} is supposed
+% to fully expand its argument, and place 3 \cs{expandafter}'s before \cs{the}\cs{value} for compatibily with
+% \texttt{glossaries}.}
 %    \begin{macrocode}
 \providecommand*{\binary}[1]{%
-  \expandafter\@binary
-  \expandafter{%
+  \@binary{\expandafter\expandafter\expandafter
     \the\value{#1}}%
 }
 %    \end{macrocode}
@@ -1667,10 +1686,12 @@ italian}
 % longer \cs{protect} as \cs{@aaalph} is made
 % robust. Expand \cs{the}\cs{value}\texttt{\{\#1\}} once before
 % passing to \cs{@aaalph}.}
+% \changes{3.03}{2017/09/14}{Suppress leading \cs{expandafter}'s, they are useless as \cs{@aaalph} is supposed
+% to fully expand its argument, and place 3 \cs{expandafter}'s before \cs{the}\cs{value} for compatibily with
+% \texttt{glossaries}.}
 %    \begin{macrocode}
 \providecommand*{\aaalph}[1]{%
-  \expandafter\@aaalph
-  \expandafter{%
+  \@aaalph{\expandafter\expandafter\expandafter
     \the\value{#1}}%
 }
 %    \end{macrocode}
@@ -1682,10 +1703,12 @@ italian}
 % longer \cs{protect} as \cs{@AAAlph} is made
 % robust. Expand \cs{the}\cs{value}\texttt{\{\#1\}} once before
 % passing to \cs{@AAAlph}.}
+% \changes{3.03}{2017/09/14}{Suppress leading \cs{expandafter}'s, they are useless as \cs{@AAAlph} is supposed
+% to fully expand its argument, and place 3 \cs{expandafter}'s before \cs{the}\cs{value} for compatibily with
+% \texttt{glossaries}.}
 %    \begin{macrocode}
 \providecommand*{\AAAlph}[1]{%
-  \expandafter\@AAAlph
-  \expandafter{%
+  \@AAAlph{\expandafter\expandafter\expandafter
     \the\value{#1}}%
 }
 %    \end{macrocode}
@@ -1698,10 +1721,12 @@ italian}
 % longer \cs{protect} as \cs{@abalph} is made
 % robust. Expand \cs{the}\cs{value}\texttt{\{\#1\}} once before
 % passing to \cs{@abalph}.}
+% \changes{3.03}{2017/09/14}{Suppress leading \cs{expandafter}'s, they are useless as \cs{@abalph} is supposed
+% to fully expand its argument, and place 3 \cs{expandafter}'s before \cs{the}\cs{value} for compatibily with
+% \texttt{glossaries}.}
 %    \begin{macrocode}
 \providecommand*{\abalph}[1]{%
-  \expandafter\@abalph
-  \expandafter{%
+  \@abalph{\expandafter\expandafter\expandafter
     \the\value{#1}}%
 }
 %    \end{macrocode}
@@ -1713,10 +1738,12 @@ italian}
 % longer \cs{protect} as \cs{@ABAlph} is made
 % robust. Expand \cs{the}\cs{value}\texttt{\{\#1\}} once before
 % passing to \cs{@ABAlph}.}
+% \changes{3.03}{2017/09/14}{Suppress leading \cs{expandafter}'s, they are useless as \cs{@ABAlph} is supposed
+% to fully expand its argument, and place 3 \cs{expandafter}'s before \cs{the}\cs{value} for compatibily with
+% \texttt{glossaries}.}
 %    \begin{macrocode}
 \providecommand*{\ABAlph}[1]{%
-  \expandafter\@ABAlph
-  \expandafter{%
+  \@ABAlph{\expandafter\expandafter\expandafter
     \the\value{#1}}%
 }
 %    \end{macrocode}
@@ -1728,10 +1755,12 @@ italian}
 % longer \cs{protect} as \cs{@hexadecimal} is made
 % robust. Expand \cs{the}\cs{value}\texttt{\{\#1\}} once before
 % passing to \cs{@hexadecimal}.}
+% \changes{3.03}{2017/09/14}{Suppress leading \cs{expandafter}'s, they are useless as \cs{@hexadecimal} is
+% supposed to fully expand its argument, and place 3 \cs{expandafter}'s before \cs{the}\cs{value} for
+% compatibily with \texttt{glossaries}.}
 %    \begin{macrocode}
 \providecommand*{\hexadecimal}[1]{%
-  \expandafter\@hexadecimal
-  \expandafter{%
+  \@hexadecimal{\expandafter\expandafter\expandafter
     \the\value{#1}}%
 }
 %    \end{macrocode}
@@ -1743,10 +1772,12 @@ italian}
 % longer \cs{protect} as \cs{@Hexadecimal} is made
 % robust. Expand \cs{the}\cs{value}\texttt{\{\#1\}} once before
 % passing to \cs{@Hexadecimal}.}
+% \changes{3.03}{2017/09/14}{Suppress leading \cs{expandafter}'s, they are useless as \cs{@Hexadecimal} is
+% supposed to fully expand its argument, and place 3 \cs{expandafter}'s before \cs{the}\cs{value} for
+% compatibily with \texttt{glossaries}.}
 %    \begin{macrocode}
 \providecommand*{\Hexadecimal}[1]{%
-  \expandafter\@Hexadecimal
-  \expandafter{%
+  \@Hexadecimal{\expandafter\expandafter\expandafter
     \the\value{#1}}%
 }
 %    \end{macrocode}
@@ -1758,10 +1789,12 @@ italian}
 % longer \cs{protect} as \cs{@octal} is made
 % robust. Expand \cs{the}\cs{value}\texttt{\{\#1\}} once before
 % passing to \cs{@octal}}
+% \changes{3.03}{2017/09/14}{Suppress leading \cs{expandafter}'s, they are useless as \cs{@octal} is supposed
+% to fully expand its argument, and place 3 \cs{expandafter}'s before \cs{the}\cs{value} for compatibily with
+% \texttt{glossaries}.}
 %    \begin{macrocode}
 \providecommand*{\octal}[1]{%
-  \expandafter\@octal
-  \expandafter{%
+  \@octal{\expandafter\expandafter\expandafter
     \the\value{#1}}%
 }
 %    \end{macrocode}
@@ -1773,10 +1806,12 @@ italian}
 % longer \cs{protect} as \cs{@decimal} is made
 % robust. Expand \cs{the}\cs{value}\texttt{\{\#1\}} once before
 % passing to \cs{@decimal}}
+% \changes{3.03}{2017/09/14}{Suppress leading \cs{expandafter}'s, they are useless as \cs{@decimal} is supposed
+% to fully expand its argument, and place 3 \cs{expandafter}'s before \cs{the}\cs{value} for compatibily with
+% \texttt{glossaries}.}
 %    \begin{macrocode}
 \providecommand*{\decimal}[1]{%
-  \expandafter\@decimal
-  \expandafter{%
+  \@decimal{\expandafter\expandafter\expandafter
     \the\value{#1}}%
 }
 %    \end{macrocode}
