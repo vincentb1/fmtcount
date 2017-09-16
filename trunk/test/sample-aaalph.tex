@@ -1,0 +1,115 @@
+ % This file is public domain
+\documentclass[a4paper]{article}
+
+\usepackage{fmtcount}
+% FCloadlang
+\newcounter{N}
+
+\padzeroes[5]
+
+\newcommand{\printrow}[1]{%
+  \newline
+  \setcounter{N}{#1}
+  \makebox[0.75in][r]{\decimal{N},\quad}
+  \makebox[0.75in][r]{\aaalph{N},\quad}
+  \makebox[0.75in][r]{\ifnum\value{N}<17577 \abalph{N}\else N/A\fi,\quad}
+  \makebox[2in][l]{\ifnum\value{N}<32769\octal{N}\else N/A\fi}
+}
+
+%\renewcommand{\thesection}{\ordinal{section}}
+
+\begin{document}
+
+\setcounter{N}{18}
+\tableofcontents
+\section{Displaying the value of a counter}
+\label{ex}
+
+\begin{ttfamily}
+\noindent
+\makebox[0.75in][c]{decimal}
+\makebox[0.75in][c]{aaalph}
+\makebox[0.75in][c]{abalph}
+octal
+\printrow{0}
+\printrow{1}
+\printrow{2}
+\printrow{3}
+\printrow{4}
+\printrow{5}
+\printrow{6}
+\printrow{7}
+\printrow{8}
+\printrow{9}
+\printrow{10}
+\printrow{11}
+\printrow{12}
+\printrow{13}
+\printrow{14}
+\printrow{15}
+\printrow{16}
+\printrow{17}
+\printrow{18}
+\printrow{19}
+\printrow{20}
+\printrow{21}
+\printrow{22}
+\printrow{23}
+\printrow{24}
+\printrow{25}
+\printrow{30}
+\printrow{40}
+\printrow{50}
+\printrow{60}
+\printrow{70}
+\printrow{71}
+\printrow{75}
+\printrow{80}
+\printrow{81}
+\printrow{85}
+\printrow{90}
+\printrow{91}
+\printrow{95}
+\printrow{100}
+\printrow{101}
+\printrow{110}
+\printrow{125}
+\printrow{150}
+\printrow{170}
+\printrow{180}
+\printrow{190}
+\printrow{200}
+\printrow{250}
+\printrow{300}
+\printrow{400}
+\printrow{500}
+\printrow{600}
+\printrow{700}
+\printrow{800}
+\printrow{900}
+\printrow{1000}
+\printrow{17576}
+\printrow{32768}
+\printrow{99999}
+\end{ttfamily}
+
+\section{Cross-Referencing}
+
+Referencing a label: \ref{ex}.
+
+Passing numbers explicitly (28):
+\aaalphnum{28},
+\AAAlphnum{28},
+\abalphnum{28},
+\ABAlphnum{28},
+\octalnum{28},
+\hexadecimalnum{28},
+\Hexadecimalnum{28}.
+
+\setcounter{N}{777}
+\section{\textbackslash FCordinal in a title: \FCordinal{N}}
+\section{\textbackslash octal in a title: \octal{N}}
+\section{\textbackslash aaalph in a title: \aaalph{N}}
+\section{\textbackslash abalph in a title: \abalph{N}}
+
+\end{document}

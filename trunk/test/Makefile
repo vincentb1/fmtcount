@@ -1,5 +1,6 @@
 include ../fc-makedefinitions.mak
 TESTS:= fc-samp sample-polyglossia
+DUMMY_LANG_TESTS:=fmtord aaalph
 SAMPLE_DIR:=.
 DASHES:='=================================================================================================='
 
@@ -31,9 +32,6 @@ LANG_shortgo:=english french italian
 # note: french cannot be tested with babel + tex4ht engine due to tex4ht problem with babel thin space used in
 # french before :;!?, see https://puszcza.gnu.org.ua/bugs/?213.
 LANG_shortbab:=english german
-
-# dummy
-LANG_fmtord:=l
 
 # Cross referencing tests (for these tests we used global option language loading)
 # The lc+ ucf+ uc+ are needed because on MSWindows filenames are case insenstive
@@ -86,7 +84,7 @@ $(call DEF_CONTENTSNAME,ngermanb,Inhaltsverzeichnis)
 # italian => does not support 999999
 # portuges => does not support 0
 
-LOGS_SHORT:=short shortenc shortgo shortbab fmtord
+LOGS_SHORT:=short shortenc shortgo shortbab $(DUMMY_LANG_TESTS)
 TEX4HT_LOGS:=$(LOGS_SHORT)
 LOGS:=pdftests $(TEX4HT_LOGS)
 
@@ -116,6 +114,14 @@ all: $(addsuffix .log,$(LOGS))
 	fi;\
 	echo $(DASHES);
 
+
+# Target for each log.
+define _1
+.PHONY: $(1)
+$(1): $(1).log
+
+endef
+$(eval $(foreach LOG,$(LOGS),$(call _1,$(LOG))))
 
 
 define ERROR_COUNT_AWK
@@ -234,8 +240,15 @@ echo_$(1): makesubdir_t4ht
 	@echo $(DASHES)
 endef
 
-tests/test-fmtord-l.tex: sample-fmtord.tex tests/.dir echo_fmtord
-	cp $< $@
+# Dummy lang tests, test which don't need to hack language before running the test
+define _1
+LANG_$(1):=l
+
+tests/test-$(1)-l.tex: sample-$(1).tex tests/.dir echo_$(1)
+	cp $$< $$@
+
+endef
+$(eval $(foreach TEST,$(DUMMY_LANG_TESTS),$(call _1,$(TEST))))
 
 $(foreach SHORTTYPE,$(LOGS_SHORT),$(eval $(call SHORTTYPE_RULE,$(SHORTTYPE))))
 
@@ -377,3 +390,17 @@ overwrite_pdftests:
 			fi ; \
 		fi ; \
 	done
+
+.PHONY: help
+help:
+	@echo "List of targets"
+	@echo "  all"
+	@echo "  pdftests"
+	@echo "  short"
+	@echo "  shortenc"
+	@echo "  shortgo"
+	@echo "  shortbab"
+	@echo "  fmtord"
+	@echo "  aaalph"
+	@echo "  squeaky realclean"
+	@echo "  clean"

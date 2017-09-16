@@ -833,8 +833,11 @@ italian}
 %\changes{1.31}{2009/10/02}{replaced \cs{@ifnextchar} with
 %\cs{new@ifnextchar}}
 % \changes{3.02}{2015-08-01}{Make \cs{ordinalnum} robust.}
+% \changes{3.04}{2017-09-16}{Use \texttt{etoobox}'s \cs{newrobustcmd*} instead of \LaTeX\ kernel
+% \cs{DeclareRobustcommand*} in order to make \cs{ordinalnum} robust. This is preferable, e.g. w.r.t. \TeX 4ht
+% compilation.}
 %    \begin{macrocode}
-\DeclareRobustCommand*{\ordinalnum}[1]{%
+\newrobustcmd*{\ordinalnum}[1]{%
   \new@ifnextchar[%
   {\@ordinalnum{#1}}%
   {\@ordinalnum{#1}[m]}%
