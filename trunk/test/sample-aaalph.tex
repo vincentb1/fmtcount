@@ -93,6 +93,85 @@ octal
 \printrow{99999}
 \end{ttfamily}
 
+\section{Displaying the value of a counter --- upercase}
+\label{ex}
+
+\begin{ttfamily}
+\noindent
+\makebox[0.75in][c]{hexadecimal}
+\makebox[0.75in][c]{Hexadecimal}
+\makebox[0.75in][c]{AAAlph}
+\makebox[0.75in][c]{ABAlph}
+\renewcommand{\printrow}[1]{%
+  \newline
+  \setcounter{N}{#1}
+  \makebox[0.75in][r]{\hexadecimal{N},\quad}
+  \makebox[0.75in][r]{\Hexadecimal{N},\quad}
+  \makebox[0.75in][r]{\AAAlph{N},\quad}
+  \makebox[2in][l]{\ifnum\value{N}<17577\ABAlph{N}\else N/A\fi}
+}
+\printrow{0}
+\printrow{1}
+\printrow{2}
+\printrow{3}
+\printrow{4}
+\printrow{5}
+\printrow{6}
+\printrow{7}
+\printrow{8}
+\printrow{9}
+\printrow{10}
+\printrow{11}
+\printrow{12}
+\printrow{13}
+\printrow{14}
+\printrow{15}
+\printrow{16}
+\printrow{17}
+\printrow{18}
+\printrow{19}
+\printrow{20}
+\printrow{21}
+\printrow{22}
+\printrow{23}
+\printrow{24}
+\printrow{25}
+\printrow{30}
+\printrow{40}
+\printrow{50}
+\printrow{60}
+\printrow{70}
+\printrow{71}
+\printrow{75}
+\printrow{80}
+\printrow{81}
+\printrow{85}
+\printrow{90}
+\printrow{91}
+\printrow{95}
+\printrow{100}
+\printrow{101}
+\printrow{110}
+\printrow{125}
+\printrow{150}
+\printrow{170}
+\printrow{180}
+\printrow{190}
+\printrow{200}
+\printrow{250}
+\printrow{300}
+\printrow{400}
+\printrow{500}
+\printrow{600}
+\printrow{700}
+\printrow{800}
+\printrow{900}
+\printrow{1000}
+\printrow{17576}
+\printrow{32768}
+\printrow{99999}
+\end{ttfamily}
+
 \section{Cross-Referencing}
 
 Referencing a label: \ref{ex}.

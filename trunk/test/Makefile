@@ -267,7 +267,9 @@ endef
 
 ifeq ($(USE_DOCSTRIP),yes)
 $(addprefix tests/,$(STYFILES)):tests/%:$(DIST)/% tests/.dir
-	cd tests; ln -s ../$< $(notdir $@)
+	cd tests; \
+	if [ -f $(notdir $@) ]; then rm $(notdir $@); fi; \
+	ln -s ../$< $(notdir $@)
 
 $(addprefix $(DIST)/,$(STYFILES)):%:$(DOCSTRIP)
 	$(MAKE) -C $(dir $@) $(notdir $@)
