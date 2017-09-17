@@ -3,17 +3,17 @@
 % This section deals with the code for |fmtcount.sty|
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{fmtcount}[2017/09/14 v3.04]
+\ProvidesPackage{fmtcount}[2017/09/16 v3.04]
 \RequirePackage{ifthen}
 %    \end{macrocode}
-% \changes{3.01}{2014-12-18}{Use \styfmt{xkeyval} instead of \styfmt{keyval}, so that we do not get in trouble
+% \changes{3.01}{2014/12/03}{Use \styfmt{xkeyval} instead of \styfmt{keyval}, so that we do not get in trouble
 % with bracket spurious removals}
 %    \begin{macrocode}
 \RequirePackage{xkeyval}
 \RequirePackage{etoolbox}
 \RequirePackage{fcprefix}
 %    \end{macrocode}
-% \changes{3.00}{2014-07-18}{Add \cs{RequirePackage} for \texttt{ifxetex}}
+% \changes{3.00}{2014/07/3}{Add \cs{RequirePackage} for \texttt{ifxetex}}
 %    \begin{macrocode}
 \RequirePackage{ifxetex}
 %    \end{macrocode}
@@ -32,8 +32,8 @@
 %
 % Define the macro to format the |st|, |nd|, |rd| or |th| of an 
 % ordinal.
-% \changes{3.01}{2014-12-18}{Make \cs{fmtord} language dependent.}
-% \changes{3.01}{2014-12-21}{Substitute \cs{textsuperscript} for \cs{fc@textsuperscript}, and define
+% \changes{3.01}{2014/12/3}{Make \cs{fmtord} language dependent.}
+% \changes{3.01}{2014/12/3}{Substitute \cs{textsuperscript} for \cs{fc@textsuperscript}, and define
 % \cs{fc@textsuperscript} as \cs{fup} when defined at beginning of document, or as \cs{textsuperscript}
 % otherwise}
 %\begin{macro}{\fc@orddef@ult}
@@ -75,8 +75,8 @@
 %\end{macro}
 %
 %\begin{macro}{\FCloadlang}
-%\changes{2.0}{2012-06-18}{new}
-%\changes{2.02}{2012-10-24}{ensured catcode for @ set to `letter'
+%\changes{2.0}{2012/06/3}{new}
+%\changes{2.02}{2012/10/3}{ensured catcode for @ set to `letter'
 %before loading file}
 %\begin{definition}
 %\cs{FCloadlang}\marg{language}
@@ -116,7 +116,7 @@
 %    \end{macrocode}
 %\end{macro}
 %\begin{macro}{\@FC@iflangloaded}
-%\changes{2.0}{2012-06-18}{new}
+%\changes{2.0}{2012/06/3}{new}
 %\begin{definition}
 %\cs{@FC@iflangloaded}\marg{language}\marg{true}\marg{false}
 %\end{definition}
@@ -129,7 +129,7 @@
 %    \end{macrocode}
 %\end{macro}
 %\begin{macro}{\ProvidesFCLanguage}
-%\changes{2.0}{2012-06-18}{new}
+%\changes{2.0}{2012/06/3}{new}
 % Declare fmtcount language definition file. Adapted from
 % \ics{ProvidesFile}.
 %    \begin{macrocode}
@@ -159,7 +159,7 @@
 %    These two purposes cannot be handled in the same pass, we need two different passes otherwise there would
 %    be some corner cases when a package would be required --- as a result of loading language definition for
 %    one language --- between a \cs{DeclareOption} and a \cs{ProcessOption} which is forbidden by \LaTeXe.
-%\changes{3.00}{2014-07-18}{new}
+%\changes{3.00}{2014/07/3}{new}
 %    \begin{macrocode}
 \newcommand*\fc@supported@language@list{%
 english,%
@@ -186,7 +186,7 @@ italian}
 % Now make some language iterator, note that for the following to work properly
 % \cs{fc@supported@language@list} must not be empty. \meta{body} is  a macro that takes one argument, and
 % \cs{fc@iterate@on@languages} applies it iteratively :
-%\changes{3.00}{2014-07-18}{new}
+%\changes{3.00}{2014/07/03}{new}
 %    \begin{macrocode}
 \newcommand*\fc@iterate@on@languages[1]{%
   \ifx\fc@supported@language@list\@empty
@@ -232,10 +232,10 @@ italian}
 % \item \meta{language} option has been passed to package \styfmt{fmtcount}.
 % \end{itemize}
 % 
-%\changes{2.03}{2012-11-11}{renamed \cs{@fc@loadifbabelldf} to
+%\changes{2.03}{2012/11/03}{renamed \cs{@fc@loadifbabelldf} to
 % \cs{@fc@loadifbabelorpolyglossialdf}}
-%\changes{2.03}{2012-11-11}{added check for polyglossia language}
-%\changes{3.00}{2014-07-18}{use \cs{ifxetex} to discriminate between \styfmt{babel} and \styfmt{polyglossia}}
+%\changes{2.03}{2012/11/03}{added check for polyglossia language}
+%\changes{3.00}{2014/07/03}{use \cs{ifxetex} to discriminate between \styfmt{babel} and \styfmt{polyglossia}}
 %    \begin{macrocode}
 \newcommand*{\@fc@loadifbabelorpolyglossialdf}[1]{%
   \ifxetex
@@ -248,12 +248,12 @@ italian}
 %\end{macro}
 %
 % Load appropriate language definition files:
-%\changes{1.1}{14 June 2007}{added check for UKenglish,
+%\changes{1.1}{2007/06/14}{added check for UKenglish,
 % british and USenglish babel settings}
-%\changes{2.0}{2012-06-18}{changed check for \cs{l@}\meta{language} 
+%\changes{2.0}{2012/06/03}{changed check for \cs{l@}\meta{language} 
 % to check for \cs{date}\meta{language}}
-%\changes{3.00}{2014-07-18}{use iterator rather than doing it flat on each language}
-%\changes{3.01}{2014-12-18}{Define language aliases to \cs{fmtord}
+%\changes{3.00}{2014/07/03}{use iterator rather than doing it flat on each language}
+%\changes{3.01}{2014/12/03}{Define language aliases to \cs{fmtord}
 %   option dependent on ``true'' language .}
 %    \begin{macrocode}
 \fc@iterate@on@languages\@fc@loadifbabelorpolyglossialdf
@@ -319,7 +319,7 @@ italian}
 %    \end{macrocode}
 %\begin{option}{fmtord}
 % Key to determine how to display the ordinal
-% \changes{3.01}{2014-12-18}{Apply option directly, rather than doing a border effect on \cs{fmtcount@fmtord},
+% \changes{3.01}{2014/12/03}{Apply option directly, rather than doing a border effect on \cs{fmtcount@fmtord},
 % and then postprocessing depending on \cs{fmtcount@fmtord} at the end of \cs{fmtcountsetoptions}}
 %    \begin{macrocode}
 \def\fc@set@ord@as@level#1{%
@@ -351,7 +351,7 @@ italian}
 %    \begin{macrocode}
 \newif\iffmtord@abbrv
 %    \end{macrocode}
-% \changes{3.01}{2014-11-12}{Make `true' the default for option
+% \changes{3.01}{2014/11/03}{Make `true' the default for option
 % `abbr', as in French this is the correct behaviour, and currently
 % only French uses that}
 %    \begin{macrocode}
@@ -371,7 +371,7 @@ italian}
 %    \end{macrocode}
 %\end{macro}
 %\begin{option}{prefix}
-%\changes{2.0}{2012-06-18}{new}
+%\changes{2.0}{2012/06/03}{new}
 %    \begin{macrocode}
 \define@key{fmtcount}{prefix}[scale=long]{%
   \RequirePackage{fmtprefix}%
@@ -381,7 +381,7 @@ italian}
 %\end{option}
 %\begin{macro}{\fmtcountsetoptions}
 % Define command to set options.
-% \changes{3.01}{2014-12-18}{Move French specific stuff to \styfmt{french.def}.}
+% \changes{3.01}{2014/12/03}{Move French specific stuff to \styfmt{french.def}.}
 %    \begin{macrocode}
 \def\fmtcountsetoptions{%
   \def\fmtcount@fmtord{}%
@@ -391,7 +391,7 @@ italian}
 % Load configuration file if it exists.  This needs to be done
 % before the package options, to allow the user to override
 % the settings in the configuration file.
-%\changes{2.0}{2012-06-18}{Now no message if fmtcount.cfg not found}
+%\changes{2.0}{2012/06/03}{Now no message if fmtcount.cfg not found}
 %    \begin{macrocode}
 \InputIfFileExists{fmtcount.cfg}%
 {%
@@ -401,7 +401,7 @@ italian}
 }
 %    \end{macrocode}
 %\begin{macro}{\fmtcount@loaded@by@option@lang@list}
-% \changes{3.01}{2014-10-15}{Declare language option so that actual loading happens after \cs{ProcessOptions},
+% \changes{3.01}{2014/10/03}{Declare language option so that actual loading happens after \cs{ProcessOptions},
 % and the \cs{ProcessOption} only registers the language for loading.}
 %    \begin{macrocode}
 \newcommand*{\fmtcount@loaded@by@option@lang@list}{}
@@ -435,11 +435,11 @@ italian}
 %    \end{macrocode}
 %\end{option}
 % Process package options 
-% \changes{3.00}{2014-07-18}{Add \cs{relax} after \cs{ProcessOptions} like shown in \texttt{clsguide.pdf}}
+% \changes{3.00}{2014/07/03}{Add \cs{relax} after \cs{ProcessOptions} like shown in \texttt{clsguide.pdf}}
 %    \begin{macrocode}
 \ProcessOptions\relax
 %    \end{macrocode}
-% \changes{3.01}{2014-10-15}{Load languages that have been registered for loading by package option.}
+% \changes{3.01}{2014/10/03}{Load languages that have been registered for loading by package option.}
 % Now we do the loading of all languages that have been set by option to be loaded.
 %    \begin{macrocode}
 \ifx\fmtcount@loaded@by@option@lang@list\@empty\else
@@ -455,7 +455,7 @@ italian}
 %\begin{definition}
 %\cs{@FCmodulo}\marg{count reg}\marg{n}
 %\end{definition}
-%\changes{2.04}{2014-06-09}{renamed \cs{@modulo} to \cs{@FCmodulo}}
+%\changes{2.04}{2014/06/03}{renamed \cs{@modulo} to \cs{@FCmodulo}}
 % Sets the count register to be its value modulo \meta{n}. 
 % This is used for the
 % date, time, ordinal and numberstring commands. (The
@@ -785,7 +785,7 @@ italian}
 % If \cs{ordinal} isn't defined make \cs{ordinal} a synonym
 % for \cs{FCordinal} to maintain compatibility with previous
 % versions.
-% \changes{3.00}{2014-07-18}{Use \cs{protect}, not \cs{string} in \cs{PackageWarning} to quote macros like
+% \changes{3.00}{2014/07/03}{Use \cs{protect}, not \cs{string} in \cs{PackageWarning} to quote macros like
 % shown in \texttt{clsguide.pdf}}
 %    \begin{macrocode}
 \ifcsundef{ordinal}
@@ -802,8 +802,8 @@ italian}
 % count register instead of a counter:
 %\changes{1.31}{2009/10/02}{replaced \cs{@ifnextchar} with
 %\cs{new@ifnextchar}}
-% \changes{3.02}{2015-08-01}{Make \cs{ordinalnum} robust.}
-% \changes{3.04}{2017-09-16}{Use \texttt{etoobox}'s \cs{newrobustcmd*} instead of \LaTeX\ kernel
+% \changes{3.02}{2015/08/03}{Make \cs{ordinalnum} robust.}
+% \changes{3.04}{2017/09/03}{Use \texttt{etoobox}'s \cs{newrobustcmd*} instead of \LaTeX\ kernel
 % \cs{DeclareRobustcommand*} in order to make \cs{ordinalnum} robust. This is preferable, e.g. w.r.t. \TeX 4ht
 % compilation.}
 %    \begin{macrocode}
@@ -850,7 +850,7 @@ italian}
 %\begin{macro}{\storeordinal}
 % Store the ordinal (first argument
 % is identifying name, second argument is a counter.)
-% \changes{3.02}{2015-08-01}{Suppress useless \cs{expandafter}'s and and use \cs{value} instead tweaking with
+% \changes{3.02}{2015/08/03}{Suppress useless \cs{expandafter}'s and and use \cs{value} instead tweaking with
 % \cs{csname}. Do not use any longer \cs{protect} as \cs{storeordinalnum} is made robust.}
 % \changes{3.02}{2016/01/08}{Expand \cs{the}\cs{value}\texttt{\{\#2\}} once before passing to \cs{storeordinalnum}}
 %    \begin{macrocode}
@@ -944,9 +944,9 @@ italian}
 %\end{macro}
 %\begin{macro}{\@ordinal@string}
 % Display ordinal as a string according to gender.
-% \changes{3.00}{2014-07-18}{Use \cs{protect}, not \cs{string} in \cs{PackageError} to quote macros like
+% \changes{3.00}{2014/07/03}{Use \cs{protect}, not \cs{string} in \cs{PackageError} to quote macros like
 % shown in \texttt{clsguide.pdf}}
-% \changes{3.00}{2014-07-18}{Correct detailed error message, so `n' is one of available gender options}
+% \changes{3.00}{2014/07/03}{Correct detailed error message, so `n' is one of available gender options}
 %    \begin{macrocode}
 \def\@ordinal@string#1[#2]{%
   {%
@@ -1007,7 +1007,7 @@ italian}
 %\end{macro}
 %\begin{macro}{\@store@ordinal@string}
 % Store textual representation of number according to gender.
-% \changes{3.00}{2014-07-18}{Use \cs{protect}, not \cs{string} in \cs{PackageWarning} to quote macros like
+% \changes{3.00}{2014/07/03}{Use \cs{protect}, not \cs{string} in \cs{PackageWarning} to quote macros like
 % shown in \texttt{clsguide.pdf}}
 %    \begin{macrocode}
 \def\@store@ordinal@string#1#2[#3]{%
@@ -1213,7 +1213,7 @@ italian}
     }%
   }%
 %    \end{macrocode}
-% \changes{3.01}{2014-11-10}{Protect \cs{`}.}
+% \changes{3.01}{2014/11/03}{Protect \cs{`}.}
 %    \begin{macrocode}
   \expandafter\protected@edef\csname @fcs@#1\endcsname{%
     \noexpand\MakeUppercase{\@fc@ordstr}%
@@ -1820,9 +1820,9 @@ italian}
 %\end{macro}
 %
 %\begin{macro}{\fc@multiling}
-%\changes{2.02}{2012-10-24}{new}
+%\changes{2.02}{2012/10/03}{new}
 %\cs{fc@multiling}\marg{name}\marg{gender}
-%\changes{3.00}{2014-07-18}{Use \cs{protect}, not \cs{string} in \cs{PackageWarning} to quote macros like
+%\changes{3.00}{2014/07/03}{Use \cs{protect}, not \cs{string} in \cs{PackageWarning} to quote macros like
 % shown in \texttt{clsguide.pdf}}
 %    \begin{macrocode}
 \newcommand*{\fc@multiling}[2]{%
@@ -1864,7 +1864,7 @@ italian}
 %\begin{macro}{\@set@mulitling@fmtcount}
 % This defines the number and ordinal string macros to use 
 % \cs{languagename}:
-%\changes{2.0}{2012-06-18}{changed errors to warnings for
+%\changes{2.0}{2012/06/03}{changed errors to warnings for
 %unsupported languages}
 %    \begin{macrocode}
 \def\@set@mulitling@fmtcount{%
@@ -1960,7 +1960,7 @@ italian}
   }%
 %    \end{macrocode}
 % Make \cs{fmtord} language dependent:
-% \changes{3.01}{2014-12-18}{Make \cs{fmtord} language dependent.}
+% \changes{3.01}{2014/12/03}{Make \cs{fmtord} language dependent.}
 %    \begin{macrocode}
   \let\fmtord\fc@ord@multiling
 }
@@ -2021,7 +2021,7 @@ italian}
   }%
 }
 %    \end{macrocode}
-% \changes{3.01}{2014-12-21}{Substitute \cs{textsuperscript} for \cs{fc@textsuperscript}, and define
+% \changes{3.01}{2014/12/03}{Substitute \cs{textsuperscript} for \cs{fc@textsuperscript}, and define
 % \cs{fc@textsuperscript} as \cs{fup} when defined at beginning of document, or as \cs{textsuperscript}
 % otherwise}
 %    \begin{macrocode}

@@ -1,5 +1,19 @@
 fmtcount package versions:
 
+Version 3.04:
+
+* Fix issue #27 (New definition of `\Numberstring` is now causing
+  problems with glossaries.sty)
+
+* Code optimization with \octal, \hexdecimal, \aaalph, \abalph and
+  upercase counterparts when applicable.
+
+* Declare \ordinalnum with etoolbox \newrobustcmd*, rather than LaTeX
+  kernel \DeclareRobustCommand* --- this is preferable for compilation
+  with TeX4ht.
+
+* Test bench upgrade.
+
 Version 3.03:
 
 * Fix issue #25 (docstripable doc spilled into the portugese code)
