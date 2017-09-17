@@ -493,7 +493,7 @@ italian}
   \@DT@padzeroestrue
   \@DT@loopN=17\relax
   \@strctr=\@DT@loopN
-  \whiledo{\@strctr<\c@padzeroesN}{0\advance\@strctr by 1}%
+  \whiledo{\@strctr<\c@padzeroesN}{0\advance\@strctr by \@ne}%
   \@strctr=65536\relax
   \@DT@X=#1\relax
   \loop
@@ -507,9 +507,9 @@ italian}
     \ifnum\@DT@modctr=0\else\@DT@padzeroesfalse\fi
     \multiply\@DT@modctr by \@strctr
     \advance\@DT@X by -\@DT@modctr
-    \divide\@strctr by 2\relax
-    \advance\@DT@loopN by -1\relax
-  \ifnum\@strctr>1
+    \divide\@strctr by \tw@
+    \advance\@DT@loopN by \m@ne
+  \ifnum\@strctr>\@ne
   \repeat
   \the\@DT@X
 }
@@ -522,7 +522,8 @@ italian}
 %\changes{3.02}{2016/01/08}{Made robust using \texttt{etoolbox} \cs{newrobustcmd}}
 %    \begin{macrocode}
 \newrobustcmd*{\@octal}[1]{%
-  \ifnum#1>32768
+  \@DT@X=#1\relax
+  \ifnum\@DT@X>32768
     \PackageError{fmtcount}%
     {Value of counter too large for \protect\@octal}
     {Maximum value 32768}
@@ -530,9 +531,8 @@ italian}
   \@DT@padzeroestrue
   \@DT@loopN=6\relax
   \@strctr=\@DT@loopN
-  \whiledo{\@strctr<\c@padzeroesN}{0\advance\@strctr by 1}%
+  \whiledo{\@strctr<\c@padzeroesN}{0\advance\@strctr by \@ne}%
   \@strctr=32768\relax
-  \@DT@X=#1\relax
   \loop
     \@DT@modctr=\@DT@X
     \divide\@DT@modctr by \@strctr
@@ -543,9 +543,9 @@ italian}
     \ifnum\@DT@modctr=0\else\@DT@padzeroesfalse\fi
     \multiply\@DT@modctr by \@strctr
     \advance\@DT@X by -\@DT@modctr
-    \divide\@strctr by 8\relax
-    \advance\@DT@loopN by -1\relax
-  \ifnum\@strctr>1
+    \divide\@strctr by \@viiipt
+    \advance\@DT@loopN by \m@ne
+  \ifnum\@strctr>\@ne
   \repeat
   \the\@DT@X
   \fi
@@ -569,9 +569,9 @@ italian}
 %    \begin{macrocode}
 \newrobustcmd*{\@hexadecimal}[1]{%
   \@DT@padzeroestrue
-  \@DT@loopN=5\relax
+  \@DT@loopN=\@vpt
   \@strctr=\@DT@loopN
-  \whiledo{\@strctr<\c@padzeroesN}{0\advance\@strctr by 1}%
+  \whiledo{\@strctr<\c@padzeroesN}{0\advance\@strctr by \@ne}%
   \@strctr=65536\relax
   \@DT@X=#1\relax
   \loop
@@ -585,8 +585,8 @@ italian}
     \multiply\@DT@modctr by \@strctr
     \advance\@DT@X by -\@DT@modctr
     \divide\@strctr by 16\relax
-    \advance\@DT@loopN by -1\relax
-  \ifnum\@strctr>1
+    \advance\@DT@loopN by \m@ne
+  \ifnum\@strctr>\@ne
   \repeat
   \@@hexadecimal\@DT@X
 }
@@ -610,7 +610,7 @@ italian}
   \@DT@padzeroestrue
   \@DT@loopN=5\relax
   \@strctr=\@DT@loopN
-  \whiledo{\@strctr<\c@padzeroesN}{0\advance\@strctr by 1}%
+  \whiledo{\@strctr<\c@padzeroesN}{0\advance\@strctr by \@ne}%
   \@strctr=65536\relax
   \@DT@X=#1\relax
   \loop
@@ -624,8 +624,8 @@ italian}
     \multiply\@DT@modctr by \@strctr
     \advance\@DT@X by -\@DT@modctr
     \divide\@strctr by 16\relax
-    \advance\@DT@loopN by -1\relax
-  \ifnum\@strctr>1
+    \advance\@DT@loopN by \m@ne
+  \ifnum\@strctr>\@ne
   \repeat
   \@@Hexadecimal\@DT@X
 }
@@ -635,22 +635,26 @@ italian}
 %\end{macro}
 %\begin{macro}{\aaalphnum}
 % Lowercase alphabetical representation (a \ldots\ z aa \ldots\ zz)
-%\changes{3.02}{2016/01/08}{Made robust using \texttt{etoolbox} \cs{newrobustcmd}}
+% \changes{3.02}{2016/01/08}{Made robust using \texttt{etoolbox} \cs{newrobustcmd}}
+% \changes{3.04}{2017/09/16}{Code optimization, use of \cs{@ne} and \cs{m@ne}, and assign \texttt{\#1} only
+% once. Factorize code with \cs{@AAAlph}.}
 %    \begin{macrocode}
-\newrobustcmd*{\@aaalph}[1]{%
-  \@DT@loopN=#1\relax
-  \advance\@DT@loopN by -1\relax
+\newrobustcmd*{\@aaalph}{\fc@aaalph\@alph}
+\newcommand*\fc@aaalph[2]{%
+  \@DT@loopN=#2\relax
+  \@DT@X\@DT@loopN
+  \advance\@DT@loopN by \m@ne
   \divide\@DT@loopN by 26\relax
   \@DT@modctr=\@DT@loopN
   \multiply\@DT@modctr by 26\relax
-  \@DT@X=#1\relax
-  \advance\@DT@X by -1\relax
+  \advance\@DT@X by \m@ne
   \advance\@DT@X by -\@DT@modctr
-  \advance\@DT@loopN by 1\relax
-  \advance\@DT@X by 1\relax
+  \advance\@DT@loopN by \@ne
+  \advance\@DT@X by \@ne
+  \edef\@tempa{#1\@DT@X}%
   \loop
-    \@alph\@DT@X
-    \advance\@DT@loopN by -1\relax
+    \@tempa
+    \advance\@DT@loopN by \m@ne
   \ifnum\@DT@loopN>0
   \repeat
 }
@@ -660,25 +664,10 @@ italian}
 %\end{macro}
 %\begin{macro}{\AAAlphnum}
 % Uppercase alphabetical representation (a \ldots\ z aa \ldots\ zz)
-%\changes{3.02}{2016/01/08}{Made robust using \texttt{etoolbox} \cs{newrobustcmd}}
+% \changes{3.02}{2016/01/08}{Made robust using \texttt{etoolbox} \cs{newrobustcmd}}
+% \changes{3.04}{2017/09/16}{Code optimization, factorize code with \@aaalph.}
 %    \begin{macrocode}
-\newrobustcmd*{\@AAAlph}[1]{%
-  \@DT@loopN=#1\relax
-  \advance\@DT@loopN by -1\relax
-  \divide\@DT@loopN by 26\relax
-  \@DT@modctr=\@DT@loopN
-  \multiply\@DT@modctr by 26\relax
-  \@DT@X=#1\relax
-  \advance\@DT@X by -1\relax
-  \advance\@DT@X by -\@DT@modctr
-  \advance\@DT@loopN by 1\relax
-  \advance\@DT@X by 1\relax
-  \loop
-    \@Alph\@DT@X
-    \advance\@DT@loopN by -1\relax
-  \ifnum\@DT@loopN>0
-  \repeat
-}
+\newrobustcmd*{\@AAAlph}{\fc@aaalph\@Alph}%
 
 \let\AAAlphnum=\@AAAlph
 %    \end{macrocode}
@@ -686,31 +675,36 @@ italian}
 %\begin{macro}{\abalphnum}
 % Lowercase alphabetical representation
 %\changes{3.02}{2016/01/08}{Made robust using \texttt{etoolbox} \cs{newrobustcmd}}
+% \changes{3.04}{2017/09/16}{Code factorization with \cs{@ABAlph}. Code optimization, assign \texttt{\#1} only
+% once. Use \cs{@ne} and \cs{m@ne}.}
 %    \begin{macrocode}
-\newrobustcmd*{\@abalph}[1]{%
-  \ifnum#1>17576\relax
+\newrobustcmd*{\@abalph}{\fc@abalph\@alph}%
+\newcommand*\fc@abalph[2]{%
+  \@DT@X=#2\relax
+  \ifnum\@DT@X>17576\relax
+    \ifx#1\@alph\def\@tempa{\@abalph}%
+    \else\def\@tempa{\@ABAlph}\fi
     \PackageError{fmtcount}%
-    {Value of counter too large for \protect\@abalph}%
+    {Value of counter too large for \expandafter\protect\@tempa}%
     {Maximum value 17576}%
   \else
     \@DT@padzeroestrue
     \@strctr=17576\relax
-    \@DT@X=#1\relax
-    \advance\@DT@X by -1\relax
+    \advance\@DT@X by \m@ne
     \loop
       \@DT@modctr=\@DT@X
       \divide\@DT@modctr by \@strctr
       \ifthenelse{\boolean{@DT@padzeroes}
         \and \(\@DT@modctr=1\)}%
-      {}{\@alph\@DT@modctr}%
-      \ifnum\@DT@modctr=1\else\@DT@padzeroesfalse\fi
+      {}{#1\@DT@modctr}%
+      \ifnum\@DT@modctr=\@ne\else\@DT@padzeroesfalse\fi
       \multiply\@DT@modctr by \@strctr
       \advance\@DT@X by -\@DT@modctr
       \divide\@strctr by 26\relax
-    \ifnum\@strctr>1
+    \ifnum\@strctr>\@ne
     \repeat
-    \advance\@DT@X by 1\relax
-    \@alph\@DT@X
+    \advance\@DT@X by \@ne
+    #1\@DT@X
   \fi
 }
 
@@ -720,33 +714,9 @@ italian}
 %\begin{macro}{\ABAlphnum}
 % Uppercase alphabetical representation
 %\changes{3.02}{2016/01/08}{Made robust using \texttt{etoolbox} \cs{newrobustcmd}}
+%\changes{3.04}{2017/09/16}{Code optimization, factorize code with \cs{@abalph}.}
 %    \begin{macrocode}
-\newrobustcmd*{\@ABAlph}[1]{%
-  \ifnum#1>17576\relax
-    \PackageError{fmtcount}%
-   {Value of counter too large for \protect\@ABAlph}%
-   {Maximum value 17576}%
-  \else
-    \@DT@padzeroestrue
-    \@strctr=17576\relax
-    \@DT@X=#1\relax
-    \advance\@DT@X by -1\relax
-    \loop
-      \@DT@modctr=\@DT@X
-      \divide\@DT@modctr by \@strctr
-      \ifthenelse{\boolean{@DT@padzeroes}\and
-      \(\@DT@modctr=1\)}{}{\@Alph\@DT@modctr}%
-      \ifnum\@DT@modctr=1\else\@DT@padzeroesfalse\fi
-      \multiply\@DT@modctr by \@strctr
-      \advance\@DT@X by -\@DT@modctr
-      \divide\@strctr by 26\relax
-    \ifnum\@strctr>1
-    \repeat
-    \advance\@DT@X by 1\relax
-    \@Alph\@DT@X
-  \fi
-}
-
+\newrobustcmd*{\@ABAlph}{\fc@abalph\@Alph}%
 \let\ABAlphnum=\@ABAlph
 %    \end{macrocode}
 %\end{macro}
