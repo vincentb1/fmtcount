@@ -57,6 +57,13 @@ LATEX_TESTS:=fc-samp fc-frlargenum $(CROSSREF_TESTS)
 #------------------------------------------------------------------------------------------------------------
 XELATEX_TESTS:=sample-polyglossia
 
+# Tests with lualatex sample-polyglossia-lua
+#------------------------------------------------------------------------------------------------------------
+LUALATEX_TESTS:=sample-polyglossia-lua
+
+PDF_TESTS:=$(LATEX_TESTS) $(XELATEX_TESTS) $(LUALATEX_TESTS)
+
+
 # please set this variable to empty when https://puszcza.gnu.org.ua/bugs/?200 is solved
 # that will cause some `regression' as \ordinal of section is going to be tested
 TEX4HT_BUG200_PATCH:= !/\\renewcommand{\\thesection}{\\ordinal{section}}/
@@ -131,12 +138,12 @@ END   { print "\nTotal failure count = " failcount}
 endef
 
 
-pdftests.log:  $(patsubst %,pdftests/%.pdf,$(LATEX_TESTS) $(XELATEX_TESTS)) \
+pdftests.log:  $(patsubst %,pdftests/%.pdf,$(PDF_TESTS)) \
 	$(patsubst %,pdftests/%,$(STYFILES)) \
 	total_pdftests
 
 .PHONY: total_pdftests
-total_pdftests: $(patsubst %,pdftests/%.pdf,$(LATEX_TESTS) $(XELATEX_TESTS))
+total_pdftests: $(patsubst %,pdftests/%.pdf,$(PDF_TESTS))
 	awk '$(ERROR_COUNT_AWK)' pdftests.log >> pdftests.log
 	@echo $(DASHES)
 	@echo '== End target pdftests'
@@ -151,7 +158,7 @@ echo_pdftest:
 
 define PDF_ACTIONS
 	cd pdftests; \
-	if latexmk $(1) ../$<; \
+	if latexmk --interaction=nonstopmode $(1) ../$<; \
 	then \
 		pdftotext $*.pdf  $*.txt; \
 		if diff -abs $*.txt ../reference/$*.txt; then \
@@ -175,6 +182,11 @@ $(patsubst %,$(SAMPLE_DIR)/%.tex,$(CROSSREF_TESTS)):$(SAMPLE_DIR)/%.tex: $(SAMPL
 $(patsubst %,pdftests/%.pdf,$(XELATEX_TESTS)):pdftests/%.pdf:$(SAMPLE_DIR)/%.tex $(patsubst %,pdftests/%,$(STYFILES)) \
 		echo_pdftest pdftests/.dir
 	$(call PDF_ACTIONS,-r ../xelatex_latexmkrc)
+
+$(patsubst %,pdftests/%.pdf,$(LUALATEX_TESTS)):pdftests/%.pdf:$(SAMPLE_DIR)/%.tex $(patsubst %,pdftests/%,$(STYFILES)) \
+		echo_pdftest pdftests/.dir
+	$(call PDF_ACTIONS,-r ../lualatex_latexmkrc)
+
 
 # language loaded via FCLoadLang
 #------------------------------------------------------------------------------------------------------------
@@ -371,7 +383,7 @@ overwrite_pdftests:
 		cp -f pdftests/$$1.pdf reference/$$1.pdf; \
 		cp -f pdftests/$$1.txt reference/$$1.txt; \
 	}; \
-	for w in $(LATEX_TESTS) $(XELATEX_TESTS); do \
+	for w in $(PDF_TESTS); do \
 		if diff -abs pdftests/$$w.txt reference/$$w.txt > /dev/null; \
 		then echo "Test $$w ok"; else \
 			if [ $$o == no ]; then \

@@ -70,7 +70,7 @@ for my $versionFile (@optfileversion){
   {
      while (<VFD>)
      {
-        if (/\\ProvidesPackage{[^}]+}\[(\d\d\d\d)\/(\d\d)\/(\d\d)\s+v?\s*([\d\.]+)/)
+        if (/\\ProvidesPackage\{[^}]+}\[(\d\d\d\d)\/(\d\d)\/(\d\d)\s+v?\s*([\d\.]+)/)
         {
            $newdate = join('-', $1, $2, $3);
            if ($newdate gt $date) { $date = $newdate; }
@@ -84,7 +84,7 @@ for my $versionFile (@optfileversion){
   {
      while (<VFD>)
      {
-        if (/\\ProvidesClass{[^}]+}\[(\d\d\d\d)\/(\d\d)\/(\d\d)\s+v?\s*([\d\.]+)/)
+        if (/\\ProvidesClass\{[^}]+}\[(\d\d\d\d)\/(\d\d)\/(\d\d)\s+v?\s*([\d\.]+)/)
         {
            $newdate = join('-', $1, $2, $3);
            if ($newdate gt $date) { $date = $newdate; }
@@ -98,7 +98,7 @@ for my $versionFile (@optfileversion){
   {
      while (<VFD>)
      {
-        if (/\\ProvidesFCLanguage{[^}]+}\[(\d\d\d\d)\/(\d\d)\/(\d\d)\]/)
+        if (/\\ProvidesFCLanguage\{[^}]+}\[(\d\d\d\d)\/(\d\d)\/(\d\d)\]/)
         {
            $newdate = join('-', $1, $2, $3);
            if ($newdate gt $date) { $date = $newdate; }
