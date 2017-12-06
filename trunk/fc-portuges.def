@@ -1,5 +1,5 @@
 % \subsubsection{fc-portuges.def}
-% Portuguse definitions
+% Portuguese definitions
 %    \begin{macrocode}
 \ProvidesFCLanguage{portuges}[2016/01/12]%
 %    \end{macrocode}
@@ -98,12 +98,12 @@
     \or onze%
     \or doze%
     \or treze%
-    \or quatorze%
+    \or catorze%
     \or quinze%
-    \or dezesseis%
-    \or dezessete%
+    \or dezasseis%
+    \or dezassete%
     \or dezoito%
-    \or dezenove%
+    \or dezanove%
   \fi
 }%
 \global\let\@@teenstringportuges\@@teenstringportuges
@@ -204,12 +204,12 @@
     \or Onze%
     \or Doze%
     \or Treze%
-    \or Quatorze%
+    \or Catorze%
     \or Quinze%
-    \or Dezesseis%
-    \or Dezessete%
+    \or Dezasseis%
+    \or Dezassete%
     \or Dezoito%
-    \or Dezenove%
+    \or Dezanove%
   \fi
 }%
 \global\let\@@Teenstringportuges\@@Teenstringportuges
