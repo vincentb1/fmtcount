@@ -3,7 +3,7 @@
 % This section deals with the code for |fmtcount.sty|
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{fmtcount}[2017/09/16 v3.04]
+\ProvidesPackage{fmtcount}[2017/12/24 v3.05]
 \RequirePackage{ifthen}
 %    \end{macrocode}
 % \changes{3.01}{2014/12/03}{Use \styfmt{xkeyval} instead of \styfmt{keyval}, so that we do not get in trouble
@@ -234,15 +234,15 @@ italian}
 % 
 %\changes{2.03}{2012/11/03}{renamed \cs{@fc@loadifbabelldf} to
 % \cs{@fc@loadifbabelorpolyglossialdf}}
-%\changes{2.03}{2012/11/03}{added check for polyglossia language}
-%\changes{3.00}{2014/07/03}{use \cs{ifxetex} to discriminate between \styfmt{babel} and \styfmt{polyglossia}}
+%\changes{2.03}{2012/11/03}{added check for polyglossia language.}
+%\changes{3.00}{2014/07/03}{use \cs{ifxetex} to discriminate between \styfmt{babel} and \styfmt{polyglossia}.}
+%\changes{3.05}{2017/12/22}{Check babel also with xetex.}
 %    \begin{macrocode}
 \newcommand*{\@fc@loadifbabelorpolyglossialdf}[1]{%
   \ifxetex
     \IfFileExists{gloss-#1.ldf}{\ifcsundef{#1@loaded}{}{\FCloadlang{#1}}}{}%
-  \else
-     \ifcsundef{ver@#1.ldf}{}{\FCloadlang{#1}}%
   \fi
+  \ifcsundef{ver@#1.ldf}{}{\FCloadlang{#1}}%
 }
 %    \end{macrocode}
 %\end{macro}
@@ -309,7 +309,7 @@ italian}
     }%
   }{%
 %    \end{macrocode}
-% When the language \#1 is an alias, do the same as the language of which it is an alias:
+% When the language \texttt{\#1} is an alias, do the same as the language of which it is an alias:
 %    \begin{macrocode}
     \expandafter\let\expandafter\@tempa\csname KV@\csname fc@#1@alias@of\endcsname @fmtord\endcsname
     \expandafter\let\csname KV@#1@fmtord\endcsname\@tempa
@@ -1791,13 +1791,22 @@ italian}
 %\end{macro}
 %
 %\subsubsection{Multilinguage Definitions}
+% Flag \cs{fc@languagemode@detected} allows to stop scanning for multilingual mode trigger conditions. It is
+% initialized to \texttt{false} as no such scanning as taken place yet.
+%\changes{3.05}{2017/12/22}{New flag \cs{iffc@languagemode@detected}.}
+%    \begin{macrocode}
+\newif\iffc@languagemode@detected
+\fc@languagemode@detectedfalse
+%    \end{macrocode}
 %\begin{macro}{\@setdef@ultfmtcount}
 % If multilingual support is provided, make \cs{@numberstring}
 % etc use the correct language (if defined).
 % Otherwise use English definitions. \cs{@setdef@ultfmtcount}
 % sets the macros to use English.
+%\changes{3.05}{2017/12/22}{Set flag \cs{iffc@languagemode@detected}.}
 %    \begin{macrocode}
 \def\@setdef@ultfmtcount{%
+  \fc@languagemode@detectedtrue
   \ifcsundef{@ordinalMenglish}{\FCloadlang{english}}{}%
   \def\@ordinalstringM{\@ordinalstringMenglish}%
   \let\@ordinalstringF=\@ordinalstringMenglish
@@ -1866,8 +1875,10 @@ italian}
 % \cs{languagename}:
 %\changes{2.0}{2012/06/03}{changed errors to warnings for
 %unsupported languages}
+%\changes{3.05}{2017/12/22}{Set flag \cs{iffc@languagemode@detected}.}
 %    \begin{macrocode}
 \def\@set@mulitling@fmtcount{%
+  \fc@languagemode@detectedtrue
 %    \end{macrocode}
 % The masculine version of \cs{numberstring}:
 %    \begin{macrocode}
@@ -1966,59 +1977,93 @@ italian}
 }
 %    \end{macrocode}
 %\end{macro}
-% Check to see if \styfmt{babel}, \styfmt{polyglossia} or \styfmt{ngerman} packages have been loaded, and if
-% yes set \styfmt{fmtcount} in multiling.
+%\changes{3.05}{2017/12/22}{Change all the code about detecting multiling. \cs{ifxetex} is no longer used,
+% instead we loop on the list of packages of interest \styfmt{babel}, \styfmt{polyglossia}, \styfmt{mlp}, or
+% \styfmt{ngerman}, and set or not \cs{iffc@languagemode@detected} flag as a result.}
+% Check to see if \styfmt{babel}, \styfmt{polyglossia}, \styfmt{mlp}, or \styfmt{ngerman} packages have been
+% loaded, and if yes set \styfmt{fmtcount} in multiling. First we define some \cs{fc@check@for@multiling}
+% macro to do such action where \texttt{\#1} is the package name, and \texttt{\#2} is a callback.
 %    \begin{macrocode}
-\expandafter\@ifpackageloaded
-\expandafter{\ifxetex polyglossia\else babel\fi}%
-{%
-  \@set@mulitling@fmtcount
-}%
-{%
-  \@ifpackageloaded{ngerman}%
-  {%
-    \FCloadlang{ngerman}%
-    \@set@mulitling@fmtcount
-  }%
-  {%
+\def\fc@check@for@multiling#1:#2\@nil{%
+  \@ifpackageloaded{#1}{%
+    #2\@set@mulitling@fmtcount
+  }{}%
+}
 %    \end{macrocode}
-% In the case that neither babel/polyglossia, nor ngerman has been loaded, then we go to multiling if a
-% language has been loaded by package option, and to delfault language otherwise.
+% Now we define \cs{fc@loop@on@multiling@pkg} as an iterator to scan whether any of \styfmt{babel},
+% \styfmt{polyglossia}, \styfmt{mlp}, or \styfmt{ngerman} packages has been loaded, and if so set multilingual
+% mode.
 %    \begin{macrocode}
-    \iffmtcount@language@option
+\def\fc@loop@on@multiling@pkg#1,{%
+  \def\@tempb{#1}%
+  \ifx\@tempb\@nnil
+%    \end{macrocode}
+% We have reached the end of the loop, so stop here.
+%    \begin{macrocode}
+     \let\fc@loop@on@multiling@pkg\@empty
+  \else
+%    \end{macrocode}
+% Make the \cs{@ifpackageloaded} test and break the loop if it was positive.
+%    \begin{macrocode}
+     \fc@check@for@multiling#1\@nil
+     \iffc@languagemode@detected
+       \def\fc@loop@on@multiling@pkg##1\@nil,{}%
+     \fi
+  \fi
+  \fc@loop@on@multiling@pkg   
+}
+%    \end{macrocode}
+% Now, do the loop itself, we do this at beginning of document not to constrain the order of loading
+% \styfmt{fmtcount} and the multilingual package \styfmt{babel}, \styfmt{polyglossia}, etc.:
+%    \begin{macrocode}
+\AtBeginDocument{%
+  \fc@loop@on@multiling@pkg babel:,polyglossia:,ngerman:\FCloadlang{ngerman},\@nil,
+%    \end{macrocode}
+% In the case that no multilingual package (such as
+% \styfmt{babel}/\styfmt{polyglossia}/\styfmt{ngerman}) has been loaded, then we go to multiling
+% if a language has been loaded by package option.
+%    \begin{macrocode}
+   \unless\iffc@languagemode@detected\iffmtcount@language@option
+%    \end{macrocode}
+% If the multilingual mode has not been yet activated, but a language option has been passed to
+% \styfmt{fmtcount}, we should go to multilingual mode. However, first of, we do some sanity check, as this
+% may help the end user understand what is wrong: we check that macro \cs{languagename} is defined, and
+% activate the multilingual mode only then, and otherwise fall back to default legacy mode.
+%    \begin{macrocode}
+      \ifcsundef{languagename}%
+      {%
+         \PackageWarning{fmtcount}{%
+            `\protect\languagename' is undefined, you should use a language package such as babel/polyglossia
+             when loading a language via package option. Reverting to default language.
+         }%
+         \@setdef@ultfmtcount
+      }{%
         \@set@mulitling@fmtcount
+        
 %    \end{macrocode}
-% Some sanity check at the beginning of document may help the end user understand what is wrong:
+% Now, some more checking, having activated multilingual mode after a language option has been passed to
+% \styfmt{fmtcount}, we check that the \styfmt{fmtcount} language definitions corresponding to
+% \cs{languagename} have been loaded, and otherwise fall \cs{languagename} back to the latest
+% \styfmt{fmtcount} language definition loaded.
 %    \begin{macrocode}
-        \AtBeginDocument{%
-          \ifcsundef{languagename}%
-          {%
+        \@FC@iflangloaded{\languagename}{}{%
+%    \end{macrocode}
+% The current \cs{languagename} is not a \styfmt{fmtcount} language that has been previously loaded. The
+% correction is to have \cs{languagename} let to \cs{fc@mainlang}. Please note that, as
+% \cs{iffmtcount@language@option} is true, we know that \texttt{fmtcount} has loaded some language.
+%    \begin{macrocode}
             \PackageWarning{fmtcount}{%
-              `\protect\languagename' is undefined, you should use package babel/polyglossia when loading a
-              language via package option. Reverting to default language.
+               Setting `\protect\languagename' to `\fc@mainlang'.\MessageBreak
+               Reason is that `\protect\languagename' was `\languagename',\MessageBreak
+               but `\languagename' was not loaded by fmtcount,\MessageBreak
+               whereas `\fc@mainlang' was the last language loaded by fmtcount ;
             }%
-            \@setdef@ultfmtcount
-          }{%
-            \@FC@iflangloaded{\languagename}{}{%
-%    \end{macrocode}
-% The current \cs{languagename} is not a language that has been previously loaded. The correction is to have
-% \cs{languagename} let to \cs{fc@mainlang}. Please note that, as \cs{iffmtcount@language@option} is true,
-% we know that \texttt{fmtcount} has loaded some language.
-%    \begin{macrocode}
-              \PackageWarning{fmtcount}{%
-                Setting `\protect\languagename' to `\fc@mainlang'.\MessageBreak
-                Reason is that `\protect\languagename' was `\languagename',\MessageBreak
-                but `\languagename' was not loaded by fmtcount,\MessageBreak
-                whereas `\fc@mainlang' was the last language loaded by fmtcount ;
-              }%
-              \let\languagename\fc@mainlang
-            }
-          }%
-        }
-    \else
+            \let\languagename\fc@mainlang
+         }%
+      }%
+   \else
        \@setdef@ultfmtcount
-    \fi
-  }%
+   \fi\fi
 }
 %    \end{macrocode}
 % \changes{3.01}{2014/12/03}{Substitute \cs{textsuperscript} for \cs{fc@textsuperscript}, and define
