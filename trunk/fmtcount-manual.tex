@@ -43,7 +43,7 @@
             pdftitle={fmtcount.sty: Displaying the Values of LaTeX Counters},
             pdfkeywords={LaTeX,counter}]{hyperref}
 
-\CheckSum{10145}
+\CheckSum{10152}
 
 \doxitem{Option}{option}{options}
 
@@ -452,25 +452,33 @@ and French (Belgian). German support was added in version
 Italian support was added in version 1.31.\footnote{Thanks to
 Edoardo Pasca for supplying the information.}
 
+Actually, \sty{fmtcount} has two modes:
+\begin{itemize}
+\item a multilingual mode, in which the commands \cs{numberstring}, \cs{ordinalstring}, \cs{ordinal}, and
+  their variants will be formatted in the currently selected language, as per the \cs{languagename} macro set
+  by \sty{babel}, \sty{polyglossia} or suchlikes, and
+\item a default mode for backward compatibility in which these commands are formatted in English irrespective
+  of \cs{languagename}, and to which \sty{fmtcount} falls back when it cannot detects packages such as
+  \sty{babel} or \sty{polyglossia} are loaded.
+\end{itemize}
 
-To ensure the language definitions are loaded correctly for document
-dialects, use
+For multilingual mode, \sty{fmtcount} needs to load correctly the language definition for document dialects. To
+do this use
 \begin{definition}[\DescribeMacro{\FCloadlang}]
 \cs{FCloadlang}\marg{dialect}
 \end{definition}
-in the preamble. The \meta{dialect} should match the options passed to \sty{babel} or
-\sty{polyglossia}. \sty{fmtcount} currently supports the following \meta{dialect}:
-\LanguagePackageOptionList. If you don't use this,
-\sty{fmtcount} will attempt to detect the required dialects, but
-this isn't guaranteed to work.
+in the preamble --- this will both switch on multilingual mode, and load the \meta{dialect} definition. The
+\meta{dialect} should match the options passed to \sty{babel} or \sty{polyglossia}. \sty{fmtcount} currently
+supports the following \meta{dialect}'s: \LanguagePackageOptionList.
 
-The commands
-\cs{ordinal}, \cs{ordinalstring} and \cs{numberstring} (and their
-variants) will be formatted in the currently selected language.
-If the current language hasn't been loaded (via \cs{FCloadlang}
-above) and \sty{fmtcount} detects a definition file for that
-language it will attempt to load it, but this isn't robust and may
-cause problems, so it's best to use \cs{FCloadlang}.
+If you don't use \cs{FCloadlang}, \sty{fmtcount} will attempt to detect the required dialects and call
+\cs{FCloadlang} for you, but this isn't guaranteed to work.  Notably, when \cs{FCloadlang} is not used and
+\sty{fmtcount} has switched on multilingual mode, but without detecting the needed dialects in the preamble,
+and \sty{fmtcount} has to format a number for a dialect for which definition has not been loaded (via
+\cs{FCloadlang} above), then if \sty{fmtcount} detects a definition file for this dialect it will attempt to
+load it, and cause an error otherwise. This loading in body has not been tested extensively, and may may cause
+problems such as spurious spaces insertion before the first formatted number, so it's best to use
+\cs{FCloadlang} explicitely in the preamble.
 
 If the French language is selected, the \texttt{french} option let you
 configure the dialect and other aspects. The \texttt{abbr} also has
