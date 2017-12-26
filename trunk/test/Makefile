@@ -24,14 +24,14 @@ LANG_short:=UKenglish\
 LANG_shortenc:=	 english\
 	 french\
 	 german\
-	 portuges\
+	 brazilian\
 	 spanish
 
 LANG_shortgo:=english french italian
 
 # note: french cannot be tested with babel + tex4ht engine due to tex4ht problem with babel thin space used in
 # french before :;!?, see https://puszcza.gnu.org.ua/bugs/?213.
-LANG_shortbab:=english german
+LANG_shortbab:=english german portuges
 
 # Cross referencing tests (for these tests we used global option language loading)
 # The lc+ ucf+ uc+ are needed because on MSWindows filenames are case insenstive

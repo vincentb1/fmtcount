@@ -1,0 +1,136 @@
+% \subsubsection{fc-brazilian.def}
+% Brazilian definitions.
+%    \begin{macrocode}
+\ProvidesFCLanguage{brazilian}[2017/12/26]%
+%    \end{macrocode}
+% Load \sty{fc-portuges.def} if not already loaded.
+%    \begin{macrocode}
+\FCloadlang{portuges}%
+%    \end{macrocode}
+% Set |brazilian| to be equivalent to |portuges| for all the numeral ordinals, and string ordinals.
+%    \begin{macrocode}
+\global\let\@ordinalMbrazilian=\@ordinalMportuges
+\global\let\@ordinalFbrazilian=\@ordinalFportuges
+\global\let\@ordinalNbrazilian=\@ordinalNportuges
+\global\let\@ordinalstringFbrazilian\@ordinalstringFportuges
+\global\let\@ordinalstringMbrazilian\@ordinalstringMportuges
+\global\let\@ordinalstringNbrazilian\@ordinalstringMportuges
+\global\let\@OrdinalstringMbrazilian\@OrdinalstringMportuges
+\global\let\@OrdinalstringFbrazilian\@OrdinalstringFportuges
+\global\let\@OrdinalstringNbrazilian\@OrdinalstringMportuges
+%    \end{macrocode}
+% Convert a number to a textual representation. To make it easier, split it up into units, tens, teens and
+% hundreds. Units, tens, and hundreds are the same as for |portuges| and are not redefined, only the teens are
+% Brazilian specific.\\
+% Teens (argument must be a number from 0 to 9):
+%    \begin{macrocode}
+\newcommand*\@@teenstringbrazilian[1]{%
+  \ifcase#1\relax
+    dez%
+    \or onze%
+    \or doze%
+    \or treze%
+    \or quatorze%
+    \or quinze%
+    \or dezesseis%
+    \or dezessete%
+    \or dezoito%
+    \or dezenove%
+  \fi
+}%
+\global\let\@@teenstringbrazilian\@@teenstringbrazilian
+%    \end{macrocode}
+% Teens (with initial letter in upper case):
+%    \begin{macrocode}
+\newcommand*\@@Teenstringbrazilian[1]{%
+  \ifcase#1\relax
+    Dez%
+    \or Onze%
+    \or Doze%
+    \or Treze%
+    \or Quatorze%
+    \or Quinze%
+    \or Dezesseis%
+    \or Dezessete%
+    \or Dezoito%
+    \or Dezenove%
+  \fi
+}%
+\global\let\@@Teenstringbrazilian\@@Teenstringbrazilian
+%    \end{macrocode}
+% This has changed in version 1.08, so that it now stores
+% the result in the second argument, but doesn't display
+% anything. Since it only affects internal macros, it shouldn't
+% affect documents created with older versions. (These internal
+% macros are not meant for use in documents.)
+% \changes{3.02}{2016/01/12}{Replace \cs{DeclareRobustCommand} by
+% \cs{newcommand*} as robustness is handled now at top level in
+% \texttt{fmtcount.sty}, and we don't need \cs{long} macros. Concerned macros
+% are \cs{@numberstringMbrazilian}, \cs{@numberstringFbrazilian},
+% \cs{@NumberstringMbrazilian}, \cs{@NumberstringFbrazilian},
+% \cs{@ordinalstringMbrazilian}, \cs{@ordinalstringFbrazilian},
+% \cs{@OrdinalstringMbrazilian}, and \cs{@OrdinalstringFbrazilian}.}
+% \changes{3.03}{2017/07/21}{Fix bug
+% \#\href{https://github.com/nlct/fmtcount/issues/25}{25}.}
+%    \begin{macrocode}
+\newcommand*{\@numberstringMbrazilian}[2]{%
+  \let\@unitstring=\@@unitstringportuges
+  \let\@teenstring=\@@teenstringbrazilian
+  \let\@tenstring=\@@tenstringportuges
+  \let\@hundredstring=\@@hundredstringportuges
+  \def\@hundred{cem}\def\@thousand{mil}%
+  \def\@andname{e}%
+  \@@numberstringportuges{#1}{#2}%
+}%
+\global\let\@numberstringMbrazilian\@numberstringMbrazilian
+%    \end{macrocode}
+% As above, but feminine form:
+%    \begin{macrocode}
+\newcommand*{\@numberstringFbrazilian}[2]{%
+  \let\@unitstring=\@@unitstringFportuges
+  \let\@teenstring=\@@teenstringbrazilian
+  \let\@tenstring=\@@tenstringportuges
+  \let\@hundredstring=\@@hundredstringFportuges
+  \def\@hundred{cem}\def\@thousand{mil}%
+  \def\@andname{e}%
+  \@@numberstringportuges{#1}{#2}%
+}%
+\global\let\@numberstringFbrazilian\@numberstringFbrazilian
+%    \end{macrocode}
+% Make neuter same as masculine:
+%    \begin{macrocode}
+\global\let\@numberstringNbrazilian\@numberstringMbrazilian
+%    \end{macrocode}
+% As above, but initial letters in upper case:
+%    \begin{macrocode}
+\newcommand*{\@NumberstringMbrazilian}[2]{%
+  \let\@unitstring=\@@unitstringportuges
+  \let\@teenstring=\@@Teenstringbrazilian
+  \let\@tenstring=\@@Tenstringportuges
+  \let\@hundredstring=\@@hundredstringportuges
+  \def\@hundred{Cem}\def\@thousand{Mil}%
+  \def\@andname{e}%
+  \@@numberstringportuges{#1}{#2}%
+}%
+\global\let\@NumberstringMbrazilian\@NumberstringMbrazilian
+%    \end{macrocode}
+% As above, but feminine form:
+%    \begin{macrocode}
+\newcommand*{\@NumberstringFbrazilian}[2]{%
+  \let\@unitstring=\@@UnitstringFportuges
+  \let\@teenstring=\@@Teenstringbrazilian
+  \let\@tenstring=\@@Tenstringportuges
+  \let\@hundredstring=\@@HundredstringFportuges
+  \def\@hundred{Cem}\def\@thousand{Mil}%
+  \def\@andname{e}%
+  \@@numberstringportuges{#1}{#2}%
+}%
+\global\let\@NumberstringFbrazilian\@NumberstringFbrazilian
+%    \end{macrocode}
+% Make neuter same as masculine:
+%    \begin{macrocode}
+\global\let\@NumberstringNbrazilian\@NumberstringMbrazilian
+%    \end{macrocode}
+\iffalse Local variables: \fi
+\iffalse mode: docTeX     \fi
+\iffalse End:             \fi

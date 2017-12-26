@@ -1,7 +1,7 @@
 % \subsubsection{fc-portuges.def}
 % Portuguese definitions
 %    \begin{macrocode}
-\ProvidesFCLanguage{portuges}[2016/01/12]%
+\ProvidesFCLanguage{portuges}[2017/12/26]%
 %    \end{macrocode}
 % Define macro that converts a number or count register (first
 % argument) to an ordinal, and stores the result in the second
@@ -91,6 +91,8 @@
 \global\let\@@tenstringportuges\@@tenstringportuges
 %    \end{macrocode}
 % Teens (argument must be a number from 0 to 9):
+% \changes{3.05}{2017/12/26}{Take fix of teen contributed by \href{https://github.com/sant0s}{sant0s}, prior
+% definitions pushed to \sty{fc-brazilian.def}.}
 %    \begin{macrocode}
 \newcommand*\@@teenstringportuges[1]{%
   \ifcase#1\relax
@@ -197,6 +199,8 @@
 \global\let\@@Tenstringportuges\@@Tenstringportuges
 %    \end{macrocode}
 % Teens (with initial letter in upper case):
+% \changes{3.05}{2017/12/26}{Take fix of teen contributed by \href{https://github.com/sant0s}{sant0s}, prior
+% definitions pushed to \sty{fc-brazilian.def}.}
 %    \begin{macrocode}
 \newcommand*\@@Teenstringportuges[1]{%
   \ifcase#1\relax
