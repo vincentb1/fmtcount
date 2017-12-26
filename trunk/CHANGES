@@ -1,5 +1,16 @@
 fmtcount package versions:
 
+Version 3.05:
+
+* Fix issue #28 (works now with lualatex: actually from 3.05 fmtcount
+  does not test any longer for what compiler is used but only for what
+  multilingual package --- such as polyglossia or babel --- are used).
+
+* Fixe pull request #29 (Fix European Portuguese cardinal
+  numbers). Portuguese formatting prior to 3.05 is renamed brazilian,
+  and the portuguese is fixed to reflect European Portuguese
+  spelling.
+
 Version 3.04:
 
 * Fix issue #27 (New definition of `\Numberstring` is now causing

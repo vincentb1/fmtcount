@@ -2,7 +2,7 @@
 %    \begin{macrocode}
 \ProvidesFCLanguage{portuguese}[2014/06/09]%
 %    \end{macrocode}
-% Load fc-portuges.def if not already loaded
+% Load \sty{fc-portuges.def} if not already loaded.
 %    \begin{macrocode}
 \FCloadlang{portuges}%
 %    \end{macrocode}
