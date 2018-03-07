@@ -55,7 +55,7 @@ LATEX_TESTS:=fc-samp fc-frlargenum $(CROSSREF_TESTS)
 
 # Tests with xelatex sample-polyglossia
 #------------------------------------------------------------------------------------------------------------
-XELATEX_TESTS:=sample-polyglossia
+XELATEX_TESTS:=sample-polyglossia sample-arabic
 
 # Tests with lualatex sample-polyglossia-lua
 #------------------------------------------------------------------------------------------------------------

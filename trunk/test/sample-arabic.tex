@@ -1,0 +1,35 @@
+ % This file is public domain
+\documentclass{article}
+\usepackage{fontspec}% f
+\setmainfont{Times New Roman}% 
+\usepackage{xunicode,polyglossia}
+\DeclareTextCommandDefault{\nobreakspace}{\leavevmode\nobreak\ } 
+
+\setmainlanguage{arabic}
+\usepackage[arabic]{fmtcount}
+
+\FCloadlang{arabic}
+\newcounter{cnt}
+
+\begin{document}
+\setcounter{cnt}{18}
+\tableofcontents
+%\section{\textbackslash FCordinal in a title: \FCordinal{cnt}}
+%\section{\textbackslash numberstring in a title: \numberstring{cnt}}
+
+\begin{tabular}{ll}
+1& \numberstringnum{1}\\
+2& \numberstringnum{2}\\
+3& \numberstringnum{3}\\
+4& \numberstringnum{4}\\
+5& \numberstringnum{5}\\
+10& \numberstringnum{10}\\
+12& \numberstringnum{12}\\
+19& \numberstringnum{19}\\
+20& \numberstringnum{20}\\
+\end{tabular}
+\end{document}
+
+% Local Variables:
+% TeX-command-default: "XeLaTeX"
+% End:
