@@ -1,0 +1,92 @@
+% \subsubsection{fc-arabic.def}
+%    \begin{macrocode}
+\ProvidesFCLanguage{arabic}[2018/03/15]%
+\FCloadlang{french}%
+%    \end{macrocode}
+% Define units for Arabic.
+%\iffalse
+%    \begin{macrocode}
+\newcommand*{\@@unitstringarabicM}[1]{%
+\ifcase#1 %
+\or
+الأول\or
+الثاني\or
+الثالث\or
+الرابع\or
+الخامس\or
+السادس\or
+السابع\or
+الثامن\or
+التاسع\or
+العاشر\fi
+}%
+\global\let\@@unitstringarabicM\@@unitstringarabicM	
+%    \end{macrocode}
+% \fi
+% Define tens for Arabic.
+% \iffalse
+%    \begin{macrocode}
+\newcommand*{\@@tenstringarabic}[1]{%
+\ifcase#1 %
+\or
+عشر\or
+العشرون\else
+\PackageError{fmtcount}{Incomplete arabic definition}%
+{Arabic definition for fmtcount still under development}%
+\fi	
+}%
+\global\let\@@tenstringarabic\@@tenstringarabic	
+%    \end{macrocode}
+% \fi
+%    \begin{macrocode}
+\newcommand*\@@numberstringarabic[2]{{%
+  \edef\@tempa{#1}%
+  \expandafter\fc@number@parser\expandafter{\@tempa}%
+  \ifnum\fc@min@weight<0 %
+     \PackageError{fmtcount}{Out of range}%
+        {This macro does not work with fractional numbers}%
+  \fi
+  \def\@tempa{\let#2\@empty}%
+  \def\@tempb{%
+    \toks0\expandafter{\@tempa}%
+    \edef\@tempa{\def\noexpand#2{\the\toks0}}%
+  }%
+  \ifnum\fc@unit@weight=0 \else
+    \PackageError{fmtcount}{Incomplete arabic definition}%
+    {Arabic definition for fmtcount still under development}%
+  \fi	
+  \ifcase\fc@max@weight
+    \edef\@tempa{\expandafter\@@unitstringarabicM
+      \csname fc@digit@0\endcsname
+    }\@tempb
+  \or
+    \edef\@tempa{%
+      \expandafter\@@unitstringarabicM
+      \csname fc@digit@1\endcsname
+      \space
+      \expandafter\@@unitstringarabicM
+      \csname fc@digit@0\endcsname
+    }\@tempb
+  \else
+    \PackageError{fmtcount}{Incomplete arabic definition}%
+    {Arabic definition for fmtcount still under development}%
+  \fi
+  \expandafter}\@tempa  
+}
+\global\let\@@numberstringarabic\@@numberstringarabic
+\global\let\@numberstringMarabic\@@numberstringarabic
+\global\let\@numberstringNarabic\@@numberstringarabic
+\global\let\@numberstringFarabic\@@numberstringarabic
+\global\let\@ordinalstringMarabic\@gobbletwo
+\global\let\@ordinalstringNarabic\@gobbletwo
+\global\let\@ordinalstringFarabic\@gobbletwo
+\global\let\@ordinalMarabic\@gobbletwo
+\global\let\@ordinalNarabic\@gobbletwo
+\global\let\@ordinalFarabic\@gobbletwo
+%    \end{macrocode}
+\iffalse Local variables: \fi
+\iffalse mode: docTeX     \fi
+\iffalse coding: utf-8     \fi
+\iffalse End:             \fi
+	
+
