@@ -8,14 +8,14 @@ all	: fmtcount.pdf
 .PHONY: ctan dist
 ctan dist : fmtcount.zip
 
-install	:  fmtcount.pdf $(STYFILES) $(TEXMF_INSTALL_DIR)/doc/latex/fmtcount $(TEXMF_INSTALL_DIR)/tex/latex/fmtcount
-	command cp fmtcount.pdf $(TEXMF_INSTALL_DIR)/doc/latex/fmtcount/
-	command cp $(STYFILES) $(TEXMF_INSTALL_DIR)/tex/latex/fmtcount/
+install	:  fmtcount.pdf $(STYFILES) "$(TEXMF_INSTALL_DIR)/doc/latex/fmtcount" "$(TEXMF_INSTALL_DIR)/tex/latex/fmtcount"
+	command cp fmtcount.pdf "$(TEXMF_INSTALL_DIR)/doc/latex/fmtcount/"
+	command cp $(STYFILES) "$(TEXMF_INSTALL_DIR)/tex/latex/fmtcount/"
 
-$(TEXMF_INSTALL_DIR)/doc/latex/fmtcount:
+"$(TEXMF_INSTALL_DIR)/doc/latex/fmtcount":
 	mkdir -p $@
 
-$(TEXMF_INSTALL_DIR)/tex/latex/fmtcount:
+"$(TEXMF_INSTALL_DIR)/tex/latex/fmtcount":
 	mkdir -p $@
 
 fmtcount.tds.zip	: fmtcount.pdf \
