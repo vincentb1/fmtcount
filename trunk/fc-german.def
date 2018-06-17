@@ -2,7 +2,7 @@
 % German definitions (thank you to K. H. Fricke for supplying
 % this information)
 %    \begin{macrocode}
-\ProvidesFCLanguage{german}[2016/01/12]%
+\ProvidesFCLanguage{german}[2018/06/17]%
 %    \end{macrocode}
 % Define macro that converts a number or count register (first
 % argument) to an ordinal, and stores the result in the
@@ -487,13 +487,16 @@
 }%
 \global\let\@@numberunderhundredthgerman\@@numberunderhundredthgerman
 %    \end{macrocode}
+%\changes{3.06}{2018/06/17}{Use \cs{@orgargctr} counter in order to fix bug
+%\href{https://github.com/nlct/fmtcount/issues/33}{\#33}.}
 %    \begin{macrocode}
 \newcommand*\@@ordinalstringgerman[2]{%
-\ifnum#1>99999\relax
+\@orgargctr=#1\relax
+\ifnum\@orgargctr>99999\relax
   \PackageError{fmtcount}{Out of range}%
   {This macro only works for values less than 100000}%
 \else
-  \ifnum#1<0\relax
+  \ifnum\@orgargctr<0\relax
     \PackageError{fmtcount}{Negative numbers not permitted}%
     {This macro does not work for negative numbers, however
     you can try typing "minus" first, and then pass the modulus of
@@ -501,7 +504,7 @@
   \fi
 \fi
 \def#2{}%
-\@strctr=#1\relax \divide\@strctr by 1000\relax
+\@strctr=\@orgargctr\divide\@strctr by 1000\relax
 \ifnum\@strctr>1\relax
 %    \end{macrocode}
 % \#1 is $\geq 2000$, \cs{@strctr} now contains the number of thousands
@@ -510,7 +513,7 @@
 %    \end{macrocode}
 % is that it, or is there more?
 %    \begin{macrocode}
-  \@tmpstrctr=#1\relax \@FCmodulo{\@tmpstrctr}{1000}%
+  \@tmpstrctr=\@orgargctr\@FCmodulo{\@tmpstrctr}{1000}%
   \ifnum\@tmpstrctr=0\relax
     \eappto#2{\@thousandth}%
   \else
@@ -521,14 +524,14 @@
 % \#1 lies in range [1000,1999]
 %    \begin{macrocode}
   \ifnum\@strctr=1\relax
-    \ifnum#1=1000\relax
+    \ifnum\@orgargctr=1000\relax
       \eappto#2{\@thousandth}%
     \else
       \eappto#2{\eintausend}%
     \fi
   \fi
 \fi
-\@strctr=#1\relax
+\@strctr=\@orgargctr
 \@FCmodulo{\@strctr}{1000}%
 \divide\@strctr by 100\relax
 \ifnum\@strctr>1\relax
@@ -536,7 +539,7 @@
 % now dealing with number in range [200,999]
 % is that it, or is there more?
 %    \begin{macrocode}
-  \@tmpstrctr=#1\relax \@FCmodulo{\@tmpstrctr}{100}%
+  \@tmpstrctr=\@orgargctr \@FCmodulo{\@tmpstrctr}{100}%
   \ifnum\@tmpstrctr=0\relax
      \ifnum\@strctr=1\relax
        \eappto#2{\@hundredth}%
@@ -552,11 +555,11 @@
 % dealing with number in range [100,199]
 % is that it, or is there more?
 %    \begin{macrocode}
-     \@tmpstrctr=#1\relax \@FCmodulo{\@tmpstrctr}{100}%
+     \@tmpstrctr=\@orgargctr \@FCmodulo{\@tmpstrctr}{100}%
      \ifnum\@tmpstrctr=0\relax
         \eappto#2{\@hundredth}%
      \else
-     \ifnum#1>1000\relax
+     \ifnum\@orgargctr>1000\relax
         \appto#2{einhundert}%
      \else
         \eappto#2{\einhundert}%
@@ -564,9 +567,9 @@
      \fi
    \fi
 \fi
-\@strctr=#1\relax
+\@strctr=\@orgargctr
 \@FCmodulo{\@strctr}{100}%
-\ifthenelse{\@strctr=0 \and #1>0}{}{%
+\ifthenelse{\@strctr=0 \and \@orgargctr>0 }{}{%
 \@@numberunderhundredthgerman{\@strctr}{#2}%
 }%
 }%
