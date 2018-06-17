@@ -238,7 +238,7 @@ $(1).log: $$(patsubst %,tests/test-$(1)-%-nodate.html,$$(LANG_$(1)))
 	@echo $(DASHES)
 
 tests/test-$(1)-%.html: tests/test-$(1)-%.tex
-	cd tests; htlatex $$(patsubst tests/%,%,$$<)
+	cd tests; htlatex $$(patsubst tests/%,%,$$<) '' '' '' '\nonstopmode' 
 
 # generation date removal, and variable comment removal
 tests/test-$(1)-%-nodate.html: tests/test-$(1)-%.html
