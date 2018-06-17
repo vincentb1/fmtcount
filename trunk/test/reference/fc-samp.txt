@@ -279,6 +279,8 @@ Passing numbers explicitly: 10th , Ten, TEN, Tenth, TENTH.
 
 \numberstring in a title: ninety-nine thousand nine hundred and ninety-nine
 
+fourth Fourth FOURTH
+
 2
 
 
