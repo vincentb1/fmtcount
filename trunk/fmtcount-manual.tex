@@ -117,15 +117,9 @@ you should use
 \end{definition}
 to access \styfmt{fmtcount}'s version of \cs{ordinal}, and use
 \cs{ordinal} to use \cls{memoir}'s version of that command.
-
-\item As with all commands which have an optional argument as the
-last argument, if the optional argument is omitted, any spaces
-following the final argument will be ignored. Whereas, if the
-optional argument is present, any spaces following the optional
-argument won't be ignored. so \verb"\ordinal{section} !"
-will produce: 3\textsuperscript{rd}! whereas
- \verb"\ordinal{section}[m] !" will produce:
-3\textsuperscript{rd} !
+\item When the \oarg{gender} optional argument is omitted, no ignoring of spaces following the final argument
+  occurs. So both \verb"\ordinal{section} !"  and \verb"\ordinal{section}[m] !" will produce:
+  \arabic{section}\textsuperscript{rd} ! See \S~\ref{sec:tailing-oarg}.
 \end{enumerate}
 
 The commands below only work for numbers in the range 0~to~99999.
@@ -842,9 +836,33 @@ This, I agree, is an unpleasant cludge.
 
 \end{itemize}
 
+\section{Handling of spaces with tailing optional argument}
+\label{sec:tailing-oarg}
+
+Quite some of the commands in \styfmt{fmtcount} have a tailing optional argument, notably a \oarg{gender}
+argument, which is due to historical reasons, and is a little unfortunate.
+
+When the tailing optional argument is omitted, then any subsequent space will:
+\begin{itemize}
+\item \texttt{not} be gobbled if the command make some typset output, like \cs{ordinal} or \cs{numbestring}, and
+\item be gobbled if the command stores a number into a label like \cs{storeordinalnum} or
+  \cs{storenumberstring}, or make some other border effect like \cs{padzeroes} without any typeset output.
+\end{itemize}
+
+So (where we use visible spaces ``\verb*! !'' to demonstrate the point):
+\begin{itemize}
+\item ``x\cs{odinalnum\{2\}}\verb*! !\texttt{x}'' will be typeset to ``x\ordinalnum{2}\verb*! !x'', while
+\item ``x\cs{storeodinalnum\{mylabel\}\{2\}}\verb*! !\texttt{x}'' will be typeset to ``xx''.
+\end{itemize}
+
+The reason for this design choice is that the commands like like \cs{ordinal} or \cs{numbestring} are usually
+inserted in the flow of text, and one usually does not want subsequent spaces gobbled, while the commands like
+\cs{storeordinalnum} or \cs{storenumberstring} usually stands on their own line, and one usually does not want
+the tailing end-of-line to produce an extra-space.
+
 \section{Acknowledgements}
 
-I would like to thank all the people who have provided translations.
+I would like to thank all the people who have provided translations and made bug reports.
 
 \section{Troubleshooting}
 
@@ -857,4 +875,5 @@ Bug reporting should be done via the Github issue manager at:
 \end{document}
 % Local Variables:
 % coding: utf-8
+% compile-command: "make -C ../dist fmtcount.pdf"
 % End:
