@@ -330,24 +330,32 @@ Going back to the counter used in the previous example,
 will be padded with zeroes if necessary, depending on whether
 \cs{padzeroes} has been used.
 
-\begin{definition}[\DescribeMacro{\Hexadecimal}]
-\cs{Hexadecimal}\marg{counter}
+\begin{definition}[\DescribeMacro{\HEXADECIMAL}]
+\cs{HEXADECIMAL}\marg{counter}
 \end{definition}
 This does the same thing, but uses uppercase characters, e.g.\
-\verb"\Hexadecimal{mycounter}" will produce: 7D.
+\verb"\HEXADECIMAL{mycounter}" will produce: 7D.
+
+\DescribeMacro{\Hexadecimal}The macro \cs{Hexadecimal} is a deprecated alias of
+\cs{HEXADECIMAL}. Its name was confusing so it was changed.
+
 
 \begin{definition}[\DescribeMacro{\hexadecimalnum}]
 \cs{hexadecimalnum}\marg{n}
 \end{definition}
 
-\begin{definition}[\DescribeMacro{\Hexadecimalnum}]
-\cs{Hexadecimalnum}\marg{n}
+\begin{definition}[\DescribeMacro{\HEXADECIMALnum}]
+\cs{HEXADECIMALnum}\marg{n}
 \end{definition}
 These are like \cs{hexadecimal} and \cs{Hexadecimal}
 but take an actual number rather than a counter as the
 argument. For example: \verb"\hexadecimalnum{125}" will
-produce: 7d, and \verb"\Hexadecimalnum{125}" will 
+produce: 7d, and \verb"\HEXADECIMALnum{125}" will 
 produce: 7D.
+
+\DescribeMacro{\Hexadecimalnum}The macro \cs{Hexadecimalnum} is a deprecated
+alias of \cs{HEXADECIMALnum}. Its name was confusing so it was changed.
+
 
 \begin{definition}[\DescribeMacro{\decimal}]
 \cs{decimal}\marg{counter}
