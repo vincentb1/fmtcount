@@ -97,8 +97,8 @@ ordinal, where the macro
 is used to format the st, nd, rd, th bit.  By default the ordinal is
 formatted as a superscript, if the package option \pkgopt{level} is
 used, it is level with the text.  For example, if the current section
-is 3, then \verb"\ordinal{section}" will produce the output:
-3\textsuperscript{rd}. Note that the optional argument \meta{gender} 
+is \arabic{section}, then \verb"\ordinal{section}" will produce the output:
+\ordinal{section}. Note that the optional argument \meta{gender} 
 occurs \emph{at the end}. This argument may only take one of
 the following values: \texttt{m} (masculine), \texttt{f}
 (feminine) or \texttt{n} (neuter.) If \meta{gender} is omitted, 
@@ -117,18 +117,20 @@ you should use
 \end{definition}
 to access \styfmt{fmtcount}'s version of \cs{ordinal}, and use
 \cs{ordinal} to use \cls{memoir}'s version of that command.
-\item When the \oarg{gender} optional argument is omitted, no ignoring of spaces following the final argument
-  occurs. So both \verb"\ordinal{section} !"  and \verb"\ordinal{section}[m] !" will produce:
-  \arabic{section}\textsuperscript{rd} ! See \S~\ref{sec:tailing-oarg}.
+\item When the \oarg{gender} optional argument is omitted, no ignoring of spaces
+  following the final argument occurs. So both
+  \verb"\ordinal{section}"\textvisiblespace\verb"!"  and
+  \verb"\ordinal{section}[m]"\textvisiblespace\verb"!" will produce:
+  \ordinal{section}\textvisiblespace!, where \textvisiblespace\ denotes a space.  See
+  \S~\ref{sec:tailing-oarg}.
 \end{enumerate}
 
 The commands below only work for numbers in the range 0~to~99999.
 \begin{definition}[\DescribeMacro{\ordinalnum}]
 \cs{ordinalnum}\marg{n}\oarg{gender}
 \end{definition}
-This is like \cs{ordinal} but takes an actual number rather than a 
-counter as the argument. For example: \verb"\ordinalnum{3}" will
-produce: 3\textsuperscript{rd}.
+This is like \cs{ordinal} but takes an actual number rather than a counter as the argument. For example:
+\verb"\ordinalnum{"\texttt{\arabic{section}}\verb"}" will produce: \ordinal{section}.
 
 \begin{definition}[\DescribeMacro{\numberstring}]
 \cs{numberstring}\marg{counter}\oarg{gender}
@@ -142,7 +144,7 @@ argument is the same as that for \cs{ordinal}.
 \end{definition}
 This does the same as \cs{numberstring}, but with initial letters in
 uppercase.  For example, \verb"\Numberstring{section}" will produce:
-Three.
+\Numberstring{section}.
 
 \begin{definition}[\DescribeMacro{\NUMBERstring}]
 \cs{NUMBERstring}\marg{counter}\oarg{gender}
@@ -181,7 +183,7 @@ optional argument is the same as that for \cs{ordinal}.
 \end{definition}
 This does the same as \cs{ordinalstring}, but with initial letters in
 uppercase.  For example, \verb"\Ordinalstring{section}" will produce:
-Third.
+\Ordinalstring{section}.
 
 \begin{definition}[\DescribeMacro{\ORDINALstring}]
 \cs{ORDINALstring}\marg{counter}\oarg{gender}
@@ -199,9 +201,10 @@ case (see previous note about \cs{MakeUppercase}).
 \cs{ORDINALstringnum}\marg{n}\oarg{gender}
 \end{definition}
 These macros work like \cs{ordinalstring}, \cs{Ordinalstring} and
-\cs{ORDINALstring}, respectively, but take an actual number rather
-than a counter as the argument. For example,
-\verb"\ordinalstringnum{3}" will produce: third.
+\cs{ORDINALstring}, respectively, but take an actual number rather than a
+counter as the argument. For example,
+\verb"\ordinalstringnum{"\texttt{\arabic{section}}\verb"}" will produce:
+\ordinalstring{section}.
 
 \changes{v.1.09}{21 Apr 2007}{store facility added}
 As from version 1.09, textual representations can be stored for
@@ -284,14 +287,15 @@ example, \verb"\storeordinalnum{mylabel}{3}" will be stored as
 \begin{definition}[\DescribeMacro{\binary}]
 \cs{binary}\marg{counter}
 \end{definition}
-This will print the value of \meta{counter} as a binary number.
-E.g.\ \verb"\binary{section}" will produce: 11. The declaration
+This will print the value of \meta{counter} as a binary number.  E.g.\
+\verb"\binary{section}" will produce: \binary{section}. The declaration
 \begin{definition}[\DescribeMacro{\padzeroes}]
 \cs{padzeroes}\oarg{n}
 \end{definition}
-will ensure numbers are written to \meta{n} digits, padding with
-zeroes if necessary. E.g.\ \verb"\padzeroes[8]\binary{section}" will
-produce: 00000011. The default value for \meta{n} is 17.
+will ensure numbers are written to \meta{n} digits, padding with zeroes if
+necessary. E.g.\ \verb"\padzeroes"\discretionary{}{}{}\verb"[8]\binary{section}"
+will produce: \padzeroes[8]\binary{section}. The default value for \meta{n} is
+17.
 
 \begin{definition}[\DescribeMacro{\binarynum}]
 \cs{binary}\marg{n}
@@ -348,10 +352,11 @@ produce: 7D.
 \begin{definition}[\DescribeMacro{\decimal}]
 \cs{decimal}\marg{counter}
 \end{definition}
-This is similar to \cs{arabic} but the number can be padded with
-zeroes depending on whether \cs{padzeroes} has been used.  For
-example: \verb"\padzeroes[8]\decimal{section}" will produce:
-00000005.
+This is similar to \cs{arabic} but the number can be padded with zeroes
+depending on whether \cs{padzeroes} has been used.  For example:
+\verb"\padzeroes[8]\decimal{section}" will produce:
+\padzeroes[8]\decimal{section} still assuming current section is
+section~\arabic{section}.
 
 \begin{definition}[\DescribeMacro{\decimalnum}]
 \cs{decimalnum}\marg{n}
@@ -363,8 +368,8 @@ counter as the argument. For example:
 \begin{definition}[\DescribeMacro{\aaalph}]
 \cs{aaalph}\marg{counter}
 \end{definition}
-This will print the value of \meta{counter} as: a b \ldots\ z aa bb
-\ldots\ zz etc.  For example, \verb"\aaalpha{mycounter}" will
+This will print the value of \meta{counter} as: a b \ldots\ z aa bb \ldots\ zz
+etc.  For example, \verb"\aaalpha"\discretionary{}{}{}\verb"{mycounter}" will
 produce: uuuuu if \texttt{mycounter} is set to 125.
 
 \begin{definition}[\DescribeMacro{\AAAlph}]
