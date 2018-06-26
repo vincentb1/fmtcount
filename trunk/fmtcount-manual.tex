@@ -330,31 +330,33 @@ Going back to the counter used in the previous example,
 will be padded with zeroes if necessary, depending on whether
 \cs{padzeroes} has been used.
 
-\begin{definition}[\DescribeMacro{\HEXADECIMAL}]
-\cs{HEXADECIMAL}\marg{counter}
+\begin{definition}[\DescribeMacro{\HEXADecimal}]
+\cs{HEXADecimal}\marg{counter}
 \end{definition}
 This does the same thing, but uses uppercase characters, e.g.\
-\verb"\HEXADECIMAL{mycounter}" will produce: 7D.
+\verb"\HEXADecimal{mycounter}" will produce: 7D.
 
 \DescribeMacro{\Hexadecimal}The macro \cs{Hexadecimal} is a deprecated alias of
-\cs{HEXADECIMAL}. Its name was confusing so it was changed.
+\cs{HEXADecimal}. Its name was confusing so it was
+changed. See~\ref{sec:macro-naming}.
 
 
 \begin{definition}[\DescribeMacro{\hexadecimalnum}]
 \cs{hexadecimalnum}\marg{n}
 \end{definition}
 
-\begin{definition}[\DescribeMacro{\HEXADECIMALnum}]
-\cs{HEXADECIMALnum}\marg{n}
+\begin{definition}[\DescribeMacro{\HEXADecimalnum}]
+\cs{HEXADecimalnum}\marg{n}
 \end{definition}
 These are like \cs{hexadecimal} and \cs{Hexadecimal}
 but take an actual number rather than a counter as the
 argument. For example: \verb"\hexadecimalnum{125}" will
-produce: 7d, and \verb"\HEXADECIMALnum{125}" will 
+produce: 7d, and \verb"\HEXADecimalnum{125}" will 
 produce: 7D.
 
 \DescribeMacro{\Hexadecimalnum}The macro \cs{Hexadecimalnum} is a deprecated
-alias of \cs{HEXADECIMALnum}. Its name was confusing so it was changed.
+alias of \cs{HEXADecimalnum}. Its name was confusing so it was changed.
+See~\ref{sec:macro-naming}.
 
 
 \begin{definition}[\DescribeMacro{\decimal}]
@@ -849,7 +851,10 @@ This, I agree, is an unpleasant cludge.
 
 \end{itemize}
 
-\section{Handling of spaces with tailing optional argument}
+\section{Miscellaneous}
+\label{sec:misc}
+
+\subsection{Handling of spaces with tailing optional argument}
 \label{sec:tailing-oarg}
 
 Quite some of the commands in \styfmt{fmtcount} have a tailing optional argument, notably a \oarg{gender}
@@ -864,7 +869,7 @@ When the tailing optional argument is omitted, then any subsequent space will:
 
 So (where we use visible spaces ``\verb*! !'' to demonstrate the point):
 \begin{itemize}
-\item ``x\cs{odinalnum\{2\}}\verb*! !\texttt{x}'' will be typeset to ``x\ordinalnum{2}\verb*! !x'', while
+\item ``x\cs{odinalnum\{2\}}\verb*! !\texttt{x}'' will be typeset to ``x\ordinalnum{2}\textvisiblespace x'', while
 \item ``x\cs{storeodinalnum\{mylabel\}\{2\}}\verb*! !\texttt{x}'' will be typeset to ``xx''.
 \end{itemize}
 
@@ -872,6 +877,26 @@ The reason for this design choice is that the commands like like \cs{ordinal} or
 inserted in the flow of text, and one usually does not want subsequent spaces gobbled, while the commands like
 \cs{storeordinalnum} or \cs{storenumberstring} usually stands on their own line, and one usually does not want
 the tailing end-of-line to produce an extra-space.
+
+\subsection{Macro naming conventions}
+\label{sec:macro-naming}
+
+Macros that refer to upper-casing have upper case only in the main part of their name. That is to say the
+words ``store'', ``string'' or ``num'' are not upper-cased for instance in \cs{storeORDINALstringnum},
+\cs{storeOrdinalstringnum} or in \cs{NUMBERstringnum}.
+
+Furthermore, when upper-casing all the number letters is considered, the main part of the name is:
+\begin{itemize}
+\item all in upper-case when it consist of a single word that is not composed of a prefix+radix, for instance
+  ``ORDINAL'' or ``NUMBER'', and
+\item with the prefix all in upper-case, and only the first letter of the radix in upper-case for words that
+  consist of a prefix+radix, for instance ``HEXADecimal'' or ``AAAlph'' because they can be considered as a
+  prefix+radix construct ``hexa+decimal'' or ``aa+alph''.
+\end{itemize}
+
+Observance of this rule is the reason why macros \cs{Hexadecimal} and \cs{Hexadecimalnum} were respectively
+renamed as \cs{HEXADecimal} and \cs{HEXADecimalnum} from v3.06.
+
 
 \section{Acknowledgements}
 
