@@ -99,14 +99,14 @@ octal
 \begin{ttfamily}
 \noindent
 \makebox[0.75in][c]{hexadecimal}
-\makebox[0.75in][c]{Hexadecimal}
+\makebox[0.75in][c]{HEXADecimal}
 \makebox[0.75in][c]{AAAlph}
 \makebox[0.75in][c]{ABAlph}
 \renewcommand{\printrow}[1]{%
   \newline
   \setcounter{N}{#1}
   \makebox[0.75in][r]{\hexadecimal{N},\quad}
-  \makebox[0.75in][r]{\Hexadecimal{N},\quad}
+  \makebox[0.75in][r]{\HEXADecimal{N},\quad}
   \makebox[0.75in][r]{\AAAlph{N},\quad}
   \makebox[2in][l]{\ifnum\value{N}<17577\ABAlph{N}\else N/A\fi}
 }
@@ -183,7 +183,7 @@ Passing numbers explicitly (28):
 \ABAlphnum{28},
 \octalnum{28},
 \hexadecimalnum{28},
-\Hexadecimalnum{28}.
+\HEXADecimalnum{28}.
 
 \setcounter{N}{777}
 \section{\textbackslash FCordinal in a title: \FCordinal{N}}

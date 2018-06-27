@@ -3,7 +3,7 @@
 % This section deals with the code for |fmtcount.sty|
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{fmtcount}[2018/06/17 v3.06]
+\ProvidesPackage{fmtcount}[2018/06/27 v3.06]
 \RequirePackage{ifthen}
 %    \end{macrocode}
 % \changes{3.01}{2014/12/03}{Use \styfmt{xkeyval} instead of \styfmt{keyval}, so that we do not get in trouble
@@ -558,7 +558,7 @@ italian}
 \let\octalnum=\@octal
 %    \end{macrocode}
 %\end{macro}
-%\begin{macro}{\@@hexadecimalnum}
+%\begin{macro}{\@@hexadecimal}
 % Converts number from 0 to 15 into lowercase hexadecimal notation.
 %    \begin{macrocode}
 \newcommand*{\@@hexadecimal}[1]{%
@@ -571,34 +571,13 @@ italian}
 % Converts a decimal number to a lowercase hexadecimal number, 
 % and displays it.
 %\changes{3.02}{2016/01/08}{Made robust using \texttt{etoolbox} \cs{newrobustcmd}}
+%\changes{3.06}{2018/06/27}{Rename \cs{Hexadecimalnum} to \cs{HEXADecimalnum} and \cs{Hexadecimal} to
+%    \cs{HEXADecimal} and factorize the code between \cs{HEXADecimalnum} and \cs{hexadecimalnum}.}
 %    \begin{macrocode}
-\newrobustcmd*{\@hexadecimal}[1]{%
-  \@DT@padzeroestrue
-  \@DT@loopN=\@vpt
-  \@strctr=\@DT@loopN
-  \whiledo{\@strctr<\c@padzeroesN}{0\advance\@strctr by \@ne}%
-  \@strctr=65536\relax
-  \@DT@X=#1\relax
-  \loop
-    \@DT@modctr=\@DT@X
-    \divide\@DT@modctr by \@strctr
-    \ifthenelse{\boolean{@DT@padzeroes}
-      \and \(\@DT@modctr=0\)
-      \and \(\@DT@loopN>\c@padzeroesN\)}
-    {}{\@@hexadecimal\@DT@modctr}%
-    \ifnum\@DT@modctr=0\else\@DT@padzeroesfalse\fi
-    \multiply\@DT@modctr by \@strctr
-    \advance\@DT@X by -\@DT@modctr
-    \divide\@strctr by 16\relax
-    \advance\@DT@loopN by \m@ne
-  \ifnum\@strctr>\@ne
-  \repeat
-  \@@hexadecimal\@DT@X
-}
-\let\hexadecimalnum=\@hexadecimal
+\newrobustcmd*{\hexadecimalnum}{\@hexadecimalengine\@@hexadecimal}
 %    \end{macrocode}
 %\end{macro}
-%\begin{macro}{\@@Hexadecimalnum}
+%\begin{macro}{\@@Hexadecimal}
 % Converts number from 0 to 15 into uppercase hexadecimal notation.
 %    \begin{macrocode}
 \newcommand*{\@@Hexadecimal}[1]{%
@@ -607,24 +586,27 @@ italian}
 }
 %    \end{macrocode}
 %\end{macro}
-%\begin{macro}{\Hexadecimalnum}
+%\begin{macro}{\HEXADecimalnum}
 % Uppercase hexadecimal
 %\changes{3.02}{2016/01/08}{Made robust using \texttt{etoolbox} \cs{newrobustcmd}}
+%\changes{3.06}{2018/06/27}{Rename \cs{Hexadecimalnum} to \cs{HEXADecimalnum} and \cs{Hexadecimal} to
+%    \cs{HEXADecimal} and factorize the code between \cs{HEXADecimalnum} and \cs{hexadecimalnum}.}
 %    \begin{macrocode}
-\newrobustcmd*{\@Hexadecimal}[1]{%
+\newrobustcmd*{\HEXADecimalnum}{\@hexadecimalengine\@@Hexadecimal}
+\newcommand*{\@hexadecimalengine}[2]{%
   \@DT@padzeroestrue
-  \@DT@loopN=5\relax
+  \@DT@loopN=\@vpt
   \@strctr=\@DT@loopN
   \whiledo{\@strctr<\c@padzeroesN}{0\advance\@strctr by \@ne}%
   \@strctr=65536\relax
-  \@DT@X=#1\relax
+  \@DT@X=#2\relax
   \loop
     \@DT@modctr=\@DT@X
     \divide\@DT@modctr by \@strctr
     \ifthenelse{\boolean{@DT@padzeroes}
       \and \(\@DT@modctr=0\)
-      \and \(\@DT@loopN>\c@padzeroesN\)}%
-    {}{\@@Hexadecimal\@DT@modctr}%
+      \and \(\@DT@loopN>\c@padzeroesN\)}
+    {}{#1\@DT@modctr}%
     \ifnum\@DT@modctr=0\else\@DT@padzeroesfalse\fi
     \multiply\@DT@modctr by \@strctr
     \advance\@DT@X by -\@DT@modctr
@@ -632,10 +614,13 @@ italian}
     \advance\@DT@loopN by \m@ne
   \ifnum\@strctr>\@ne
   \repeat
-  \@@Hexadecimal\@DT@X
+  #1\@DT@X
 }
-
-\let\Hexadecimalnum=\@Hexadecimal
+\def\Hexadecimalnum{%
+  \PackageWarning{fmtcount}{\string\Hexadecimalnum\space is deprecated, use \string\HEXADecimalnum\space
+    instead. The \string\Hexadecimalnum\space control sequence name is confusing as it can mislead in thinking
+    that only the 1st letter is upper-cased.}%
+  \HEXADecimalnum}
 %    \end{macrocode}
 %\end{macro}
 %\begin{macro}{\aaalphnum}
@@ -1738,12 +1723,12 @@ italian}
 % compatibily with \texttt{glossaries}.}
 %    \begin{macrocode}
 \providecommand*{\hexadecimal}[1]{%
-  \@hexadecimal{\expandafter\expandafter\expandafter
+  \hexadecimalnum{\expandafter\expandafter\expandafter
     \the\value{#1}}%
 }
 %    \end{macrocode}
 %\end{macro}
-%\begin{macro}{\Hexadecimal}
+%\begin{macro}{\HEXADecimal}
 % As above, but in upper case.
 % \changes{3.02}{2016/01/08}{Suppress useless \cs{expandafter}'s and
 % and use \cs{value} instead tweaking with \cs{csname}. Do not use any
@@ -1754,10 +1739,15 @@ italian}
 % supposed to fully expand its argument, and place 3 \cs{expandafter}'s before \cs{the}\cs{value} for
 % compatibily with \texttt{glossaries}.}
 %    \begin{macrocode}
-\providecommand*{\Hexadecimal}[1]{%
-  \@Hexadecimal{\expandafter\expandafter\expandafter
+\providecommand*{\HEXADecimal}[1]{%
+  \HEXADecimalnum{\expandafter\expandafter\expandafter
     \the\value{#1}}%
 }
+\def\Hexadecimal{%
+  \PackageWarning{fmtcount}{\string\Hexadecimal\space is deprecated, use \string\HEXADecimal\space
+    instead. The \string\Hexadecimal\space control sequence name is confusing as it can mislead in thinking
+    that only the 1st letter is upper-cased.}%
+  \HEXADecimal}
 %    \end{macrocode}
 %\end{macro}
 %\begin{macro}{\octal}
