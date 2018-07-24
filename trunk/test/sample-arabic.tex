@@ -1,11 +1,13 @@
  % This file is public domain
 \documentclass{article}
 \usepackage{fontspec}% f
-\setmainfont{Times New Roman}% 
+\usepackage{longtable}
+\setmainfont{Times New Roman}%
 \usepackage{xunicode,polyglossia}
-\DeclareTextCommandDefault{\nobreakspace}{\leavevmode\nobreak\ } 
+\DeclareTextCommandDefault{\nobreakspace}{\leavevmode\nobreak\ }
 
 \setmainlanguage{arabic}
+\setotherlanguage{french}
 \usepackage[arabic]{fmtcount}
 
 \FCloadlang{arabic}
@@ -17,19 +19,332 @@
 %\section{\textbackslash FCordinal in a title: \FCordinal{cnt}}
 %\section{\textbackslash numberstring in a title: \numberstring{cnt}}
 
-\begin{tabular}{ll}
-1& \numberstringnum{1}\\
-2& \numberstringnum{2}\\
-3& \numberstringnum{3}\\
-4& \numberstringnum{4}\\
-5& \numberstringnum{5}\\
-10& \numberstringnum{10}\\
-12& \numberstringnum{12}\\
-19& \numberstringnum{19}\\
-20& \numberstringnum{20}\\
-\end{tabular}
+\begin{longtable}{lllll}
+  &\textfrench{numéral masculin}&\textfrench{numéral féminin}&\textfrench{ordinal masculin}&\textfrench{ordinal féminin}\endfirsthead
+  &\textfrench{numéral masculin}&\textfrench{numéral féminin}&\textfrench{ordinal masculin}&\textfrench{ordinal féminin}\endhead
+  \hline\endfoot
+  \hline\endlastfoot
+1&  \numberstringnum{1}  &\numberstringnum{1}[f] &\ordinalstringnum{1}  &\ordinalstringnum{1}[f] \\
+2&  \numberstringnum{2}  &\numberstringnum{2}[f] &\ordinalstringnum{2}  &\ordinalstringnum{2}[f] \\
+3&  \numberstringnum{3}  &\numberstringnum{3}[f] &\ordinalstringnum{3}  &\ordinalstringnum{3}[f] \\
+4&  \numberstringnum{4}  &\numberstringnum{4}[f] &\ordinalstringnum{4}  &\ordinalstringnum{4}[f] \\
+5&  \numberstringnum{5}  &\numberstringnum{5}[f] &\ordinalstringnum{5}  &\ordinalstringnum{5}[f] \\
+6&  \numberstringnum{6}  &\numberstringnum{6}[f] &\ordinalstringnum{6}  &\ordinalstringnum{6}[f] \\
+7&  \numberstringnum{7}  &\numberstringnum{7}[f] &\ordinalstringnum{7}  &\ordinalstringnum{7}[f] \\
+8&  \numberstringnum{8}  &\numberstringnum{8}[f] &\ordinalstringnum{8}  &\ordinalstringnum{8}[f] \\
+9&  \numberstringnum{9}  &\numberstringnum{9}[f] &\ordinalstringnum{9}  &\ordinalstringnum{9}[f] \\
+10& \numberstringnum{10} &\numberstringnum{10}[f]&\ordinalstringnum{10} &\ordinalstringnum{10}[f]\\
+11& \numberstringnum{11} &\numberstringnum{11}[f]&\ordinalstringnum{11} &\ordinalstringnum{11}[f]\\
+12& \numberstringnum{12} &\numberstringnum{12}[f]&\ordinalstringnum{12} &\ordinalstringnum{12}[f]\\
+13& \numberstringnum{13} &\numberstringnum{13}[f]&\ordinalstringnum{13} &\ordinalstringnum{13}[f]\\
+14& \numberstringnum{14} &\numberstringnum{14}[f]&\ordinalstringnum{14} &\ordinalstringnum{14}[f]\\
+15& \numberstringnum{15} &\numberstringnum{15}[f]&\ordinalstringnum{15} &\ordinalstringnum{15}[f]\\
+16& \numberstringnum{16} &\numberstringnum{16}[f]&\ordinalstringnum{16} &\ordinalstringnum{16}[f]\\
+17& \numberstringnum{17} &\numberstringnum{17}[f]&\ordinalstringnum{17} &\ordinalstringnum{17}[f]\\
+18& \numberstringnum{18} &\numberstringnum{18}[f]&\ordinalstringnum{18} &\ordinalstringnum{18}[f]\\
+19& \numberstringnum{19} &\numberstringnum{19}[f]&\ordinalstringnum{19} &\ordinalstringnum{19}[f]\\
+20& \numberstringnum{20} &\numberstringnum{20}[f]&\ordinalstringnum{20} &\ordinalstringnum{20}[f]\\
+21& \numberstringnum{21} &\numberstringnum{21}[f]&\ordinalstringnum{21} &\ordinalstringnum{21}[f]\\
+22& \numberstringnum{22} &\numberstringnum{22}[f]&\ordinalstringnum{22}&\ordinalstringnum{22}[f]\\
+23& \numberstringnum{23} &\numberstringnum{23}[f]&\ordinalstringnum{23} &\ordinalstringnum{23}[f]\\
+24& \numberstringnum{24} &\numberstringnum{24}[f]&\ordinalstringnum{24} &\ordinalstringnum{24}[f]\\
+25& \numberstringnum{25} &\numberstringnum{25}[f]&\ordinalstringnum{25} &\ordinalstringnum{25}[f]\\
+26& \numberstringnum{26} &\numberstringnum{26}[f]&\ordinalstringnum{26} &\ordinalstringnum{26}[f]\\
+27& \numberstringnum{27} &\numberstringnum{27}[f]&\ordinalstringnum{27} &\ordinalstringnum{27}[f]\\
+28& \numberstringnum{28} &\numberstringnum{28}[f]&\ordinalstringnum{28} &\ordinalstringnum{28}[f]\\
+29& \numberstringnum{29} &\numberstringnum{29}[f]&\ordinalstringnum{29} &\ordinalstringnum{29}[f]\\
+30& \numberstringnum{30} &\numberstringnum{30}[f]&\ordinalstringnum{30} &\ordinalstringnum{30}[f]\\
+31& \numberstringnum{31} &\numberstringnum{31}[f]&\ordinalstringnum{31} &\ordinalstringnum{31}[f]\\
+32& \numberstringnum{32} &\numberstringnum{32}[f]&\ordinalstringnum{32} &\ordinalstringnum{32}[f]\\
+33& \numberstringnum{33} &\numberstringnum{33}[f]&\ordinalstringnum{33} &\ordinalstringnum{33}[f]\\
+34& \numberstringnum{34} &\numberstringnum{34}[f]&\ordinalstringnum{34} &\ordinalstringnum{34}[f]\\
+35& \numberstringnum{35} &\numberstringnum{35}[f]&\ordinalstringnum{35} &\ordinalstringnum{35}[f]\\
+36& \numberstringnum{36} &\numberstringnum{36}[f]&\ordinalstringnum{36} &\ordinalstringnum{36}[f]\\
+37& \numberstringnum{37} &\numberstringnum{37}[f]&\ordinalstringnum{37} &\ordinalstringnum{37}[f]\\
+38& \numberstringnum{38} &\numberstringnum{38}[f]&\ordinalstringnum{38} &\ordinalstringnum{38}[f]\\
+39& \numberstringnum{39} &\numberstringnum{39}[f]&\ordinalstringnum{39} &\ordinalstringnum{39}[f]\\
+40& \numberstringnum{40} &\numberstringnum{40}[f]&\ordinalstringnum{40} &\ordinalstringnum{40}[f]\\
+41& \numberstringnum{41} &\numberstringnum{41}[f]&\ordinalstringnum{41} &\ordinalstringnum{41}[f]\\
+42& \numberstringnum{42} &\numberstringnum{42}[f]&\ordinalstringnum{42} &\ordinalstringnum{42}[f]\\
+43& \numberstringnum{43} &\numberstringnum{43}[f]&\ordinalstringnum{43} &\ordinalstringnum{43}[f]\\
+44& \numberstringnum{44} &\numberstringnum{44}[f]&\ordinalstringnum{44} &\ordinalstringnum{44}[f]\\
+45& \numberstringnum{45} &\numberstringnum{45}[f]&\ordinalstringnum{45} &\ordinalstringnum{45}[f]\\
+46& \numberstringnum{46} &\numberstringnum{46}[f]&\ordinalstringnum{46} &\ordinalstringnum{46}[f]\\
+47& \numberstringnum{47} &\numberstringnum{47}[f]&\ordinalstringnum{47} &\ordinalstringnum{47}[f]\\
+48& \numberstringnum{48} &\numberstringnum{48}[f]&\ordinalstringnum{48} &\ordinalstringnum{48}[f]\\
+49& \numberstringnum{49} &\numberstringnum{49}[f]&\ordinalstringnum{49} &\ordinalstringnum{49}[f]\\
+50& \numberstringnum{50} &\numberstringnum{50}[f]&\ordinalstringnum{50} &\ordinalstringnum{50}[f]\\
+51& \numberstringnum{51} &\numberstringnum{51}[f]&\ordinalstringnum{51} &\ordinalstringnum{51}[f]\\
+52& \numberstringnum{52} &\numberstringnum{52}[f]&\ordinalstringnum{52} &\ordinalstringnum{52}[f]\\
+53& \numberstringnum{53} &\numberstringnum{53}[f]&\ordinalstringnum{53} &\ordinalstringnum{53}[f]\\
+54& \numberstringnum{54} &\numberstringnum{54}[f]&\ordinalstringnum{54} &\ordinalstringnum{54}[f]\\
+55& \numberstringnum{55} &\numberstringnum{55}[f]&\ordinalstringnum{55} &\ordinalstringnum{55}[f]\\
+56& \numberstringnum{56} &\numberstringnum{56}[f]&\ordinalstringnum{56} &\ordinalstringnum{56}[f]\\
+57& \numberstringnum{57} &\numberstringnum{57}[f]&\ordinalstringnum{57} &\ordinalstringnum{57}[f]\\
+58& \numberstringnum{58} &\numberstringnum{58}[f]&\ordinalstringnum{58} &\ordinalstringnum{58}[f]\\
+59& \numberstringnum{59} &\numberstringnum{59}[f]&\ordinalstringnum{59} &\ordinalstringnum{59}[f]\\
+60& \numberstringnum{60} &\numberstringnum{60}[f]&\ordinalstringnum{60} &\ordinalstringnum{60}[f]\\
+61& \numberstringnum{61} &\numberstringnum{61}[f]&\ordinalstringnum{61} &\ordinalstringnum{61}[f]\\
+62& \numberstringnum{62} &\numberstringnum{62}[f]&\ordinalstringnum{62} &\ordinalstringnum{62}[f]\\
+63& \numberstringnum{63} &\numberstringnum{63}[f]&\ordinalstringnum{63} &\ordinalstringnum{63}[f]\\
+64& \numberstringnum{64} &\numberstringnum{64}[f]&\ordinalstringnum{64} &\ordinalstringnum{64}[f]\\
+65& \numberstringnum{65} &\numberstringnum{65}[f]&\ordinalstringnum{65} &\ordinalstringnum{65}[f]\\
+66& \numberstringnum{66} &\numberstringnum{66}[f]&\ordinalstringnum{66} &\ordinalstringnum{66}[f]\\
+67& \numberstringnum{67} &\numberstringnum{67}[f]&\ordinalstringnum{67} &\ordinalstringnum{67}[f]\\
+68& \numberstringnum{68} &\numberstringnum{68}[f]&\ordinalstringnum{68} &\ordinalstringnum{68}[f]\\
+69& \numberstringnum{69} &\numberstringnum{69}[f]&\ordinalstringnum{69} &\ordinalstringnum{69}[f]\\
+70& \numberstringnum{70} &\numberstringnum{70}[f]&\ordinalstringnum{70} &\ordinalstringnum{70}[f]\\
+71& \numberstringnum{71} &\numberstringnum{71}[f]&\ordinalstringnum{71} &\ordinalstringnum{71}[f]\\
+72& \numberstringnum{72} &\numberstringnum{72}[f]&\ordinalstringnum{72} &\ordinalstringnum{72}[f]\\
+73& \numberstringnum{73} &\numberstringnum{73}[f]&\ordinalstringnum{73} &\ordinalstringnum{73}[f]\\
+74& \numberstringnum{74} &\numberstringnum{74}[f]&\ordinalstringnum{74} &\ordinalstringnum{74}[f]\\
+75& \numberstringnum{75} &\numberstringnum{75}[f]&\ordinalstringnum{75} &\ordinalstringnum{75}[f]\\
+76& \numberstringnum{76} &\numberstringnum{76}[f]&\ordinalstringnum{76} &\ordinalstringnum{76}[f]\\
+77& \numberstringnum{77} &\numberstringnum{77}[f]&\ordinalstringnum{77} &\ordinalstringnum{77}[f]\\
+78& \numberstringnum{78} &\numberstringnum{78}[f]&\ordinalstringnum{78} &\ordinalstringnum{78}[f]\\
+79& \numberstringnum{79} &\numberstringnum{79}[f]&\ordinalstringnum{79} &\ordinalstringnum{79}[f]\\
+80& \numberstringnum{80} &\numberstringnum{80}[f]&\ordinalstringnum{80} &\ordinalstringnum{80}[f]\\
+81& \numberstringnum{81} &\numberstringnum{81}[f]&\ordinalstringnum{81} &\ordinalstringnum{81}[f]\\
+82& \numberstringnum{82} &\numberstringnum{82}[f]&\ordinalstringnum{82} &\ordinalstringnum{82}[f]\\
+83& \numberstringnum{83} &\numberstringnum{83}[f]&\ordinalstringnum{83} &\ordinalstringnum{83}[f]\\
+84& \numberstringnum{84} &\numberstringnum{84}[f]&\ordinalstringnum{84} &\ordinalstringnum{84}[f]\\
+85& \numberstringnum{85} &\numberstringnum{85}[f]&\ordinalstringnum{85} &\ordinalstringnum{85}[f]\\
+86& \numberstringnum{86} &\numberstringnum{86}[f]&\ordinalstringnum{86} &\ordinalstringnum{86}[f]\\
+87& \numberstringnum{87} &\numberstringnum{87}[f]&\ordinalstringnum{87} &\ordinalstringnum{87}[f]\\
+88& \numberstringnum{88} &\numberstringnum{88}[f]&\ordinalstringnum{88} &\ordinalstringnum{88}[f]\\
+89& \numberstringnum{89} &\numberstringnum{89}[f]&\ordinalstringnum{89} &\ordinalstringnum{89}[f]\\
+90& \numberstringnum{90} &\numberstringnum{90}[f]&\ordinalstringnum{90} &\ordinalstringnum{90}[f]\\
+91& \numberstringnum{91} &\numberstringnum{91}[f]&\ordinalstringnum{91} &\ordinalstringnum{91}[f]\\
+92& \numberstringnum{92} &\numberstringnum{92}[f]&\ordinalstringnum{92} &\ordinalstringnum{92}[f]\\
+93& \numberstringnum{93} &\numberstringnum{93}[f]&\ordinalstringnum{93} &\ordinalstringnum{93}[f]\\
+94& \numberstringnum{94} &\numberstringnum{94}[f]&\ordinalstringnum{94} &\ordinalstringnum{94}[f]\\
+95& \numberstringnum{95} &\numberstringnum{95}[f]&\ordinalstringnum{95} &\ordinalstringnum{95}[f]\\
+96& \numberstringnum{96} &\numberstringnum{96}[f]&\ordinalstringnum{96} &\ordinalstringnum{96}[f]\\
+97& \numberstringnum{97} &\numberstringnum{97}[f]&\ordinalstringnum{97} &\ordinalstringnum{97}[f]\\
+98& \numberstringnum{98} &\numberstringnum{98}[f]&\ordinalstringnum{98} &\ordinalstringnum{98}[f]\\
+99& \numberstringnum{99} &\numberstringnum{99}[f]&\ordinalstringnum{99} &\ordinalstringnum{99}[f]\\
+%100& \numberstringnum{100} &\numberstringnum{100}[f]&\ordinalstringnum{100} &\ordinalstringnum{100}[f]\\
+%101& \numberstringnum{101} &\numberstringnum{101}[f]&\ordinalstringnum{101} &\ordinalstringnum{101}[f]\\
+%102& \numberstringnum{102} &\numberstringnum{102}[f]&\ordinalstringnum{102} &\ordinalstringnum{102}[f]\\
+%103& \numberstringnum{103} &\numberstringnum{103}[f]&\ordinalstringnum{103} &\ordinalstringnum{103}[f]\\
+%104& \numberstringnum{104} &\numberstringnum{104}[f]&\ordinalstringnum{104} &\ordinalstringnum{104}[f]\\
+%105& \numberstringnum{105} &\numberstringnum{105}[f]&\ordinalstringnum{105} &\ordinalstringnum{105}[f]\\
+%106& \numberstringnum{106} &\numberstringnum{106}[f]&\ordinalstringnum{106} &\ordinalstringnum{106}[f]\\
+%107& \numberstringnum{107} &\numberstringnum{107}[f]&\ordinalstringnum{107} &\ordinalstringnum{107}[f]\\
+%108& \numberstringnum{108} &\numberstringnum{108}[f]&\ordinalstringnum{108} &\ordinalstringnum{108}[f]\\
+%109& \numberstringnum{109} &\numberstringnum{109}[f]&\ordinalstringnum{109} &\ordinalstringnum{109}[f]\\
+%110& \numberstringnum{110} &\numberstringnum{110}[f]&\ordinalstringnum{110} &\ordinalstringnum{110}[f]\\
+%111& \numberstringnum{111} &\numberstringnum{111}[f]&\ordinalstringnum{111} &\ordinalstringnum{111}[f]\\
+%112& \numberstringnum{112} &\numberstringnum{112}[f]&\ordinalstringnum{112} &\ordinalstringnum{112}[f]\\
+%113& \numberstringnum{113} &\numberstringnum{113}[f]&\ordinalstringnum{113} &\ordinalstringnum{113}[f]\\
+%114& \numberstringnum{114} &\numberstringnum{114}[f]&\ordinalstringnum{114} &\ordinalstringnum{114}[f]\\
+%115& \numberstringnum{115} &\numberstringnum{115}[f]&\ordinalstringnum{115} &\ordinalstringnum{115}[f]\\
+%116& \numberstringnum{116} &\numberstringnum{116}[f]&\ordinalstringnum{116} &\ordinalstringnum{116}[f]\\
+%117& \numberstringnum{117} &\numberstringnum{117}[f]&\ordinalstringnum{117} &\ordinalstringnum{117}[f]\\
+%118& \numberstringnum{118} &\numberstringnum{118}[f]&\ordinalstringnum{118} &\ordinalstringnum{118}[f]\\
+%119& \numberstringnum{119} &\numberstringnum{119}[f]&\ordinalstringnum{119} &\ordinalstringnum{119}[f]\\
+%120& \numberstringnum{120} &\numberstringnum{120}[f]&\ordinalstringnum{120} &\ordinalstringnum{120}[f]\\
+%121& \numberstringnum{121} &\numberstringnum{121}[f]&\ordinalstringnum{121} &\ordinalstringnum{121}[f]\\
+%122& \numberstringnum{122} &\numberstringnum{122}[f]&\ordinalstringnum{122} &\ordinalstringnum{122}[f]\\
+%123& \numberstringnum{123} &\numberstringnum{123}[f]&\ordinalstringnum{123} &\ordinalstringnum{123}[f]\\
+%124& \numberstringnum{124} &\numberstringnum{124}[f]&\ordinalstringnum{124} &\ordinalstringnum{124}[f]\\
+%125& \numberstringnum{125} &\numberstringnum{125}[f]&\ordinalstringnum{125} &\ordinalstringnum{125}[f]\\
+%126& \numberstringnum{126} &\numberstringnum{126}[f]&\ordinalstringnum{126} &\ordinalstringnum{126}[f]\\
+%127& \numberstringnum{127} &\numberstringnum{127}[f]&\ordinalstringnum{127} &\ordinalstringnum{127}[f]\\
+%128& \numberstringnum{128} &\numberstringnum{128}[f]&\ordinalstringnum{128} &\ordinalstringnum{128}[f]\\
+%129& \numberstringnum{129} &\numberstringnum{129}[f]&\ordinalstringnum{129} &\ordinalstringnum{129}[f]\\
+%130& \numberstringnum{130} &\numberstringnum{130}[f]&\ordinalstringnum{130} &\ordinalstringnum{130}[f]\\
+%131& \numberstringnum{131} &\numberstringnum{131}[f]&\ordinalstringnum{131} &\ordinalstringnum{131}[f]\\
+%132& \numberstringnum{132} &\numberstringnum{132}[f]&\ordinalstringnum{132} &\ordinalstringnum{132}[f]\\
+%133& \numberstringnum{133} &\numberstringnum{133}[f]&\ordinalstringnum{133} &\ordinalstringnum{133}[f]\\
+%134& \numberstringnum{134} &\numberstringnum{134}[f]&\ordinalstringnum{134} &\ordinalstringnum{134}[f]\\
+%135& \numberstringnum{135} &\numberstringnum{135}[f]&\ordinalstringnum{135} &\ordinalstringnum{135}[f]\\
+%136& \numberstringnum{136} &\numberstringnum{136}[f]&\ordinalstringnum{136} &\ordinalstringnum{136}[f]\\
+%137& \numberstringnum{137} &\numberstringnum{137}[f]&\ordinalstringnum{137} &\ordinalstringnum{137}[f]\\
+%138& \numberstringnum{138} &\numberstringnum{138}[f]&\ordinalstringnum{138} &\ordinalstringnum{138}[f]\\
+%139& \numberstringnum{139} &\numberstringnum{139}[f]&\ordinalstringnum{139} &\ordinalstringnum{139}[f]\\
+%140& \numberstringnum{140} &\numberstringnum{140}[f]&\ordinalstringnum{140} &\ordinalstringnum{140}[f]\\
+%141& \numberstringnum{141} &\numberstringnum{141}[f]&\ordinalstringnum{141} &\ordinalstringnum{141}[f]\\
+%142& \numberstringnum{142} &\numberstringnum{142}[f]&\ordinalstringnum{142} &\ordinalstringnum{142}[f]\\
+%143& \numberstringnum{143} &\numberstringnum{143}[f]&\ordinalstringnum{143} &\ordinalstringnum{143}[f]\\
+%144& \numberstringnum{144} &\numberstringnum{144}[f]&\ordinalstringnum{144} &\ordinalstringnum{144}[f]\\
+%145& \numberstringnum{145} &\numberstringnum{145}[f]&\ordinalstringnum{145} &\ordinalstringnum{145}[f]\\
+%146& \numberstringnum{146} &\numberstringnum{146}[f]&\ordinalstringnum{146} &\ordinalstringnum{146}[f]\\
+%147& \numberstringnum{147} &\numberstringnum{147}[f]&\ordinalstringnum{147} &\ordinalstringnum{147}[f]\\
+%148& \numberstringnum{148} &\numberstringnum{148}[f]&\ordinalstringnum{148} &\ordinalstringnum{148}[f]\\
+%149& \numberstringnum{149} &\numberstringnum{149}[f]&\ordinalstringnum{149} &\ordinalstringnum{149}[f]\\
+%150& \numberstringnum{150} &\numberstringnum{150}[f]&\ordinalstringnum{150} &\ordinalstringnum{150}[f]\\
+%151& \numberstringnum{151} &\numberstringnum{151}[f]&\ordinalstringnum{151} &\ordinalstringnum{151}[f]\\
+%152& \numberstringnum{152} &\numberstringnum{152}[f]&\ordinalstringnum{152} &\ordinalstringnum{152}[f]\\
+%153& \numberstringnum{153} &\numberstringnum{153}[f]&\ordinalstringnum{153} &\ordinalstringnum{153}[f]\\
+%154& \numberstringnum{154} &\numberstringnum{154}[f]&\ordinalstringnum{154} &\ordinalstringnum{154}[f]\\
+%155& \numberstringnum{155} &\numberstringnum{155}[f]&\ordinalstringnum{155} &\ordinalstringnum{155}[f]\\
+%156& \numberstringnum{156} &\numberstringnum{156}[f]&\ordinalstringnum{156} &\ordinalstringnum{156}[f]\\
+%157& \numberstringnum{157} &\numberstringnum{157}[f]&\ordinalstringnum{157} &\ordinalstringnum{157}[f]\\
+%158& \numberstringnum{158} &\numberstringnum{158}[f]&\ordinalstringnum{158} &\ordinalstringnum{158}[f]\\
+%159& \numberstringnum{159} &\numberstringnum{159}[f]&\ordinalstringnum{159} &\ordinalstringnum{159}[f]\\
+%160& \numberstringnum{160} &\numberstringnum{160}[f]&\ordinalstringnum{160} &\ordinalstringnum{160}[f]\\
+%161& \numberstringnum{161} &\numberstringnum{161}[f]&\ordinalstringnum{161} &\ordinalstringnum{161}[f]\\
+%162& \numberstringnum{162} &\numberstringnum{162}[f]&\ordinalstringnum{162} &\ordinalstringnum{162}[f]\\
+%163& \numberstringnum{163} &\numberstringnum{163}[f]&\ordinalstringnum{163} &\ordinalstringnum{163}[f]\\
+%164& \numberstringnum{164} &\numberstringnum{164}[f]&\ordinalstringnum{164} &\ordinalstringnum{164}[f]\\
+%165& \numberstringnum{165} &\numberstringnum{165}[f]&\ordinalstringnum{165} &\ordinalstringnum{165}[f]\\
+%166& \numberstringnum{166} &\numberstringnum{166}[f]&\ordinalstringnum{166} &\ordinalstringnum{166}[f]\\
+%167& \numberstringnum{167} &\numberstringnum{167}[f]&\ordinalstringnum{167} &\ordinalstringnum{167}[f]\\
+%168& \numberstringnum{168} &\numberstringnum{168}[f]&\ordinalstringnum{168} &\ordinalstringnum{168}[f]\\
+%169& \numberstringnum{169} &\numberstringnum{169}[f]&\ordinalstringnum{169} &\ordinalstringnum{169}[f]\\
+%170& \numberstringnum{170} &\numberstringnum{170}[f]&\ordinalstringnum{170} &\ordinalstringnum{170}[f]\\
+%171& \numberstringnum{171} &\numberstringnum{171}[f]&\ordinalstringnum{171} &\ordinalstringnum{171}[f]\\
+%172& \numberstringnum{172} &\numberstringnum{172}[f]&\ordinalstringnum{172} &\ordinalstringnum{172}[f]\\
+%173& \numberstringnum{173} &\numberstringnum{173}[f]&\ordinalstringnum{173} &\ordinalstringnum{173}[f]\\
+%174& \numberstringnum{174} &\numberstringnum{174}[f]&\ordinalstringnum{174} &\ordinalstringnum{174}[f]\\
+%175& \numberstringnum{175} &\numberstringnum{175}[f]&\ordinalstringnum{175} &\ordinalstringnum{175}[f]\\
+%176& \numberstringnum{176} &\numberstringnum{176}[f]&\ordinalstringnum{176} &\ordinalstringnum{176}[f]\\
+%177& \numberstringnum{177} &\numberstringnum{177}[f]&\ordinalstringnum{177} &\ordinalstringnum{177}[f]\\
+%178& \numberstringnum{178} &\numberstringnum{178}[f]&\ordinalstringnum{178} &\ordinalstringnum{178}[f]\\
+%179& \numberstringnum{179} &\numberstringnum{179}[f]&\ordinalstringnum{179} &\ordinalstringnum{179}[f]\\
+%180& \numberstringnum{180} &\numberstringnum{180}[f]&\ordinalstringnum{180} &\ordinalstringnum{180}[f]\\
+%181& \numberstringnum{181} &\numberstringnum{181}[f]&\ordinalstringnum{181} &\ordinalstringnum{181}[f]\\
+%182& \numberstringnum{182} &\numberstringnum{182}[f]&\ordinalstringnum{182} &\ordinalstringnum{182}[f]\\
+%183& \numberstringnum{183} &\numberstringnum{183}[f]&\ordinalstringnum{183} &\ordinalstringnum{183}[f]\\
+%184& \numberstringnum{184} &\numberstringnum{184}[f]&\ordinalstringnum{184} &\ordinalstringnum{184}[f]\\
+%185& \numberstringnum{185} &\numberstringnum{185}[f]&\ordinalstringnum{185} &\ordinalstringnum{185}[f]\\
+%186& \numberstringnum{186} &\numberstringnum{186}[f]&\ordinalstringnum{186} &\ordinalstringnum{186}[f]\\
+%187& \numberstringnum{187} &\numberstringnum{187}[f]&\ordinalstringnum{187} &\ordinalstringnum{187}[f]\\
+%188& \numberstringnum{188} &\numberstringnum{188}[f]&\ordinalstringnum{188} &\ordinalstringnum{188}[f]\\
+%189& \numberstringnum{189} &\numberstringnum{189}[f]&\ordinalstringnum{189} &\ordinalstringnum{189}[f]\\
+%190& \numberstringnum{190} &\numberstringnum{190}[f]&\ordinalstringnum{190} &\ordinalstringnum{190}[f]\\
+%191& \numberstringnum{191} &\numberstringnum{191}[f]&\ordinalstringnum{191} &\ordinalstringnum{191}[f]\\
+%192& \numberstringnum{192} &\numberstringnum{192}[f]&\ordinalstringnum{192} &\ordinalstringnum{192}[f]\\
+%193& \numberstringnum{193} &\numberstringnum{193}[f]&\ordinalstringnum{193} &\ordinalstringnum{193}[f]\\
+%194& \numberstringnum{194} &\numberstringnum{194}[f]&\ordinalstringnum{194} &\ordinalstringnum{194}[f]\\
+%195& \numberstringnum{195} &\numberstringnum{195}[f]&\ordinalstringnum{195} &\ordinalstringnum{195}[f]\\
+%196& \numberstringnum{196} &\numberstringnum{196}[f]&\ordinalstringnum{196} &\ordinalstringnum{196}[f]\\
+%197& \numberstringnum{197} &\numberstringnum{197}[f]&\ordinalstringnum{197} &\ordinalstringnum{197}[f]\\
+%198& \numberstringnum{198} &\numberstringnum{198}[f]&\ordinalstringnum{198} &\ordinalstringnum{198}[f]\\
+%199& \numberstringnum{199} &\numberstringnum{199}[f]&\ordinalstringnum{199} &\ordinalstringnum{199}[f]\\
+%200& \numberstringnum{200} &\numberstringnum{200}[f]&\ordinalstringnum{200} &\ordinalstringnum{200}[f]\\
+%207& \numberstringnum{207} &\numberstringnum{207}[f]&\ordinalstringnum{207} &\ordinalstringnum{207}[f]\\
+%214& \numberstringnum{214} &\numberstringnum{214}[f]&\ordinalstringnum{214} &\ordinalstringnum{214}[f]\\
+%221& \numberstringnum{221} &\numberstringnum{221}[f]&\ordinalstringnum{221} &\ordinalstringnum{221}[f]\\
+%228& \numberstringnum{228} &\numberstringnum{228}[f]&\ordinalstringnum{228} &\ordinalstringnum{228}[f]\\
+%235& \numberstringnum{235} &\numberstringnum{235}[f]&\ordinalstringnum{235} &\ordinalstringnum{235}[f]\\
+%242& \numberstringnum{242} &\numberstringnum{242}[f]&\ordinalstringnum{242} &\ordinalstringnum{242}[f]\\
+%249& \numberstringnum{249} &\numberstringnum{249}[f]&\ordinalstringnum{249} &\ordinalstringnum{249}[f]\\
+%256& \numberstringnum{256} &\numberstringnum{256}[f]&\ordinalstringnum{256} &\ordinalstringnum{256}[f]\\
+%263& \numberstringnum{263} &\numberstringnum{263}[f]&\ordinalstringnum{263} &\ordinalstringnum{263}[f]\\
+%270& \numberstringnum{270} &\numberstringnum{270}[f]&\ordinalstringnum{270} &\ordinalstringnum{270}[f]\\
+%277& \numberstringnum{277} &\numberstringnum{277}[f]&\ordinalstringnum{277} &\ordinalstringnum{277}[f]\\
+%284& \numberstringnum{284} &\numberstringnum{284}[f]&\ordinalstringnum{284} &\ordinalstringnum{284}[f]\\
+%291& \numberstringnum{291} &\numberstringnum{291}[f]&\ordinalstringnum{291} &\ordinalstringnum{291}[f]\\
+%298& \numberstringnum{298} &\numberstringnum{298}[f]&\ordinalstringnum{298} &\ordinalstringnum{298}[f]\\
+%305& \numberstringnum{305} &\numberstringnum{305}[f]&\ordinalstringnum{305} &\ordinalstringnum{305}[f]\\
+%312& \numberstringnum{312} &\numberstringnum{312}[f]&\ordinalstringnum{312} &\ordinalstringnum{312}[f]\\
+%319& \numberstringnum{319} &\numberstringnum{319}[f]&\ordinalstringnum{319} &\ordinalstringnum{319}[f]\\
+%326& \numberstringnum{326} &\numberstringnum{326}[f]&\ordinalstringnum{326} &\ordinalstringnum{326}[f]\\
+%333& \numberstringnum{333} &\numberstringnum{333}[f]&\ordinalstringnum{333} &\ordinalstringnum{333}[f]\\
+%340& \numberstringnum{340} &\numberstringnum{340}[f]&\ordinalstringnum{340} &\ordinalstringnum{340}[f]\\
+%347& \numberstringnum{347} &\numberstringnum{347}[f]&\ordinalstringnum{347} &\ordinalstringnum{347}[f]\\
+%354& \numberstringnum{354} &\numberstringnum{354}[f]&\ordinalstringnum{354} &\ordinalstringnum{354}[f]\\
+%361& \numberstringnum{361} &\numberstringnum{361}[f]&\ordinalstringnum{361} &\ordinalstringnum{361}[f]\\
+%368& \numberstringnum{368} &\numberstringnum{368}[f]&\ordinalstringnum{368} &\ordinalstringnum{368}[f]\\
+%375& \numberstringnum{375} &\numberstringnum{375}[f]&\ordinalstringnum{375} &\ordinalstringnum{375}[f]\\
+%382& \numberstringnum{382} &\numberstringnum{382}[f]&\ordinalstringnum{382} &\ordinalstringnum{382}[f]\\
+%389& \numberstringnum{389} &\numberstringnum{389}[f]&\ordinalstringnum{389} &\ordinalstringnum{389}[f]\\
+%396& \numberstringnum{396} &\numberstringnum{396}[f]&\ordinalstringnum{396} &\ordinalstringnum{396}[f]\\
+%403& \numberstringnum{403} &\numberstringnum{403}[f]&\ordinalstringnum{403} &\ordinalstringnum{403}[f]\\
+%410& \numberstringnum{410} &\numberstringnum{410}[f]&\ordinalstringnum{410} &\ordinalstringnum{410}[f]\\
+%417& \numberstringnum{417} &\numberstringnum{417}[f]&\ordinalstringnum{417} &\ordinalstringnum{417}[f]\\
+%424& \numberstringnum{424} &\numberstringnum{424}[f]&\ordinalstringnum{424} &\ordinalstringnum{424}[f]\\
+%431& \numberstringnum{431} &\numberstringnum{431}[f]&\ordinalstringnum{431} &\ordinalstringnum{431}[f]\\
+%438& \numberstringnum{438} &\numberstringnum{438}[f]&\ordinalstringnum{438} &\ordinalstringnum{438}[f]\\
+%445& \numberstringnum{445} &\numberstringnum{445}[f]&\ordinalstringnum{445} &\ordinalstringnum{445}[f]\\
+%452& \numberstringnum{452} &\numberstringnum{452}[f]&\ordinalstringnum{452} &\ordinalstringnum{452}[f]\\
+%459& \numberstringnum{459} &\numberstringnum{459}[f]&\ordinalstringnum{459} &\ordinalstringnum{459}[f]\\
+%466& \numberstringnum{466} &\numberstringnum{466}[f]&\ordinalstringnum{466} &\ordinalstringnum{466}[f]\\
+%473& \numberstringnum{473} &\numberstringnum{473}[f]&\ordinalstringnum{473} &\ordinalstringnum{473}[f]\\
+%480& \numberstringnum{480} &\numberstringnum{480}[f]&\ordinalstringnum{480} &\ordinalstringnum{480}[f]\\
+%487& \numberstringnum{487} &\numberstringnum{487}[f]&\ordinalstringnum{487} &\ordinalstringnum{487}[f]\\
+%494& \numberstringnum{494} &\numberstringnum{494}[f]&\ordinalstringnum{494} &\ordinalstringnum{494}[f]\\
+%501& \numberstringnum{501} &\numberstringnum{501}[f]&\ordinalstringnum{501} &\ordinalstringnum{501}[f]\\
+%508& \numberstringnum{508} &\numberstringnum{508}[f]&\ordinalstringnum{508} &\ordinalstringnum{508}[f]\\
+%515& \numberstringnum{515} &\numberstringnum{515}[f]&\ordinalstringnum{515} &\ordinalstringnum{515}[f]\\
+%522& \numberstringnum{522} &\numberstringnum{522}[f]&\ordinalstringnum{522} &\ordinalstringnum{522}[f]\\
+%529& \numberstringnum{529} &\numberstringnum{529}[f]&\ordinalstringnum{529} &\ordinalstringnum{529}[f]\\
+%536& \numberstringnum{536} &\numberstringnum{536}[f]&\ordinalstringnum{536} &\ordinalstringnum{536}[f]\\
+%543& \numberstringnum{543} &\numberstringnum{543}[f]&\ordinalstringnum{543} &\ordinalstringnum{543}[f]\\
+%550& \numberstringnum{550} &\numberstringnum{550}[f]&\ordinalstringnum{550} &\ordinalstringnum{550}[f]\\
+%557& \numberstringnum{557} &\numberstringnum{557}[f]&\ordinalstringnum{557} &\ordinalstringnum{557}[f]\\
+%564& \numberstringnum{564} &\numberstringnum{564}[f]&\ordinalstringnum{564} &\ordinalstringnum{564}[f]\\
+%571& \numberstringnum{571} &\numberstringnum{571}[f]&\ordinalstringnum{571} &\ordinalstringnum{571}[f]\\
+%578& \numberstringnum{578} &\numberstringnum{578}[f]&\ordinalstringnum{578} &\ordinalstringnum{578}[f]\\
+%585& \numberstringnum{585} &\numberstringnum{585}[f]&\ordinalstringnum{585} &\ordinalstringnum{585}[f]\\
+%592& \numberstringnum{592} &\numberstringnum{592}[f]&\ordinalstringnum{592} &\ordinalstringnum{592}[f]\\
+%599& \numberstringnum{599} &\numberstringnum{599}[f]&\ordinalstringnum{599} &\ordinalstringnum{599}[f]\\
+%606& \numberstringnum{606} &\numberstringnum{606}[f]&\ordinalstringnum{606} &\ordinalstringnum{606}[f]\\
+%613& \numberstringnum{613} &\numberstringnum{613}[f]&\ordinalstringnum{613} &\ordinalstringnum{613}[f]\\
+%620& \numberstringnum{620} &\numberstringnum{620}[f]&\ordinalstringnum{620} &\ordinalstringnum{620}[f]\\
+%627& \numberstringnum{627} &\numberstringnum{627}[f]&\ordinalstringnum{627} &\ordinalstringnum{627}[f]\\
+%634& \numberstringnum{634} &\numberstringnum{634}[f]&\ordinalstringnum{634} &\ordinalstringnum{634}[f]\\
+%641& \numberstringnum{641} &\numberstringnum{641}[f]&\ordinalstringnum{641} &\ordinalstringnum{641}[f]\\
+%648& \numberstringnum{648} &\numberstringnum{648}[f]&\ordinalstringnum{648} &\ordinalstringnum{648}[f]\\
+%655& \numberstringnum{655} &\numberstringnum{655}[f]&\ordinalstringnum{655} &\ordinalstringnum{655}[f]\\
+%662& \numberstringnum{662} &\numberstringnum{662}[f]&\ordinalstringnum{662} &\ordinalstringnum{662}[f]\\
+%669& \numberstringnum{669} &\numberstringnum{669}[f]&\ordinalstringnum{669} &\ordinalstringnum{669}[f]\\
+%676& \numberstringnum{676} &\numberstringnum{676}[f]&\ordinalstringnum{676} &\ordinalstringnum{676}[f]\\
+%683& \numberstringnum{683} &\numberstringnum{683}[f]&\ordinalstringnum{683} &\ordinalstringnum{683}[f]\\
+%690& \numberstringnum{690} &\numberstringnum{690}[f]&\ordinalstringnum{690} &\ordinalstringnum{690}[f]\\
+%697& \numberstringnum{697} &\numberstringnum{697}[f]&\ordinalstringnum{697} &\ordinalstringnum{697}[f]\\
+%704& \numberstringnum{704} &\numberstringnum{704}[f]&\ordinalstringnum{704} &\ordinalstringnum{704}[f]\\
+%711& \numberstringnum{711} &\numberstringnum{711}[f]&\ordinalstringnum{711} &\ordinalstringnum{711}[f]\\
+%718& \numberstringnum{718} &\numberstringnum{718}[f]&\ordinalstringnum{718} &\ordinalstringnum{718}[f]\\
+%725& \numberstringnum{725} &\numberstringnum{725}[f]&\ordinalstringnum{725} &\ordinalstringnum{725}[f]\\
+%732& \numberstringnum{732} &\numberstringnum{732}[f]&\ordinalstringnum{732} &\ordinalstringnum{732}[f]\\
+%739& \numberstringnum{739} &\numberstringnum{739}[f]&\ordinalstringnum{739} &\ordinalstringnum{739}[f]\\
+%746& \numberstringnum{746} &\numberstringnum{746}[f]&\ordinalstringnum{746} &\ordinalstringnum{746}[f]\\
+%753& \numberstringnum{753} &\numberstringnum{753}[f]&\ordinalstringnum{753} &\ordinalstringnum{753}[f]\\
+%760& \numberstringnum{760} &\numberstringnum{760}[f]&\ordinalstringnum{760} &\ordinalstringnum{760}[f]\\
+%767& \numberstringnum{767} &\numberstringnum{767}[f]&\ordinalstringnum{767} &\ordinalstringnum{767}[f]\\
+%774& \numberstringnum{774} &\numberstringnum{774}[f]&\ordinalstringnum{774} &\ordinalstringnum{774}[f]\\
+%781& \numberstringnum{781} &\numberstringnum{781}[f]&\ordinalstringnum{781} &\ordinalstringnum{781}[f]\\
+%788& \numberstringnum{788} &\numberstringnum{788}[f]&\ordinalstringnum{788} &\ordinalstringnum{788}[f]\\
+%795& \numberstringnum{795} &\numberstringnum{795}[f]&\ordinalstringnum{795} &\ordinalstringnum{795}[f]\\
+%802& \numberstringnum{802} &\numberstringnum{802}[f]&\ordinalstringnum{802} &\ordinalstringnum{802}[f]\\
+%809& \numberstringnum{809} &\numberstringnum{809}[f]&\ordinalstringnum{809} &\ordinalstringnum{809}[f]\\
+%816& \numberstringnum{816} &\numberstringnum{816}[f]&\ordinalstringnum{816} &\ordinalstringnum{816}[f]\\
+%823& \numberstringnum{823} &\numberstringnum{823}[f]&\ordinalstringnum{823} &\ordinalstringnum{823}[f]\\
+%830& \numberstringnum{830} &\numberstringnum{830}[f]&\ordinalstringnum{830} &\ordinalstringnum{830}[f]\\
+%837& \numberstringnum{837} &\numberstringnum{837}[f]&\ordinalstringnum{837} &\ordinalstringnum{837}[f]\\
+%844& \numberstringnum{844} &\numberstringnum{844}[f]&\ordinalstringnum{844} &\ordinalstringnum{844}[f]\\
+%851& \numberstringnum{851} &\numberstringnum{851}[f]&\ordinalstringnum{851} &\ordinalstringnum{851}[f]\\
+%858& \numberstringnum{858} &\numberstringnum{858}[f]&\ordinalstringnum{858} &\ordinalstringnum{858}[f]\\
+%865& \numberstringnum{865} &\numberstringnum{865}[f]&\ordinalstringnum{865} &\ordinalstringnum{865}[f]\\
+%872& \numberstringnum{872} &\numberstringnum{872}[f]&\ordinalstringnum{872} &\ordinalstringnum{872}[f]\\
+%879& \numberstringnum{879} &\numberstringnum{879}[f]&\ordinalstringnum{879} &\ordinalstringnum{879}[f]\\
+%886& \numberstringnum{886} &\numberstringnum{886}[f]&\ordinalstringnum{886} &\ordinalstringnum{886}[f]\\
+%893& \numberstringnum{893} &\numberstringnum{893}[f]&\ordinalstringnum{893} &\ordinalstringnum{893}[f]\\
+%900& \numberstringnum{900} &\numberstringnum{900}[f]&\ordinalstringnum{900} &\ordinalstringnum{900}[f]\\
+%907& \numberstringnum{907} &\numberstringnum{907}[f]&\ordinalstringnum{907} &\ordinalstringnum{907}[f]\\
+%914& \numberstringnum{914} &\numberstringnum{914}[f]&\ordinalstringnum{914} &\ordinalstringnum{914}[f]\\
+%921& \numberstringnum{921} &\numberstringnum{921}[f]&\ordinalstringnum{921} &\ordinalstringnum{921}[f]\\
+%928& \numberstringnum{928} &\numberstringnum{928}[f]&\ordinalstringnum{928} &\ordinalstringnum{928}[f]\\
+%935& \numberstringnum{935} &\numberstringnum{935}[f]&\ordinalstringnum{935} &\ordinalstringnum{935}[f]\\
+%942& \numberstringnum{942} &\numberstringnum{942}[f]&\ordinalstringnum{942} &\ordinalstringnum{942}[f]\\
+%949& \numberstringnum{949} &\numberstringnum{949}[f]&\ordinalstringnum{949} &\ordinalstringnum{949}[f]\\
+%956& \numberstringnum{956} &\numberstringnum{956}[f]&\ordinalstringnum{956} &\ordinalstringnum{956}[f]\\
+%963& \numberstringnum{963} &\numberstringnum{963}[f]&\ordinalstringnum{963} &\ordinalstringnum{963}[f]\\
+%970& \numberstringnum{970} &\numberstringnum{970}[f]&\ordinalstringnum{970} &\ordinalstringnum{970}[f]\\
+%977& \numberstringnum{977} &\numberstringnum{977}[f]&\ordinalstringnum{977} &\ordinalstringnum{977}[f]\\
+%984& \numberstringnum{984} &\numberstringnum{984}[f]&\ordinalstringnum{984} &\ordinalstringnum{984}[f]\\
+%991& \numberstringnum{991} &\numberstringnum{991}[f]&\ordinalstringnum{991} &\ordinalstringnum{991}[f]\\
+%998& \numberstringnum{998} &\numberstringnum{998}[f]&\ordinalstringnum{998} &\ordinalstringnum{998}[f]\\
+%1005& \numberstringnum{1005} &\numberstringnum{1005}[f]&\ordinalstringnum{1005} &\ordinalstringnum{1005}[f]\\
+%1012& \numberstringnum{1012} &\numberstringnum{1012}[f]&\ordinalstringnum{1012} &\ordinalstringnum{1012}[f]\\
+%1019& \numberstringnum{1019} &\numberstringnum{1019}[f]&\ordinalstringnum{1019} &\ordinalstringnum{1019}[f]\\
+\end{longtable}
 \end{document}
 
 % Local Variables:
-% TeX-command-default: "XeLaTeX"
+% TeX-engine: xetex
+% coding: utf-8
 % End:

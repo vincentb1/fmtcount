@@ -3,8 +3,8 @@
 \ProvidesFCLanguage{arabic}[2018/03/15]%
 \FCloadlang{french}%
 %    \end{macrocode}
-% Define units for Arabic.
-%\iffalse
+% Les unit\'es en arabe, pour les cardinaux et le masculin. L'argument \texttt{\#1} va de 0 \`a 9.
+%\ifxetex
 %    \begin{macrocode}
 \newcommand*{\@@unitstringarabicM}[1]{%
 \ifcase#1 %
@@ -24,7 +24,7 @@
 %    \end{macrocode}
 % \fi
 % Define tens for Arabic.
-% \iffalse
+% \ifxetex
 %    \begin{macrocode}
 \newcommand*{\@@tenstringarabic}[1]{%
 \ifcase#1 %
@@ -80,29 +80,29 @@
 \global\let\@numberstringFarabic\@@numberstringarabic
 %    \end{macrocode}
 % Define units for Arabic ordinals in masculine gender.
-%\iffalse
+%\ifxetex
 %    \begin{macrocode}
 \newcommand*{\@ord@unitstringarabic}[1]{%
 \ifcase#1\or
-الأول
+الأول%
 \or
-الثاني
+الثاني%
 \or
-الثالث
+الثالث%
 \or
-الرابع
+الرابع%
 \or
-الخامس
+الخامس%
 \or
-السادس
+السادس%
 \or
-السابع
+السابع%
 \or
-الثامن
+الثامن%
 \or
-التاسع
+التاسع%
 \or
-العاشر
+العاشر%
 \else
     \PackageError{fmtcount}{Incomplete arabic definition}%
     {Arabic definition for fmtcount still under development}%
@@ -134,7 +134,7 @@
 \global\let\@ord@tenstringarabic\@ord@tenstringarabic	
 %    \end{macrocode}
 % \fi
-% \iffalse
+% \ifxetex
 %    \begin{macrocode}
 \newcommand*\@@ordinalstringarabic[3]{{#1%
   \edef\@tempa{#2}%
