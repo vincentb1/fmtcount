@@ -1,7 +1,7 @@
 % \subsubsection{fc-arabic.def}
+% Ici on d\'eclare que ce fichier fournit les d\'efinitions n\'ecessaires pour la langue arabe.
 %    \begin{macrocode}
 \ProvidesFCLanguage{arabic}[2018/03/15]%
-\FCloadlang{french}%
 %    \end{macrocode}
 % Les unit\'es en arabe, pour les cardinaux et le masculin. L'argument \texttt{\#1} va de 0 \`a 9.
 %\ifxetex
@@ -20,10 +20,14 @@
 التاسع\or
 العاشر\fi
 }%
+%    \end{macrocode}
+% L\`a on ne fait rien que rendre la d\'efinition globale, de sorte que si \texttt{fc-arabic.def} est charg\'e au
+% sein d'un groupe, alors les d\'efinitions passeront quand m\^eme.
+%    \begin{macrocode}
 \global\let\@@unitstringarabicM\@@unitstringarabicM	
 %    \end{macrocode}
 % \fi
-% Define tens for Arabic.
+% Les dizaines en arabe. L'argument \texttt{\#1} va de 0 \`a 9.
 % \ifxetex
 %    \begin{macrocode}
 \newcommand*{\@@tenstringarabic}[1]{%
@@ -35,10 +39,17 @@
 {Arabic definition for fmtcount still under development}%
 \fi	
 }%
+%    \end{macrocode}
+% L\`a, comme pr\'ec\'edemment, on ne fait rien que rendre la d\'efinition globale.
+%    \begin{macrocode}
 \global\let\@@tenstringarabic\@@tenstringarabic	
 %    \end{macrocode}
 % \fi
-% Convertit un nombre cardinal en lettres. 
+% Convertit un nombre cardinal en lettres. L'agument \texttt{\#1} est le nombre \`a convertir. L'argument
+% \texttt{\#2} est une s\'equence de contr\^ole qui sera d\'efinie au r\'esultat de la conversion. Cette macro
+% est g\'en\'erique : c'est la m\^eme qui est employ\'ee pour le masculin et le f\'eminin. C'est \`a dire que
+% d'autres arguments permettant de d\'efinir le le genre sont pass\'es implicitement au sein de macros
+% auxiliaires.
 %    \begin{macrocode}
 \newcommand*\@@numberstringarabic[2]{{%
   \edef\@tempa{#1}%
@@ -74,12 +85,21 @@
   \fi
   \expandafter}\@tempa  
 }
+%    \end{macrocode}
+% L\`a, comme pr\'ec\'edemment, on ne fait rien que rendre la d\'efinition globale.
+%    \begin{macrocode}
 \global\let\@@numberstringarabic\@@numberstringarabic
+%    \end{macrocode}
+% Ici, c'est du code non d\'efinitif, on fait en sorte que \c{c}a fasse la m\^eme chose pour le masculin, le
+% neutre et le f\'eminin. \`A terme, il faudrait remplacer les \cs{let} par des \cs{def} et faire un certain
+% nombre de configurations avant d'appeler le moteur g\'en\'erique \cs{@@numberstringarabic}, de sorte \`a
+% passer les informations concernant le genre au sein de macros auxiliaires.
+%    \begin{macrocode}
 \global\let\@numberstringMarabic\@@numberstringarabic
 \global\let\@numberstringNarabic\@@numberstringarabic
 \global\let\@numberstringFarabic\@@numberstringarabic
 %    \end{macrocode}
-% Define units for Arabic ordinals in masculine gender.
+% D\'efinit les unit\'es pour les ordinaux en arabe pour le genre masculin.
 %\ifxetex
 %    \begin{macrocode}
 \newcommand*{\@ord@unitstringarabic}[1]{%
@@ -108,11 +128,14 @@
     {Arabic definition for fmtcount still under development}%
 \fi
 }%
+%    \end{macrocode}
+% L\`a, comme pr\'ec\'edemment, on ne fait rien que rendre la d\'efinition globale.
+%    \begin{macrocode}
 \global\let\@ord@unitstringarabic\@ord@unitstringarabic	
 %    \end{macrocode}
 %\fi
-% Define tens for Arabic ordinals in masculine gender.
-%\iffalse
+% Définit les dizaines pour les ordinaux en arabe pour le genre masculin.
+%\ifxetex
 %    \begin{macrocode}
 \newcommand*{\@ord@tenstringarabic}[1]{%
 \ifcase#1%
@@ -131,31 +154,188 @@
     {Arabic definition for fmtcount still under development}%
 \fi
 }%
+%    \end{macrocode}
+% L\`a, comme pr\'ec\'edemment, on ne fait rien que rendre la d\'efinition globale.
+%    \begin{macrocode}
 \global\let\@ord@tenstringarabic\@ord@tenstringarabic	
 %    \end{macrocode}
 % \fi
+% \DescribeMacro{\@@ordinalstringarabic}Ici c'est la macro g\'en\'erique pour convertir un nombre en ordinal
+% arabe. Description des arguments~:
+%\newline\noindent
+% \begin{tabularx}{\linewidth}{>{\raggedleft\arraybackslash\ttfamily}rX@{}}
+% \#1&\og crochet\fg\ permettant de passer des d\'efinitions de macros auxiliaires avant le traitement.\\
+% \#2&nombre \`a convertir.\\
+% \#3&s\'equence de contr\^ole, macro d\'estin\'ee \`a contenir le r\'esultat de la conversion.\\
+% \end{tabularx}
 % \ifxetex
 %    \begin{macrocode}
-\newcommand*\@@ordinalstringarabic[3]{{#1%
+\newcommand*\@@ordinalstringarabic[3]{%
+%    \end{macrocode}
+% La premi\`ere chose qu'on fait c'est d'ouvrir un groupe pour que tous les \cs{def}, \cs{let} et
+% \cs{toks}\meta{n} qu'on va faire par la suite aient une port\'ee r\'eduite \`a ce groupe.
+%    \begin{macrocode}
+  {%
+%    \end{macrocode}
+% L\`a, on ex\'ecute le \og crochet\fg. Cela va faire les d\'efinitions auxilaires dont on a besoin pour que
+% le genre soit d\'efinit. En bref, vu ce qu'on va faire passer au sein de \texttt{\#1}, \c{c}a va d\'efinir
+% la macro auxiliaire \cs{fc@gender}.
+%    \begin{macrocode}
+    #1%
+%    \end{macrocode}
+% L\`a, on d\'eveloppe \`a fond le contenu de l'argument \texttt{\#2} contenant le nombre \`a convertir. De la
+% sorte, si cet argument comprend des macros, ou encore est le r\'esultat du d\'eveloppement d'un compteur,
+% alors on aura bien le r\'esultat des ces d\'eveloppements en entr\'ee de la conversion en lettres.
+%    \begin{macrocode}
   \edef\@tempa{#2}%
+%    \end{macrocode}
+% L\`a, on va passer le contenu de \cs{@tempa} \`a la macro \cs{fc@number@parser}. La macro
+% \cs{fc@number@parser} est d\'efinie dans le paquetage auxiliaire \texttt{fcnumparser.sty}, elle sert \`a
+% analyser l'expression num\'erale pass\'ee en argument pour en faire un tableau de chiffres. Un pr\'erequis
+% \`a l'appel de \cs{fc@number@parser} est le r\'eglage de \cs{fc@unit@weight}. La macro \cs{fc@unit@weight}
+% est un param\`etre d'entr\'ee de \cs{fc@number@parser}, c'est un nombre entier tel que passant une
+% s\'equence de \(m\) chiffres \`a \cs{fc@number@parser}, ceux-ci seront index\'es dans le tableau de sortie
+% en allant de \cs{fc@unit@weight} \`a \(\cs{fc@unit@weight}+m-1\). Ici on met donc tout simplement
+% \cs{fc@unit@weight} \`a z\'ero:
+%    \begin{macrocode}
+\let\fc@unit@weight\@z
+%    \end{macrocode}
+% Ici on va passe pour de bon le contenu de \cs{@tempa} \`a la macro \cs{fc@number@parser}. Les deux
+% \cs{expandafter} servent \`a passer le contenu apr\`es un d\'eveloppement, et non la s\'equence de
+% contr\^ole elle-m\^eme.
+%    \begin{macrocode}
   \expandafter\fc@number@parser\expandafter{\@tempa}%
+%    \end{macrocode}
+% Notez bien que décrivant la fonction de \cs{fc@number@parser} on a \'ecrit \og expression num\'erale\fg, et
+% non \og nombre\fg, en effet ce n'est pas tout \`a fait la m\^eme chose. Tout nombre d\'ecimal peut \^etre
+% exprim\'e en au moins une expression num\'erale \(\{d_k\}_{k\in\mathbb N}\) telle le nombre consid\'er\'e
+% est \'egal \`a la somme \(\sum_{k\in \mathbb N}d_k\times 10^k\), avec
+% \(\forall k\in\mathbb N,\:d_k\in\{0,1,\ldots,8,9,\zeta\}\), et \(\forall(k,l)\in\mathbb{N}^2\) tel que
+% \(d_k\neq\zeta\), \(d_l\neq\zeta\) et \(k<l\), alors \(\forall m\in\{k, k+1,
+% \ldots,l\}\,d_m\neq\zeta\). \(\zeta\) est le \og z\'ero implicite\fg, c'est \`a dire qu'arithm\'etiquement
+% il vaut \(0\) quand on fait la somme \(\sum_{k\in \mathbb N}d_k\times 10^k\), mais que dans le syst\`eme de
+% num\'eration d\'ecimale on ne l'\'ecrit pas. Par exemple, pour le nombre \(123\), on a
+% \((d_2,d_1,d_0)=(1,2,3)\), \(\forall k >2,d_k = \zeta\), et \(\forall k <0,d_k = \zeta\). Un m\^eme nombre
+% peut correspondre \`a une infinit\'e d'expressions num\'erales au sens ou \(0123\), \(123\) et
+% \(\num{123.0}\) sont trois expressions num\'erales distinctes correspondant au m\^eme nombre. D'ailleurs
+% pour les chimistes, les ing\'enieurs et les physiciens \'ecrire \(\num{123.0}\) et \'ecrire \(123\) ne
+% revient pas tout au fait au m\^eme au sens o\`u la premi\`ere expression indique que le nombre est connu
+% avec une pr\'ecision dix fois meilleure que la seconde. La macro \cs{fc@number@parser} sait g\'erer le
+% s\'eparateur d\'ecimal, et admet aussi bien le point \og.\fg\ que la virgule \og,\fg, par contre il n'est
+% pas possible de donner des expressions du genre de \(12\zeta\) pour 120. Apr\`es ex\'ecution de
+% la macro \cs{fc@number@parser} le r\'esultat de l'analyse est rang\'e dans une pluralit\'e de macros dont
+% voici la description~:
+%
+% \noindent\begin{tabularx}{\linewidth}{>{\raggedleft\arraybackslash\ttfamily}rX@{}}
+% \cs{fc@min@weight}&contient le nombre \(\min\{k\in\mathbb N\mid d_k\neq\zeta\}\).\\
+% \cs{fc@max@weight}&contient le nombre \(\max\{k\in\mathbb N\mid d_k\neq\zeta\}\).\\ \cs{csname}
+% \texttt{fc@digit@}\(k\)\cs{endcsname}&contient le nombre \(d_k\) pour tout \(k\) compris entre
+% \cs{fc@min@weight} et \cs{fc@max@weight}.\\
+% \end{tabularx}
+%
+% On rappelle qu'en \TeX\ la construction \cs{csname}\meta{nomcs}\cs{endcsname} permet de former une
+% s\'equence de contr\^ole dont le nom est \meta{nomcs}, par exemple \cs{csname}\texttt{ toto}\cs{endcsname}
+% apr\`es un d\'eveloppement est strictement la m\^eme chose que la s\'equence de contr\^ole \cs{toto}. Tout
+% l'int\'er\^et d'utiliser \cs{csname} et \cs{endcsname} est qu'on peut utiliser autre chose que des lettres dans
+% \meta{nomcs}, on peut ainsi faire des tableaux index\'es par un entier en faisant figurer une expression num\'erale
+% repr\'esentative de l'indexe au sein de \meta{nomcs}.
+%
+% Pour revenir aux macros de sortie de \cs{fc@num@parser}, le code suivant lance donc une erreur de
+% compilation si jamais le nombre \`a convertir contient des chiffres apr\`es la virgule, ce qu'on d\'etecte
+% en testant la condition suivante:
+% \[\cs{fc@min@weight}<0\]
+%    \begin{macrocode}
   \ifnum\fc@min@weight<0 %
      \PackageError{fmtcount}{Out of range}%
         {This macro does not work with fractional numbers}%
   \fi
+%    \end{macrocode}
+% Bon, maintenant on ne commence pas tout de suite les traitements proprement dits, mais on pr\'epare le mode
+% de sortie du groupe. Au tout d\'ebut de la macro on a ouvert un groupe, cela veut dire que tout ce qu'on
+% fait au sein du groupe sera oubli\'e du moment que ce groupe sera ferm\'e. On fait comme cela par mesure
+% d'hygi\`ene, d'une part pour ne pas risquer d'\'ecraser malencontreusement le contenu d'une macro d'un autre
+% paquetage, et d'autre part pour ne pas donner une port\'ee plus grande que n\'ecessaire \`a des macros
+% d'usage temporaire. Or n'oublions pas qu'on doit \cs{def}-inir \texttt{\#3} au \meta{r\'esultat} de la
+% conversion. En d'autres termes on ne peut pas directement faire le \meta{code} suivant:
+% \begin{quote}
+%   \cs{def}\texttt{\#3\{}\meta{r\'esultat}\texttt{\}}
+% \end{quote}
+% au sein du groupe, parce que sinon \`a la fermeture du groupe il n'y aura aucun effet, et la macro
+% identifi\'ee par la s\'equence de contr\^ole \texttt{\#3} aura la m\^eme valeur qu'initialement. De plus,
+% quand bien m\^eme on n'aurait pas encapsul\'e le gros de la macro \cs{@@ordinalstringarabic} dans un groupe,
+% il serait de toute fa\c{c}on dangereux de faire directement
+% \begin{quote}
+% \cs{def}\texttt{\#3\{}\meta{r\'esultat}\texttt{\}}
+% \end{quote}
+% parce qu'on ne sait pas quel nom de s\'equence de contr\^ole a \texttt{\#3}, \c{c}a pourrait tout aussi bien
+% \^etre une s\'equence de contr\^ole utilis\'ee en aval de l'affectation
+% \og\cs{def}\texttt{\#3\{}\meta{r\'esultat}\texttt{\}}\fg\ qu'on \'ecraserait ainsi malencontreusement. Au
+% lieu de cela on utilise donc une \TeX nique classique qui consiste \`a placer le \meta{code} d\'esir\'e, ici
+% \og\cs{def}\texttt{\#3\{}\meta{r\'esultat}\texttt{\}}\fg, au sein d'une macro, \c{c}a sera \cs{@tempa} en
+% l'occurrence, et \`a d\'evelopper cette macro \cs{@tempa} imm\'ediatement apr\`es la fermeture du groupe
+% alors qu'on est dans le contexte du groupe, en faisant:
+% \begin{quote}
+%   \cs{expandafter}\texttt{\}}\cs{@tempa}
+% \end{quote}
+% \`A noter qu'avec les moteurs \TeX\ r\'ecents, et d'ailleurs pas si r\'ecents que cela puisque c'est possible je
+% crois depuis \texttt{etex}, il y a une commande \cs{aftergroup} qui permet de faire sensiblement la m\^eme
+% chose sans passer par une macro \cs{@tempa} interm\'ediaire, mais bon, c'est aussi simple comme \c{c}a\footnote{%
+% \`A noter aussi que cette \TeX nique n'est pas proprement \TeX cienne, on l'utilise aussi dans d'autres
+% langages, comme en MS-Dos quand on ouvre un groupe en faisant \texttt{setlocal}, alors on peut executer du
+% \meta{code} imm\'ediatement apr\`es la fermeture du groupe tout en restant dans le contexte du groupe en
+% faisant:
+% \begin{quote}
+%   \texttt{endlocal \&} \meta{code}
+% \end{quote}\vspace{-2ex}%
+% }. M'enfin bref, la premi\`ere chose qu'on fait est donc de d\'efinir le \meta{code} par d\'efaut qu'on veut
+%   ex\'ecuter pour r\'egler la sortie. Ici ce \meta{code} est \og\cs{let}\texttt{\#3}\cs{@empty}\fg, qui est
+%   \'equivalent \`a \og\cs{def}\texttt{\#3\{\}}\fg, mais plus efficace en temps de traitement:
+%    \begin{macrocode}
   \def\@tempa{\let#3\@empty}%
+%    \end{macrocode}
+% On se d\'efinit aussi une petite macro auxiliaire \cs{@tempb} qui aura pour effet, si le \meta{r\'esultat}
+% d\'esir\'e est dans \cs{@tempa}, de red\'efinir \cs{@tempa} pour qu'elle contienne
+% \og\cs{def}\texttt{\#3\{}\meta{r\'esultat}\texttt{\}}\fg\ au lieu de \meta{r\'esultat}. Ainsi on peut fabriquer
+% le \meta{r\'esultat} plus simplement en faisant comme si le but \'etait de le mettre dans \cs{@tempa}, et non
+% dans \texttt{\#3}.
+%    \begin{macrocode}
   \def\@tempb{%
     \toks0\expandafter{\@tempa}%
     \edef\@tempa{\def\noexpand#3{\the\toks0}}%
   }%
-  \ifnum\fc@unit@weight=0 \else
-    \PackageError{fmtcount}{Incomplete arabic definition}%
-    {Arabic definition for fmtcount still under development}%
-  \fi	
+%    \end{macrocode}
+% On arrive enfin aux traitements proprements dits. On commence par faire une s\'election selon
+% \cs{fc@max@weight}. En effet, pour \cs{fc@max@weight} valant 0 on a un nombre de \(0\) \`a \(9\). Pour
+% \cs{fc@max@weight} valant 1 on a un nombre de \(10\) \`a \(99\), etc. \ldots\ Pour chaque cas de la
+% s\'election, on a un code se pr\'esentant comme:
+% \begin{quote}
+%   \cs{edef}\cs{@tempa}\texttt{\{}\meta{expression}\texttt{\}\%}\\
+%   \cs{@tempb}
+% \end{quote}
+% o\`u l'\meta{expression} est purement d\'eveloppable, et se d\'eveloppe en le \meta{r\'esultat} d\'esir\'e. La
+% premi\`ere ligne met donc \meta{r\'esultat} dans \cs{@tempa}, puis on appelle \cs{@tempb} pour les raisons
+% qu'on a d\'ej\`a expliqu\'ees plus haut en d\'ecrivant \cs{@tempb}. Bon, on commence donc la s\'election
+% avec un petit \cs{ifcase} sur \cs{fc@max@weight}:
+%    \begin{macrocode}
   \ifcase\fc@max@weight
+%    \end{macrocode}
+% Ici donc, on a \cs{fc@max@weight} valant 0, on s'occupe donc des nombres de \(0\) à \(9\). 
+%    \begin{macrocode}
     \edef\@tempa{%
+%    \end{macrocode}
+% L\`a on est au sein de l'\meta{expression}, on ne fait rien d'autre que passer\footnote{L'\cs{expandafter}
+% devant \cs{@ord@unitstringarabic} ne sert qu'\`a contracter \cs{csname}\texttt{ fc@digit@0}\cs{endcsname} en
+% une seule unit\'e lexicale, en effet \cs{@ord@unitstringarabic} ne prend qu'un argument. On aurait tout
+% aussi bien pu \'ecrire \cs{@ord@unitstringarabic\{}\cs{csname}\texttt{ fc@digit@0}\cs{endcsname}\texttt{\}}
+% pour faire la m\^eme chose, mais on a pens\'e que l'utilisation d'\cs{expandafter} est plus efficace.}
+% \(d_0\), c'est \`a dire \cs{csname}\texttt{ fc@digit@0}\cs{endcsname} \`a \cs{@ord@unitstringarabic} et
+% \ldots
+%    \begin{macrocode}
       \expandafter\@ord@unitstringarabic
       \csname fc@digit@0\endcsname
+%    \end{macrocode}
+% \ldots\ \`a faire suivre de la d\'esinence propre au genre:
+%    \begin{macrocode}
       \if\fc@gender F%
         \ifnum\csname fc@digit@0\endcsname=\@ne
            ى%      
@@ -163,9 +343,18 @@
            ة%
         \fi
       \fi
+%    \end{macrocode}
+% Fin de l'\meta{expression}.
+%    \begin{macrocode}
     }%
+%    \end{macrocode}
+% L\`a c'est juste l'appel \`a \cs{@tempb} dont on a d\'ej\`a expliqu\'e l'utilit\'e:
+%    \begin{macrocode}
     \@tempb
   \or
+%    \end{macrocode}
+% Ici donc, on a \cs{fc@max@weight} valant 1, on s'occupe donc des nombres de \(10\) à \(99\). 
+%    \begin{macrocode}
     \edef\@tempa{%
       \expandafter\@ord@unitstringarabic
       \csname fc@digit@0\endcsname
@@ -181,12 +370,27 @@
     }%
     \@tempb
   \else
+%    \end{macrocode}
+% Ici donc, on a \(\cs{fc@max@weight} > 1\), pour l'instant on traite ce cas comme un erreur.
+%    \begin{macrocode}
     \PackageError{fmtcount}{Incomplete arabic definition}%
     {Arabic definition for fmtcount still under development}%
   \fi
+%    \end{macrocode}
+% Et voici le fameux \og\cs{expandafter}\texttt{\}}\cs{@tempa}\fg\ qui permet de fermer le groupe et de passer
+% le \meta{r\'esultat} \`a la macro \texttt{\#3} de sortie.
+%    \begin{macrocode}
   \expandafter}\@tempa  
 }
+%    \end{macrocode}
+% L\`a, comme pr\'ec\'edemment, on ne fait rien que rendre la d\'efinition globale.
+%    \begin{macrocode}
 \global\let\@@ordinalstringarabic\@@ordinalstringarabic
+%    \end{macrocode}
+% Ici C'est du code non d\'efinitif, on fait en sorte que \c{c}a fasse la m\^eme chose pour le masculin, le
+% neutre et le f\'eminin. \`A terme, il faudrait remplacer les \cs{let} par des \cs{def} et faire un certain
+% nombre de configurations avant d'appeler le moteur g\'en\'erique \cs{@@numberstringarabic}.
+%    \begin{macrocode}
 \global\def\@ordinalstringMarabic{\@@ordinalstringarabic{\def\fc@gender{M}}}
 \global\def\@ordinalstringNarabic{\@@ordinalstringarabic{\def\fc@gender{M}}}
 \global\def\@ordinalstringFarabic{\@@ordinalstringarabic{\def\fc@gender{F}}}
@@ -198,6 +402,8 @@
 \iffalse Local variables: \fi
 \iffalse mode: docTeX     \fi
 \iffalse coding: utf-8     \fi
+\iffalse TeX-engine: xetex \fi
+\iffalse TeX-master: "arabic-implementation.tex" \fi
 \iffalse End:             \fi
 	
 

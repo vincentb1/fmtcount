@@ -1,10 +1,16 @@
 \documentclass{ltxdoc}
 \usepackage{ifxetex}
+\usepackage{tabularx}
+\usepackage{amssymb}
+\usepackage[output-decimal-marker={,}]{siunitx}
 \usepackage{fontspec}
 \usepackage{polyglossia}
 \setmainlanguage{french}
 \setotherlanguage[numerals=maghrib]{arabic}
 \setmainfont{Times New Roman}
+\setmonofont{Courier New}
+\let\arabicfonttt\ttfamily
+\newcommand*\og{\string«\thinspace}\newcommand*\fg{\thinspace\string»}
 
 \begin{document}
 \DocInput{fc-arabic.def}
