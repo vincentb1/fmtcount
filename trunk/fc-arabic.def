@@ -65,6 +65,7 @@
 %    \begin{macrocode}
 \newcommand*\@@numberstringarabic[2]{{%
   \edef\@tempa{#1}%
+  \let\fc@unit@weight\z@
   \expandafter\fc@number@parser\expandafter{\@tempa}%
   \ifnum\fc@min@weight<0 %
      \PackageError{fmtcount}{Out of range}%
@@ -220,7 +221,7 @@
 % en allant de \cs{fc@unit@weight} \`a \(\cs{fc@unit@weight}+m-1\). Ici on met donc tout simplement
 % \cs{fc@unit@weight} \`a z\'ero:
 %    \begin{macrocode}
-\let\fc@unit@weight\@z
+\let\fc@unit@weight\z@
 %    \end{macrocode}
 % Ici on va passe pour de bon le contenu de \cs{@tempa} \`a la macro \cs{fc@number@parser}. Les deux
 % \cs{expandafter} servent \`a passer le contenu apr\`es un d\'eveloppement, et non la s\'equence de
