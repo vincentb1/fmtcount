@@ -376,20 +376,53 @@
     \@tempb
   \or
 %    \end{macrocode}
-% Ici donc, on a \cs{fc@max@weight} valant 1, on s'occupe donc des nombres de \(10\) à \(99\). 
+% Ici donc, on a \cs{fc@max@weight} valant 1, on s'occupe donc des nombres ordinaux de 10\fmtord{e} à 99\fmtord{e}. 
 %    \begin{macrocode}
     \edef\@tempa{%
-      \expandafter\@ord@unitstringarabic
-      \csname fc@digit@0\endcsname
-      \expandafter\@ord@tenstringarabic
-      \csname fc@digit@1\endcsname
-      \if\fc@gender F%
-        \ifnum\csname fc@digit@0\endcsname=\@ne
-           ى%      
+      \ifnum\csname fc@digit@1\endcsname=\@ne
+        \ifnum\csname fc@digit@0\endcsname=\z@
+%    \end{macrocode}
+% Ici \((d_1,d_0)=(1,0)\), c'est \`a dire qu'on a affaire au nombre ordinal 10\fmtord{e}:
+%    \begin{macrocode}
+          العاشر%
         \else
-           ة%
+          \ifnum\csname fc@digit@0\endcsname=\@ne
+%    \end{macrocode}
+% Ici \((d_1,d_0)=(1,1)\), c'est \`a dire qu'on a affaire au nombre ordinal 11\fmtord{e} dont voici l'unit\'e:
+%    \begin{macrocode}
+          الحادي%
+          \else
+%    \end{macrocode}
+% Et maintenant on est toujours avec \(d_1 = 1\), donc on a affaire aux nombres ordinaux 12\fmtord{e} \`a 19\fmtord{e} dont voici l'unit\'e:
+%    \begin{macrocode}
+            \expandafter\@ord@unitstringarabic
+            \csname fc@digit@0\endcsname
+          \fi
+%    \end{macrocode}
+% Et finalement on appose la dizaine, valant 1 puisque \(d_1 = 1\), commune aux nombres ordinaux 11\fmtord{e} \`a 19\fmtord{e}:
+%    \begin{macrocode}
+          \space
+          عشر%
         \fi
-      \fi
+      \else  
+%    \end{macrocode}
+% Et maintenant on a affaire aux nombres ordinaux 20 à 99:
+%    \begin{macrocode}
+          \expandafter\@ord@unitstringarabic
+          \csname fc@digit@0\endcsname
+          \expandafter\@ord@tenstringarabic
+          \csname fc@digit@1\endcsname
+      \fi  
+%    \end{macrocode}
+% Et finalement, on appose la marque du genre:
+%    \begin{macrocode}
+          \if\fc@gender F%
+            \ifnum\csname fc@digit@0\endcsname=\@ne
+               ى%      
+            \else
+               ة%
+            \fi
+          \fi
     }%
     \@tempb
   \else
