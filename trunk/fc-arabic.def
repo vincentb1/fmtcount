@@ -34,7 +34,7 @@
 % L\`a on ne fait rien que rendre la d\'efinition globale, de sorte que si \texttt{fc-arabic.def} est charg\'e au
 % sein d'un groupe, alors les d\'efinitions passeront quand m\^eme.
 %    \begin{macrocode}
-\global\let\@@unitstringarabicM\@@unitstringarabicM	
+\global\let\@@unitstringarabicM\@@unitstringarabicM
 %    \end{macrocode}
 % \fi
 % Les dizaines en arabe. L'argument \texttt{\#1} va de 0 \`a 9.
@@ -49,12 +49,12 @@
 \else
 \PackageError{fmtcount}{Incomplete arabic definition}%
 {Arabic definition for fmtcount still under development}%
-\fi	
+\fi
 }%
 %    \end{macrocode}
 % L\`a, comme pr\'ec\'edemment, on ne fait rien que rendre la d\'efinition globale.
 %    \begin{macrocode}
-\global\let\@@tenstringarabic\@@tenstringarabic	
+\global\let\@@tenstringarabic\@@tenstringarabic
 %    \end{macrocode}
 % \fi
 % Convertit un nombre cardinal en lettres. L'agument \texttt{\#1} est le nombre \`a convertir. L'argument
@@ -79,7 +79,7 @@
   \ifnum\fc@unit@weight=0 \else
     \PackageError{fmtcount}{Incomplete arabic definition}%
     {Arabic definition for fmtcount still under development}%
-  \fi	
+  \fi
   \ifcase\fc@max@weight
     \edef\@tempa{\expandafter\@@unitstringarabicM
       \csname fc@digit@0\endcsname
@@ -96,7 +96,7 @@
     \PackageError{fmtcount}{Incomplete arabic definition}%
     {Arabic definition for fmtcount still under development}%
   \fi
-  \expandafter}\@tempa  
+  \expandafter}\@tempa
 }
 %    \end{macrocode}
 % L\`a, comme pr\'ec\'edemment, on ne fait rien que rendre la d\'efinition globale.
@@ -144,7 +144,7 @@
 %    \end{macrocode}
 % L\`a, comme pr\'ec\'edemment, on ne fait rien que rendre la d\'efinition globale.
 %    \begin{macrocode}
-\global\let\@ord@unitstringarabic\@ord@unitstringarabic	
+\global\let\@ord@unitstringarabic\@ord@unitstringarabic
 %    \end{macrocode}
 %\fi
 % Définit les dizaines pour les ordinaux en arabe pour le genre masculin.
@@ -180,7 +180,7 @@
 %    \end{macrocode}
 % L\`a, comme pr\'ec\'edemment, on ne fait rien que rendre la d\'efinition globale.
 %    \begin{macrocode}
-\global\let\@ord@tenstringarabic\@ord@tenstringarabic	
+\global\let\@ord@tenstringarabic\@ord@tenstringarabic
 %    \end{macrocode}
 % \fi
 % \DescribeMacro{\@@ordinalstringarabic}Ici c'est la macro g\'en\'erique pour convertir un nombre en ordinal
@@ -342,7 +342,7 @@
 %    \begin{macrocode}
   \ifcase\fc@max@weight
 %    \end{macrocode}
-% Ici donc, on a \cs{fc@max@weight} valant 0, on s'occupe donc des nombres de \(0\) à \(9\). 
+% Ici donc, on a \cs{fc@max@weight} valant 0, on s'occupe donc des nombres de \(0\) à \(9\).
 %    \begin{macrocode}
     \edef\@tempa{%
 %    \end{macrocode}
@@ -361,7 +361,7 @@
 %    \begin{macrocode}
       \if\fc@gender F%
         \ifnum\csname fc@digit@0\endcsname=\@ne
-           ى%      
+           ى%
         \else
            ة%
         \fi
@@ -376,7 +376,7 @@
     \@tempb
   \or
 %    \end{macrocode}
-% Ici donc, on a \cs{fc@max@weight} valant 1, on s'occupe donc des nombres ordinaux de 10\fmtord{e} à 99\fmtord{e}. 
+% Ici donc, on a \cs{fc@max@weight} valant 1, on s'occupe donc des nombres ordinaux de 10\fmtord{e} à 99\fmtord{e}.
 %    \begin{macrocode}
     \edef\@tempa{%
       \ifnum\csname fc@digit@1\endcsname=\@ne
@@ -404,7 +404,7 @@
           \space
           عشر%
         \fi
-      \else  
+      \else
 %    \end{macrocode}
 % Et maintenant on a affaire aux nombres ordinaux 20 à 99:
 %    \begin{macrocode}
@@ -412,13 +412,13 @@
           \csname fc@digit@0\endcsname
           \expandafter\@ord@tenstringarabic
           \csname fc@digit@1\endcsname
-      \fi  
+      \fi
 %    \end{macrocode}
 % Et finalement, on appose la marque du genre:
 %    \begin{macrocode}
           \if\fc@gender F%
             \ifnum\csname fc@digit@0\endcsname=\@ne
-               ى%      
+               ى%
             \else
                ة%
             \fi
@@ -436,7 +436,7 @@
 % Et voici le fameux \og\cs{expandafter}\texttt{\}}\cs{@tempa}\fg\ qui permet de fermer le groupe et de passer
 % le \meta{r\'esultat} \`a la macro \texttt{\#3} de sortie.
 %    \begin{macrocode}
-  \expandafter}\@tempa  
+  \expandafter}\@tempa
 }
 %    \end{macrocode}
 % L\`a, comme pr\'ec\'edemment, on ne fait rien que rendre la d\'efinition globale.
@@ -461,5 +461,3 @@
 \iffalse TeX-engine: xetex \fi
 \iffalse TeX-master: "arabic-implementation.tex" \fi
 \iffalse End:             \fi
-	
-
