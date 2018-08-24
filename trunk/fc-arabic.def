@@ -376,53 +376,60 @@
     \@tempb
   \or
 %    \end{macrocode}
-% Ici donc, on a \cs{fc@max@weight} valant 1, on s'occupe donc des nombres ordinaux de 10\fmtord{e} à 99\fmtord{e}.
+% Ici donc, on a \cs{fc@max@weight} valant 1, on s'occupe donc des nombres ordinaux du \ordinalnum{10} au \ordinalnum{99}.\\
+% Les ordinaux se construisent ici \`a peu pr\`es selon la m\^eme logique qu'en fran\c{c}ais, de deux
+% mani\`eres diff\'erentes selon qu'on soit entre 10 et 20 ou bien entre 21 et 99. Pour le premier cas, on
+% appose l'unit\'e suivie d'un blanc puis la dizaine. Dans ce cas, l'unit\'e comme la dizaine se
+% f\'eminisent. Pour le deuxi\`eme cas, on appose l'unit\'e suivie de "et" puis la dizaine. Dans ce cas, seule
+% l'unit\'e se f\'eminise.\\ Notre d\'emarche sera ainsi de construire d'abord les unit\'es des nombres, qui
+% se construisent pareillement dans tous les cas, puis les dizaines.
 %    \begin{macrocode}
     \edef\@tempa{%
-      \ifnum\csname fc@digit@1\endcsname=\@ne
-        \ifnum\csname fc@digit@0\endcsname=\z@
+      \ifnum\csname fc@digit@0\endcsname=\z@
 %    \end{macrocode}
-% Ici \((d_1,d_0)=(1,0)\), c'est \`a dire qu'on a affaire au nombre ordinal 10\fmtord{e}:
+% Ici \(d_0=0\), c'est \`a dire que l'on a affaire aux dizaines ordinales \(x0\ieme\):
+% On appose la marque du genre à la dizaine uniquement dans le cas \(d_1=1\)
 %    \begin{macrocode}
-          العاشر%
-        \else
-          \ifnum\csname fc@digit@0\endcsname=\@ne
-%    \end{macrocode}
-% Ici \((d_1,d_0)=(1,1)\), c'est \`a dire qu'on a affaire au nombre ordinal 11\fmtord{e} dont voici l'unit\'e:
-%    \begin{macrocode}
-          الحادي%
-          \else
-%    \end{macrocode}
-% Et maintenant on est toujours avec \(d_1 = 1\), donc on a affaire aux nombres ordinaux 12\fmtord{e} \`a 19\fmtord{e} dont voici l'unit\'e:
-%    \begin{macrocode}
-            \expandafter\@ord@unitstringarabic
-            \csname fc@digit@0\endcsname
+        \expandafter\@ord@tenstringarabic
+        \csname fc@digit@1\endcsname
+        \ifnum\csname fc@digit@1\endcsname=\@ne
+          \if\fc@gender F%
+            ة%
           \fi
-%    \end{macrocode}
-% Et finalement on appose la dizaine, valant 1 puisque \(d_1 = 1\), commune aux nombres ordinaux 11\fmtord{e} \`a 19\fmtord{e}:
-%    \begin{macrocode}
-          \space
-          عشر%
         \fi
       \else
 %    \end{macrocode}
-% Et maintenant on a affaire aux nombres ordinaux 20 à 99:
+% Et maintenant on est avec \(d_0 \neq 0\), donc on a affaire aux unités ordinales \(x2\ieme\) \`a \(x9\ieme\):
 %    \begin{macrocode}
+        \ifnum\csname fc@digit@0\endcsname=\@ne
+          الحادي%
+        \else
           \expandafter\@ord@unitstringarabic
           \csname fc@digit@0\endcsname
+        \fi
+%    \end{macrocode}
+% On appose la marque du genre pour les unités dans tous les cas
+%    \begin{macrocode}
+        \if\fc@gender F%
+          ة%
+        \fi
+%    \end{macrocode}
+% On construit maintenant la dizaine. Noter que l'on appose la marque du genre uniquement lorsque \(d_1=1\)
+%    \begin{macrocode}
+        \ifnum\csname fc@digit@1\endcsname=\@ne
+          \space
+          عشر%
+          \if\fc@gender F%
+            ة%
+          \fi
+        \else
+          \space
+          و%
+          \space
           \expandafter\@ord@tenstringarabic
           \csname fc@digit@1\endcsname
+        \fi
       \fi
-%    \end{macrocode}
-% Et finalement, on appose la marque du genre:
-%    \begin{macrocode}
-          \if\fc@gender F%
-            \ifnum\csname fc@digit@0\endcsname=\@ne
-               ى%
-            \else
-               ة%
-            \fi
-          \fi
     }%
     \@tempb
   \else
