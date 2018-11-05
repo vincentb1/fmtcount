@@ -3,31 +3,32 @@
 %    \begin{macrocode}
 \ProvidesFCLanguage{arabic}[2018/03/15]%
 %    \end{macrocode}
-% Les unit\'es en arabe, pour les cardinaux et le masculin. L'argument \texttt{\#1} va de 0 \`a 9.
+% Les unit\'es en arabe, pour les cardinaux et neutres pour l'instant. Le genre et/ou la forme grammaticale
+% (direct ou oblique) seront travaill\'es ult\'erieurement. L'argument \texttt{\#1} va de 0 \`a 9.
 %\ifxetex
 %    \begin{macrocode}
 \newcommand*{\@@unitstringarabicM}[1]{%
 \ifcase#1 %
 \or
-الأول%
+واحد%
 \or
-الثاني%
+اثنان%
 \or
-الثالث%
+ثلاث%
 \or
-الرابع%
+أربع%
 \or
-الخامس%
+خمس%
 \or
-السادس%
+ست%
 \or
-السابع%
+سبع%
 \or
-الثامن%
+ثماني%
 \or
-التاسع%
+تسع%
 \or
-العاشر%
+عشرة%
 \fi
 }%
 %    \end{macrocode}
@@ -45,7 +46,21 @@
 \or
 عشر%
 \or
-العشرون%
+عشرون%
+\or
+ثلاثون
+\or
+أربعون
+\or
+خمسون
+\or
+ستون
+\or
+سبعون
+\or
+ثمانون
+\or
+تسعون
 \else
 \PackageError{fmtcount}{Incomplete arabic definition}%
 {Arabic definition for fmtcount still under development}%
@@ -86,11 +101,39 @@
     }\@tempb
   \or
     \edef\@tempa{%
-      \expandafter\@@unitstringarabicM
-      \csname fc@digit@1\endcsname
-      \space
-      \expandafter\@@unitstringarabicM
-      \csname fc@digit@0\endcsname
+      \ifnum\csname fc@digit@1\endcsname=\@ne
+        \ifnum\csname fc@digit@0\endcsname=\@ne
+          أحد%
+        \else
+          \ifnum\csname fc@digit@0\endcsname=\tw@
+           اثنا%
+          \else
+            \expandafter\@@unitstringarabicM
+            \csname fc@digit@0\endcsname
+          \fi
+        \fi
+        \space
+        \expandafter\@@tenstringarabic
+        \csname fc@digit@1\endcsname
+      \else
+        \expandafter\@@unitstringarabicM
+        \csname fc@digit@0\endcsname
+        \if\fc@gender F%
+          \ifnum\csname fc@digit@0\endcsname=\@ne
+            ى%
+          \else
+            ة%
+          \fi
+        \fi
+        \ifnum\csname fc@digit@0\endcsname=\z@
+        \else
+          \space
+و%
+          \space
+        \fi
+        \expandafter\@@tenstringarabic
+        \csname fc@digit@1\endcsname
+      \fi
     }\@tempb
   \else
     \PackageError{fmtcount}{Incomplete arabic definition}%
@@ -147,7 +190,7 @@
 \global\let\@ord@unitstringarabic\@ord@unitstringarabic
 %    \end{macrocode}
 %\fi
-% Définit les dizaines pour les ordinaux en arabe pour le genre masculin.
+% D\'efinit les dizaines pour les ordinaux en arabe pour le genre masculin.
 %\ifxetex
 %    \begin{macrocode}
 \newcommand*{\@ord@tenstringarabic}[1]{%
@@ -229,7 +272,7 @@
 %    \begin{macrocode}
   \expandafter\fc@number@parser\expandafter{\@tempa}%
 %    \end{macrocode}
-% Notez bien que décrivant la fonction de \cs{fc@number@parser} on a \'ecrit \og expression num\'erale\fg, et
+% Notez bien que d\'ecrivant la fonction de \cs{fc@number@parser} on a \'ecrit \og expression num\'erale\fg, et
 % non \og nombre\fg, en effet ce n'est pas tout \`a fait la m\^eme chose. Tout nombre d\'ecimal peut \^etre
 % exprim\'e en au moins une expression num\'erale \(\{d_k\}_{k\in\mathbb N}\) telle le nombre consid\'er\'e
 % est \'egal \`a la somme \(\sum_{k\in \mathbb N}d_k\times 10^k\), avec
@@ -342,7 +385,7 @@
 %    \begin{macrocode}
   \ifcase\fc@max@weight
 %    \end{macrocode}
-% Ici donc, on a \cs{fc@max@weight} valant 0, on s'occupe donc des nombres de \(0\) à \(9\).
+% Ici donc, on a \cs{fc@max@weight} valant 0, on s'occupe donc des nombres de \(0\) \`a \(9\).
 %    \begin{macrocode}
     \edef\@tempa{%
 %    \end{macrocode}
@@ -387,8 +430,8 @@
     \edef\@tempa{%
       \ifnum\csname fc@digit@0\endcsname=\z@
 %    \end{macrocode}
-% Ici \(d_0=0\), c'est \`a dire que l'on a affaire aux dizaines ordinales \(x0\ieme\):
-% On appose la marque du genre à la dizaine uniquement dans le cas \(d_1=1\)
+% Ici \(d_0=0\), c'est \`a dire que l'on a affaire aux dizaines ordinales \(x0\ieme\), \(x\) allant de 1 \`a 9:
+% On appose la marque du genre \`a la dizaine uniquement dans le cas \(d_1=1\)
 %    \begin{macrocode}
         \expandafter\@ord@tenstringarabic
         \csname fc@digit@1\endcsname
@@ -399,7 +442,8 @@
         \fi
       \else
 %    \end{macrocode}
-% Et maintenant on est avec \(d_0 \neq 0\), donc on a affaire aux unités ordinales \(x2\ieme\) \`a \(x9\ieme\):
+% Et maintenant on est avec \(d_0 \neq 0\), donc on a affaire aux unit\'es ordinales \(x2\ieme\) \`a
+% \(x9\ieme\), \(x\) allant de 1 \`a 9:
 %    \begin{macrocode}
         \ifnum\csname fc@digit@0\endcsname=\@ne
           الحادي%
@@ -408,7 +452,7 @@
           \csname fc@digit@0\endcsname
         \fi
 %    \end{macrocode}
-% On appose la marque du genre pour les unités dans tous les cas
+% On appose la marque du genre pour les unit\'es dans tous les cas
 %    \begin{macrocode}
         \if\fc@gender F%
           ة%
@@ -450,7 +494,7 @@
 %    \begin{macrocode}
 \global\let\@@ordinalstringarabic\@@ordinalstringarabic
 %    \end{macrocode}
-% Ici C'est du code non d\'efinitif, on fait en sorte que \c{c}a fasse la m\^eme chose pour le masculin, le
+% Ici c'est du code non d\'efinitif, on fait en sorte que \c{c}a fasse la m\^eme chose pour le masculin, le
 % neutre et le f\'eminin. \`A terme, il faudrait remplacer les \cs{let} par des \cs{def} et faire un certain
 % nombre de configurations avant d'appeler le moteur g\'en\'erique \cs{@@numberstringarabic}.
 %    \begin{macrocode}
