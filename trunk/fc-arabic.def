@@ -85,18 +85,19 @@
 % d'autres arguments permettant de d\'efinir le le genre sont pass\'es implicitement au sein de macros
 % auxiliaires.
 %    \begin{macrocode}
-\newcommand*\@@numberstringarabic[2]{{%
-  \edef\@tempa{#1}%
+\newcommand*\@@numberstringarabic[3]{{%
+  #1%  
+  \edef\@tempa{#2}%
   \let\fc@unit@weight\z@
   \expandafter\fc@number@parser\expandafter{\@tempa}%
   \ifnum\fc@min@weight<0 %
      \PackageError{fmtcount}{Out of range}%
         {This macro does not work with fractional numbers}%
   \fi
-  \def\@tempa{\let#2\@empty}%
+  \def\@tempa{\let#3\@empty}%
   \def\@tempb{%
     \toks0\expandafter{\@tempa}%
-    \edef\@tempa{\def\noexpand#2{\the\toks0}}%
+    \edef\@tempa{\def\noexpand#3{\the\toks0}}%
   }%
   \ifnum\fc@unit@weight=0 \else
     \PackageError{fmtcount}{Incomplete arabic definition}%
@@ -176,9 +177,9 @@
 % nombre de configurations avant d'appeler le moteur g\'en\'erique \cs{@@numberstringarabic}, de sorte \`a
 % passer les informations concernant le genre au sein de macros auxiliaires.
 %    \begin{macrocode}
-\global\let\@numberstringMarabic\@@numberstringarabic
-\global\let\@numberstringNarabic\@@numberstringarabic
-\global\let\@numberstringFarabic\@@numberstringarabic
+\gdef\@numberstringMarabic{\@@numberstringarabic{\def\fc@gender{M}}}
+\gdef\@numberstringNarabic{\@@numberstringarabic{\def\fc@gender{N}}}
+\gdef\@numberstringFarabic{\@@numberstringarabic{\def\fc@gender{F}}}
 %    \end{macrocode}
 % D\'efinit les unit\'es pour les ordinaux en arabe pour le genre masculin.
 % \ifxetex
