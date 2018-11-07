@@ -43,12 +43,12 @@ $(STYFILES):%: $(DOCSTRIP)
 		latex $<
 
 fmtcount.pdf	: $(DOCSTRIP)
-		-latex $<
-		pdflatex fmtcount.dtx
+		-etex $<
+		xelatex fmtcount.dtx
 		makeindex -s gind.ist fmtcount.idx
 		makeindex -s gglo.ist -o fmtcount.gls fmtcount.glo
-		pdflatex fmtcount.dtx
-		pdflatex fmtcount.dtx
+		xelatex fmtcount.dtx
+		xelatex fmtcount.dtx
 
 $(DOCSTRIP):%: $(addprefix $(SRC)/,$(DTX_DEPENDANCIES))
 	$(MAKE) -C ../trunk dist
