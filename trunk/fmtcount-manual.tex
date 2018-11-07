@@ -1,12 +1,33 @@
 \documentclass{nlctdoc}
 
 \usepackage{color}
-\usepackage[utf8]{inputenc}
-\usepackage[french,english]{babel}
 \usepackage{amsmath,amssymb}
+\usepackage[colorlinks,
+            bookmarks,
+            bookmarksopen,
+            pdfauthor={Nicola L.C. Talbot},
+            pdftitle={fmtcount.sty: Displaying the Values of LaTeX Counters},
+            pdfkeywords={LaTeX,counter}]{hyperref}
 \usepackage{tabularx,supertabular,multirow}
+\usepackage{ifxetex}
+\ifxetex
+\usepackage{fontspec}
+\usepackage{polyglossia}
+\setmainlanguage{english}
+\setotherlanguage{french}
+\setotherlanguage[numerals=maghrib]{arabic}
+\setmainfont{Times New Roman}
+\setmonofont{Courier New}
+\let\arabicfonttt\ttfamily
+\newcommand*\og{«\thinspace}
+\newcommand*\fg{\thinspace»}
+\else
+\usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
+\usepackage[french,english]{babel}
+\fi
 \usepackage{cmap}
+\usepackage{siunitx}
 \usepackage{fmtcount}% needed for \fc@iterate@on@languages
 \newcommand*\uref[1]{\href{#1}{#1}}
 \DeclareMathOperator{\intv}{..}
@@ -36,14 +57,8 @@
 }\@tempa}
 \makeatother
 
-\usepackage[colorlinks,
-            bookmarks,
-            bookmarksopen,
-            pdfauthor={Nicola L.C. Talbot},
-            pdftitle={fmtcount.sty: Displaying the Values of LaTeX Counters},
-            pdfkeywords={LaTeX,counter}]{hyperref}
-
-\CheckSum{10413}
+            
+\CheckSum{10550}
 
 \doxitem{Option}{option}{options}
 
@@ -857,4 +872,5 @@ Bug reporting should be done via the Github issue manager at:
 \end{document}
 % Local Variables:
 % coding: utf-8
+% TeX-engine: xetex
 % End:
