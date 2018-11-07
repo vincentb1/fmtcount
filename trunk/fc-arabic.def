@@ -1,11 +1,18 @@
 % \subsubsection{fc-arabic.def}
+% \ifxetex\else
+% \begin{important}
+%   Vous n'avez pas compil\'e la documentation de \texttt{fc-arabic.def} avec \texttt{xelatex}, c'est pourquoi
+%   tout le code g\'en\'erant le texte en arabe a \'et\'e tronqu\'e. Vous devez compiler le manuel avec \texttt{xelatex}
+%   pour qu'il apparaisse correctement.
+% \end{important}
+% \fi
 % Ici on d\'eclare que ce fichier fournit les d\'efinitions n\'ecessaires pour la langue arabe.
 %    \begin{macrocode}
-\ProvidesFCLanguage{arabic}[2018/03/15]%
+\ProvidesFCLanguage{arabic}[2018/11/05]%
 %    \end{macrocode}
 % Les unit\'es en arabe, pour les cardinaux et neutres pour l'instant. Le genre et/ou la forme grammaticale
 % (direct ou oblique) seront travaill\'es ult\'erieurement. L'argument \texttt{\#1} va de 0 \`a 9.
-%\ifxetex
+% \ifxetex
 %    \begin{macrocode}
 \newcommand*{\@@unitstringarabicM}[1]{%
 \ifcase#1 %
@@ -32,12 +39,12 @@
 \fi
 }%
 %    \end{macrocode}
+% \fi
 % L\`a on ne fait rien que rendre la d\'efinition globale, de sorte que si \texttt{fc-arabic.def} est charg\'e au
 % sein d'un groupe, alors les d\'efinitions passeront quand m\^eme.
 %    \begin{macrocode}
 \global\let\@@unitstringarabicM\@@unitstringarabicM
 %    \end{macrocode}
-% \fi
 % Les dizaines en arabe. L'argument \texttt{\#1} va de 0 \`a 9.
 % \ifxetex
 %    \begin{macrocode}
@@ -67,11 +74,11 @@
 \fi
 }%
 %    \end{macrocode}
+% \fi
 % L\`a, comme pr\'ec\'edemment, on ne fait rien que rendre la d\'efinition globale.
 %    \begin{macrocode}
 \global\let\@@tenstringarabic\@@tenstringarabic
 %    \end{macrocode}
-% \fi
 % Convertit un nombre cardinal en lettres. L'agument \texttt{\#1} est le nombre \`a convertir. L'argument
 % \texttt{\#2} est une s\'equence de contr\^ole qui sera d\'efinie au r\'esultat de la conversion. Cette macro
 % est g\'en\'erique~: c'est la m\^eme qui est employ\'ee pour le masculin et le f\'eminin. C'est \`a dire que
@@ -102,6 +109,9 @@
   \or
     \edef\@tempa{%
       \ifnum\csname fc@digit@1\endcsname=\@ne
+%    \end{macrocode}
+% \ifxetex
+%    \begin{macrocode}
         \ifnum\csname fc@digit@0\endcsname=\@ne
           أحد%
         \else
@@ -112,6 +122,9 @@
             \csname fc@digit@0\endcsname
           \fi
         \fi
+%    \end{macrocode}
+% \fi
+%    \begin{macrocode}
         \space
         \expandafter\@@tenstringarabic
         \csname fc@digit@1\endcsname
@@ -119,16 +132,28 @@
         \expandafter\@@unitstringarabicM
         \csname fc@digit@0\endcsname
         \if\fc@gender F%
+%    \end{macrocode}
+% \ifxetex
+%    \begin{macrocode}
           \ifnum\csname fc@digit@0\endcsname=\@ne
             ى%
           \else
             ة%
           \fi
+%    \end{macrocode}
+% \fi
+%    \begin{macrocode}
         \fi
         \ifnum\csname fc@digit@0\endcsname=\z@
         \else
           \space
+%    \end{macrocode}
+% \ifxetex
+%    \begin{macrocode}
 و%
+%    \end{macrocode}
+% \fi
+%    \begin{macrocode}
           \space
         \fi
         \expandafter\@@tenstringarabic
@@ -156,7 +181,7 @@
 \global\let\@numberstringFarabic\@@numberstringarabic
 %    \end{macrocode}
 % D\'efinit les unit\'es pour les ordinaux en arabe pour le genre masculin.
-%\ifxetex
+% \ifxetex
 %    \begin{macrocode}
 \newcommand*{\@ord@unitstringarabic}[1]{%
 \ifcase#1\or
@@ -185,13 +210,13 @@
 \fi
 }%
 %    \end{macrocode}
+% \fi
 % L\`a, comme pr\'ec\'edemment, on ne fait rien que rendre la d\'efinition globale.
 %    \begin{macrocode}
 \global\let\@ord@unitstringarabic\@ord@unitstringarabic
 %    \end{macrocode}
-%\fi
 % D\'efinit les dizaines pour les ordinaux en arabe pour le genre masculin.
-%\ifxetex
+% \ifxetex
 %    \begin{macrocode}
 \newcommand*{\@ord@tenstringarabic}[1]{%
 \ifcase#1%
@@ -221,12 +246,12 @@
 \fi
 }%
 %    \end{macrocode}
+% \fi
 % L\`a, comme pr\'ec\'edemment, on ne fait rien que rendre la d\'efinition globale.
 %    \begin{macrocode}
 \global\let\@ord@tenstringarabic\@ord@tenstringarabic
 %    \end{macrocode}
-% \fi
-% \DescribeMacro{\@@ordinalstringarabic}Ici c'est la macro g\'en\'erique pour convertir un nombre en ordinal
+% \DescribeMacro{\@@ordinalstringarabic}\newline Ici c'est la macro g\'en\'erique pour convertir un nombre en ordinal
 % arabe. Description des arguments~:
 %\newline\noindent
 % \begin{tabularx}{\linewidth}{>{\raggedleft\arraybackslash\ttfamily}rX@{}}
@@ -234,7 +259,6 @@
 % \#2&nombre \`a convertir.\\
 % \#3&s\'equence de contr\^ole, macro d\'estin\'ee \`a contenir le r\'esultat de la conversion.\\
 % \end{tabularx}
-% \ifxetex
 %    \begin{macrocode}
 \newcommand*\@@ordinalstringarabic[3]{%
 %    \end{macrocode}
@@ -355,7 +379,7 @@
 % \end{quote}\vspace{-2ex}%
 % }. M'enfin bref, la premi\`ere chose qu'on fait est donc de d\'efinir le \meta{code} par d\'efaut qu'on veut
 %   ex\'ecuter pour r\'egler la sortie. Ici ce \meta{code} est \og\cs{let}\texttt{\#3}\cs{@empty}\fg, qui est
-%   \'equivalent \`a \og\cs{def}\texttt{\#3\{\}}\fg, mais plus efficace en temps de traitement:
+%   \'equivalent \`a \og\cs{def}\texttt{\#3\{\}}\fg, mais plus efficace en temps de traitement~:
 %    \begin{macrocode}
   \def\@tempa{\let#3\@empty}%
 %    \end{macrocode}
@@ -370,7 +394,7 @@
     \edef\@tempa{\def\noexpand#3{\the\toks0}}%
   }%
 %    \end{macrocode}
-% On arrive enfin aux traitements proprements dits. On commence par faire une s\'election selon
+% On arrive enfin aux traitements proprement dits. On commence par faire une s\'election selon
 % \cs{fc@max@weight}. En effet, pour \cs{fc@max@weight} valant 0 on a un nombre de \(0\) \`a \(9\). Pour
 % \cs{fc@max@weight} valant 1 on a un nombre de \(10\) \`a \(99\), etc. \ldots\ Pour chaque cas de la
 % s\'election, on a un code se pr\'esentant comme:
@@ -381,7 +405,7 @@
 % o\`u l'\meta{expression} est purement d\'eveloppable, et se d\'eveloppe en le \meta{r\'esultat} d\'esir\'e. La
 % premi\`ere ligne met donc \meta{r\'esultat} dans \cs{@tempa}, puis on appelle \cs{@tempb} pour les raisons
 % qu'on a d\'ej\`a expliqu\'ees plus haut en d\'ecrivant \cs{@tempb}. Bon, on commence donc la s\'election
-% avec un petit \cs{ifcase} sur \cs{fc@max@weight}:
+% avec un petit \cs{ifcase} sur \cs{fc@max@weight}~:
 %    \begin{macrocode}
   \ifcase\fc@max@weight
 %    \end{macrocode}
@@ -403,11 +427,17 @@
 % \ldots\ \`a faire suivre de la d\'esinence propre au genre:
 %    \begin{macrocode}
       \if\fc@gender F%
+%    \end{macrocode}
+% \ifxetex
+%    \begin{macrocode}
         \ifnum\csname fc@digit@0\endcsname=\@ne
            ى%
         \else
            ة%
         \fi
+%    \end{macrocode}
+% \fi
+%    \begin{macrocode}
       \fi
 %    \end{macrocode}
 % Fin de l'\meta{expression}.
@@ -436,14 +466,21 @@
         \expandafter\@ord@tenstringarabic
         \csname fc@digit@1\endcsname
         \ifnum\csname fc@digit@1\endcsname=\@ne
+%    \end{macrocode}
+% \ifxetex
+%    \begin{macrocode}
           \if\fc@gender F%
             ة%
           \fi
+%    \end{macrocode}
+% \fi
+%    \begin{macrocode}
         \fi
       \else
 %    \end{macrocode}
 % Et maintenant on est avec \(d_0 \neq 0\), donc on a affaire aux unit\'es ordinales \(x2\ieme\) \`a
 % \(x9\ieme\), \(x\) allant de 1 \`a 9:
+% \ifxetex
 %    \begin{macrocode}
         \ifnum\csname fc@digit@0\endcsname=\@ne
           الحادي%
@@ -452,13 +489,17 @@
           \csname fc@digit@0\endcsname
         \fi
 %    \end{macrocode}
+% \fi
 % On appose la marque du genre pour les unit\'es dans tous les cas
+% \ifxetex
 %    \begin{macrocode}
         \if\fc@gender F%
           ة%
         \fi
 %    \end{macrocode}
+% \fi
 % On construit maintenant la dizaine. Noter que l'on appose la marque du genre uniquement lorsque \(d_1=1\)
+% \ifxetex
 %    \begin{macrocode}
         \ifnum\csname fc@digit@1\endcsname=\@ne
           \space
@@ -473,6 +514,9 @@
           \expandafter\@ord@tenstringarabic
           \csname fc@digit@1\endcsname
         \fi
+%    \end{macrocode}
+% \fi
+%    \begin{macrocode}
       \fi
     }%
     \@tempb
@@ -505,7 +549,6 @@
 \global\let\@ordinalNarabic\@gobbletwo
 \global\let\@ordinalFarabic\@gobbletwo
 %    \end{macrocode}
-% \fi
 \iffalse Local variables: \fi
 \iffalse mode: docTeX     \fi
 \iffalse coding: utf-8     \fi
