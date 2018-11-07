@@ -36,12 +36,15 @@ find it (e.g. latex2html/styles/).
 
 To extract the documentation do:
 
-latex fmtcount.dtx
+xelatex fmtcount.dtx
 makeindex -s gglo.ist -t fmtcount.glg -o fmtcount.gls fmtcount.glo
-latex fmtcount.dtx
-latex fmtcount.dtx
+xelatex fmtcount.dtx
+xelatex fmtcount.dtx
 
-Place the resulting file (fmtcount.dvi) into the documentation
+Note: pdflatex can be used instead of xelatex, but then the code
+documentation of arabic will be incomplete.
+
+Place the resulting file (fmtcount.pdf) into the documentation
 directory (e.g. texmf/doc/latex/fmtcount/).
 
 Read the file CHANGES for version changes.
