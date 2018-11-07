@@ -55,19 +55,19 @@
 \or
 عشرون%
 \or
-ثلاثون
+ثلاثون%
 \or
-أربعون
+أربعون%
 \or
-خمسون
+خمسون%
 \or
-ستون
+ستون%
 \or
-سبعون
+سبعون%
 \or
-ثمانون
+ثمانون%
 \or
-تسعون
+تسعون%
 \else
 \PackageError{fmtcount}{Incomplete arabic definition}%
 {Arabic definition for fmtcount still under development}%
@@ -150,7 +150,7 @@
 %    \end{macrocode}
 % \ifxetex
 %    \begin{macrocode}
-و%
+          و%
 %    \end{macrocode}
 % \fi
 %    \begin{macrocode}
