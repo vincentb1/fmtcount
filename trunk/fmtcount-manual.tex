@@ -500,7 +500,7 @@ problems such as spurious spaces insertion before the first formatted number, so
 \cs{FCloadlang} explicitely in the preamble.
 
 If the French language is selected, the \texttt{french} option let you
-configure the dialect and other aspects. The \texttt{abbr} also has
+configure the dialect and other aspects. The \texttt{abbrv} also has
 some influence with French. Please refer to \S~\ref
 {sec:options-french}.
 
@@ -552,7 +552,7 @@ This section is in French, as it is most useful to French speaking people.
 
 \selectlanguage{french} Il est possible de configurer plusieurs
 aspects de la numérotation en français avec les options
-\texttt{french} et \texttt{abbr}. Ces options n'ont d'effet que si le
+\texttt{french} et \texttt{abbrv}. Ces options n'ont d'effet que si le
 langage \texttt{french} est chargé.
 
 \begin{definition}[\DescribeMacro{\fmtcountsetoptions}]
@@ -598,10 +598,10 @@ actuellement pas pris en charge et n'est guère plus utilisé, ce qui
 est sans doute dommage car il est sans doute plus acceptable que le
 ``huitante'' de certains de nos amis suisses.
 
-\begin{definition}[\DescribeOption{abbr}]
-\cs{fmtcountsetoptions}\verb"{abbr="\meta{boolean}\verb'}'
+\begin{definition}[\DescribeOption{abbrv}]
+\cs{fmtcountsetoptions}\verb"{abbrv="\meta{boolean}\verb'}'
 \end{definition}
-L'option générale \texttt{abbr} permet de changer l'effet de
+L'option générale \texttt{abbrv} permet de changer l'effet de
 \cs{ordinal}. Selon \meta{boolean} on a:\newline
 \begin{tabularx}{\linewidth}{@{}lX@{}}
   \pkgopt{true}& pour produire des ordinaux de la forme
