@@ -5,13 +5,13 @@ DIST:=../dist
 test	:
 	$(MAKE) -C test
 
-.PHONY: dist
-dist	: README CHANGES fmtcount-manual.tex \
+.PHONY: dist ctan
+dist ctan : README CHANGES fmtcount-manual.tex \
 	  fmtcount.perl $(STYFILES) \
 	  $(DIST)/fmtcount.dtx
 	command cp CHANGES $(DIST)
 	./cp2dist $(addprefix -f$(SPACE),$(STYFILES)) README fmtcount-manual.tex $(DIST)
-	$(MAKE) -C $(DIST)
+	$(MAKE) -C $(DIST) ctan
 
 $(addprefix $(DIST)/,$(DOCSTRIP))	: $(DTX_DEPENDANCIES)
 	makedtx -author "Nicola Talbot and Vincent Belaïche" \

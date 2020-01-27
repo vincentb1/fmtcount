@@ -5,7 +5,8 @@ include $(SRC)/fc-makedefinitions.mak
 
 all	: fmtcount.pdf
 
-ctan	: fmtcount.zip
+.PHONY: ctan dist
+ctan dist : fmtcount.zip
 
 install	:  fmtcount.pdf $(STYFILES) $(TEXMF_INSTALL_DIR)/doc/latex/fmtcount $(TEXMF_INSTALL_DIR)/tex/latex/fmtcount
 	command cp fmtcount.pdf $(TEXMF_INSTALL_DIR)/doc/latex/fmtcount/
