@@ -1,5 +1,18 @@
 fmtcount package versions:
 
+Version 3.06:
+
+* Fix French documentation « mille » → « mil » where applicable.
+
+* Rename \Hexadecimal to \HEXADecimal, and document why. Same for
+  \Hexadecimalnum renamed to \HEXADecimalnum. Keep support for old
+  macro name with deprecation warning.
+
+* Fix issue #34 (documentation concerning no more trailing space
+  gobbling when the optional gender argument is omitted).
+
+* Fix issue #33 (fix ordinalstringnum in German)
+
 Version 3.05:
 
 * Fix issue #28 (works now with lualatex: actually from 3.05 fmtcount
