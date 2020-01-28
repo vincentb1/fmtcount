@@ -3,7 +3,7 @@
 % This section deals with the code for |fmtcount.sty|
 %    \begin{macrocode}
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{fmtcount}[2018/06/27 v3.06]
+\ProvidesPackage{fmtcount}[2020/01/30 v3.06]
 \RequirePackage{ifthen}
 %    \end{macrocode}
 % \changes{3.01}{2014/12/03}{Use \styfmt{xkeyval} instead of \styfmt{keyval}, so that we do not get in trouble
@@ -1743,10 +1743,13 @@ italian}
   \HEXADecimalnum{\expandafter\expandafter\expandafter
     \the\value{#1}}%
 }
-\def\Hexadecimal{%
+\newrobustcmd*\FC@Hexadecimal@warning{%
   \PackageWarning{fmtcount}{\string\Hexadecimal\space is deprecated, use \string\HEXADecimal\space
     instead. The \string\Hexadecimal\space control sequence name is confusing as it can mislead in thinking
     that only the 1st letter is upper-cased.}%
+}
+\def\Hexadecimal{%
+  \FC@Hexadecimal@warning
   \HEXADecimal}
 %    \end{macrocode}
 %\end{macro}
