@@ -1,0 +1,8 @@
+* Failed tests
+
+** italian
+Tests « shortgo-italian » and « short-italian » both fail in that than
+\NUMBERstring{section} outputs « NOVANTADUESIMO » instead of
+« QUARTO » when « section » is 4.
+
+This is a limitation of itnumpar, see [[https://github.com/nlct/fmtcount/issues/37][issue #37]].
