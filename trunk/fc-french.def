@@ -1644,15 +1644,21 @@ z\'ero%
       \count0=0 % 
     \fi
     \ifnum\count0=1 %
+        \expandafter\@firstoftwo
+    \else
+        \expandafter\@secondoftwo
+    \fi
 %    \end{macrocode}
 % \changes{3.01}{2014-11-10}{Protect \cs{`}, for solving
 % \uref{http://github.com/nlct/fmtcount/issues/15}{Issue \#15}}
 %    \begin{macrocode}
+        {%
       \protected@edef\@tempa{\expandafter\fc@wcase\fc@first\@nil}%
-    \else
+        }%
 %    \end{macrocode}
 % Now we tamper a little bit with the plural handling options to ensure that there is no final plural mark.
 %    \begin{macrocode}
+        {%
       \def\@tempa##1{%
         \expandafter\edef\csname fc@frenchoptions@##1@plural\endcsname{%
           \ifcase\csname fc@frenchoptions@##1@plural\endcsname\space
@@ -1715,7 +1721,7 @@ z\'ero%
           \fi
         \fi
       \fi
-    \fi
+  }%
 %    \end{macrocode}
 % Apply \cs{fc@gcase} to the result.
 %    \begin{macrocode}
