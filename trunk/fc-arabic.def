@@ -1,17 +1,25 @@
+% !TEX encoding = UTF-8
 % \subsubsection{fc-arabic.def}
 % \ifxetex\else
 % \begin{important}
-%   Vous n'avez pas compil\'e la documentation de \texttt{fc-arabic.def} avec \texttt{xelatex}, c'est pourquoi
-%   tout le code g\'en\'erant le texte en arabe a \'et\'e tronqu\'e. Vous devez compiler le manuel avec \texttt{xelatex}
-%   pour qu'il apparaisse correctement.
+%   Vous n'avez pas compil\'e la documentation de \texttt{fc-arabic.def} avec \texttt{xelatex}, c'est pourquoi tout le
+%   code g\'en\'erant le texte en arabe a \'et\'e tronqu\'e et remplac\'e par des \XeReplacement[3]. Vous devez compiler
+%   le manuel avec \texttt{xelatex} pour qu'il apparaisse correctement.
 % \end{important}
 % \fi
 % Ici on d\'eclare que ce fichier fournit les d\'efinitions n\'ecessaires pour la langue arabe.
 %    \begin{macrocode}
 \ProvidesFCLanguage{arabic}[2018/11/05]%
 %    \end{macrocode}
-% Les unit\'es en arabe, pour les cardinaux et neutres pour l'instant. Le genre et/ou la forme grammaticale
-% (direct ou oblique) seront travaill\'es ult\'erieurement. L'argument \texttt{\#1} va de 0 \`a 9.
+% On commence par les num\'eraux. En ce qui concerne les unit\'es en arabe, le genre ne peut pas \^etre appos\'e de la
+% m\^eme mani\`ere. J'ai pr\'ef\'er\'e d\'efinir les deux genres au d\'epart pour les unit\'es, d'autant plus que \c{c}a
+% ne co\^ute pas vraiment trop cher. \cs{@@unitstringarabicM} pour le genre masculin et
+% \cs{@@unitstringarabicF} pour le genre f\'eminin. Noter que les unit\'es masculines sont bizarrement
+% f\'eminis\'ees, avec un \og\ifxetex ة\else\XeReplacement\fi\fg\ \`a la fin du mot, sauf pour les cas pathologiques de 1 et
+% 2. \'Etonamment, en arabe, on inverse les genres, pour les unit\'es et d'autres cas.
+%
+% \DescribeMacro{\@@unitstringarabicM}
+% La forme grammaticale (directe ou oblique) sera travaill\'ee ult\'erieurement. L'argument \texttt{\#1} va de 0 \`a 9.
 % \ifxetex
 %    \begin{macrocode}
 \newcommand*{\@@unitstringarabicM}[1]{%
@@ -20,6 +28,33 @@
 واحد%
 \or
 اثنان%
+\or
+ثلاثة%
+\or
+أربعة%
+\or
+خمسة%
+\or
+ستة%
+\or
+سبعة%
+\or
+ثمانية%
+\or
+تسعة%
+\or
+عشرة%
+\fi
+}%
+%    \end{macrocode}
+% \DescribeMacro{\@@unitstringarabicF}
+%    \begin{macrocode}
+\newcommand*{\@@unitstringarabicF}[1]{%
+\ifcase#1 %
+\or
+واحدة%
+\or
+اثنتان%
 \or
 ثلاث%
 \or
@@ -31,21 +66,24 @@
 \or
 سبع%
 \or
-ثماني%
+ثمان%
 \or
 تسع%
 \or
-عشرة%
+عشر%
 \fi
 }%
 %    \end{macrocode}
+% \else
+% \XeReplacement[30]%
 % \fi
 % L\`a on ne fait rien que rendre la d\'efinition globale, de sorte que si \texttt{fc-arabic.def} est charg\'e au
 % sein d'un groupe, alors les d\'efinitions passeront quand m\^eme.
 %    \begin{macrocode}
 \global\let\@@unitstringarabicM\@@unitstringarabicM
+\global\let\@@unitstringarabicF\@@unitstringarabicF
 %    \end{macrocode}
-% Les dizaines en arabe. L'argument \texttt{\#1} va de 0 \`a 9.
+% \DescribeMacro{\@@tenstringarabic}Les dizaines en arabe. L'argument \texttt{\#1} va de 0 \`a 9~:
 % \ifxetex
 %    \begin{macrocode}
 \newcommand*{\@@tenstringarabic}[1]{%
@@ -74,76 +112,182 @@
 \fi
 }%
 %    \end{macrocode}
+% \else
+% \XeReplacement[30]%
 % \fi
 % L\`a, comme pr\'ec\'edemment, on ne fait rien que rendre la d\'efinition globale.
 %    \begin{macrocode}
 \global\let\@@tenstringarabic\@@tenstringarabic
 %    \end{macrocode}
-% Convertit un nombre cardinal en lettres. L'agument \texttt{\#1} est le nombre \`a convertir. L'argument
-% \texttt{\#2} est une s\'equence de contr\^ole qui sera d\'efinie au r\'esultat de la conversion. Cette macro
-% est g\'en\'erique~: c'est la m\^eme qui est employ\'ee pour le masculin et le f\'eminin. C'est \`a dire que
-% d'autres arguments permettant de d\'efinir le le genre sont pass\'es implicitement au sein de macros
-% auxiliaires.
+% \DescribeMacro{\@@numberstringarabic}Convertit un nombre cardinal en lettres. L'argument \texttt{\#1} est un crochet
+% pour ins\'erer du code au d\'ebut du groupe o\`u sont fait les traitements. L'agument \texttt{\#2} est le nombre \`a
+% convertir. L'argument \texttt{\#3} est la variable de sortie, c-\`a-d. une s\'equence de contr\^ole qui sera d\'efinie
+% au r\'esultat de la conversion. Cette macro est g\'en\'erique~: c'est la m\^eme qui est employ\'ee pour le masculin et
+% le f\'eminin. C'est \`a dire que d'autres arguments permettant de d\'efinir le genre sont pass\'es implicitement au
+% sein de macros auxiliaires.
 %    \begin{macrocode}
-\newcommand*\@@numberstringarabic[3]{{%
-  #1%  
+\newcommand*\@@numberstringarabic[3]{%
+%    \end{macrocode}
+% En tout premier lieu on ouvre un groupe de sorte à pouvoir utiliser des variables temporaires et des registres \cs{toks} sans effet de bord
+%    \begin{macrocode}
+\begingroup
+%    \end{macrocode}
+% On commence juste par ins\'erer le crochet \texttt{\#1}~:
+%    \begin{macrocode}
+  #1%
+%    \end{macrocode}
+% On appelle \cs{fc@number@parser} sur le nombre \texttt{\#2} \`a traduire en lettres apr\`es avoir compl\`etement
+% d\'evelopp\'e ce dernier via la variable temporaire \cs{@tempa}~:
+%    \begin{macrocode}
   \edef\@tempa{#2}%
   \let\fc@unit@weight\z@
   \expandafter\fc@number@parser\expandafter{\@tempa}%
+%    \end{macrocode}
+% Petit contr\^ole sanitaire avant de passer \`a la suite~:
+%    \begin{macrocode}
   \ifnum\fc@min@weight<0 %
      \PackageError{fmtcount}{Out of range}%
         {This macro does not work with fractional numbers}%
   \fi
-  \def\@tempa{\let#3\@empty}%
+%    \end{macrocode}
+% \c{C}a c'est juste pour propager le r\'esultat hors du groupe qu'on a ouvert. L'id\'ee c'est que le texte repr\'esentant
+% le nombre sera dans la variable temporaire \cs{@tempa}, alors on se fait une macro \cs{@tempb} qui sert \`a d\'efinir
+% la variable \texttt{\#3} comme le contenu de \cs{@tempa} en faisant un petit \cs{expandafter}\cs{endgroup}\cs{@tempa}.
+%    \begin{macrocode}
   \def\@tempb{%
     \toks0\expandafter{\@tempa}%
     \edef\@tempa{\def\noexpand#3{\the\toks0}}%
   }%
+%    \end{macrocode}
+% \c{C}a c'est un traitement par d\'efaut, quand \cs{@tempb} n'est pas appel\'e, pour le que
+% \cs{expandafter}\discretionary{}{}{}%
+% \cs{endgroup}\discretionary{}{}{}\cs{@tempa} final d\'efinisse la variable de sortie \texttt{\#3} comme vide~:
+%    \begin{macrocode}
+  \def\@tempa{\let#3\@empty}%
+%    \end{macrocode}
+% Encore un petit contr\^ole sanitaire avant de passer \`a la suite~:
+%    \begin{macrocode}
   \ifnum\fc@unit@weight=0 \else
     \PackageError{fmtcount}{Incomplete arabic definition}%
     {Arabic definition for fmtcount still under development}%
   \fi
+%    \end{macrocode}
+% On distingue selon le poids de la d\'ecimale la plus significatif, par ex. 1 pour 50, 2 pour 110, etc\ldots~:
+%    \begin{macrocode}
   \ifcase\fc@max@weight
-    \edef\@tempa{\expandafter\@@unitstringarabicM
-      \csname fc@digit@0\endcsname
+%    \end{macrocode}
+% Cas des nombres de 0 à 9, que l'on \og gend\'erise\fg\ au d\'epart.
+%    \begin{macrocode}
+    \expandafter\let\expandafter\@tempc
+      \if F\fc@gender
+        \@@unitstringarabicF
+      \else
+        \@@unitstringarabicM
+      \fi
+    \edef\@tempa{%
+        \expandafter\@tempc
+          \csname fc@digit@0\endcsname
     }\@tempb
   \or
+%    \end{macrocode}
+% Cas des nombres de 10 \`a 99~:
+%    \begin{macrocode}
     \edef\@tempa{%
       \ifnum\csname fc@digit@1\endcsname=\@ne
 %    \end{macrocode}
-% \ifxetex
+% Cas des nombres de 10 \`a 19~:
 %    \begin{macrocode}
         \ifnum\csname fc@digit@0\endcsname=\@ne
-          أحد%
-        \else
-          \ifnum\csname fc@digit@0\endcsname=\tw@
-           اثنا%
+%    \end{macrocode}
+% Cas du nombre 11~:
+% \ifxetex
+%    \begin{macrocode}
+          \if F\fc@gender
+            احدى%
           \else
-            \expandafter\@@unitstringarabicM
-            \csname fc@digit@0\endcsname
+            احد%
+          \fi
+%    \end{macrocode}
+% \else\XeReplacement[30]\fi
+%    \begin{macrocode}
+        \else
+%    \end{macrocode}
+% Cas des nombres dans \(\{10,12,\ldots,19\}\)~:
+%    \begin{macrocode}
+          \ifnum\csname fc@digit@0\endcsname=\tw@
+%    \end{macrocode}
+% Cas du nombre 12~:
+% \ifxetex
+%    \begin{macrocode}
+            \if F\fc@gender
+              اثنتا%
+            \else
+              اثنا%
+            \fi
+%    \end{macrocode}
+% \else\XeReplacement[30]\fi
+%    \begin{macrocode}
+          \else
+%    \end{macrocode}
+% Cas des nombres dans \(\{10,13,\ldots,19\}\)~:
+%    \begin{macrocode}
+            \if F\fc@gender
+              \expandafter\@@unitstringarabicF
+              \csname fc@digit@0\endcsname
+            \else
+              \expandafter\@@unitstringarabicM
+              \csname fc@digit@0\endcsname
+            \fi
           \fi
         \fi
 %    \end{macrocode}
-% \fi
+% Les dizaines pour les nombres de 10 à 19~:
 %    \begin{macrocode}
         \space
         \expandafter\@@tenstringarabic
         \csname fc@digit@1\endcsname
-      \else
-        \expandafter\@@unitstringarabicM
-        \csname fc@digit@0\endcsname
+%    \end{macrocode}
+% Ici je f\'eminise la dizaine de 10 \`a 19 (en ajoutant \ifxetex ة\else\XeReplacement\fi\ \`a la fin) pour le genre
+% f\'eminin, sauf pour 10.
+%    \begin{macrocode}
         \if\fc@gender F%
+          \ifnum\csname fc@digit@0\endcsname=\z@
+          \else
 %    \end{macrocode}
 % \ifxetex
 %    \begin{macrocode}
-          \ifnum\csname fc@digit@0\endcsname=\@ne
-            ى%
-          \else
             ة%
+%    \end{macrocode}
+% \else\XeReplacement\fi
+%    \begin{macrocode}
           \fi
 %    \end{macrocode}
-% \fi
+% Ici je f\'eminise la dizaine de 10 \`a 19, pour le genre masculin, uniquement pour 10.
 %    \begin{macrocode}
+        \else
+          \if M\fc@gender
+            \ifnum\csname fc@digit@0\endcsname=\z@
+%    \end{macrocode}
+% \ifxetex
+%    \begin{macrocode}
+              ة%
+%    \end{macrocode}
+% \else\XeReplacement\fi
+%    \begin{macrocode}
+            \fi
+          \fi
+        \fi
+      \else
+%    \end{macrocode}
+% L\`a maintenant, pour les nombres de 21 \`a 99, on ne fait qu'apposer l'unit\'e gend\'eris\'ee \`a la dizaine
+% \og unigenre\fg, entrecoup\'es de la conjonction \og et\fg\ en arabe (\og و\fg) et le tour est jou\'e.
+%    \begin{macrocode}
+        \if\fc@gender F%
+          \expandafter\@@unitstringarabicF
+          \csname fc@digit@0\endcsname
+        \else
+          \expandafter\@@unitstringarabicM
+          \csname fc@digit@0\endcsname
         \fi
         \ifnum\csname fc@digit@0\endcsname=\z@
         \else
@@ -153,7 +297,7 @@
 %    \begin{macrocode}
           و%
 %    \end{macrocode}
-% \fi
+% \else\XeReplacement\fi
 %    \begin{macrocode}
           \space
         \fi
@@ -165,7 +309,10 @@
     \PackageError{fmtcount}{Incomplete arabic definition}%
     {Arabic definition for fmtcount still under development}%
   \fi
-  \expandafter}\@tempa
+%    \end{macrocode}
+% Propagation hors du groupe ouvert en d\'ebut de macro du r\'esultat \`a la vatiable de sortie~:
+%    \begin{macrocode}
+  \expandafter\endgroup\@tempa
 }
 %    \end{macrocode}
 % L\`a, comme pr\'ec\'edemment, on ne fait rien que rendre la d\'efinition globale.
@@ -181,7 +328,9 @@
 \gdef\@numberstringNarabic{\@@numberstringarabic{\def\fc@gender{N}}}
 \gdef\@numberstringFarabic{\@@numberstringarabic{\def\fc@gender{F}}}
 %    \end{macrocode}
-% D\'efinit les unit\'es pour les ordinaux en arabe pour le genre masculin.
+%On passe maintenant aux ordinaux.
+%
+%\noindent D\'efinit les unit\'es pour les ordinaux en arabe pour le genre masculin.
 % \ifxetex
 %    \begin{macrocode}
 \newcommand*{\@ord@unitstringarabic}[1]{%

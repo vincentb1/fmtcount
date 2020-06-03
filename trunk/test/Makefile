@@ -310,7 +310,7 @@ tests/docstrip_check: tests/.dir
 
 
 $(patsubst %,pdftests/%,$(STYFILES)):pdftests/%:tests/% pdftests/.dir
-	cp -u $< -T $@
+	cp -pf $< $@
 
 tests/.dir:
 	mkdir -p tests

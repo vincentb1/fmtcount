@@ -26,6 +26,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[french,english]{babel}
+\frenchsetup{og=«,fg=»}
 \fi
 \usepackage{cmap}
 \usepackage{siunitx}
@@ -60,9 +61,10 @@
 
 
 \ifxetex
-\CheckSum{10674}
+\CheckSum{10718}
 \else
-% \CheckSum{10553}
+\CheckSum{10311}
+\newcommand*\XeReplacement[1][1]{\textcolor{red}{\textbf{\multido{\i=0+1}{#1}{?}}}}
 \fi
 
 \doxitem{Option}{option}{options}

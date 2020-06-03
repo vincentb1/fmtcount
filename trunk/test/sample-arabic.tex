@@ -1,3 +1,4 @@
+% !TEX encoding = UTF-8
  % This file is public domain
 \documentclass{article}
 \usepackage{fontspec}% f
@@ -13,12 +14,43 @@
 \FCloadlang{arabic}
 \newcounter{cnt}
 
+\newcommand*\WriteNumberedWordM[2]{%
+\ifthenelse{\equal{#1}{1}}{#2\space\numberstringnum{#1}}
+{\ifthenelse{\equal{#1}{2}}{#2\space\numberstringnum{#1}}{\numberstringnum{#1}\space #2}}
+}
+\newcommand*\cs[1]{\texttt{\textbackslash #1}}
+
 \begin{document}
 \setcounter{cnt}{18}
 \tableofcontents
-%\section{\textbackslash FCordinal in a title: \FCordinal{cnt}}
-%\section{\textbackslash numberstring in a title: \numberstring{cnt}}
+%\section{\textfrench{\cs{FCordinal} au sein d'un titre~: }\FCordinal{cnt}}
+%\section{\textfrench{\cs{numberstring} au sein d'un titre~: }\numberstring{cnt}}
+\begin{french}
+\section{Note préliminaire et exemples}
 
+Comme pour la langue française, le numéral précède l'objet compté, sauf pour 1 et 2, où c'est l'inverse qui se passe, et
+ce pour les deux genres. On ne dit pas en arabe «un homme», mais «homme un», et de même «homme deux».  Pour notre
+dossier, j'ai donc pensé à la macro suivante, \cs{WriteNumberedWordM}, qui accomplit la bonne opération pour les
+numéraux masculins, et qui pourrait alors éventuellement être mise en place ensuite pour le genre féminin et donner une
+macro générale ensuite \ldots\ ci-après quelques exemples d'écriture, qui est celle adéquate en langue arabe.
+\end{french}
+
+
+\WriteNumberedWordM{1}{رجل}
+
+\WriteNumberedWordM{2}{رجلان}
+
+\WriteNumberedWordM{3}{رجال}
+
+\WriteNumberedWordM{10}{رجال}
+
+\WriteNumberedWordM{12}{رجل}
+
+\WriteNumberedWordM{23}{رجل}
+
+\begin{french}
+\section{Tableau de correspondance}
+\end{french}
 \begin{longtable}{lllll}
   &\textfrench{numéral masculin}&\textfrench{numéral féminin}&\textfrench{ordinal masculin}&\textfrench{ordinal féminin}\endfirsthead
   &\textfrench{numéral masculin}&\textfrench{numéral féminin}&\textfrench{ordinal masculin}&\textfrench{ordinal féminin}\endhead
