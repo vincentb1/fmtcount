@@ -7,42 +7,79 @@
 \RequirePackage{itnumpar}
 
 \newcommand{\@numberstringMitalian}[2]{%
-  \edef#2{\noexpand\printnumeroinparole{#1}}%
+  \begingroup
+    \def\np@oa{o}%
+    \count@=#1
+    \edef\@tempa{\def\noexpand#2{\@numeroinparole{\count@}}}%
+    \expandafter
+  \endgroup\@tempa
 }
 \global\let\@numberstringMitalian\@numberstringMitalian
 
 \newcommand{\@numberstringFitalian}[2]{%
-  \edef#2{\noexpand\printnumeroinparole{#1}}}
+  \begingroup
+    \def\np@oa{a}%
+    \count@=#1
+    \edef\@tempa{\def\noexpand#2{\@numeroinparole{\count@}}}%
+    \expandafter
+  \endgroup\@tempa
+}
 
 \global\let\@numberstringFitalian\@numberstringFitalian
 
 \newcommand{\@NumberstringMitalian}[2]{%
-  \edef#2{\noexpand\printNumeroinparole{#1}}%
+  \begingroup
+    \def\np@oa{o}%
+    \count@=#1
+    \edef\@tempa{\def\noexpand#2{\@Numeroinparole{\count@}}}%
+    \expandafter
+  \endgroup\@tempa
 }
 \global\let\@NumberstringMitalian\@NumberstringMitalian
 
 \newcommand{\@NumberstringFitalian}[2]{%
-  \edef#2{\noexpand\printNumeroinparole{#1}}%
+  \begingroup
+    \def\np@oa{a}%
+    \count@=#1
+    \edef\@tempa{\def\noexpand#2{\@Numeroinparole{\count@}}}%
+    \expandafter
+  \endgroup\@tempa
 }
 \global\let\@NumberstringFitalian\@NumberstringFitalian
 
 \newcommand{\@ordinalstringMitalian}[2]{%
-  \edef#2{\noexpand\printordinalem{#1}}%
+  \begingroup
+    \count@=#1
+    \edef\@tempa{\def\noexpand#2{\@ordinalem{\count@}}}%
+    \expandafter
+  \endgroup\@tempa
 }
 \global\let\@ordinalstringMitalian\@ordinalstringMitalian
 
 \newcommand{\@ordinalstringFitalian}[2]{%
-  \edef#2{\noexpand\printordinalef{#1}}%
+  \begingroup
+    \count@=#1
+    \edef\@tempa{\def\noexpand#2{\@ordinalef{\count@}}}%
+    \expandafter
+  \endgroup\@tempa
 }
 \global\let\@ordinalstringFitalian\@ordinalstringFitalian
 
 \newcommand{\@OrdinalstringMitalian}[2]{%
-  \edef#2{\noexpand\printOrdinalem{#1}}%
+  \begingroup
+    \count@=#1
+    \edef\@tempa{\def\noexpand#2{\@Ordinalem{\count@}}}%
+    \expandafter
+  \endgroup\@tempa
 }
 \global\let\@OrdinalstringMitalian\@OrdinalstringMitalian
 
 \newcommand{\@OrdinalstringFitalian}[2]{%
-  \edef#2{\noexpand\printOrdinalef{#1}}%
+  \begingroup
+    \count@=#1
+    \edef\@tempa{\def\noexpand#2{\@Ordinalef{\count@}}}%
+    \expandafter
+  \endgroup\@tempa
 }
 \global\let\@OrdinalstringFitalian\@OrdinalstringFitalian
 

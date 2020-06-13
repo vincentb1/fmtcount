@@ -70,12 +70,9 @@ TEX4HT_BUG200_PATCH:= !/\\renewcommand{\\thesection}{\\ordinal{section}}/
 
 $(foreach LANG,$(LANG_short),$(eval PRINTROW_$(LANG):=))
 
-# We have to set the following in order to remove occurrence of bug #13
-# (https://github.com/nlct/fmtcount/issues/13) and #14 (https://github.com/nlct/fmtcount/issues/14)
-PRINTROW_italian:=/^\\printrow/ { match($$0,/\{([0-9]+)\}/,a); n=strtonum(a[1]); if(n>9999) $$0="%- " $$0};\
-  $$0=="\\NUMBERstringnum{10}," { $$0 = "%- " $$0} ; \
-  $$0=="\\Ordinalstringnum{10}," { sub(/,/,".")} ;   \
-  $$0=="\\ORDINALstringnum{10}." { $$0 = "%- " $$0} ; 
+# We have to set the following in order to remove occurrence of bug #12
+# (https://github.com/nlct/fmtcount/issues/12)
+PRINTROW_italian:=/^\\printrow/ { match($$0,/\{([0-9]+)\}/,a); n=strtonum(a[1]); if(n>9999) $$0="%- " $$0}
 
 $(foreach LANG,$(LANG_short),$(eval CONTENTSNAME_$(LANG):=))
 
