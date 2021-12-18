@@ -540,7 +540,7 @@ z\'ero%
 \let\fc@gcase\fc@CaseIden
 \let\@seventies=\@@seventiesfrenchswiss
 \let\@eighties=\@@eightiesfrench
-\let\@nineties=\@@ninetiesfrench
+\let\@nineties=\@@ninetiesfrenchswiss
 \let\fc@nbrstr@preamble\@empty
 \let\fc@nbrstr@postamble\@empty
 \@@numberstringfrench{#1}{#2}}
@@ -571,7 +571,7 @@ z\'ero%
 \let\fc@gcase\fc@CaseIden
 \let\@seventies=\@@seventiesfrenchswiss
 \let\@eighties=\@@eightiesfrench
-\let\@nineties=\@@ninetiesfrench
+\let\@nineties=\@@ninetiesfrenchswiss
 \let\fc@nbrstr@preamble\fc@@nbrstr@Fpreamble
 \let\fc@nbrstr@postamble\@empty
 \@@numberstringfrench{#1}{#2}}
@@ -603,7 +603,7 @@ z\'ero%
 \let\fc@gcase\fc@UpperCaseFirstLetter
 \let\@seventies=\@@seventiesfrenchswiss
 \let\@eighties=\@@eightiesfrench
-\let\@nineties=\@@ninetiesfrench
+\let\@nineties=\@@ninetiesfrenchswiss
 \let\fc@nbrstr@preamble\@empty
 \let\fc@nbrstr@postamble\fc@apply@gcase
 \@@numberstringfrench{#1}{#2}}
@@ -634,7 +634,7 @@ z\'ero%
 \let\fc@gcase\fc@UpperCaseFirstLetter
 \let\@seventies=\@@seventiesfrenchswiss
 \let\@eighties=\@@eightiesfrench
-\let\@nineties=\@@ninetiesfrench
+\let\@nineties=\@@ninetiesfrenchswiss
 \let\fc@nbrstr@preamble\fc@@nbrstr@Fpreamble
 \let\fc@nbrstr@postamble\fc@apply@gcase
 \@@numberstringfrench{#1}{#2}}
@@ -672,9 +672,9 @@ z\'ero%
 \fc@french@common
 \let\fc@gcase\fc@CaseIden
 \let\fc@first=\fc@@firstfrench
-\let\@seventies=\@@seventiesfrench
+\let\@seventies=\@@seventiesfrenchswiss
 \let\@eighties=\@@eightiesfrench
-\let\@nineties=\@@ninetiesfrench
+\let\@nineties=\@@ninetiesfrenchswiss
 \@@ordinalstringfrench{#1}{#2}%
 }%
 \global\let\@ordinalstringMfrenchbelgian\@ordinalstringMfrenchbelgian
@@ -703,9 +703,9 @@ z\'ero%
 \fc@french@common
 \let\fc@gcase\fc@CaseIden
 \let\fc@first=\fc@@firstFfrench
-\let\@seventies=\@@seventiesfrench
+\let\@seventies=\@@seventiesfrenchswiss
 \let\@eighties=\@@eightiesfrench
-\let\@nineties=\@@ninetiesfrench
+\let\@nineties=\@@ninetiesfrenchswiss
 \@@ordinalstringfrench{#1}{#2}%
 }%
 \global\let\@ordinalstringFfrenchbelgian\@ordinalstringFfrenchbelgian
@@ -735,9 +735,9 @@ z\'ero%
 \fc@french@common
 \let\fc@gcase\fc@UpperCaseFirstLetter
 \let\fc@first\fc@@firstfrench
-\let\@seventies=\@@seventiesfrench
+\let\@seventies=\@@seventiesfrenchswiss
 \let\@eighties=\@@eightiesfrench
-\let\@nineties=\@@ninetiesfrench
+\let\@nineties=\@@ninetiesfrenchswiss
 \@@ordinalstringfrench{#1}{#2}%
 }%
 \global\let\@OrdinalstringMfrenchbelgian\@OrdinalstringMfrenchbelgian
@@ -766,9 +766,9 @@ z\'ero%
 \fc@french@common
 \let\fc@gcase\fc@UpperCaseFirstLetter
 \let\fc@first\fc@@firstFfrench
-\let\@seventies=\@@seventiesfrench
+\let\@seventies=\@@seventiesfrenchswiss
 \let\@eighties=\@@eightiesfrench
-\let\@nineties=\@@ninetiesfrench
+\let\@nineties=\@@ninetiesfrenchswiss
 \@@ordinalstringfrench{#1}{#2}%
 }%
 \global\let\@OrdinalstringFfrenchbelgian\@OrdinalstringFfrenchbelgian
