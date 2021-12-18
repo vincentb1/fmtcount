@@ -644,11 +644,11 @@ L'option générale \texttt{abbrv} permet de changer l'effet de
 Les options \texttt{vingt plural}, \texttt{cent plural}, \texttt{mil plural}, \texttt{n-illion plural} et
 \texttt{n-illiard plural} permettent de contrôler très finement l'accord en nombre des mots respectivement
 vingt, cent, mil, et des mots de la forme \meta{\(n\)}illion et \meta{\(n\)}illiard, où \meta{\(n\)} désigne
-`m' pour 1, `b' pour 2, 'tr' pour 3, etc. L'option \texttt{all plural} est un raccourci permettant de
+`m' pour 1, `b' pour 2, `tr' pour 3, etc. L'option \texttt{all plural} est un raccourci permettant de
 contrôler de concert l'accord en nombre de tous ces mots. Tous ces paramètres valent \texttt{reformed} par
 défaut.
 
-Attention, comme on va l'expliquer, seules quelques combinaisons de configurations de ces options donnent une
+Attention, comme on va l'expliquer, seules quelques combinaisons de valeurs de ces options donnent une
 orthographe correcte vis à vis des règles en vigueur. La raison d'être de ces options est la suivante~:
 \begin{itemize}
 \item la règle de l'accord en nombre des noms de nombres dans un numéral cardinal demande qu'on sache s'il a
@@ -660,7 +660,7 @@ orthographe correcte vis à vis des règles en vigueur. La raison d'être de ces
   aujourd'hui \og mille\fg\ n'est utilisé que comme un mot invariable, en effet le sort des pluriels étrangers
   est systématiquement de finir par disparaître comme par exemple \og scénarii\fg\ aujourd'hui supplanté par
   \og scénarios\fg. Pour continuer à pouvoir écrire \og mil\fg, il aurait fallu former le pluriel comme \og
-  mils\fg, ce qui n'est pas l'usage.  Certaines personnes utilisent toutefois encore \og mil\fg\ dans les
+  mils\fg, ce qui n'est pas l'usage. Certaines personnes utilisent toutefois encore \og mil\fg\ dans les
   dates, par exemple \og mil neuf-cent quatre-vingt quatre\fg\ au lieu de \og mille neuf-cent quatre-vingt
   quatre\fg,
 \item finalement les règles du français quoique bien définies ne sont pas très cohérentes et il est donc
@@ -679,8 +679,7 @@ Le paramètre \meta{french plural control} peut prendre les valeurs suivantes:\n
   modernes, mais à dire vrai à la date où ce document est écrit elles ont exactement
   le même effet,\\
   \pkgopt{traditional o}& pareil que \texttt{traditional} mais dans le cas des numéraux cardinaux,
-  lorsqu'ils
-  ont une valeur ordinale,\\
+  lorsqu'ils ont une valeur ordinale,\\
   \pkgopt{reformed o}& pareil que \texttt{reformed} mais dans le cas des numéraux cardinaux, lorsqu'ils ont
   une valeur ordinale, de même que précédemment \texttt{reformed o} et \texttt{traditional o} ont
   exactement le même effet,\\
@@ -756,11 +755,11 @@ et encore sauf quand le nombre \(n\) considéré est tel que \(n\mod10=1\), dans
 sans trait d'union. Après la réforme de 1990, on recommande de mettre des traits d'union partout sauf
 autour de ``mille'', ``million'' et ``milliard'', et les mots analogues comme ``billion'',
 ``billiard''. Cette exception a toutefois été contestée par de nombreux auteurs, et on peut aussi mettre des
-traits d'union de partout.  Mettre l'option \meta{dash or space} à:\newline
+traits d'union de partout. Mettre l'option \meta{dash or space} à~:\newline
 \begin{tabularx}{\linewidth}{lX}
   \pkgopt{traditional}&  pour sélectionner la règle d'avant la réforme de 1990,\\
-  \pkgopt{1990}&  pour suivre  la recommandation de la réforme de 1990, \\
-  \pkgopt{reformed}&  pour suivre  la recommandation de la dernière
+  \pkgopt{1990}&  pour suivre la recommandation de la réforme de 1990, \\
+  \pkgopt{reformed}&  pour suivre la recommandation de la dernière
   réforme pise en charge, actuellement l'effet est le même que \textrm{1990}, ou à\\
   \pkgopt{always}&  pour mettre systématiquement des traits d'union partout.\\
 \end{tabularx}
@@ -781,8 +780,7 @@ nombres. Mettre \meta{scale} à:\newline
   \meta{\(n\)} est remplacé par ``bi'' pour 2, ``tri'' pour 3, etc. et
   \(10^{6\times n+3}\) donne un \meta{\(n\)}illiard avec la même
   convention pour \meta{\(n\)}. L'option \texttt{long} est correcte en
-  Europe, par contre j'ignore l'usage au
-  Québec.\\
+  Europe, par contre j'ignore l'usage au Québec.\\
   \pkgopt{short}&  \(10^{6\times n}\) donne un \meta{\(n\)}illion où
   \meta{\(n\)} est remplacé par ``bi'' pour 2, ``tri'' pour 3,
   etc. L'option \texttt{short} est incorrecte en Europe.
@@ -834,8 +832,7 @@ blini/blinis\fg, alors que \og blini\fg\ veut déjà dire \og crêpes\fg\ (au pl
 
 You can save your preferred default settings to a file called
 \texttt{fmtcount.cfg}, and place it on the \TeX\ path.  These
-settings will then be loaded by the \sty{fmtcount}
-package.
+settings will then be loaded by the \sty{fmtcount} package.
 
 Note that if you are using the \sty{datetime} package,
 the \texttt{datetime.cfg} configuration file will override
