@@ -593,18 +593,19 @@ Pour alléger la notation et par souci de rétro-compatibilité
 L'effet de l'option \texttt{dialect} est illustré ainsi:\newline
 \begin{tabularx}{\linewidth}{@{}lX@{}}
   \pkgopt{france}& soixante-dix pour 70, quatre-vingts pour 80, et
-  quatre-vingts-dix pour 90,\\
+  quatre-vingt-dix pour 90,\\
   \pkgopt{belgian} & septante pour 70, quatre-vingts pour 80, et
   nonante pour 90, \\
-  \pkgopt{swiss} &septante pour 70, huitante\footnote{voir
+  \pkgopt{swiss} &septante pour 70, huitante\footnote{Voir
     \href{http://www.alain.be/Boece/huitante_octante.html}{Octante et
-      huitante} sur le site d'Alain Lassine} pour 80, et
-  nonante pour 90
+      huitante} sur le site d'Alain Lassine
+      (\href{https://web.archive.org/web/20180103050230/http://www.alain.be/Boece/septante.html}{archive ici}).}
+  pour 80, et nonante pour 90.
 \end{tabularx}
 Il est à noter que la variante \texttt{belgian} est parfaitement
-correcte pour les francophones français\footnote{je précise que
-  l'auteur de ces lignes est français}, et qu'elle est également
-utilisée en Suisse Romande hormis dans les cantons de Vaud, du Valais
+correcte pour les francophones français\footnote{Je précise que
+  l'auteur de ces lignes est français.}, et qu'elle est également
+utilisée en Suisse romande hormis dans les cantons de Vaud, du Valais
 et de Fribourg. En ce qui concerne le mot ``octante'', il n'est
 actuellement pas pris en charge et n'est guère plus utilisé, ce qui
 est sans doute dommage car il est sans doute plus acceptable que le
@@ -640,17 +641,17 @@ L'option générale \texttt{abbrv} permet de changer l'effet de
 \begin{definition}[\DescribeOption{all plural}]
 \cs{fmtcountsetoptions}\verb"{french={all plural="\meta{french plural control}\verb'}}'
 \end{definition}
-Les options \texttt{vingt plural}, \texttt{cent plural}, \texttt{mil plural}, \texttt{n-illion plural}, et
-\texttt{n-illiard plural}, permettent de contrôler très finement l'accord en nombre des mots respectivement
+Les options \texttt{vingt plural}, \texttt{cent plural}, \texttt{mil plural}, \texttt{n-illion plural} et
+\texttt{n-illiard plural} permettent de contrôler très finement l'accord en nombre des mots respectivement
 vingt, cent, mil, et des mots de la forme \meta{\(n\)}illion et \meta{\(n\)}illiard, où \meta{\(n\)} désigne
-`m' pour 1, `b' pour 2, 'tr' pour 3, etc. L'option \texttt{all plural} est un raccourci permettant de
+`m' pour 1, `b' pour 2, `tr' pour 3, etc. L'option \texttt{all plural} est un raccourci permettant de
 contrôler de concert l'accord en nombre de tous ces mots. Tous ces paramètres valent \texttt{reformed} par
 défaut.
 
-Attention, comme on va l'expliquer, seules quelques combinaisons de configurations de ces options donnent un
+Attention, comme on va l'expliquer, seules quelques combinaisons de valeurs de ces options donnent une
 orthographe correcte vis à vis des règles en vigueur. La raison d'être de ces options est la suivante~:
 \begin{itemize}
-\item la règle de l'accord en nombre des noms de nombre dans un numéral cardinal dépend de savoir s'il a
+\item la règle de l'accord en nombre des noms de nombres dans un numéral cardinal demande qu'on sache s'il a
   vraiment une valeur cardinale ou bien une valeur ordinale, ainsi on écrit \og aller à la page deux-cent
   (sans s) d'un livre de deux-cents (avec s) pages\fg, il faut donc pouvoir changer la configuration pour
   sélectionner le cas considéré,
@@ -659,11 +660,11 @@ orthographe correcte vis à vis des règles en vigueur. La raison d'être de ces
   aujourd'hui \og mille\fg\ n'est utilisé que comme un mot invariable, en effet le sort des pluriels étrangers
   est systématiquement de finir par disparaître comme par exemple \og scénarii\fg\ aujourd'hui supplanté par
   \og scénarios\fg. Pour continuer à pouvoir écrire \og mil\fg, il aurait fallu former le pluriel comme \og
-  mils\fg, ce qui n'est pas l'usage.  Certaines personnes utilisent toutefois encore \og mil\fg\ dans les
-  dates, par exemple \og mil neuf cent quatre-vingt quatre\fg\ au lieu de \og mille neuf cent quatre-vingt
+  mils\fg, ce qui n'est pas l'usage. Certaines personnes utilisent toutefois encore \og mil\fg\ dans les
+  dates, par exemple \og mil neuf-cent quatre-vingt quatre\fg\ au lieu de \og mille neuf-cent quatre-vingt
   quatre\fg,
 \item finalement les règles du français quoique bien définies ne sont pas très cohérentes et il est donc
-  inévitable qu'un jour ou l'autre on on les simplifie. Le paquetage \styfmt{fmtcount} est déjà prêt à cette
+  inévitable qu'un jour ou l'autre on les simplifie. Le paquetage \styfmt{fmtcount} est déjà prêt à cette
   éventualité.
 \end{itemize}
 
@@ -672,14 +673,13 @@ Le paramètre \meta{french plural control} peut prendre les valeurs suivantes:\n
 \begin{supertabular}{@{}p{\tabcolwidth}p{\dimexpr\linewidth-\tabcolwidth-2\tabcolsep}@{}}
   \pkgopt{traditional}& pour sélectionner la règle en usage chez les adultes à la date de parution de ce
   document, et dans le cas des numéraux cardinaux, lorsqu'ils ont une valeur cardinale,\\
-  \pkgopt{reformed}& pour suivre toute nouvelle recommandation à la date de parution de ce document, , et
+  \pkgopt{reformed}& pour suivre toute nouvelle recommandation à la date de parution de ce document et,
   dans le cas des numéraux cardinaux, lorsqu'ils ont une valeur cardinale, l'idée des options
   \texttt{traditional} et \texttt{reformed} est donc de pouvoir contenter à la fois les anciens et les
   modernes, mais à dire vrai à la date où ce document est écrit elles ont exactement
   le même effet,\\
   \pkgopt{traditional o}& pareil que \texttt{traditional} mais dans le cas des numéraux cardinaux,
-  lorsqu'ils
-  ont une valeur ordinale,\\
+  lorsqu'ils ont une valeur ordinale,\\
   \pkgopt{reformed o}& pareil que \texttt{reformed} mais dans le cas des numéraux cardinaux, lorsqu'ils ont
   une valeur ordinale, de même que précédemment \texttt{reformed o} et \texttt{traditional o} ont
   exactement le même effet,\\
@@ -692,8 +692,7 @@ Le paramètre \meta{french plural control} peut prendre les valeurs suivantes:\n
   nombre a une valeur cardinale,\\
   \pkgopt{multiple g-last}& pour marquer le pluriel lorsque le nombre considéré est multiplié par au moins 2
   est est \emph{\textbf{g}lobalement} en dernière position, où ``globalement'' signifie qu'on considère le
-  nombre formaté en entier, ceci est incorrect vis à vis des règles d'orthographe
-  en vigueur,\\
+  nombre formaté en entier, ceci est incorrect vis à vis des règles d'orthographe en vigueur,\\
   \pkgopt{multiple l-last}& pour marquer le pluriel lorsque le nombre considéré est multiplié par au moins 2
   et est \emph{\textbf{l}ocalement} en dernière position, où ``localement'' siginifie qu'on considère
   seulement la portion du nombre qui multiplie soit l'unité, soit un \meta{\(n\)}illion ou un
@@ -710,8 +709,7 @@ Le paramètre \meta{french plural control} peut prendre les valeurs suivantes:\n
   vigueur pour les nombres de la forme \meta{\(n\)}illion et \meta{\(n\)}illiard lorsque le nombre a une
   valeur ordinale, mais à dire vrai pour des nombres aussi grands, par exemple \og deux millions\fg, je
   pense qu'il n'est tout simplement pas d'usage de dire \og l'exemplaire deux million(s?)\fg\ pour \og le
-  deux millionième
-  exemplaire\fg.\\
+  deux millionième exemplaire\fg.\\
 \end{supertabular}
 
 L'effet des paramètres \texttt{traditional}, \texttt{traditional o}, \texttt{reformed}, et \texttt{reformed
@@ -754,16 +752,16 @@ Les configurations qui respectent les règles d'orthographe sont les suivantes~:
 \end{definition}
 Avant la réforme de l'orthographe de 1990, on ne met des traits d'union qu'entre les dizaines et les unités,
 et encore sauf quand le nombre \(n\) considéré est tel que \(n\mod10=1\), dans ce cas on écrit ``et un''
-sans trait d'union. Après la réforme de 1990, on recommande de mettre des traits d'union de partout sauf
+sans trait d'union. Après la réforme de 1990, on recommande de mettre des traits d'union partout sauf
 autour de ``mille'', ``million'' et ``milliard'', et les mots analogues comme ``billion'',
 ``billiard''. Cette exception a toutefois été contestée par de nombreux auteurs, et on peut aussi mettre des
-traits d'union de partout.  Mettre l'option \meta{dash or space} à:\newline
+traits d'union de partout. Mettre l'option \meta{dash or space} à~:\newline
 \begin{tabularx}{\linewidth}{lX}
   \pkgopt{traditional}&  pour sélectionner la règle d'avant la réforme de 1990,\\
-  \pkgopt{1990}&  pour suivre  la recommandation de la réforme de 1990, \\
-  \pkgopt{reformed}&  pour suivre  la recommandation de la dernière
+  \pkgopt{1990}&  pour suivre la recommandation de la réforme de 1990, \\
+  \pkgopt{reformed}&  pour suivre la recommandation de la dernière
   réforme pise en charge, actuellement l'effet est le même que \textrm{1990}, ou à\\
-  \pkgopt{always}&  pour mettre systématiquement des traits d'union de partout.\\
+  \pkgopt{always}&  pour mettre systématiquement des traits d'union partout.\\
 \end{tabularx}
 Par défaut, l'option vaut \texttt{reformed}.
 
@@ -782,8 +780,7 @@ nombres. Mettre \meta{scale} à:\newline
   \meta{\(n\)} est remplacé par ``bi'' pour 2, ``tri'' pour 3, etc. et
   \(10^{6\times n+3}\) donne un \meta{\(n\)}illiard avec la même
   convention pour \meta{\(n\)}. L'option \texttt{long} est correcte en
-  Europe, par contre j'ignore l'usage au
-  Québec.\\
+  Europe, par contre j'ignore l'usage au Québec.\\
   \pkgopt{short}&  \(10^{6\times n}\) donne un \meta{\(n\)}illion où
   \meta{\(n\)} est remplacé par ``bi'' pour 2, ``tri'' pour 3,
   etc. L'option \texttt{short} est incorrecte en Europe.
@@ -814,7 +811,7 @@ mil\fg\ pour former le pluriel, c'est à dire \og mille\fg, cette option ne sert
 l'éventualité où ce pluriel serait francisé un jour --- à dire vrai si cela se produisait une alternance
 mille/milles est plus vraisemblable, car \og mille\fg\ est plus fréquent que \og mil\fg\ et que les
 pluriels francisés sont formés en ajoutant \og s\fg\ à la forme la plus fréquente, par exemple \og
-blini/blinis\fg, alors que \og blini\fg\ veut dire \og crêpes\fg\ (au pluriel).
+blini/blinis\fg, alors que \og blini\fg\ veut déjà dire \og crêpes\fg\ (au pluriel).
 
 
 \selectlanguage{english}
@@ -835,8 +832,7 @@ blini/blinis\fg, alors que \og blini\fg\ veut dire \og crêpes\fg\ (au pluriel).
 
 You can save your preferred default settings to a file called
 \texttt{fmtcount.cfg}, and place it on the \TeX\ path.  These
-settings will then be loaded by the \sty{fmtcount}
-package.
+settings will then be loaded by the \sty{fmtcount} package.
 
 Note that if you are using the \sty{datetime} package,
 the \texttt{datetime.cfg} configuration file will override
