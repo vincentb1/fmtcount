@@ -62,11 +62,11 @@ If you like, you can volunteer to write and maintain a language file for `fmtcou
 
 If the currently selected language is French, you can select the Swiss or Belgium variants using:
 
-```
+```latex
 \fmtcountsetoptions{french=swiss}
 ```
 or
-```
+```latex
 \fmtcountsetoptions{french=belgian}
 ```
 
@@ -78,7 +78,7 @@ or
 ### How do I get the feminine form instead of the masculine?
 
 Use the optional argument `f` to `\ordinal`, etc:
-```
+```latex
 \ordinal{<counter>}[f]
 ```
 There is also `n` for neutral.
@@ -100,7 +100,7 @@ Create a file called `fmtcount.cfg`, and put the appropriate commands in it. The
 ### How do I get the ordinal suffix to be level instead of a superscript?
 
 Use:
-```
+```latex
 \fmtcountsetoptions{fmtord=level}
 ```
 
@@ -113,11 +113,10 @@ Use:
 
 Try using Heiko Oberdiek's [refcount](https://ctan.org/pkg/recount) package which provides commands that will set a counter to the number given by a label. You can then pass that counter to `\numberstring`, etc. For example:
 
-```
+```latex
 \documentclass{article}
-
-\usepackage{fmtcount}
-\usepackage{refcount}
+  \usepackage{fmtcount}
+  \usepackage{refcount}
 
 \begin{document}
 \newcounter{myctr}\setcounterpageref{myctr}{pg:last}
