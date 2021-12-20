@@ -1,8 +1,13 @@
 # fmtcount package FAQ
 
-This is the old FAQ for the fmtcount package, copied from
+This is the old FAQ for the [fmtcount](https://ctan.org/pkg/fmtcount) package, copied from
 [https://www.dickimaw-books.com/faq.php](https://www.dickimaw-books.com/faq.php?action=view&category=fmtcount).
-See also the [package documentation](http://mirrors.ctan.org/macros/latex/contrib/fmtcount/fmtcount.pdf) and the [GitHub repository](https://github.com/vincentb1/fmtcoun). Note that `fmtcount` is now under a new maintainer, so information in this FAQ only refers to queries and issues with old versions.
+See also the [package documentation](http://mirrors.ctan.org/macros/latex/contrib/fmtcount/fmtcount.pdf)
+and the [GitHub repository](https://github.com/vincentb1/fmtcoun).
+
+**Note:** `fmtcount` is now maintained by [Vincent Belaïche](https://github.com/vincentb1/).
+Most of the information in this FAQ only refers to queries and issues with old versions (before 2015).
+
 
 [General Queries](#fmtgeneralqueries)
 - [Is there multilingual support?](#fmtlang)
@@ -14,17 +19,17 @@ See also the [package documentation](http://mirrors.ctan.org/macros/latex/contri
 - [How do I use the value of a label in `\numberstring`, `\ordinalstring`, etc?](#ftmrefcount)
 
 [Package Errors](#fmterrors)
-- The `fmtcount` package conflicts with the `memoir` class](#fmtmemoir)
-- Unknown language 'english' error](#fmtenglishundef)
-- Command `\@ordinalMenglish` already defined](#fmtordinalengdef)
+- [The `fmtcount` package conflicts with the `memoir` class](#fmtmemoir)
+- [Unknown language 'english' error](#fmtenglishundef)
+- [Command `\@ordinalMenglish` already defined](#fmtordinalengdef)
 
 [Unexpected Output](#fmtunexpectedoutput)
-- `\padzeroes` is a digit short with `\decimal`](#padzeroes)
-- `\MakeUppercase` doesn't work with `\ordinalstring`, etc](#fmtuppercase)
-- Spaces are ignored after `\numberstring`, `\ordinalstring`, etc](#fmtnospaces)
+- [`\padzeroes` is a digit short with `\decimal`](#padzeroes)
+- [`\MakeUppercase` doesn't work with `\ordinalstring`, etc](#fmtuppercase)
+- [Spaces are ignored after `\numberstring`, `\ordinalstring`, etc](#fmtnospaces)
 
 [LaTeX2HTML Support](#fmtl2h)
-- Why does LaTeX2HTML ignore `fmtcount.cfg`?](#fmtl2hnocfg)
+- [Why does LaTeX2HTML ignore `fmtcount.cfg`?](#fmtl2hnocfg)
 
 
 
