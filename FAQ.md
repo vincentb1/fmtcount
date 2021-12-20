@@ -41,9 +41,16 @@ Most of the information in this FAQ only refers to queries and issues with old v
 
 ### Is there multilingual support?
 
-Currently there is multilingual support for English, French, Spanish, Portuguese and German.
+Currently there is multilingual support for:
+- English (from UK and USA),
+- French (from France, Belgium and Switzerland),
+- Spanish,
+- Portuguese (from Portugal and Brazil),
+- German,
+- Italian,
+- Arabic.
 
-[2013-12-09 09:29:13]
+[2021-12-20 20:45:13]
 
 
 <a name="fmtwhylimitedlang" />
@@ -60,7 +67,7 @@ If you like, you can volunteer to write and maintain a language file for `fmtcou
 
 ### How do I get 'septante' instead of 'soixante-dix'?
 
-If the currently selected language is French, you can select the Swiss or Belgium variants using:
+If the currently selected language is French, you can select the variants from Switzerland or Belgium, using:
 
 ```latex
 \fmtcountsetoptions{french=swiss}
