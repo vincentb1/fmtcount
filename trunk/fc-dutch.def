@@ -1,7 +1,7 @@
 % \subsubsection{fc-dutch.def}
-% Dutch definitions
+% Dutch definitions, initially added by Erik Nijenhuis.
 %    \begin{macrocode}
-\ProvidesFCLanguage{dutch}[2022/06/19]
+\ProvidesFCLanguage{dutch}[2024/01/18]
 %    \end{macrocode}
 % Define macro that converts a number or count register (first
 % argument) to an ordinal, and stores the result in the
@@ -10,8 +10,8 @@
 \newcommand{\@ordinalMdutch}[2]{\edef#2{\number#1\relax.}}
 \global\let\@ordinalMdutch\@ordinalMdutch
 %    \end{macrocode}
-% There is no gender difference in Dutch, so make feminine and
-% neuter the same as the masculine.
+% Like English, there is no gender difference in Dutch,
+% so make feminine and neuter the same as the masculine.
 %    \begin{macrocode}
 \global\let\@ordinalFdutch\@ordinalMdutch
 \global\let\@ordinalNdutch\@ordinalMdutch
@@ -28,7 +28,7 @@
     \or twee%
     \or drie%
     \or vier%
-    \or vijf%
+    \or v\ij{}%
     \or zes%
     \or zeven%
     \or acht%
@@ -47,7 +47,7 @@
     \or twintig%
     \or dertig%
     \or veertig%
-    \or vijftig%
+    \or v\ij{}tig%
     \or zestig%
     \or zeventig%
     \or tachtig%
@@ -67,7 +67,7 @@
     \or twaalf%
     \or dertien%
     \or veertien%
-    \or vijftien%
+    \or v\ij{}tien%
     \or zestien%
     \or zeventien%
     \or achttien%
@@ -85,7 +85,7 @@
     \or Twee%
     \or Drie%
     \or Vier%
-    \or Vijf%
+    \or v\ij{}%
     \or Zes%
     \or Zeven%
     \or Acht%
@@ -102,7 +102,7 @@
     \or Twintig%
     \or Dertig%
     \or Veertig%
-    \or Vijftig%
+    \or v\ij{}tig%
     \or Zestig%
     \or Zeventig%
     \or Tachtig%
@@ -121,7 +121,7 @@
     \or Twaalf%
     \or Dertien%
     \or Veertien%
-    \or Vijftien%
+    \or V\ij{}ftien%
     \or Zestien%
     \or Zeventien%
     \or Achttien%
@@ -129,13 +129,16 @@
     \fi
 }%
 \global\let\@@Teenstringdutch\@@Teenstringdutch
-%   \end{macrocode}
-%
-%   \begin{macrocode}
+%    \end{macrocode}
+% Hunderd and thousand:
+%    \begin{macrocode}
 \providecommand*{\honderd}{honderd}%
 \providecommand*{\duizend}{duizend}%
 \global\let\honderd\honderd%
 \global\let\duizend\duizend%
+%    \end{macrocode}
+% The numberstring implementation:
+%    \begin{macrocode}
 \newcommand*\@@numberstringdutch[2]{%
     \ifnum#1>99999\relax
     \PackageError{fmtcount}{Out of range}%
@@ -233,7 +236,7 @@
     \or tweede%
     \or derde%
     \or vierde%
-    \or vijfde%
+    \or v\ij{}de%
     \or zesde%
     \or zevende%
     \or achtste%
@@ -250,7 +253,7 @@
     \or twintigste%
     \or dertigste%
     \or veertigste%
-    \or vijftigste%
+    \or v\ij{}tigste%
     \or zestigste%
     \or zeventigste%
     \or tachtigste%
@@ -268,7 +271,7 @@
     \or twaalfde%
     \or dertiende%
     \or veertiende%
-    \or vijftiende%
+    \or v\ij{}tiende%
     \or zestiende%
     \or zeventiende%
     \or achttiende%
@@ -276,6 +279,9 @@
     \fi
 }%
 \global\let\@@teenthstringdutch\@@teenthstringdutch
+%    \end{macrocode}
+% The ordinalstring implementation:
+%    \begin{macrocode}
 \newcommand*\@@ordinalstringdutch[2]{%
     \@orgargctr=#1\relax
     \ifnum\@orgargctr>99999\relax
@@ -383,6 +389,7 @@
 \global\let\@OrdinalstringFdutch=\@OrdinalstringMdutch
 \global\let\@OrdinalstringNdutch=\@OrdinalstringMdutch
 %    \end{macrocode}
+% For numbers under hunderd:
 %    \begin{macrocode}
 \newcommand*{\@@numberunderhundreddutch}[2]{%
     \ifnum#1<10\relax
@@ -426,7 +433,7 @@
     \fi
 }%
 \global\let\@@numberunderhundredthdutch\@@numberunderhundredthdutch
-%   \end{macrocode}
+%    \end{macrocode}
 \iffalse Local variables: \fi
 \iffalse mode: docTeX     \fi
 \iffalse End:             \fi

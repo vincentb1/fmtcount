@@ -10,6 +10,7 @@ LANG_short:=UKenglish\
 	 USenglish\
 	 american\
 	 british\
+	 dutch\
 	 english\
 	 francais\
 	 french\
@@ -21,22 +22,23 @@ LANG_short:=UKenglish\
 	 italian\
 	 spanish
 
-LANG_shortenc:=	 english\
+LANG_shortenc:=	 dutch\
+	 english\
 	 french\
 	 german\
 	 brazilian\
 	 spanish
 
-LANG_shortgo:=english french italian
+LANG_shortgo:=dutch english french italian
 
 # note: french cannot be tested with babel + tex4ht engine due to tex4ht problem with babel thin space used in
 # french before :;!?, see https://puszcza.gnu.org.ua/bugs/?213.
-LANG_shortbab:=english german portuges
+LANG_shortbab:=dutch english german portuges
 
 # Cross referencing tests (for these tests we used global option language loading)
 # The lc+ ucf+ uc+ are needed because on MSWindows filenames are case insenstive
 # lc = lower case, ucf = upper case first, uc = upper case
-LANG_crossref:=french german
+LANG_crossref:=dutch french german
 CROSSREF:=lc+numberstring ucf+Numberstring uc+NUMBERstring\
 	lc+ordinalstring ucf+Ordinalstring uc+ORDINALstring\
 	lc+ordinal
