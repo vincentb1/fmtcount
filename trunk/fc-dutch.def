@@ -1,0 +1,424 @@
+%% fc-dutch.def
+%% Copyright 2024 E. Nijenhuis
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3c
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+% http://www.latex-project.org/lppl.txt
+% and version 1.3c or later is part of all distributions of LaTeX
+% version 2005/12/01 or later.
+%
+% This work has the LPPL maintenance status ‘maintained’.
+%
+% The Current Maintainer of this work is E. Nijenhuis.
+%
+% This work consists of the files regulatory.tex,
+% regulatory-preamble.tex, regulatory-nl.tex, regulatory-en.tex,
+% example1.bib, example2.bib,
+% example1-nl.tex, example2-nl.tex,
+% example1-en.tex, example2-en.tex,
+% md-example.tex, example.md,
+% fc-dutch.def and regulatory.sty
+\ProvidesFCLanguage{dutch}[2022/06/19]
+
+\newcommand{\@ordinalMdutch}[2]{\edef#2{\number#1\relax.}}
+\global\let\@ordinalMdutch\@ordinalMdutch
+\newcommand{\@ordinalFdutch}[2]{\edef#2{\number#1\relax.}}
+\global\let\@ordinalFdutch\@ordinalFdutch
+\newcommand{\@ordinalNdutch}[2]{\edef#2{\number#1\relax.}}
+\global\let\@ordinalNdutch\@ordinalNdutch
+
+\newcommand*\@@unitstringdutch[1]{%
+    \ifcase#1%
+    nul%
+    \or één%
+    \or twee%
+    \or drie%
+    \or vier%
+    \or vijf%
+    \or zes%
+    \or zeven%
+    \or acht%
+    \or negen%
+    \fi
+}%
+\global\let\@@unitstringdutch\@@unitstringdutch
+
+\global\let\@@unitstringdutch\@@unitstringdutch
+\newcommand*\@@tenstringdutch[1]{%
+  \ifcase#1%
+    \or tien%
+    \or twintig%
+    \or dertig%
+    \or veertig%
+    \or vijftig%
+    \or zestig%
+    \or zeventig%
+    \or tachtig%
+    \or negentig%
+    \or honderd%
+  \fi
+}%
+\global\let\@@tenstringdutch\@@tenstringdutch
+
+\providecommand*{\honderd}{honderd}%
+\providecommand*{\duizend}{duizend}%
+\global\let\honderd\honderd
+\global\let\duizend\duizend
+
+\newcommand*\@@teenstringdutch[1]{%
+  \ifcase#1%
+    tien%
+    \or elf%
+    \or twaalf%
+    \or dertien%
+    \or veertien%
+    \or vijftien%
+    \or zestien%
+    \or zeventien%
+    \or achttien%
+    \or negentien%
+  \fi
+}%
+\global\let\@@teenstringdutch\@@teenstringdutch
+
+\newcommand*{\@numberstringMdutch}[2]{%
+    \let\@unitstring=\@@unitstringdutch
+    \let\@teenstring=\@@teenstringdutch
+    \let\@tenstring=\@@tenstringdutch
+    \@@numberstringdutch{#1}{#2}%
+}
+\global\let\@numberstringMdutch\@numberstringMdutch
+\global\let\@numberstringFdutch=\@numberstringMdutch
+\global\let\@numberstringNdutch=\@numberstringMdutch
+
+\newcommand*{\@NumberstringMdutch}[2]{%
+\@numberstringMdutch{#1}{\@@num@str}%
+\edef#2{\noexpand\MakeUppercase\expandonce\@@num@str}}
+\global\let\@NumberstringMdutch\@NumberstringMdutch
+\global\let\@NumberstringFdutch=\@NumberstringMdutch
+\global\let\@NumberstringNdutch=\@NumberstringMdutch
+
+\newcommand*{\@ordinalstringMdutch}[2]{%
+  \let\@unitthstring=\@@unitthstringMdutch
+  \let\@teenthstring=\@@teenthstringMdutch
+  \let\@tenthstring=\@@tenthstringMdutch
+  \let\@unitstring=\@@unitstringdutch
+  \let\@teenstring=\@@teenstringdutch
+  \let\@tenstring=\@@tenstringdutch
+  \def\@thousandth{duizendste}%
+  \def\@hundredth{honderdste}%
+  \@@ordinalstringdutch{#1}{#2}%
+}%
+\global\let\@ordinalstringMdutch\@ordinalstringMdutch
+
+\global\let\@ordinalstringMdutch\@ordinalstringMdutch
+\newcommand*{\@ordinalstringFdutch}[2]{%
+  \let\@unitthstring=\@@unitthstringFdutch
+  \let\@teenthstring=\@@teenthstringFdutch
+  \let\@tenthstring=\@@tenthstringFdutch
+  \let\@unitstring=\@@unitstringdutch
+  \let\@teenstring=\@@teenstringdutch
+  \let\@tenstring=\@@tenstringdutch
+  \def\@thousandth{duizendste}%
+  \def\@hundredth{honderdste}%
+  \@@ordinalstringdutch{#1}{#2}%
+}%
+\global\let\@ordinalstringFdutch\@ordinalstringFdutch
+
+\newcommand*{\@ordinalstringNdutch}[2]{%
+  \let\@unitthstring=\@@unitthstringNdutch
+  \let\@teenthstring=\@@teenthstringNdutch
+  \let\@tenthstring=\@@tenthstringNdutch
+  \let\@unitstring=\@@unitstringdutch
+  \let\@teenstring=\@@teenstringdutch
+  \let\@tenstring=\@@tenstringdutch
+  \def\@thousandth{duizendste}%
+  \def\@hundredth{honderdste}%
+  \@@ordinalstringdutch{#1}{#2}%
+}%
+\global\let\@ordinalstringNdutch\@ordinalstringNdutch
+
+\newcommand*{\@OrdinalstringMdutch}[2]{%
+ \@ordinalstringMdutch{#1}{\@@num@str}%
+ \edef#2{\noexpand\MakeUppercase\expandonce\@@num@str}%
+}%
+\global\let\@OrdinalstringMdutch\@OrdinalstringMdutch
+\newcommand*{\@OrdinalstringFdutch}[2]{%
+ \@ordinalstringFdutch{#1}{\@@num@str}%
+ \edef#2{\noexpand\MakeUppercase\expandonce\@@num@str}%
+}%
+\global\let\@OrdinalstringFdutch\@OrdinalstringFdutch
+\newcommand*{\@OrdinalstringNdutch}[2]{%
+ \@ordinalstringNdutch{#1}{\@@num@str}%
+ \edef#2{\noexpand\MakeUppercase\expandonce\@@num@str}%
+}%
+\global\let\@OrdinalstringNdutch\@OrdinalstringNdutch
+
+\newcommand*\@@unitthstringMdutch[1]{%
+    \ifcase#1%
+    nulde%
+    \or eerste%
+    \or tweede%
+    \or derde%
+    \or vierde%
+    \or vijfde%
+    \or zesde%
+    \or zevende%
+    \or achtste%
+    \or negende%
+    \fi
+}%
+\global\let\@@unitthstringMdutch\@@unitthstringMdutch
+\newcommand*\@@tenthstringMdutch[1]{%
+  \ifcase#1%
+    \or tiende%
+    \or twintigste%
+    \or dertigste%
+    \or veertigste%
+    \or vijftigste%
+    \or zestigste%
+    \or zeventigste%
+    \or tachtigste%
+    \or negentigste%
+  \fi
+}%
+\global\let\@@tenthstringMdutch\@@tenthstringMdutch
+\newcommand*\@@teenthstringMdutch[1]{%
+  \ifcase#1%
+    tiende%
+    \or elfde%
+    \or twaalfde%
+    \or dertiende%
+    \or veertiende%
+    \or vijftiende%
+    \or zestiende%
+    \or zeventiende%
+    \or achttiende%
+    \or negentiende%
+  \fi
+}%
+\global\let\@@teenthstringMdutch\@@teenthstringMdutch
+\newcommand*\@@unitthstringFdutch[1]{%
+  \ifcase#1%
+    nullte%
+    \or eerste%
+    \or tweede%
+    \or derde%
+    \or vierde%
+    \or vijfde%
+    \or zesde%
+    \or zevende%
+    \or achtste%
+    \or negende%
+  \fi
+}%
+\global\let\@@unitthstringFdutch\@@unitthstringFdutch
+\newcommand*\@@tenthstringFdutch[1]{%
+  \ifcase#1%
+    \or tiende%
+    \or twintigste%
+    \or dertigste%
+    \or veertigste%
+    \or vijftigste%
+    \or zestigste%
+    \or zeventigste%
+    \or tachtigste%
+    \or negentigste%
+  \fi
+}%
+\global\let\@@tenthstringFdutch\@@tenthstringFdutch
+\newcommand*\@@teenthstringFdutch[1]{%
+  \ifcase#1%
+    tiende%
+    \or elfde%
+    \or twaalfde%
+    \or dertiende%
+    \or veertiende%
+    \or vijftiende%
+    \or zestiende%
+    \or zeventiende%
+    \or achttiende%
+    \or zegentiende%
+  \fi
+}%
+\global\let\@@teenthstringFdutch\@@teenthstringFdutch
+\newcommand*\@@unitthstringNdutch[1]{%
+  \ifcase#1%
+    nulde%
+    \or eerste%
+    \or tweede%
+    \or derde%
+    \or vierde%
+    \or vijfde%
+    \or zesde%
+    \or zevende%
+    \or achtste%
+    \or negende%
+  \fi
+}%
+\global\let\@@teenthstringNdutch\@@teenthstringNdutch
+\newcommand*\@@numberunderhundreddutch[2]{%
+\ifnum#1<10\relax
+  \ifnum#1>0\relax
+    \eappto#2{\@unitstring{#1}}%
+  \fi
+\else
+  \@tmpstrctr=#1\relax
+  \@FCmodulo{\@tmpstrctr}{10}%
+  \ifnum#1<20\relax
+    \eappto#2{\@teenstring{\@tmpstrctr}}%
+  \else
+    \ifnum\@tmpstrctr=0\relax
+    \else
+      \eappto#2{\@unitstring{\@tmpstrctr}en}%
+    \fi
+    \@tmpstrctr=#1\relax
+    \divide\@tmpstrctr by 10\relax
+    \eappto#2{\@tenstring{\@tmpstrctr}}%
+  \fi
+\fi
+}%
+\global\let\@@numberunderhundreddutch\@@numberunderhundreddutch
+\newcommand*\@@numberstringdutch[2]{%
+\ifnum#1>99999\relax
+  \PackageError{fmtcount}{Out of range}%
+  {This macro only works for values less than 100000}%
+\else
+  \ifnum#1<0\relax
+    \PackageError{fmtcount}{Negative numbers not permitted}%
+    {This macro does not work for negative numbers, however
+    you can try typing "minus" first, and then pass the modulus of
+    this number}%
+  \fi
+\fi
+\def#2{}%
+\@strctr=#1\relax \divide\@strctr by 1000\relax
+\ifnum\@strctr>1\relax
+ \@@numberunderhundreddutch{\@strctr}{#2}%
+  \appto#2{duizend}%
+\else
+  \ifnum\@strctr=1\relax
+    \eappto#2{\eintausend}%
+  \fi
+\fi
+\@strctr=#1\relax
+\@FCmodulo{\@strctr}{1000}%
+\divide\@strctr by 100\relax
+\ifnum\@strctr>1\relax
+  \eappto#2{\@unitstring{\@strctr}honderd}%
+\else
+   \ifnum\@strctr=1\relax
+     \ifnum#1>1000\relax
+        \appto#2{honderd}%
+     \else
+        \eappto#2{\honderd}%
+      \fi
+   \fi
+\fi
+\@strctr=#1\relax
+\@FCmodulo{\@strctr}{100}%
+\ifnum#1=0\relax
+  \def#2{null}%
+\else
+  \ifnum\@strctr=1\relax
+    \appto#2{één}%
+  \else
+    \@@numberunderhundreddutch{\@strctr}{#2}%
+  \fi
+\fi
+}%
+\global\let\@@numberstringdutch\@@numberstringdutch
+\newcommand*\@@numberunderhundredthdutch[2]{%
+\ifnum#1<10\relax
+ \eappto#2{\@unitthstring{#1}}%
+\else
+  \@tmpstrctr=#1\relax
+  \@FCmodulo{\@tmpstrctr}{10}%
+  \ifnum#1<20\relax
+    \eappto#2{\@teenthstring{\@tmpstrctr}}%
+  \else
+    \ifnum\@tmpstrctr=0\relax
+    \else
+      \eappto#2{\@unitstring{\@tmpstrctr}-en-}%
+    \fi
+    \@tmpstrctr=#1\relax
+    \divide\@tmpstrctr by 10\relax
+    \eappto#2{\@tenthstring{\@tmpstrctr}}%
+  \fi
+\fi
+}%
+\global\let\@@numberunderhundredthdutch\@@numberunderhundredthdutch
+\newcommand*\@@ordinalstringdutch[2]{%
+\@orgargctr=#1\relax
+\ifnum\@orgargctr>99999\relax
+  \PackageError{fmtcount}{Out of range}%
+  {This macro only works for values less than 100000}%
+\else
+  \ifnum\@orgargctr<0\relax
+    \PackageError{fmtcount}{Negative numbers not permitted}%
+    {This macro does not work for negative numbers, however
+    you can try typing "minus" first, and then pass the modulus of
+    this number}%
+  \fi
+\fi
+\def#2{}%
+\@strctr=\@orgargctr\divide\@strctr by 1000\relax
+\ifnum\@strctr>1\relax
+\@@numberunderhundreddutch{\@strctr}{#2}%
+  \@tmpstrctr=\@orgargctr\@FCmodulo{\@tmpstrctr}{1000}%
+  \ifnum\@tmpstrctr=0\relax
+    \eappto#2{\@thousandth}%
+  \else
+    \appto#2{duizend}%
+  \fi
+\else
+  \ifnum\@strctr=1\relax
+    \ifnum\@orgargctr=1000\relax
+      \eappto#2{\@thousandth}%
+    \else
+      \eappto#2{\duizend}%
+    \fi
+  \fi
+\fi
+\@strctr=\@orgargctr
+\@FCmodulo{\@strctr}{1000}%
+\divide\@strctr by 100\relax
+\ifnum\@strctr>1\relax
+  \@tmpstrctr=\@orgargctr \@FCmodulo{\@tmpstrctr}{100}%
+  \ifnum\@tmpstrctr=0\relax
+     \ifnum\@strctr=1\relax
+       \eappto#2{\@hundredth}%
+     \else
+       \eappto#2{\@unitstring{\@strctr}\@hundredth}%
+     \fi
+  \else
+     \eappto#2{\@unitstring{\@strctr}honderd}%
+  \fi
+\else
+   \ifnum\@strctr=1\relax
+     \@tmpstrctr=\@orgargctr \@FCmodulo{\@tmpstrctr}{100}%
+     \ifnum\@tmpstrctr=0\relax
+        \eappto#2{\@hundredth}%
+     \else
+     \ifnum\@orgargctr>1000\relax
+        \appto#2{honderd}%
+     \else
+        \eappto#2{\honderd}%
+     \fi
+     \fi
+   \fi
+\fi
+\@strctr=\@orgargctr
+\@FCmodulo{\@strctr}{100}%
+\ifthenelse{\@strctr=0 \and \@orgargctr>0 }{}{%
+\@@numberunderhundredthdutch{\@strctr}{#2}%
+}%
+}%
+\global\let\@@ordinalstringdutch\@@ordinalstringdutch
+%\FCloadlang{dutchb}%
+\iffalse Local variables: \fi
+\iffalse mode: docTeX     \fi
+\iffalse End:             \fi
+\endinput
