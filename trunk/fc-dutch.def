@@ -348,9 +348,9 @@
 % control sequence in which the resulting text is stored.
 %    \begin{macrocode}
 \newcommand*{\@ordinalstringMdutch}[2]{%
-    \let\@unitthstring=\@@unitthstringMdutch
-    \let\@teenthstring=\@@teenthstringMdutch
-    \let\@tenthstring=\@@tenthstringMdutch
+    \let\@unitthstring=\@@unitthstringdutch
+    \let\@teenthstring=\@@teenthstringdutch
+    \let\@tenthstring=\@@tenthstringdutch
     \let\@unitstring=\@@unitstringdutch
     \let\@teenstring=\@@teenstringdutch
     \let\@tenstring=\@@tenstringdutch
@@ -360,7 +360,7 @@
 }%
 \global\let\@ordinalstringMdutch\@ordinalstringMdutch
 %    \end{macrocode}
-% No gender in English, so make feminine and neuter same as
+% No gender in Dutch, so make feminine and neuter same as
 % masculine:
 %    \begin{macrocode}
 \global\let\@ordinalstringFdutch=\@ordinalstringMdutch
@@ -377,7 +377,7 @@
 }%
 \global\let\@OrdinalstringMdutch\@OrdinalstringMdutch
 %    \end{macrocode}
-% No gender in English, so make feminine and neuter same as
+% No gender in Dutch, so make feminine and neuter same as
 % masculine:
 %    \begin{macrocode}
 \global\let\@OrdinalstringFdutch=\@OrdinalstringMdutch
