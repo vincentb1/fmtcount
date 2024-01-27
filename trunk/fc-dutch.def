@@ -1,7 +1,7 @@
 % \subsubsection{fc-dutch.def}
 % Dutch definitions, initially added by Erik Nijenhuis.
 %    \begin{macrocode}
-\ProvidesFCLanguage{dutch}[2024/01/18]%
+\ProvidesFCLanguage{dutch}[2024/01/27]%
 %    \end{macrocode}
 % Define macro that converts a number or count register (first
 % argument) to an ordinal, and stores the result in the
