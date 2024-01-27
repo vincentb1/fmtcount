@@ -1,0 +1,385 @@
+% \subsubsection{fc-dutch.def}
+% Dutch definitions, initially added by Erik Nijenhuis.
+%    \begin{macrocode}
+\ProvidesFCLanguage{dutch}[2024/01/27]%
+%    \end{macrocode}
+% Define macro that converts a number or count register (first
+% argument) to an ordinal, and stores the result in the
+% second argument, which should be a control sequence.
+%    \begin{macrocode}
+\newcommand{\@ordinalMdutch}[2]{\edef#2{\number#1\relax.}}%
+\global\let\@ordinalMdutch\@ordinalMdutch
+%    \end{macrocode}
+% Like English, there is no gender difference in Dutch,
+% so make feminine and neuter the same as the masculine.
+%    \begin{macrocode}
+\global\let\@ordinalFdutch\@ordinalMdutch
+\global\let\@ordinalNdutch\@ordinalMdutch
+%    \end{macrocode}
+% Define the macro that prints the value of a \TeX\ count register
+% as text. To make it easier, break it up into units, teens and
+% tens. First, the units: the argument should be between 0 and 9
+% inclusive.
+%    \begin{macrocode}
+\newcommand*\@@unitstringdutch[1]{%
+    \ifcase#1%
+    nul%
+    \or een%
+    \or twee%
+    \or drie%
+    \or vier%
+    \or vijf%
+    \or zes%
+    \or zeven%
+    \or acht%
+    \or negen%
+    \fi
+}%
+\global\let\@@unitstringdutch\@@unitstringdutch
+%    \end{macrocode}
+% Next the tens, again the argument should be between 0 and 9
+% inclusive.
+%    \begin{macrocode}
+\global\let\@@unitstringdutch\@@unitstringdutch
+\newcommand*\@@tenstringdutch[1]{%
+    \ifcase#1%
+    \or tien%
+    \or twintig%
+    \or dertig%
+    \or veertig%
+    \or vijftig%
+    \or zestig%
+    \or zeventig%
+    \or tachtig%
+    \or negentig%
+    \or honderd%
+    \fi
+}%
+\global\let\@@tenstringdutch\@@tenstringdutch
+%    \end{macrocode}
+% Finally the teens, again the argument should be between 0 and 9
+% inclusive.
+%    \begin{macrocode}
+\newcommand*\@@teenstringdutch[1]{%
+    \ifcase#1%
+    tien%
+    \or elf%
+    \or twaalf%
+    \or dertien%
+    \or veertien%
+    \or vijftien%
+    \or zestien%
+    \or zeventien%
+    \or achttien%
+    \or negentien%
+    \fi
+}%
+\global\let\@@teenstringdutch\@@teenstringdutch
+%    \end{macrocode}
+% Hunderd and thousand:
+%    \begin{macrocode}
+\providecommand*{\honderd}{honderd}%
+\providecommand*{\duizend}{duizend}%
+\global\let\honderd\honderd%
+\global\let\duizend\duizend%
+%    \end{macrocode}
+% The numberstring implementation:
+%    \begin{macrocode}
+\newcommand*\@@numberstringdutch[2]{%
+    \ifnum#1>99999\relax
+    \PackageError{fmtcount}{Out of range}%
+    {This macro only works for values less than 100000}%
+    \else
+    \ifnum#1<0\relax
+    \PackageError{fmtcount}{Negative numbers not permitted}%
+    {This macro does not work for negative numbers, however
+    you can try typing "minus" first, and then pass the modulus of
+    this number}%
+    \fi
+    \fi
+    \def#2{}%
+    \@strctr=#1\relax \divide\@strctr by 1000\relax
+    \ifnum\@strctr>1\relax
+    \@@numberunderhundreddutch{\@strctr}{#2}%
+    \appto#2{duizend}%
+    \else
+    \ifnum\@strctr=1\relax
+    \eappto#2{\duizend}%
+    \fi
+    \fi
+    \@strctr=#1\relax
+    \@FCmodulo{\@strctr}{1000}%
+    \divide\@strctr by 100\relax
+    \ifnum\@strctr>1\relax
+    \eappto#2{\@unitstring{\@strctr}honderd}%
+    \else
+    \ifnum\@strctr=1\relax
+    \ifnum#1>1000\relax
+    \appto#2{honderd}%
+    \else
+    \eappto#2{\honderd}%
+    \fi
+    \fi
+    \fi
+    \@strctr=#1\relax
+    \@FCmodulo{\@strctr}{100}%
+    \ifnum#1=0\relax
+    \def#2{null}%
+    \else
+    \ifnum\@strctr=1\relax
+    \appto#2{een}%
+    \else
+    \@@numberunderhundreddutch{\@strctr}{#2}%
+    \fi
+    \fi
+}%
+\global\let\@@numberstringdutch\@@numberstringdutch
+%    \end{macrocode}
+% All lower case version, the second argument must be a control
+% sequence.
+%    \begin{macrocode}
+\newcommand*{\@numberstringMdutch}[2]{%
+    \let\@unitstring=\@@unitstringdutch%
+    \let\@teenstring=\@@teenstringdutch%
+    \let\@tenstring=\@@tenstringdutch%
+    \def\@hundred{honderd}\def\@thousand{duizend}%
+    \def\@andname{en}%
+    \@@numberstringdutch{#1}{#2}%
+}%
+\global\let\@numberstringMdutch\@numberstringMdutch
+%    \end{macrocode}
+% There is no gender in Dutch, so make feminine and neuter the
+% same
+% as the masculine.
+%    \begin{macrocode}
+\global\let\@numberstringFdutch=\@numberstringMdutch
+\global\let\@numberstringNdutch=\@numberstringMdutch
+%    \end{macrocode}
+% This version makes the first letter of each word an uppercase
+% character (except ``and''). The second argument must be a control
+% sequence.
+%    \begin{macrocode}
+\newcommand*{\@NumberstringMdutch}[2]{%
+    \@numberstringMdutch{#1}{\@@num@str}%
+    \edef#2{\noexpand\MakeUppercase\expandonce\@@num@str}%
+}%
+\global\let\@NumberstringMdutch\@NumberstringMdutch
+%    \end{macrocode}
+% There is no gender in Dutch, so make feminine and neuter the
+% same
+% as the masculine.
+%    \begin{macrocode}
+\global\let\@NumberstringFdutch=\@NumberstringMdutch
+\global\let\@NumberstringNdutch=\@NumberstringMdutch
+%    \end{macrocode}
+% Define a macro that produces an ordinal as a string. Again, break
+% it up into units, teens and tens. First the units:
+%    \begin{macrocode}
+\newcommand*\@@unitthstringdutch[1]{%
+    \ifcase#1%
+    nulde%
+    \or eerste%
+    \or tweede%
+    \or derde%
+    \or vierde%
+    \or vijfde%
+    \or zesde%
+    \or zevende%
+    \or achtste%
+    \or negende%
+    \fi
+}%
+\global\let\@@unitthstringdutch\@@unitthstringdutch
+%    \end{macrocode}
+% Next the tens:
+%    \begin{macrocode}
+\newcommand*\@@tenthstringdutch[1]{%
+    \ifcase#1%
+    \or tiende%
+    \or twintigste%
+    \or dertigste%
+    \or veertigste%
+    \or vijftigste%
+    \or zestigste%
+    \or zeventigste%
+    \or tachtigste%
+    \or negentigste%
+    \fi
+}%
+\global\let\@@tenthstringdutch\@@tenthstringdutch
+%    \end{macrocode}
+% The teens:
+%    \begin{macrocode}
+\newcommand*\@@teenthstringdutch[1]{%
+    \ifcase#1%
+    tiende%
+    \or elfde%
+    \or twaalfde%
+    \or dertiende%
+    \or veertiende%
+    \or vijftiende%
+    \or zestiende%
+    \or zeventiende%
+    \or achttiende%
+    \or negentiende%
+    \fi
+}%
+\global\let\@@teenthstringdutch\@@teenthstringdutch
+%    \end{macrocode}
+% The ordinalstring implementation:
+%    \begin{macrocode}
+\newcommand*\@@ordinalstringdutch[2]{%
+    \@orgargctr=#1\relax
+    \ifnum\@orgargctr>99999\relax
+    \PackageError{fmtcount}{Out of range}%
+    {This macro only works for values less than 100000}%
+    \else
+    \ifnum\@orgargctr<0\relax
+    \PackageError{fmtcount}{Negative numbers not permitted}%
+    {This macro does not work for negative numbers, however
+    you can try typing "minus" first, and then pass the modulus of
+    this number}%
+    \fi
+    \fi
+    \def#2{}%
+    \@strctr=\@orgargctr\divide\@strctr by 1000\relax
+    \ifnum\@strctr>1\relax
+    \@@numberunderhundreddutch{\@strctr}{#2}%
+    \@tmpstrctr=\@orgargctr\@FCmodulo{\@tmpstrctr}{1000}%
+    \ifnum\@tmpstrctr=0\relax
+    \eappto#2{\@thousandth}%
+    \else
+    \appto#2{duizend}%
+    \fi
+    \else
+    \ifnum\@strctr=1\relax
+    \ifnum\@orgargctr=1000\relax
+    \eappto#2{\@thousandth}%
+    \else
+    \eappto#2{\duizend}%
+    \fi
+    \fi
+    \fi
+    \@strctr=\@orgargctr%
+    \@FCmodulo{\@strctr}{1000}%
+    \divide\@strctr by 100\relax
+    \ifnum\@strctr>1\relax
+    \@tmpstrctr=\@orgargctr \@FCmodulo{\@tmpstrctr}{100}%
+    \ifnum\@tmpstrctr=0\relax
+    \ifnum\@strctr=1\relax
+    \eappto#2{\@hundredth}%
+    \else
+    \eappto#2{\@unitstring{\@strctr}\@hundredth}%
+    \fi
+    \else
+    \eappto#2{\@unitstring{\@strctr}honderd}%
+    \fi
+    \else
+    \ifnum\@strctr=1\relax
+    \@tmpstrctr=\@orgargctr \@FCmodulo{\@tmpstrctr}{100}%
+    \ifnum\@tmpstrctr=0\relax
+    \eappto#2{\@hundredth}%
+    \else
+    \ifnum\@orgargctr>1000\relax
+    \appto#2{honderd}%
+    \else
+    \eappto#2{\honderd}%
+    \fi
+    \fi
+    \fi
+    \fi
+    \@strctr=\@orgargctr%
+    \@FCmodulo{\@strctr}{100}%
+    \ifthenelse{\@strctr=0 \and \@orgargctr>0 }{}{%
+        \@@numberunderhundredthdutch{\@strctr}{#2}%
+    }%
+}%
+\global\let\@@ordinalstringdutch\@@ordinalstringdutch
+%    \end{macrocode}
+% All lower case version. Again, the second argument must be a
+% control sequence in which the resulting text is stored.
+%    \begin{macrocode}
+\newcommand*{\@ordinalstringMdutch}[2]{%
+    \let\@unitthstring=\@@unitthstringdutch%
+    \let\@teenthstring=\@@teenthstringdutch%
+    \let\@tenthstring=\@@tenthstringdutch%
+    \let\@unitstring=\@@unitstringdutch%
+    \let\@teenstring=\@@teenstringdutch%
+    \let\@tenstring=\@@tenstringdutch%
+    \def\@thousandth{duizendste}%
+    \def\@hundredth{honderdste}%
+    \@@ordinalstringdutch{#1}{#2}%
+}%
+\global\let\@ordinalstringMdutch\@ordinalstringMdutch
+%    \end{macrocode}
+% No gender in Dutch, so make feminine and neuter same as
+% masculine:
+%    \begin{macrocode}
+\global\let\@ordinalstringFdutch=\@ordinalstringMdutch
+\global\let\@ordinalstringNdutch=\@ordinalstringMdutch
+%    \end{macrocode}
+% First letter of each word in upper case:
+%    \begin{macrocode}
+\newcommand*{\@OrdinalstringMdutch}[2]{%
+    \@ordinalstringMdutch{#1}{\@@num@str}%
+    \def\@andname{en}%
+    \def\@hundred{Honderd}\def\@thousand{Duizend}%
+    \def\@hundredth{Honderdste}\def\@thousandth{Duizendste}%
+    \edef#2{\noexpand\MakeUppercase\expandonce\@@num@str}%
+}%
+\global\let\@OrdinalstringMdutch\@OrdinalstringMdutch
+%    \end{macrocode}
+% No gender in Dutch, so make feminine and neuter same as
+% masculine:
+%    \begin{macrocode}
+\global\let\@OrdinalstringFdutch=\@OrdinalstringMdutch
+\global\let\@OrdinalstringNdutch=\@OrdinalstringMdutch
+%    \end{macrocode}
+% For numbers under hunderd:
+%    \begin{macrocode}
+\newcommand*{\@@numberunderhundreddutch}[2]{%
+    \ifnum#1<10\relax
+    \ifnum#1>0\relax
+    \eappto#2{\@unitstring{#1}}%
+    \fi
+    \else
+    \@tmpstrctr=#1\relax
+    \@FCmodulo{\@tmpstrctr}{10}%
+    \ifnum#1<20\relax
+    \eappto#2{\@teenstring{\@tmpstrctr}}%
+    \else
+    \ifnum\@tmpstrctr=0\relax
+    \else
+    \eappto#2{\@unitstring{\@tmpstrctr}en}%
+    \fi
+    \@tmpstrctr=#1\relax
+    \divide\@tmpstrctr by 10\relax
+    \eappto#2{\@tenstring{\@tmpstrctr}}%
+    \fi
+    \fi
+}%
+\global\let\@@numberunderhundreddutch\@@numberunderhundreddutch
+\newcommand*{\@@numberunderhundredthdutch}[2]{%
+    \ifnum#1<10\relax
+    \eappto#2{\@unitthstring{#1}}%
+    \else
+    \@tmpstrctr=#1\relax
+    \@FCmodulo{\@tmpstrctr}{10}%
+    \ifnum#1<20\relax
+    \eappto#2{\@teenthstring{\@tmpstrctr}}%
+    \else
+    \ifnum\@tmpstrctr=0\relax
+    \else
+    \eappto#2{\@unitstring{\@tmpstrctr}-en-}%
+    \fi
+    \@tmpstrctr=#1\relax
+    \divide\@tmpstrctr by 10\relax
+    \eappto#2{\@tenthstring{\@tmpstrctr}}%
+    \fi
+    \fi
+}%
+\global\let\@@numberunderhundredthdutch\@@numberunderhundredthdutch
+%    \end{macrocode}
+\iffalse Local variables: \fi
+\iffalse mode: docTeX     \fi
+\iffalse End:             \fi
