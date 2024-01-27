@@ -1,13 +1,13 @@
 % \subsubsection{fc-dutch.def}
 % Dutch definitions, initially added by Erik Nijenhuis.
 %    \begin{macrocode}
-\ProvidesFCLanguage{dutch}[2024/01/18]
+\ProvidesFCLanguage{dutch}[2024/01/18]%
 %    \end{macrocode}
 % Define macro that converts a number or count register (first
 % argument) to an ordinal, and stores the result in the
 % second argument, which should be a control sequence.
 %    \begin{macrocode}
-\newcommand{\@ordinalMdutch}[2]{\edef#2{\number#1\relax.}}
+\newcommand{\@ordinalMdutch}[2]{\edef#2{\number#1\relax.}}%
 \global\let\@ordinalMdutch\@ordinalMdutch
 %    \end{macrocode}
 % Like English, there is no gender difference in Dutch,
@@ -24,11 +24,11 @@
 \newcommand*\@@unitstringdutch[1]{%
     \ifcase#1%
     nul%
-    \or één%
+    \or een%
     \or twee%
     \or drie%
     \or vier%
-    \or v\ij{}%
+    \or vijf%
     \or zes%
     \or zeven%
     \or acht%
@@ -47,7 +47,7 @@
     \or twintig%
     \or dertig%
     \or veertig%
-    \or v\ij{}tig%
+    \or vijftig%
     \or zestig%
     \or zeventig%
     \or tachtig%
@@ -67,7 +67,7 @@
     \or twaalf%
     \or dertien%
     \or veertien%
-    \or v\ij{}tien%
+    \or vijftien%
     \or zestien%
     \or zeventien%
     \or achttien%
@@ -75,60 +75,6 @@
     \fi
 }%
 \global\let\@@teenstringdutch\@@teenstringdutch
-%    \end{macrocode}
-% As above, but with the initial letter in uppercase. The units:
-%    \begin{macrocode}
-\newcommand*\@@Unitstringdutch[1]{%
-    \ifcase#1\relax
-    Nul%
-    \or Één%
-    \or Twee%
-    \or Drie%
-    \or Vier%
-    \or v\ij{}%
-    \or Zes%
-    \or Zeven%
-    \or Acht%
-    \or Negen%
-    \fi
-}%
-\global\let\@@Unitstringdutch\@@Unitstringdutch
-%    \end{macrocode}
-% The tens:
-%    \begin{macrocode}
-\newcommand*\@@Tenstringdutch[1]{%
-    \ifcase#1\relax
-    \or Tien%
-    \or Twintig%
-    \or Dertig%
-    \or Veertig%
-    \or v\ij{}tig%
-    \or Zestig%
-    \or Zeventig%
-    \or Tachtig%
-    \or Negentig%
-    \or Honderd%
-    \fi
-}%
-\global\let\@@Tenstringdutch\@@Tenstringdutch
-%    \end{macrocode}
-% The teens:
-%    \begin{macrocode}
-\newcommand*\@@Teenstringdutch[1]{%
-    \ifcase#1\relax
-    Tien%
-    \or Elf%
-    \or Twaalf%
-    \or Dertien%
-    \or Veertien%
-    \or V\ij{}ftien%
-    \or Zestien%
-    \or Zeventien%
-    \or Achttien%
-    \or Negentien%
-    \fi
-}%
-\global\let\@@Teenstringdutch\@@Teenstringdutch
 %    \end{macrocode}
 % Hunderd and thousand:
 %    \begin{macrocode}
@@ -181,7 +127,7 @@
     \def#2{null}%
     \else
     \ifnum\@strctr=1\relax
-    \appto#2{één}%
+    \appto#2{een}%
     \else
     \@@numberunderhundreddutch{\@strctr}{#2}%
     \fi
@@ -193,13 +139,13 @@
 % sequence.
 %    \begin{macrocode}
 \newcommand*{\@numberstringMdutch}[2]{%
-    \let\@unitstring=\@@unitstringdutch
-    \let\@teenstring=\@@teenstringdutch
-    \let\@tenstring=\@@tenstringdutch
+    \let\@unitstring=\@@unitstringdutch%
+    \let\@teenstring=\@@teenstringdutch%
+    \let\@tenstring=\@@tenstringdutch%
     \def\@hundred{honderd}\def\@thousand{duizend}%
     \def\@andname{en}%
     \@@numberstringdutch{#1}{#2}%
-}
+}%
 \global\let\@numberstringMdutch\@numberstringMdutch
 %    \end{macrocode}
 % There is no gender in Dutch, so make feminine and neuter the
@@ -216,7 +162,7 @@
 \newcommand*{\@NumberstringMdutch}[2]{%
     \@numberstringMdutch{#1}{\@@num@str}%
     \edef#2{\noexpand\MakeUppercase\expandonce\@@num@str}%
-}
+}%
 \global\let\@NumberstringMdutch\@NumberstringMdutch
 %    \end{macrocode}
 % There is no gender in Dutch, so make feminine and neuter the
@@ -236,7 +182,7 @@
     \or tweede%
     \or derde%
     \or vierde%
-    \or v\ij{}de%
+    \or vijfde%
     \or zesde%
     \or zevende%
     \or achtste%
@@ -253,7 +199,7 @@
     \or twintigste%
     \or dertigste%
     \or veertigste%
-    \or v\ij{}tigste%
+    \or vijftigste%
     \or zestigste%
     \or zeventigste%
     \or tachtigste%
@@ -271,7 +217,7 @@
     \or twaalfde%
     \or dertiende%
     \or veertiende%
-    \or v\ij{}tiende%
+    \or vijftiende%
     \or zestiende%
     \or zeventiende%
     \or achttiende%
@@ -314,7 +260,7 @@
     \fi
     \fi
     \fi
-    \@strctr=\@orgargctr
+    \@strctr=\@orgargctr%
     \@FCmodulo{\@strctr}{1000}%
     \divide\@strctr by 100\relax
     \ifnum\@strctr>1\relax
@@ -342,7 +288,7 @@
     \fi
     \fi
     \fi
-    \@strctr=\@orgargctr
+    \@strctr=\@orgargctr%
     \@FCmodulo{\@strctr}{100}%
     \ifthenelse{\@strctr=0 \and \@orgargctr>0 }{}{%
         \@@numberunderhundredthdutch{\@strctr}{#2}%
@@ -354,12 +300,12 @@
 % control sequence in which the resulting text is stored.
 %    \begin{macrocode}
 \newcommand*{\@ordinalstringMdutch}[2]{%
-    \let\@unitthstring=\@@unitthstringdutch
-    \let\@teenthstring=\@@teenthstringdutch
-    \let\@tenthstring=\@@tenthstringdutch
-    \let\@unitstring=\@@unitstringdutch
-    \let\@teenstring=\@@teenstringdutch
-    \let\@tenstring=\@@tenstringdutch
+    \let\@unitthstring=\@@unitthstringdutch%
+    \let\@teenthstring=\@@teenthstringdutch%
+    \let\@tenthstring=\@@tenthstringdutch%
+    \let\@unitstring=\@@unitstringdutch%
+    \let\@teenstring=\@@teenstringdutch%
+    \let\@tenstring=\@@tenstringdutch%
     \def\@thousandth{duizendste}%
     \def\@hundredth{honderdste}%
     \@@ordinalstringdutch{#1}{#2}%
